@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Authorization</title>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body{
+                min-height: 100vh;
+                padding: 30px;
+                background-color: #222;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .auth{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                background-color: #fff;
+                width: 375px;
+                height: 375px;
+                border-radius: 8px;
+                padding: 25px 30px;
+                text-align: center;
+            }
+            .auth h2{
+                font-family: 'Segoe UI', sans-serif;
+                font-weight: 500;
+            }
+            .auth h4{
+                font-family: 'Segoe UI', sans-serif;
+                font-weight: 100;
+            }
+            .auth .login, .auth .password, .auth .signIn{
+                width: 265px;
+                height: 40px;
+                border: 2px solid #eeeeee;
+                border-radius: 20px;
+            }
+            .forgot-password{
+                cursor: pointer;
+                color: #aaaaaa;
+                text-decoration: underline;
+            }
+            .auth .signIn{
+                padding: 6px;
+                border-color: rgb(221, 24, 67);
+                background-color: rgb(221, 24, 67);
+                user-select: none;
+            }
+            .auth .signIn h4{
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="auth">
+            <h2>Авторизация</h2>
+            <div>
+                <h4>Логин</h4>
+                <div class="login"></div>
+            </div>
+            <div>
+                <h4>Пароль</h4>
+                <div class="password"></div>
+            </div>
+            <h4 class="forgot-password">Забыли пароль?</h4>
+            <div class="signIn">
+                <h4>Войти</h4>
+            </div>
+        </div>
+    </body>
+</html>
