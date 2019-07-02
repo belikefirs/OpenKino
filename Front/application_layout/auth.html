@@ -25,7 +25,7 @@
                 justify-content: space-between;
                 align-items: center;
                 background-color: #fff;
-                width: 375px;
+                width: 325px;
                 height: 375px;
                 border-radius: 8px;
                 padding: 25px 30px;
@@ -39,22 +39,35 @@
                 font-family: 'Segoe UI', sans-serif;
                 font-weight: 100;
             }
-            .auth .login, .auth .password, .auth .signIn{
+            .auth .login, .auth .password{
                 width: 265px;
-                height: 40px;
+                height: 50px;
                 border: 2px solid #eeeeee;
-                border-radius: 20px;
+                border-radius: 50px;
             }
-            .forgot-password{
-                cursor: pointer;
+            .auth .login input[type="text"], .auth .password input[type="text"]{
+                border: none;
+                outline: none;
+                width: 220px;
+                height: 100%;
+                font-family: 'Segoe UI', sans-serif;
+                font-weight: 100;
+                font-size: 30px;
+            }
+            .auth .forgot-password{
                 color: #aaaaaa;
                 text-decoration: underline;
+                cursor: pointer;
             }
             .auth .signIn{
-                padding: 6px;
+                padding: 8px;
+                width: 265px;
+                height: 40px;
                 border-color: rgb(221, 24, 67);
+                border-radius: 20px;
                 background-color: rgb(221, 24, 67);
                 user-select: none;
+                cursor: pointer;
             }
             .auth .signIn h4{
                 color: white;
@@ -66,11 +79,15 @@
             <h2>Авторизация</h2>
             <div>
                 <h4>Логин</h4>
-                <div class="login"></div>
+                <div class="login">
+                    <input type="text">
+                </div>
             </div>
             <div>
                 <h4>Пароль</h4>
-                <div class="password"></div>
+                <div class="password">
+                    <input type="text">
+                </div>
             </div>
             <h4 class="forgot-password">Забыли пароль?</h4>
             <div class="signIn">
