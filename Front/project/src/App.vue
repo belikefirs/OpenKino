@@ -2,6 +2,7 @@
   <div id="app">
     <div id="page">
       <Header></Header>
+      <Footer></Footer>
     </div>
     <router-view/>
     
@@ -30,7 +31,7 @@
 
 <script>
 import Header from '@/components/Header.vue'
-
+import Footer from '@/components/Footer.vue'
 export default {
   name: 'home',
   components: {
