@@ -1,26 +1,23 @@
 <template>
-    <div class="header">
-        <ul>
-            <li>
-                <router-link to="/films">Фильмы</router-link>
-            </li>
-            <li>
-                <router-link to="/news">Новости</router-link>
-            </li>
-            <li>
-                <router-link to="/contacts">Контакты</router-link>
-            </li>
-        </ul>
-    </div>
+    <header>
+        <div class="links-list">
+            <router-link to="/films" class="link">Фильмы</router-link>
+            <router-link to="/news" class="link">Новости</router-link>
+            <router-link to="/contacts" class="link">Контакты</router-link>
+        </div>
+    </header>
 </template>
-
-<style>
-.header{
-    width: 600px;
-    height: 200px;
-    background-color: #F52;
-}
-.header ul li{
-    float: left;
-}
-</style>
+ 
+ <style scoped>
+ header{
+    background-color: #F73;
+    width: 100%;
+    height: 240px;
+ }
+ .link{
+    text-decoration: none;
+    color: black;
+    margin: 4px;
+ }
+ </style>
+ 
