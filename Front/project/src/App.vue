@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
-      <Header/>
+      <Header></Header>
     </div>
     <router-view/>
     
@@ -16,3 +16,14 @@
   align-items: center;
 }
 </style>
+
+<script>
+import Header from '@/components/Header.vue'
+
+export default {
+  name: 'home',
+  components: {
+    Header
+  }
+}
+</script>
