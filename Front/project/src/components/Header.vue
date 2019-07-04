@@ -28,7 +28,6 @@
 <style lang="sass" scoped>
 $logo-width : 170.4px
 $logo-height : 71.2px
-$links_font-size: 24px
 .wrapper
     padding: 31px
     width: 100%
