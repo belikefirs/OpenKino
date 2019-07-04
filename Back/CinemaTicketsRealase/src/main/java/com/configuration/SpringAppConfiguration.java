@@ -16,7 +16,7 @@ import javax.servlet.ServletRegistration;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.configuration")
+@ComponentScan("com")
 public class SpringAppConfiguration implements WebApplicationInitializer {
 
 
@@ -34,6 +34,7 @@ public class SpringAppConfiguration implements WebApplicationInitializer {
         // Register and map the dispatcher servlet
         ServletRegistration.Dynamic dispatcher = container
                 .addServlet("dispatcher", new DispatcherServlet(dispatcherContext));
+
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");
     }
