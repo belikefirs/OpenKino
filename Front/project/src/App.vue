@@ -3,6 +3,7 @@
       <div class="wrapper-page">
         <div id="page">
             <Header></Header>
+            <NowInCinema></NowInCinema>
             <Footer></Footer>
         </div>
       </div>
@@ -13,11 +14,12 @@
 <script>
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
+import NowInCinema from '@/components/NowInCinema.vue'
 import PageAuthorization from '@/components/PageAuthorization.vue'
 export default {
 name: 'home',
     components: {
-        Header, Footer, PageAuthorization
+        Header, NowInCinema, Footer, PageAuthorization
     }
 }
 </script>

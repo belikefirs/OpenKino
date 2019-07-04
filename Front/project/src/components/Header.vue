@@ -27,7 +27,8 @@
  
 <style lang="sass" scoped>
 .wrapper-header
-    padding: 31px
+    padding-top: 15px
+    padding-bottom: 45px
     width: 100%
     height: 132px
     display: flex
