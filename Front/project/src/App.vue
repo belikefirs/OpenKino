@@ -1,9 +1,11 @@
 <template>
   <div id="app">
-    <div id="page">
-        <Header></Header>
-        <Footer></Footer>
-    </div>
+      <div class="wrapper-page">
+        <div id="page">
+            <Header></Header>
+            <Footer></Footer>
+        </div>
+      </div>
     <router-view/>
   </div>
 </template>
@@ -32,10 +34,13 @@ name: 'home',
     align-items: center
     -webkit-font-smoothing: antialiased
     -moz-osx-font-smoothing: grayscale
-    background: #fff url('assets/bg-image.png') center no-repeat
     font-family: 'Roboto'
-#page
+.wrapper-page
     width: 1440px
+    
+    background: #fff url('assets/bg-image.png') center no-repeat
+#page
+    width: 100%
     min-height: 100vh
     background: rgba(#502090, 0.5)
 </style>
