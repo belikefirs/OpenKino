@@ -1,16 +1,25 @@
 <template>
   <div id="app">
+<<<<<<< HEAD
+<<<<<<< HEAD
     <div id="page" class="backgrount_color__main">
         <Header></Header>
         <Footer></Footer>
         <PageAuthorization></PageAuthorization>
     </div>
+=======
+=======
+>>>>>>> 08fa605bb38d04ecea9f344c1bdfea80fcb66502
       <div class="wrapper-page">
         <div id="page">
             <Header></Header>
             <Footer></Footer>
         </div>
-      </div>b66502
+      </div>
+<<<<<<< HEAD
+>>>>>>> 08fa605bb38d04ecea9f344c1bdfea80fcb66502
+=======
+>>>>>>> 08fa605bb38d04ecea9f344c1bdfea80fcb66502
     <router-view/>
   </div>
 </template>
@@ -22,7 +31,7 @@ import PageAuthorization from '@/components/PageAuthorization.vue'
 export default {
 name: 'home',
     components: {
-        Header, PageAuthorization
+        Header
     }
 }
 </script>
