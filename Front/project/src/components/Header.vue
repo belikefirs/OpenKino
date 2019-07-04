@@ -26,8 +26,6 @@
 </template>
  
 <style lang="sass" scoped>
-$logo-width : 170.4px
-$logo-height : 71.2px
 .wrapper-header
     padding: 31px
     width: 100%
@@ -37,22 +35,20 @@ $logo-height : 71.2px
     justify-content: space-around
     align-items: center
     .logo
-        width: $logo-width
-        height: $logo-height
+        width: 170.4px
+        height: 71.2px
         background: url('../assets/logo.svg') center no-repeat
     .link-text
         text-decoration: none
         font-family: 'Roboto', sans-serif
         font-size: 12px
-        line-height: 14px
         color: white
     .wrapper-links
         display: flex
         margin-right: 56px
         .link-button
-            display: flex
-            justify-content: center
-            align-items: center
+            text-align: center
+            line-height: 35px
             margin: 0 10px
             width: 121px
             height: 35px
@@ -66,12 +62,12 @@ $logo-height : 71.2px
         display: flex
         justify-content: center
         align-items: center
+        user-select: none
         cursor: pointer
         .signIn-logo
             width: 45px
             height: 45px
             background: url('../assets/signIn-logo.svg')
         &:hover .link-text
-            text-decoration: underline
-    
+            text-decoration: underline    
 </style>
