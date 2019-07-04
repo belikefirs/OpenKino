@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper">
+    <div class="wrapper-header">
         <div style="flex: 1"></div>
         <router-link to="/" class="logo"></router-link>
         <div style="flex: 2"></div>
@@ -28,7 +28,7 @@
 <style lang="sass" scoped>
 $logo-width : 170.4px
 $logo-height : 71.2px
-.wrapper
+.wrapper-header
     padding: 31px
     width: 100%
     height: 132px
