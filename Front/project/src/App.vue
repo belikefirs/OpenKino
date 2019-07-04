@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="page" class="backgrount_color__main">
+    <div id="page">
         <Header></Header>
         <Footer></Footer>
     </div>
