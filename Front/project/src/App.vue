@@ -16,6 +16,7 @@ import Footer from '@/components/Footer.vue'
 import PageAuthorization from '@/components/PageAuthorization.vue'
 import Home from '@/views/Home.vue'
 export default {
+
 name: 'home',
     components: {
         Header, Home, Footer, PageAuthorization
