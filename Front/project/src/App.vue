@@ -25,7 +25,6 @@ name: 'home',
 </script>
 
 <style lang="sass">
-@import '/assets/fonts/raleway/raleway.css'
 *
     margin: 0
     padding: 0
