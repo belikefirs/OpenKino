@@ -3,23 +3,22 @@
       <div class="wrapper-page">
         <div id="page">
             <Header></Header>
-            <NowInCinema></NowInCinema>
+            <router-view/>
             <!-- <Footer></Footer> -->
         </div>
       </div>
-    <router-view/>
   </div>
 </template>
 
 <script>
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
-import NowInCinema from '@/components/NowInCinema.vue'
 import PageAuthorization from '@/components/PageAuthorization.vue'
+import Home from '@/views/Home.vue'
 export default {
 name: 'home',
     components: {
-        Header, NowInCinema, Footer, PageAuthorization
+        Header, Home, Footer, PageAuthorization
     }
 }
 </script>
