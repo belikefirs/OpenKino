@@ -1,10 +1,5 @@
 <template>
   <div id="app">
-    <div id="page" class="backgrount_color__main">
-        <Header></Header>
-        <Footer></Footer>
-        <PageAuthorization></PageAuthorization>
-    </div>
       <div class="wrapper-page">
         <div id="page">
             <Header></Header>
@@ -22,7 +17,7 @@ import PageAuthorization from '@/components/PageAuthorization.vue'
 export default {
 name: 'home',
     components: {
-        Header
+        Header, Footer, PageAuthorization
     }
 }
 </script>
@@ -47,7 +42,6 @@ name: 'home',
     font-family: 'Roboto'
 .wrapper-page
     width: 1440px
-    
     background: #fff url('assets/bg-image.png') center no-repeat
 #page
     width: 100%
