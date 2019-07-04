@@ -4,7 +4,7 @@
         <div id="page">
             <Header></Header>
             <NowInCinema></NowInCinema>
-            <Footer></Footer>
+            <!-- <Footer></Footer> -->
         </div>
       </div>
     <router-view/>
