@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper-header">
+    <div class="wrapper-header" :style="{height: headerHeight}">
         <div style="flex: 1"></div>
         <router-link to="/" class="logo"></router-link>
         <div style="flex: 2"></div>
@@ -24,17 +24,40 @@
         <div style="flex: 1"></div>
     </div>
 </template>
+
+<script>
+export default {
+    data: () => ({
+      offsetTop: 0,
+      headerH: 300
+    }),
+
+    methods: {
+      onScroll (e) {
+        this.offsetTop = e.target.scrollTop
+      }
+    },
+
+    computed: {
+        headerHeight() {
+            return this.headerH + "px";
+        }
+    }
+}
+</script>
+
  
 <style lang="sass" scoped>
 .wrapper-header
-    padding-top: 15px
-    padding-bottom: 45px
+    position: fixed
+    top: 0
     width: 100%
-    height: 132px
+    // height: 132px
     display: flex
     flex-direction: row
     justify-content: space-around
     align-items: center
+    background: #222
     .logo
         width: 170.4px
         height: 71.2px

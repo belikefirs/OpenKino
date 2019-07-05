@@ -1,14 +1,15 @@
 <template>
   <div id="app">
-      <div class="wrapper-page">
+        <Header></Header>
+        <div class="wrapper-page">
         <div id="page">
-            <Header></Header>
+            
             <router-view/>
             <Footer></Footer>
             <br>
             <PageAuthorization></PageAuthorization>
         </div>
-      </div>
+        </div>
   </div>
 </template>
 
@@ -34,18 +35,15 @@ name: 'home',
     box-sizing: border-box
 #app
     display: flex
-    flex-direction: row
+    flex-direction: column
     justify-content: center
     align-items: center
     -webkit-font-smoothing: antialiased
     -moz-osx-font-smoothing: grayscale
     background: #fff url('assets/bg-image.png') center no-repeat
     font-family: 'Roboto'
-#page
-    width: 1440px
-    font-family: 'Roboto'
 .wrapper-page
-    width: 1440px
+    width: 100%
     background: #fff url('assets/bg-image.png') center no-repeat
 #page
     width: 100%
