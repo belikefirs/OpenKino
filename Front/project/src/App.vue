@@ -19,6 +19,7 @@ import PageAuthorization from '@/components/PageAuthorization.vue'
 import AppSlider from '@/components/AppSlider.vue'
 import Home from '@/views/Home.vue'
 export default {
+
 name: 'home',
     components: {
         Header, Home, Footer, PageAuthorization, AppSlider
