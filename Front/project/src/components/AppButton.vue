@@ -1,15 +1,26 @@
 <template>
     <div class="wrapper-button">
-        <router-link to=""></router-link>
+        <router-link to="url"></router-link>
         <slot></slot>
     </div>
 </template>
 
 <script>
 export default {
-    data: () => ({
+    props:{
+        link:{
+            type: boolean,
+            required: true
+        },
+        url:{
+            type: Text,
+            required: this.link
+        }
+    },
 
-    }),
+    data: ()  {
+
+    },
 }
 </script>
 
