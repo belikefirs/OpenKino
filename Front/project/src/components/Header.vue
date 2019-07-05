@@ -6,18 +6,7 @@
             <router-link to="/" class="logo"></router-link>
             <div style="flex: 2"></div>
             <div class="wrapper-links">
-                <router-link to="/films" class="link-button">
-                    <p class="link-text">Фильмы</p>
-                </router-link>
-                <router-link to="/news" class="link-button">
-                    <p class="link-text">Новости</p>
-                </router-link>
-                <router-link to="/contacts" class="link-button">
-                    <p class="link-text">О нас</p>
-                </router-link>
-                <div class="link-button">
-                    <p class="link-text">Еще</p>
-                </div>
+                <AppButton v-for="item in links" :key="item.link" :url="{name: item.link}">{{item.name}}</AppButton>
             </div>
             <div class="signIn">
                 <div class="signIn-logo"></div>
@@ -30,14 +19,26 @@
 
 <script>
 import WrapperCent from '@/components/AppWrapperCenterize.vue'
+import AppButton from '@/components/AppButton.vue'
+
 export default {
     components: {
-        WrapperCent
+        WrapperCent, AppButton
     },
     props:{
         Height:{
-            type: Number, 
+            type: String, 
             required: true
+        }
+    },
+    data () {
+        return {
+            links: [
+                { name: 'Новости', link: 'name'},
+                { name: 'Фильмы', link: 'films'},
+                { name: 'О нас', link: 'about'},
+                { name: 'Еще', link: ''},
+            ]
         }
     }
 }

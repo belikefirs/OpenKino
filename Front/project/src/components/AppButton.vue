@@ -1,32 +1,30 @@
 <template>
     <div class="wrapper-button">
-        <router-link to="url"></router-link>
-        <slot></slot>
+        <router-link v-if="url" :to="url">
+            <p class="link-text"><slot></slot></p>
+            </router-link>
+        <div v-else><slot></slot></div>
     </div>
 </template>
 
 <script>
 export default {
     props:{
-        link:{
-            type: boolean,
-            required: true
-        },
         url:{
-            type: Text,
-            required: this.link
+            type: Object
         }
-    },
-
-    data: ()  {
-
     },
 }
 </script>
 
 
 <style lang="sass" scoped>
-.link-button
+.link-text
+    text-decoration: none
+    font-family: 'Roboto', sans-serif
+    font-size: 12px
+    color: white
+.wrapper-button
     text-align: center
     line-height: 35px
     margin: 0 10px

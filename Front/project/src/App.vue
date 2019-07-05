@@ -15,6 +15,7 @@ import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import PageAuthorization from '@/components/PageAuthorization.vue'
 import Home from '@/views/Home.vue'
+
 export default {
     components: {
         Header, Home, Footer, PageAuthorization
@@ -36,7 +37,14 @@ export default {
         headerHeight() {
             if (this.offsetTop < 200) return (300 - this.offsetTop) + "px";
             else return "100px";
+        },
+
+        news () {
+            return this.$store.state.news;
         }
+    },
+    created () {
+        this.$store.dispatch('fetchGetNews')
     }
 }
 </script>
