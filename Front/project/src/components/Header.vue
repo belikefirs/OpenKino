@@ -49,7 +49,7 @@ export default {
  
 <style lang="sass" scoped>
 .wrapper-header
-    position: fixed
+    // position: fixed
     top: 0
     width: 100%
     // height: 132px

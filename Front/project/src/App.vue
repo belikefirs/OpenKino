@@ -3,13 +3,10 @@
         <Header></Header>
         <div class="wrapper-page">
         <div id="page">
-            
             <router-view/>
-            <Footer></Footer>
-            <br>
-            <PageAuthorization></PageAuthorization>
         </div>
         </div>
+        <Footer></Footer>
   </div>
 </template>
 
@@ -17,13 +14,12 @@
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import PageAuthorization from '@/components/PageAuthorization.vue'
-import AppSlider from '@/components/AppSlider.vue'
 import Home from '@/views/Home.vue'
 export default {
 
 name: 'home',
     components: {
-        Header, Home, Footer, PageAuthorization, AppSlider
+        Header, Home, Footer, PageAuthorization
     }
 }
 </script>
@@ -47,6 +43,6 @@ name: 'home',
     background: #fff url('assets/bg-image.png') center no-repeat
 #page
     width: 100%
-    min-height: 100vh
+    //min-height: 100vh
     background: rgba(#502090, 0.5)
 </style>
