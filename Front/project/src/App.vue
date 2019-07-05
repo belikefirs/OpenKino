@@ -2,9 +2,11 @@
   <div id="app">
       <div class="wrapper-page">
         <div id="page">
-            <Header></Header>
+            <PageAuthorization></PageAuthorization>
             <router-view/>
-            <!-- <Footer></Footer> -->
+            <!--<Header></Header>
+            <AppSlider></AppSlider> 
+                <Footer></Footer> -->
         </div>
       </div>
   </div>
@@ -14,11 +16,12 @@
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import PageAuthorization from '@/components/PageAuthorization.vue'
+import AppSlider from '@/components/AppSlider.vue'
 import Home from '@/views/Home.vue'
 export default {
 name: 'home',
     components: {
-        Header, Home, Footer, PageAuthorization
+        Header, Home, Footer, PageAuthorization, AppSlider
     }
 }
 </script>

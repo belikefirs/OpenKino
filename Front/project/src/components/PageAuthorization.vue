@@ -3,17 +3,12 @@
         <form>
         <p class="title_auto"><b>Авторизация</b></p>
         <div class="login tit">
-            <label for="Llogin">Введите e-mail адрес:</label>
-            <input type="email"></div>
+            <input type="email" placeholder="e-mail"></div>
         <div class="password tit">
-            <label for="Ppassword">Введите ваш пароль:</label>
-            <input type="password"></div>
-        <p class="slip_pass">
-            <a href="#">Забыли пароль?</a>
-        </p>
+            <input type="password" placeholder="Пароль"></div>
         <div class="button_entry">
-            <button>Войти</button>
-            
+            <button class="b enter">Авторизироваться</button>
+            <button class="b exit">Отмена</button>
         </div>
         </form>
     </div>
@@ -21,41 +16,38 @@
 
 <style lang="sass">
     .wrapper-auto
-        width: 300px
-        height: 350px
-        background: linear-gradient(to top, #E4AF9D 20%, #E4E4D8 50%, #A19887 80%)
-        border-radius: 10px
+        width: 477px
+        height: 300px
+        background: linear-gradient(to bottom, #F36021 12%, #f7ebe6 12%, #f7ebe6 88%)
+        border-radius: 40px
+        opacity: 0.9
         .title_auto
-            font-size: 32px
+            font-size: 24px
+            color: #ffffff   
             text-align: center
-            margin-bottom: 30px
             letter-spacing: 1px
         .tit
-            label
-            letter-spacing: 1px
-            font-weight: lighter
-            font-size: 20px
             text-align: center
             input
-                width: 180px
-                height: 30px
-                margin-bottom: 25px
-        .slip_pass
-            text-align: center
-            a
-                font-size: 18px
-                color: black
+                width: 370px
+                height: 40px
+                margin-top: 25px
+                border: 2px solid #F36021
         .button_entry
-            text-align: center
-            button
-                margin-top: 30px
-                width: 120px
-                height: 60px
-                border-radius: 2px
-                font-size: 22px
+            float: flex
+            .b
+                margin-top: 45px
+                width: 121px
+                height: 35px
+                border-radius: 10px
+                font-size: 12px
                 color: black
-                &:hover
-                    background-color: #a1999e
-                    border: 1px solid white
-                    
+            .enter
+                margin-left: 55px
+                margin-right: 125px
+                color: #502090
+                border: 1px solid #502090
+            .exit
+                color: #F36021 
+                border: 1px solid #F36021    
 </style>
