@@ -15,10 +15,13 @@ import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import PageAuthorization from '@/components/PageAuthorization.vue'
 import Home from '@/views/Home.vue'
+import News from '@/views/News.vue'
+import Films from '@/views/Films.vue'
+import About from '@/views/About.vue'
 
 export default {
     components: {
-        Header, Home, Footer, PageAuthorization
+        Header, Footer, PageAuthorization, Home, News, Films, About
     },
 
     data() {
@@ -35,7 +38,7 @@ export default {
 
     computed: {
         headerHeight() {
-            if (this.offsetTop < 200) return (300 - this.offsetTop) + "px";
+            if (this.offsetTop < 100) return (200 - this.offsetTop) + "px";
             else return "100px";
         },
 
@@ -62,14 +65,14 @@ export default {
     align-items: center
     -webkit-font-smoothing: antialiased
     -moz-osx-font-smoothing: grayscale
-    background: #fff url('assets/bg-image.png') center no-repeat
     font-family: 'Roboto'
     overflow: auto
 .wrapper-page
     width: 100%
-    background: #fff url('assets/bg-image.png') center no-repeat
+    background: #fff url('assets/bg-image.jpg') center no-repeat
+    background-attachment: static
 #page
     width: 100%
-    min-height: 200vh
-    background: rgba(#502090, 0.5)
+    min-height: 100vh
+    //background: rgba(#502090, 0.5)
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper-button">
-        <router-link v-if="url" :to="url">
-            <p class="link-text"><slot></slot></p>
+        <router-link v-if="url" :to="url" class="text">
+            <p><slot></slot></p>
             </router-link>
         <div v-else><slot></slot></div>
     </div>
@@ -19,7 +19,7 @@ export default {
 
 
 <style lang="sass" scoped>
-.link-text
+.text
     text-decoration: none
     font-family: 'Roboto', sans-serif
     font-size: 12px
@@ -36,4 +36,10 @@ export default {
     user-select: none
     &:hover
         background-color: rgba(white, 0.3)
+    .text
+        text-decoration: none
+        font-family: 'Roboto', sans-serif
+        font-size: 12px
+        color: white
+    
 </style>
