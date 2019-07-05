@@ -3,7 +3,6 @@
     :cycle="false"
     :value="2"
     :hide-controls="true"
-    
     >
         <v-carousel-item
         v-for="(item,i) in items"
@@ -20,7 +19,7 @@ export default {
         publicPath: process.env.BASE_URL,
         items: [
             {
-                src: '@/src/assets/temp/slider-images/img1.png'
+                src: 'slider-images/img1.png'
             },
             {
                 src: 'https://www.seruvenkitabevi.com/resimler/k-2018-03-21-2878686786.jpg'

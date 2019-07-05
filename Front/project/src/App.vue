@@ -2,11 +2,11 @@
   <div id="app">
       <div class="wrapper-page">
         <div id="page">
-            <PageAuthorization></PageAuthorization>
+            <Header></Header>
             <router-view/>
-            <!--<Header></Header>
-            <AppSlider></AppSlider> 
-                <Footer></Footer> -->
+            <Footer></Footer>
+            <br>
+            <PageAuthorization></PageAuthorization>
         </div>
       </div>
   </div>
