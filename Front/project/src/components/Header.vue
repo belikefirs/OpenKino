@@ -1,46 +1,43 @@
 <template>
-    <div class="wrapper-header" :style="{height: headerHeight}">
-        <div style="flex: 1"></div>
-        <router-link to="/" class="logo"></router-link>
-        <div style="flex: 2"></div>
-        <div class="wrapper-links">
-            <router-link to="/films" class="link-button">
-                <p class="link-text">Фильмы</p>
-            </router-link>
-            <router-link to="/news" class="link-button">
-                <p class="link-text">Новости</p>
-            </router-link>
-            <router-link to="/contacts" class="link-button">
-                <p class="link-text">О нас</p>
-            </router-link>
-            <div class="link-button">
-                <p class="link-text">Еще</p>
+<!-- акции -->
+<!-- отзывы -->
+    <div class="wrapper-header" :style="{height: Height}">
+        <WrapperCent>
+            <router-link to="/" class="logo"></router-link>
+            <div style="flex: 2"></div>
+            <div class="wrapper-links">
+                <router-link to="/films" class="link-button">
+                    <p class="link-text">Фильмы</p>
+                </router-link>
+                <router-link to="/news" class="link-button">
+                    <p class="link-text">Новости</p>
+                </router-link>
+                <router-link to="/contacts" class="link-button">
+                    <p class="link-text">О нас</p>
+                </router-link>
+                <div class="link-button">
+                    <p class="link-text">Еще</p>
+                </div>
             </div>
-        </div>
-        <div class="signIn">
-            <div class="signIn-logo"></div>
-            <p class="link-text">Войти</p>
-        </div>
-        <div style="flex: 1"></div>
+            <div class="signIn">
+                <div class="signIn-logo"></div>
+                <p class="link-text">Войти</p>
+            </div>
+        </WrapperCent>
     </div>
+    
 </template>
 
 <script>
+import WrapperCent from '@/components/AppWrapperCenterize.vue'
 export default {
-    data: () => ({
-      offsetTop: 0,
-      headerH: 300
-    }),
-
-    methods: {
-      onScroll (e) {
-        this.offsetTop = e.target.scrollTop
-      }
+    components: {
+        WrapperCent
     },
-
-    computed: {
-        headerHeight() {
-            return this.headerH + "px";
+    props:{
+        Height:{
+            type: Number, 
+            required: true
         }
     }
 }
@@ -49,7 +46,7 @@ export default {
  
 <style lang="sass" scoped>
 .wrapper-header
-    // position: fixed
+    position: fixed
     top: 0
     width: 100%
     // height: 132px

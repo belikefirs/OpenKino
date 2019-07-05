@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper-home">
-        <!-- <Now></Now> -->
+        <Now></Now>
     </div>
 </template>
 
