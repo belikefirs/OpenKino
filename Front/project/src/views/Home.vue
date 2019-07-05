@@ -1,5 +1,7 @@
 <template>
-    <Now></Now>
+    <div class="wrapper-home">
+        <!-- <Now></Now> -->
+    </div>
 </template>
 
 <script>
