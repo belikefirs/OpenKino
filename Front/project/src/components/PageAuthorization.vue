@@ -47,6 +47,7 @@
                 margin-right: 125px
                 color: #502090
                 border: 1px solid #502090
+                
             .exit
                 color: #F36021 
                 border: 1px solid #F36021    

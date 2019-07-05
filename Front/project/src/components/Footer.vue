@@ -1,45 +1,75 @@
 <template>
     <div class="footer-wrapper">
-        <p class="social">Наши социальные сети</p>
-        <div class="social_mes">
-            <ul class="nav">
-                <li><button>vконтакте</button></li>
-                <li><button>instagram</button></li>
-                <li><button>facebook</button></li>
-            </ul>
-        </div>
+        <WrapperCent>
+            <!-- <div class="information_footer"> -->
+                <div class="block1 b">
+                    <div class="title_1">
+                        <p>Мы находимся</p>
+                    </div>
+                    <div class="map_our">
+                        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A6ac60f48d30a3bb5f9c2a48637f5bf13073315e990b2f3eb7c111d92824aba5b&amp;source=constructor" 
+                        width="280" height="131" frameborder="1">
+                        </iframe>
+                    </div>
+                    <div class="Our_info">
+                        <p><u>О нас</u>
+    <br>У нас Вы найдете море интересных фильмов, мы <br>показываем новинки, ретро и у нас даже есть возможность<br> забронировать зал для дружеской компании</p>
+                    </div>
+                </div>
+                <div class="block2 b">
 
-<!--<div class="copy_foot"> 
-				©2019 Кинотеатр «Практика» - все права защищены. 
-        </div>-->
+                </div>
+                <div class="block3 b">
+
+                </div>
+                <div class="block4 b">
+
+                </div>
+            <!-- </div> -->
+        </WrapperCent>
     </div>
 </template>
 
+<script>
+import WrapperCent from '@/components/AppWrapperCenterize.vue'
+export default {
+    componunt: {
+        WrapperCent
+    }
+}
+</script>
+
+
 <style lang="sass">
-    .footer-wrapper
-        width: 100%
-        background-color: #C4C4C4
-        height: 200px
-        .social
-            font-size: 34px
-            margin-left:100px
-            margin-bottom: 20px
-        .nav
+.footer-wrapper
+    display: flex
+    width: 100%
+    background: #222
+    height: 300px
+    justify-content: center
+    color: white
+    .information_footer
+        display: flex
+        //border: 1px solid white
+        width: 92%
+        height: 80%
+        align-self: center
+        .b
             display: flex
-            justify-content: center
-            li
-                margin-right: 100px
-                list-style: none
-                button
-                    margin-top: 20px
-                    height: 80px
-                    wight: 280px
-                    background-color: color
-                    color: black
-                    font-size: 34px
-                    border-radius: 25px
-                    padding: 20px
-                    text-transform: uppercase
-                    &:hover
-                        background-color: #8770fa  
+            //border: 1px solid red
+            width: 100%
+            height: 100%
+        .block1
+            flex-direction: column
+            .title_1
+                font-size: 16px
+                margin-bottom: 20px
+            .map_our
+                border-radius: 20px
+            .Our_info
+                height: 100%
+                font-size: 12px
+                u
+                    font-size: 14px
+
 </style>
