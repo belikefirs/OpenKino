@@ -12,8 +12,8 @@ export default {
 
 <style lang="sass" scoped>
 .wrapper-centerize
+    padding: 0 30px
     width: 1400px
-    min-width: 1400px
     display: flex
     justify-content: center
     align-items: center
