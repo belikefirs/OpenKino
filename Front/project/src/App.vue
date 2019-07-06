@@ -58,7 +58,9 @@ export default {
 	flex-direction: column
 	-webkit-font-smoothing: antialiased
 	-moz-osx-font-smoothing: grayscale
-	font-family: 'Roboto'
+	font-family: 'Roboto', sans-serif
+	font-size: 18px
+	font-weight: 300
 	background: #fff url('assets/bg-image.jpg') top no-repeat
 .wrapper-page
 	margin-top: 200px
@@ -68,5 +70,4 @@ export default {
 #page
 	width: 100%
 	//min-height: 150vh
-	
 </style>

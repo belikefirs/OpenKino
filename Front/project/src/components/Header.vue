@@ -71,7 +71,8 @@ export default {
 .text
 	text-decoration: none
 	font-family: 'Roboto', sans-serif
-	font-size: 12px
+	font-size: 14px
+	font-weight: 100
 	color: white
 .wrapper-header
 	height: 100%

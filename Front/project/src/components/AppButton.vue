@@ -18,11 +18,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.text
-    text-decoration: none
-    font-family: 'Roboto', sans-serif
-    font-size: 12px
-    color: white
 .wrapper-button
     text-align: center
     line-height: 35px
@@ -39,7 +34,8 @@ export default {
     .text
         text-decoration: none
         font-family: 'Roboto', sans-serif
-        font-size: 12px
+        font-size: 14px
+        font-weight: 100
         color: white
     
 </style>
