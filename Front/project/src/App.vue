@@ -5,8 +5,8 @@
 			<div id="page">
 				<router-view/>
 			</div>
+			<!-- <Footer></Footer> -->
 		</div>
-		<Footer></Footer>
 	</div>
 </template>
 
@@ -56,16 +56,17 @@ export default {
 #app
 	display: flex
 	flex-direction: column
-	justify-content: center
-	align-items: center
 	-webkit-font-smoothing: antialiased
 	-moz-osx-font-smoothing: grayscale
 	font-family: 'Roboto'
 	background: #fff url('assets/bg-image.jpg') fixed no-repeat
 .wrapper-page
+	margin-top: 200px
 	width: 100%
+	display: flex
+	flex-direction: column
 #page
 	width: 100%
 	min-height: 150vh
-	//background: rgba(#502090, 0.5)
+	
 </style>

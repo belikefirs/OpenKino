@@ -1,20 +1,17 @@
 <template>
 <!-- акции -->
 <!-- отзывы -->
-	<div class="wrapper-header" :style="{height: height, background: bg, position: pos}">
-		<WrapperCent>
+	<WrapperCent style="top: 0; position: fixed;" :style="{height: height, background: bg}">
+		<div class="wrapper-header">
 			<router-link to="/" class="logo"></router-link>
 			<div style="flex: 2"></div>
-			<div class="wrapper-links">
-				<AppButton v-for="item in links" :key="item.link" :url="{name: item.link}">{{item.name}}</AppButton>
-			</div>
+			<AppButton v-for="item in links" :key="item.link" :url="{name: item.link}">{{item.name}}</AppButton>
 			<div class="signIn">
 				<div class="signIn-logo"></div>
 				<p class="text">Войти</p>
 			</div>
-		</WrapperCent>
-	</div>
-	
+		</div>
+	</WrapperCent>
 </template>
 
 <script>
@@ -35,10 +32,8 @@ export default {
 		'offsetTop'(){
 			if (this.offsetTop < this.maxHeight - this.minHeight) {
 				this.currentHeight = (this.maxHeight - this.offsetTop);
-				//this.pos = "static";
 			} else {
 				this.currentHeight = this.minHeight;
-				//this.pos = "fixed";
 			}
 			this.bgOpacity = this.minHeight / this.currentHeight;
 		}
@@ -49,7 +44,6 @@ export default {
 			minHeight: 80,
 			currentHeight: 200,
 			bgOpacity: 0.4,
-			pos: "fixed",
 			links: [
 				{name: 'Новости', link: 'news'},
 				{name: 'Фильмы', link: 'films'},
@@ -68,10 +62,6 @@ export default {
 		bg() {
 			return "rgba(34, 34, 34, " + this.bgOpacity + ")";
 		},
-		// pos() {
-		// 	if (this.Height > this.maxHeight - this.minHeight) return "static";
-		// 	else return "fixed";
-		// }
 	}
 }
 </script>
@@ -84,24 +74,18 @@ export default {
 	font-size: 12px
 	color: white
 .wrapper-header
-	top: 0
-	width: 100%
+	height: 100%
 	display: flex
-	flex-direction: row
 	justify-content: space-around
 	align-items: center
-	transition-delay: 1s
-	transition: position 2s
 	.logo
 		width: 240px
 		align-self: stretch
 		background: url('../assets/logo.svg') center no-repeat
 		background-position: left
 		background-size: contain
-	.wrapper-links
-		display: flex
-		margin-right: 56px
 	.signIn
+		margin-left: 56px
 		display: flex
 		justify-content: center
 		align-items: center
