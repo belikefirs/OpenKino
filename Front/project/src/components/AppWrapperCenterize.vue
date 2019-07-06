@@ -14,6 +14,7 @@ export default {
 .wrapper-centerize
     padding: 0 30px
     width: 1400px
+    height: 100%
     display: flex
     justify-content: center
     align-items: center

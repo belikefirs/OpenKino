@@ -35,9 +35,10 @@ export default {
 		'offsetTop'(){
 			if (this.offsetTop < this.maxHeight - this.minHeight) {
 				this.currentHeight = (this.maxHeight - this.offsetTop);
-			}
-			else {
+				//this.pos = "static";
+			} else {
 				this.currentHeight = this.minHeight;
+				//this.pos = "fixed";
 			}
 			this.bgOpacity = this.minHeight / this.currentHeight;
 		}
@@ -47,7 +48,8 @@ export default {
 			maxHeight: 200,
 			minHeight: 80,
 			currentHeight: 200,
-			bgOpacity: 0.2,
+			bgOpacity: 0.4,
+			pos: "fixed",
 			links: [
 				{name: 'Новости', link: 'news'},
 				{name: 'Фильмы', link: 'films'},
@@ -64,12 +66,12 @@ export default {
 			return this.currentHeight + "px";
 		},
 		bg() {
-			return "rgba(0, 0, 0, " + this.bgOpacity + ")";
+			return "rgba(34, 34, 34, " + this.bgOpacity + ")";
 		},
-		pos() {
-			if (this.Height > this.maxHeight - this.minHeight) return "static";
-			else return "fixed";
-		}
+		// pos() {
+		// 	if (this.Height > this.maxHeight - this.minHeight) return "static";
+		// 	else return "fixed";
+		// }
 	}
 }
 </script>
@@ -91,9 +93,11 @@ export default {
 	transition-delay: 1s
 	transition: position 2s
 	.logo
-		width: 170.4px
-		height: 71.2px
+		width: 240px
+		align-self: stretch
 		background: url('../assets/logo.svg') center no-repeat
+		background-position: left
+		background-size: contain
 	.wrapper-links
 		display: flex
 		margin-right: 56px
@@ -107,6 +111,6 @@ export default {
 			width: 45px
 			height: 45px
 			background: url('../assets/signIn-logo.svg')
-		&:hover .link-text
+		&:hover .text
 			text-decoration: underline    
 </style>

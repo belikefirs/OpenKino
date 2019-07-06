@@ -17,7 +17,6 @@ export default {
 }
 </script>
 
-
 <style lang="sass" scoped>
 .text
     text-decoration: none
@@ -34,8 +33,9 @@ export default {
     border-radius: 15px
     text-decoration: none
     user-select: none
+    transition: background 0.5s
     &:hover
-        background-color: rgba(white, 0.3)
+        background: rgba(white, 0.3)
     .text
         text-decoration: none
         font-family: 'Roboto', sans-serif

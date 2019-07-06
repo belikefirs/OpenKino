@@ -61,12 +61,9 @@ export default {
 	-webkit-font-smoothing: antialiased
 	-moz-osx-font-smoothing: grayscale
 	font-family: 'Roboto'
-	overflow: auto
+	background: #fff url('assets/bg-image.jpg') fixed no-repeat
 .wrapper-page
 	width: 100%
-	background: #fff url('assets/bg-image.jpg') center no-repeat
-	background-size: cover
-	background-attachment: static
 #page
 	width: 100%
 	min-height: 150vh
