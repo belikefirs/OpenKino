@@ -82,7 +82,6 @@ export default {
 	font-size: 12px
 	color: white
 .wrapper-header
-	//position: fixed8
 	top: 0
 	width: 100%
 	display: flex
@@ -91,7 +90,6 @@ export default {
 	align-items: center
 	transition-delay: 1s
 	transition: position 2s
-	//background: #222
 	.logo
 		width: 170.4px
 		height: 71.2px
