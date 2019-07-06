@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import WrapperCent from '@/components/AppWrapperCenterize.vue'
+import WrapperCent from '@/components/AppWrapperCenter.vue'
 import AppButton from '@/components/AppButton.vue'
 
 export default {
@@ -60,7 +60,7 @@ export default {
 			return this.currentHeight + "px";
 		},
 		bg() {
-			return "rgba(34, 34, 34, " + this.bgOpacity + ")";
+			return "rgba(31, 31, 31, " + this.bgOpacity + ")";
 		},
 	}
 }

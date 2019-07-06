@@ -1,14 +1,15 @@
 <template>
     <div class="wrapper-home">
         <Now></Now>
+        <Actions></Actions>
     </div>
 </template>
 
 <script>
-import Now from '@/components/HomeNow.vue'
-import Actions from '@/components/HomeActions.vue'
-import News from '@/components/HomeNews.vue'
-import Activity from '@/components/HomeActivity.vue'
+import Now from '@/components/Home/Now.vue'
+import Actions from '@/components/Home/Actions.vue'
+import News from '@/components/Home/News.vue'
+import Activity from '@/components/Home/Activity.vue'
 
 export default {
     components: {

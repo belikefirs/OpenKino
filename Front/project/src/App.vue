@@ -5,7 +5,7 @@
 			<div id="page">
 				<router-view/>
 			</div>
-			<!-- <Footer></Footer> -->
+			<Footer></Footer>
 		</div>
 	</div>
 </template>
@@ -59,7 +59,7 @@ export default {
 	-webkit-font-smoothing: antialiased
 	-moz-osx-font-smoothing: grayscale
 	font-family: 'Roboto'
-	background: #fff url('assets/bg-image.jpg') fixed no-repeat
+	background: #fff url('assets/bg-image.jpg') top no-repeat
 .wrapper-page
 	margin-top: 200px
 	width: 100%
@@ -67,6 +67,6 @@ export default {
 	flex-direction: column
 #page
 	width: 100%
-	min-height: 150vh
+	//min-height: 150vh
 	
 </style>
