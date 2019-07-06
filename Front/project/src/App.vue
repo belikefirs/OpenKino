@@ -1,13 +1,13 @@
 <template>
-  <div id="app" v-scroll="onScroll">
-        <Header :Height="headerHeight"></Header>
-        <div class="wrapper-page">
-            <div id="page">
-                <router-view/>
-            </div>
-        </div>
-        <Footer></Footer>
-  </div>
+	<div id="app" v-scroll="onScroll">
+		<div class="wrapper-page">
+			<Header :offsetTop="offsetTop"></Header>
+			<div id="page">
+				<router-view/>
+			</div>
+		</div>
+		<Footer></Footer>
+	</div>
 </template>
 
 <script>
@@ -20,59 +20,55 @@ import Films from '@/views/Films.vue'
 import About from '@/views/About.vue'
 
 export default {
-    components: {
-        Header, Footer, PageAuthorization, Home, News, Films, About
-    },
+	components: {
+		Header, Footer, PageAuthorization, Home, News, Films, About
+	},
 
-    data() {
-        return {
-            offsetTop: 0
-        }
-    },
+	data() {
+		return {
+			offsetTop: 0
+		}
+	},
 
-    methods: {
-        onScroll (e) {
-            this.offsetTop = window.pageYOffset || document.documentElement.scrollTop;
-        }
-    },
+	methods: {
+		onScroll (e) {
+			this.offsetTop = window.pageYOffset || document.documentElement.scrollTop;
+		}
+	},
 
-    computed: {
-        headerHeight() {
-            if (this.offsetTop < 100) return (200 - this.offsetTop) + "px";
-            else return "100px";
-        },
-
-        news () {
-            return this.$store.state.news;
-        }
-    },
-    created () {
-        this.$store.dispatch('fetchGetNews')
-    }
+	computed: {
+		news () {
+			return this.$store.state.news;
+		},
+	},
+	created () {
+		this.$store.dispatch('fetchGetNews')
+	}
 }
 </script>
 
 <style lang="sass">
 *
-    margin: 0
-    padding: 0
-    box-sizing: border-box
-    overflow: none
+	margin: 0
+	padding: 0
+	box-sizing: border-box
+	overflow: none
 #app
-    display: flex
-    flex-direction: column
-    justify-content: center
-    align-items: center
-    -webkit-font-smoothing: antialiased
-    -moz-osx-font-smoothing: grayscale
-    font-family: 'Roboto'
-    overflow: auto
+	display: flex
+	flex-direction: column
+	justify-content: center
+	align-items: center
+	-webkit-font-smoothing: antialiased
+	-moz-osx-font-smoothing: grayscale
+	font-family: 'Roboto'
+	overflow: auto
 .wrapper-page
-    width: 100%
-    background: #fff url('assets/bg-image.jpg') center no-repeat
-    background-attachment: static
+	width: 100%
+	background: #fff url('assets/bg-image.jpg') center no-repeat
+	background-size: cover
+	background-attachment: static
 #page
-    width: 100%
-    min-height: 100vh
-    //background: rgba(#502090, 0.5)
+	width: 100%
+	min-height: 150vh
+	//background: rgba(#502090, 0.5)
 </style>
