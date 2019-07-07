@@ -5,22 +5,22 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
 	state: {
-		news: []
+		// news: []
 	},
 	mutations: {
-		setNews (state, data) {
-			state.news = data
-		}
+		// setNews (state, data) {
+		// 	state.news = data
+		// }
 	},
 	actions: {
-		fetchGetNews (contex, params) {
-			AXIOS.get('/news').finally(request => {
-				contex.commit('setNews', [
-				{name: 'news 1', id: 1},
-				{name: 'news 21', id: 21},
-				{name: 'news 31', id: 31},
-				])
-			})
-		}
+		// fetchGetNews (contex, params) {
+		// 	AXIOS.get('/news').finally(request => {
+		// 		contex.commit('setNews', [
+		// 		{name: 'news 1', id: 1},
+		// 		{name: 'news 21', id: 21},
+		// 		{name: 'news 31', id: 31},
+		// 		])
+		// 	})
+		// }
 	},
 });

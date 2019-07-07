@@ -37,13 +37,13 @@ export default {
 	},
 
 	computed: {
-		news () {
-			return this.$store.state.news;
-		},
+		// news () {
+		// 	return this.$store.state.news;
+		// },
 	},
-	created () {
-		this.$store.dispatch('fetchGetNews')
-	}
+	// created () {
+	// 	this.$store.dispatch('fetchGetNews')
+	// }
 }
 </script>
 
