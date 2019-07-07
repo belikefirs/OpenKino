@@ -37,7 +37,7 @@ export default {
     },
     computed:{
         forSlider(){
-            this.indexCurrent = this.indexCurrent % this.maxInPage;
+            this.indexCurrent = this.indexCurrent % this.data.length;
             return this.data.concat(this.data).slice(this.indexCurrent, this.indexCurrent + this.maxInPage);
         },
     }
