@@ -1,7 +1,7 @@
 <template>
 <!-- акции -->
 <!-- отзывы -->
-	<WrapperCent style="top: 0; position: fixed;" :style="{height: height, background: bg}">
+	<WrapperCent style="top: 0; position: fixed; z-index: 100" :style="{height: height, background: bg}">
 		<div class="wrapper-header">
 			<router-link to="/" class="logo"></router-link>
 			<div style="flex: 2"></div>
