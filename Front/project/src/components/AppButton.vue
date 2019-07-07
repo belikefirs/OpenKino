@@ -21,7 +21,6 @@ export default {
 .wrapper-button
     text-align: center
     line-height: 35px
-    margin: 0 10px
     width: 121px
     height: 35px
     border: 1px solid white
@@ -37,5 +36,4 @@ export default {
         font-size: 14px
         font-weight: 100
         color: white
-    
 </style>
