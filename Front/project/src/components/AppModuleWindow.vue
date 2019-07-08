@@ -1,8 +1,34 @@
 <template>
-    <div class="wrapper_module_window">
-        <div class="test"></div>
+    <div class="wrapper_module_window" v-on:click="changeBlur">
+        <div class="container" :style="{width: width + 'px', height: height + 'px'}">
+            <slot></slot>
+        </div>
     </div>
 </template>
+
+<script>
+export default {
+    props:{
+        width: {
+            type: Number,
+            requared: true
+        },
+        height: {
+            type: Number,
+            requared: true
+        },
+    },
+    methods:{
+		changeBlur(){
+			this.$emit("showBlur");
+		}
+    },
+    computed:{
+        
+    }
+}
+</script>
+
 
 <style scoped>
 .wrapper_module_window {
@@ -11,5 +37,11 @@
     left: 0;
     height: 100vh;
     width: 100vw;
+    background: rgba(31,31,31,0.5);
+}
+.container{
+    background: #212121;
+    border-radius: 8px;
+    margin: 100px auto 0;
 }
 </style>

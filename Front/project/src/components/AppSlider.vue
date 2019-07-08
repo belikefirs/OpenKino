@@ -2,14 +2,14 @@
     <div class="wrapper-slider" v-resize="onResize">
         <div class="previous" v-on:click="prevClick"></div>
         <transition-group name="slider">
-            <SliderItem
+            <!-- <SliderItem
             v-for="(item, name, index) in uData" :key="name"
             :image="item.image"
             :path="item.path"
             :filmTitle="item.filmTitle"
             :filmStyle="item.filmStyle"
             :filmType="item.filmType"
-            />
+            /> -->
         </transition-group>
         <div class="next" v-on:click="nextClick"></div>
     </div>
