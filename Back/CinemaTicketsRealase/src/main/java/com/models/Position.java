@@ -1,6 +1,6 @@
 package com.models;
-
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "POSITION")
@@ -13,9 +13,8 @@ public class Position {
     @Column(name = "NAME")
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "ID_POSITION", nullable = false)
-    private KinoUser kinoUser;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "position")
+    private List<KinoUser> kinoUsers;
 
     public Position(){}
 }

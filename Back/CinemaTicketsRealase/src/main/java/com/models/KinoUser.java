@@ -28,16 +28,14 @@ public class KinoUser {
     private String mail;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "kinoUser")
-    private List<Card> CARDS;
+    private List<Card> cards;
 
     @OneToOne(optional = false)
     @JoinColumn(name="ID_IDENTIFICATION", unique = true, nullable = false, updatable = false)
     private Identification identification;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "kinoUser")
-    private List<Position> POSITION;
-
-
+    private List<Position> positions;
 
     public KinoUser(){}
 
