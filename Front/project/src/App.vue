@@ -32,7 +32,7 @@ export default {
 	data() {
 		return {
 			offsetTop: 0,
-			blurFlag: true
+			blurFlag: false
 		}
 	},
 
