@@ -1,14 +1,17 @@
 <template>
     <div class="wrapper-slider" v-resize="onResize">
-        <div class="previous" v-on:click="indexCurrent = indexCurrent + 4"></div>
-        <SliderItem v-for="(item, index) in forSlider" :key="'item' + index"
-        :image="item.image"
-        :path="item.path"
-        :filmTitle="item.filmTitle"
-        :filmStyle="item.filmStyle"
-        :filmType="item.filmType"
-        />
-        <div class="next" v-on:click="indexCurrent++"></div>
+        <div class="previous" v-on:click="prevClick"></div>
+        <transition-group name="slider">
+            <SliderItem
+            v-for="(item, name, index) in uData" :key="name"
+            :image="item.image"
+            :path="item.path"
+            :filmTitle="item.filmTitle"
+            :filmStyle="item.filmStyle"
+            :filmType="item.filmType"
+            />
+        </transition-group>
+        <div class="next" v-on:click="nextClick"></div>
     </div>
 </template>
 
@@ -19,32 +22,44 @@ export default {
         SliderItem
     },
     props:{
-        data: {
-            type: Array,
+        pData: {
+            type: Object,
             required: true
         }
     },
     data () {
-        return {
-            indexCurrent : 0,
-            maxInPage : 1
+        return{
+            uIndex : 0,
+            maxInPage : 1,
+            uData: this.pData
         }
     },
     methods:{
         onResize(){
             this.maxInPage = Math.round((document.documentElement.clientWidth - 220) / 248);
         },
+        forSlider(){
+            this.uIndex = this.uIndex % this.uData.length;
+            this.data.concat(this.data).slice(this.indexCurrent, this.indexCurrent + this.maxInPage);
+        },
+        nextClick(){
+            this.uIndex++;
+        },
+        prevClick(){
+            this.uIndex = this.maxInPage - this.uIndex;
+        }
     },
     computed:{
-        forSlider(){
-            this.indexCurrent = this.indexCurrent % this.data.length;
-            return this.data.concat(this.data).slice(this.indexCurrent, this.indexCurrent + this.maxInPage);
-        },
+        
     }
 }
 </script>
 
 <style lang="sass" scoped>
+.slider-enter-active 
+    transition: all .3s ease
+.slider-leave-active 
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0)
 .wrapper-slider
     position: relative
     width: 100%

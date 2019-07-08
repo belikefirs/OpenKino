@@ -1,13 +1,13 @@
 <template>
+<!-- style="filter: blur(30px);" -->
 	<div id="app" v-scroll="onScroll">
-		<Module/>	
-		<div class="wrapper-page">
+		<Module style="z-index: 200"/>	
+		
+		<div class="wrapper-page" v-bind:class="{blur : blurFlag}">
 			<Header :offsetTop="offsetTop"></Header>
-			<PageAuthorization></PageAuthorization>
 			<div id="page">
 				<router-view/>
 			</div>
-			
 			<Footer></Footer>
 		</div>
 		
@@ -31,7 +31,8 @@ export default {
 
 	data() {
 		return {
-			offsetTop: 0
+			offsetTop: 0,
+			blurFlag: false
 		}
 	},
 
@@ -42,6 +43,7 @@ export default {
 	},
 
 	computed: {
+
 		// news () {
 		// 	return this.$store.state.news;
 		// },
@@ -66,13 +68,20 @@ export default {
 	font-family: 'Roboto', sans-serif
 	font-size: 18px
 	font-weight: 300
-	background: #fff url('assets/bg-image.jpg') top no-repeat
+	background: #000
 .wrapper-page
-	margin-top: 200px
 	width: 100%
 	display: flex
 	flex-direction: column
+	background: #000 url('assets/bg-image.jpg') top no-repeat
 #page
+	margin-top: 200px
 	width: 100%
 	//min-height: 150vh
+</style>
+
+<style>
+	.blur{
+		filter: blur(30px)
+	}
 </style>

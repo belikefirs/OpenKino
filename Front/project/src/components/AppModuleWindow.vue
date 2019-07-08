@@ -1,17 +1,15 @@
 <template>
     <div class="wrapper_module_window">
-
+        <div class="test"></div>
     </div>
 </template>
 
-<style>
-.wrappaer_module_window {
-    filter: blur(50px);
+<style scoped>
+.wrapper_module_window {
     position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
-    width: 1920px;
-    background-color: red;
+    width: 100vw;
 }
 </style>
