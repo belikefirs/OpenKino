@@ -1,12 +1,16 @@
 <template>
 	<div id="app" v-scroll="onScroll">
+		<Module/>	
 		<div class="wrapper-page">
 			<Header :offsetTop="offsetTop"></Header>
+			<PageAuthorization></PageAuthorization>
 			<div id="page">
 				<router-view/>
 			</div>
+			
 			<Footer></Footer>
 		</div>
+		
 	</div>
 </template>
 
@@ -18,10 +22,11 @@ import Home from '@/views/Home.vue'
 import News from '@/views/News.vue'
 import Films from '@/views/Films.vue'
 import About from '@/views/About.vue'
+import Module from '@/components/AppModuleWindow.vue'
 
 export default {
 	components: {
-		Header, Footer, PageAuthorization, Home, News, Films, About
+		Header, Footer, PageAuthorization, Home, News, Films, About, Module
 	},
 
 	data() {
