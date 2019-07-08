@@ -22,7 +22,7 @@
 					<p>Карта сайта</p>
 				</div>
 				<div class="map_links">
-					<AppButton style="margin: 0 10px 10px 0;" v-for="item in Foot_links" :key="item.link" :url="{name: item.link}">{{item.name}}</AppButton>
+					<AppButton style="margin: 0 10px 10px 0;" v-for="(item, key) in Foot_links" :key="key" :url="{name: item.link}">{{item.name}}</AppButton>
 				</div>
 			</div>
 			<div class="block">
@@ -40,7 +40,7 @@
 				<div class="title">
 					<p>Наши фесты</p>
 				</div>
-				<AppButton style="margin: 0 0 10px;" v-for="item in links" :key="item.link" :url="{name: item.link}">{{item.name}}</AppButton>
+				<AppButton style="margin: 0 0 10px;" v-for="(item, key) in links" :key="key" :url="{name: item.link}">{{item.name}}</AppButton>
 			</div>
 		</div>
 	</WrapperCent>
@@ -56,18 +56,18 @@ export default {
 	data () {
 		return {
 			links: [
-				{name: 'Новости', link: ' '},
-				{name: 'Фильмы', link: ' '},
+				{name: 'Новости', link: '#'},
+				{name: 'Фильмы', link: '#'},
 			],
 			Foot_links: [
-				{name: 'Фильмы', link: ' '},
-				{name: 'Новости', link: ' '},
-				{name: 'Вакансии', link: ' '},
-				{name: 'Вакансии', link: ' '},
-				{name: 'Наши встречи', link: ' '},
-				{name: 'Планы', link: ' '},				
-				{name: 'Авторизация', link: ' '},
-				{name: 'Отзывы', link: ' '},
+				{name: 'Фильмы', link: '#'},
+				{name: 'Новости', link: '#'},
+				{name: 'Вакансии', link: '#'},
+				{name: 'Вакансии', link: '#'},
+				{name: 'Наши встречи', link: '#'},
+				{name: 'Планы', link: '#'},				
+				{name: 'Авторизация', link: '#'},
+				{name: 'Отзывы', link: '#'},
 			]
 		}
 	}
