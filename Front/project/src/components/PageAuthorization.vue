@@ -7,7 +7,7 @@
                 <input type="password" placeholder="Пароль">
             </div>
             <div class="buttons">
-                <AppButton style="margin: 20px 0px 10px 0;" v-for="item in links" :key="item.link" :url="{name: item.link}">{{item.name}}</AppButton>
+                <AppButtonAuthorization style="margin: 20px 0px 10px 0;" v-for="item in links" :key="item.link" :url="{name: item.link}">{{item.name}}</AppButtonAuthorization>
                 <a href="#" style="margin: 28px 0px 10px 20px;"><u>Восстановить пароль</u></a>
             </div>
         </div>
@@ -15,10 +15,10 @@
 </template>
 
 <script>
-import AppButton from '@/components/AppButton.vue'
+import AppButtonAuthorization from '@/components/AppButtonAuthorization.vue'
 export default {
 	components: {
-		AppButton
+		AppButtonAuthorization
 	},
 	data () {
 		return {

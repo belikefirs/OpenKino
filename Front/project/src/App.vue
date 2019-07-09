@@ -7,9 +7,11 @@
 		
 		<div class="wrapper-page">
 			<Header :offsetTop="offsetTop" @showBlur="blurFlag = true"></Header>
+			<BackToTop @goTop="goTop"></BackToTop>
 			<div id="page">
 				<router-view/>
 			</div>
+			
 			<Footer></Footer>
 		</div>
 		
@@ -25,10 +27,11 @@ import News from '@/views/News.vue'
 import Films from '@/views/Films.vue'
 import About from '@/views/About.vue'
 import Module from '@/components/AppModuleWindow.vue'
+import BackToTop from '@/components/AppButtonToTop.vue'
 
 export default {
 	components: {
-		Header, Footer, PageAuthorization, Home, News, Films, About, Module
+		Header, Footer, PageAuthorization, Home, News, Films, About, Module, BackToTop
 	},
 
 	data() {
@@ -41,6 +44,11 @@ export default {
 	methods: {
 		onScroll (e) {
 			this.offsetTop = window.pageYOffset || document.documentElement.scrollTop;
+		},
+		goTop () {
+			const scroll = window.pageYOffset || document.documentElement.scrollTop;
+			scroll = 0
+			this.offsetTop = scroll;
 		}
 	},
 
@@ -84,6 +92,6 @@ export default {
 
 <style>
 	.blur{
-		filter: blur(5px)
+		filter: blur(15px)
 	}
 </style>

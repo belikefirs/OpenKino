@@ -64,6 +64,9 @@ export default {
 		bg() {
 			return "rgba(31, 31, 31, " + this.bgOpacity + ")";
 		},
+		opacity() {
+			return "opacity 0.9";
+		}
 	}
 }
 </script>

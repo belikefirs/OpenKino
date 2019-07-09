@@ -30,7 +30,7 @@
 					<p>Мы в социальных сетях</p>
 				</div>
 				<div class="icons">
-					<a v-for="item in images" :key="item.images" href="#"><img :src="item" alt=""></a>
+					<a v-for="item in images" :key="item" href="#"><img :src="item" alt=""></a>
 				</div>
 			</div>
 			<div class="block">
