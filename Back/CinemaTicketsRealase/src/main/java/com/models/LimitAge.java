@@ -12,8 +12,7 @@ public class LimitAge {
     private Long id;
     @Column(name = "Age")
     private int age;
-    @ManyToOne
-    @JoinColumn(name = "ID_FILM", unique = true, nullable = false, updatable = false)
-    private Film film;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "limitAge")
+    private List<Film> films;
     public LimitAge(){}
 }

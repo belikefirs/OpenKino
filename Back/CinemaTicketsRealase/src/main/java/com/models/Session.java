@@ -12,8 +12,7 @@ public class Session {
     private Long id;
     @Column(name = "Name")
     private String name;
-    @ManyToOne
-    @JoinColumn(name = "ID_FILM", unique = true, nullable = false, updatable = false)
-    private Film film;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "limitAge")
+    private List<Film> films;
     public Session(){}
 }

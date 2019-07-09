@@ -37,8 +37,9 @@ public class KinoUser {
     private Identification identification;
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "kinoUser")
-    private List<Position> positions;
+    @ManyToOne
+    @JoinColumn(name = "ID_POSITION", unique = true, nullable = false, updatable = false)
+    private Position position;
 
     public KinoUser(){}
 
