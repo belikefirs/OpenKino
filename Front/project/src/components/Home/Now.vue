@@ -1,7 +1,7 @@
 <template>
 	<div class="wrapper-now">
 		<WrapperCent class="wrapper-now-title">Сейчас в кино</WrapperCent>
-		<Slider style="z-index: 0" :pData="sliderArray"></Slider>
+		<Slider :pData="sliderArray"></Slider>
 	</div>
 	
 </template>
@@ -73,9 +73,11 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.wrapper-now-title
-	height: 50px
-	line-height: 50px
-	background-color: rgba(red, 0.4)
-	color: white
+.wrapper-now
+	z-index: 0
+	&-title
+		height: 50px
+		line-height: 50px
+		background-color: rgba(red, 0.4)
+		color: white
 </style>
