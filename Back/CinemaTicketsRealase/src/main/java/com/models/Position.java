@@ -1,4 +1,6 @@
 package com.models;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,9 +14,9 @@ public class Position {
 
     @Column(name = "NAME")
     private String name;
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "position")
-    private List<KinoUser> kinoUsers;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="ID_USERKINO", unique = true, nullable = false, updatable = false)
+    private KinoUser kinoUser;
 
     public Position(){}
 }
