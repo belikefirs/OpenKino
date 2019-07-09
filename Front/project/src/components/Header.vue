@@ -6,7 +6,7 @@
 			<router-link to="/" class="logo"></router-link>
 			<div style="flex: 2"></div>
 			<AppButton style="margin: 0 10px" v-for="item in links" :key="item.link" :url="{name: item.link}">{{item.name}}</AppButton>
-			<div class="signIn">
+			<div class="signIn" v-on:click="changeBlur">
 				<div class="signIn-logo"></div>
 				<p class="text">Войти</p>
 			</div>
@@ -53,7 +53,9 @@ export default {
 		}
 	},
 	methods:{
-		
+		changeBlur(){
+			this.$emit("showBlur");
+		}
 	},
 	computed: {
 		height() {

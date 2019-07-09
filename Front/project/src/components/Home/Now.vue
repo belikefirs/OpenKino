@@ -1,7 +1,7 @@
 <template>
 	<div class="wrapper-now">
 		<WrapperCent class="wrapper-now-title">Сейчас в кино</WrapperCent>
-		<Slider style="z-index: 0" :data="sliderObject"></Slider>
+		<Slider style="z-index: 0" :pData="sliderArray"></Slider>
 	</div>
 	
 </template>
@@ -15,7 +15,7 @@ export default {
 	},
 	data () {
 		return {
-			sliderObject: [
+			sliderArray: [
 				{ 
 					image: "https://images.kinomax.ru/films/4/4327/560x302/p_2ef3fc9.jpg",
 					path: "path1",

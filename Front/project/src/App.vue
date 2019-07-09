@@ -1,10 +1,10 @@
 <template>
 <!-- style="filter: blur(30px);" -->
 	<div id="app" v-scroll="onScroll">
-		<Module style="z-index: 200"/>	
+		<Module v-if="blurFlag" style="z-index: 200" :width="400" :height="200" @showBlur="blurFlag = false"></Module>	
 		
-		<div class="wrapper-page" v-bind:class="{blur : blurFlag}">
-			<Header :offsetTop="offsetTop"></Header>
+		<div class="wrapper-page">
+			<Header :offsetTop="offsetTop" @showBlur="blurFlag = true"></Header>
 			<div id="page">
 				<router-view/>
 			</div>
@@ -68,7 +68,7 @@ export default {
 	font-family: 'Roboto', sans-serif
 	font-size: 18px
 	font-weight: 300
-	background: #000
+	background: #fff
 .wrapper-page
 	width: 100%
 	display: flex
@@ -82,6 +82,6 @@ export default {
 
 <style>
 	.blur{
-		filter: blur(30px)
+		filter: blur(5px)
 	}
 </style>

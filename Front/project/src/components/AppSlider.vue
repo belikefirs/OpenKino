@@ -1,9 +1,9 @@
 <template>
     <div class="wrapper-slider" v-resize="onResize">
         <div class="previous" v-on:click="prevClick"></div>
-        <transition-group name="slider">
+        <transition-group name="slider" class="slider">
             <SliderItem
-            v-for="(item, name, index) in uData" :key="name"
+            v-for="(item, name) in uData" :key="name"
             :image="item.image"
             :path="item.path"
             :filmTitle="item.filmTitle"
@@ -23,30 +23,36 @@ export default {
     },
     props:{
         pData: {
-            type: Object,
+            type: Array,
             required: true
         }
     },
+    watch:{
+        'uIndex'(){},
+        'uData'(){}
+    },
     data () {
-        return{
+        let uData = [];
+        this.pData.forEach(function(item, index){
+            uData[index] = item;
+        });
+        return {
             uIndex : 0,
             maxInPage : 1,
-            uData: this.pData
+            uData
         }
     },
     methods:{
         onResize(){
             this.maxInPage = Math.round((document.documentElement.clientWidth - 220) / 248);
         },
-        forSlider(){
-            this.uIndex = this.uIndex % this.uData.length;
-            this.data.concat(this.data).slice(this.indexCurrent, this.indexCurrent + this.maxInPage);
-        },
         nextClick(){
-            this.uIndex++;
+            //this.uIndex = (this.uIndex + 1) % this.uData.length;
+            this.uData.unshift(this.uData.pop());
         },
         prevClick(){
-            this.uIndex = this.maxInPage - this.uIndex;
+            //this.uIndex = (this.uData.length + this.uIndex - 1) % this.uData.length;
+            this.uData.push(this.uData.shift());
         }
     },
     computed:{
@@ -56,10 +62,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.slider-enter-active 
-    transition: all .3s ease
-.slider-leave-active 
-    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0)
 .wrapper-slider
     position: relative
     width: 100%
@@ -68,6 +70,7 @@ export default {
     display: flex
     justify-content: center
     .previous, .next
+        z-index: 1
         position: absolute
         top: calc(50% - 15px)
         width: 30px
@@ -77,8 +80,28 @@ export default {
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
         cursor: pointer
         user-select: none
+        &:active
+            background: white
     .previous
         left: 35px
     .next
         right: 35px
+    .slider
+        display: flex
+        flex-direction: row
+</style>
+
+
+<style>
+.list-item {
+  display: inline-block;
+  margin-right: 10px;
+}
+.list-enter-active, .list-leave-active {
+  transition: all 1s;
+}
+.list-enter, .list-leave-to /* .list-leave-active до версии 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
+}
 </style>
