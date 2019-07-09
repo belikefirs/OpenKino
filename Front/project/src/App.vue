@@ -1,7 +1,9 @@
 <template>
 <!-- style="filter: blur(30px);" -->
 	<div id="app" v-scroll="onScroll">
-		<Module v-if="blurFlag" style="z-index: 200" :width="400" :height="200" @showBlur="blurFlag = false"></Module>	
+		<Module v-if="blurFlag" style="z-index: 200" :width="500" :height="270" @showBlur="blurFlag = false">
+			<PageAuthorization></PageAuthorization>
+		</Module>	
 		
 		<div class="wrapper-page">
 			<Header :offsetTop="offsetTop" @showBlur="blurFlag = true"></Header>

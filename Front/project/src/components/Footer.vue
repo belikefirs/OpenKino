@@ -7,7 +7,7 @@
 				</div>
 				<div class="map_our">
 					<iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A6ac60f48d30a3bb5f9c2a48637f5bf13073315e990b2f3eb7c111d92824aba5b&amp;source=constructor" 
-					width="280" height="131" frameborder="1">
+					width="250" height="131" frameborder="1">
 					</iframe>
 				</div>
 				<div class="our_info">
@@ -30,10 +30,7 @@
 					<p>Мы в социальных сетях</p>
 				</div>
 				<div class="icons">
-					<a href="#"><img src="assets/icons/vk.png" alt=""></a>
-					<a href="#"><img src="" alt=""></a>
-					<a href="#"><img src="" alt=""></a>
-					<a href="#"><img src="" alt=""></a>
+					<a v-for="item in images" :key="item.images" href="#"><img :src="item" alt=""></a>
 				</div>
 			</div>
 			<div class="block">
@@ -49,6 +46,11 @@
 <script>
 import WrapperCent from '@/components/AppWrapperCenter.vue'
 import AppButton from '@/components/AppButton.vue'
+import vk from "./../assets/temp/icons/vk.png"
+import twitter from "./../assets/temp/icons/twitter.png"
+import gp from "./../assets/temp/icons/google-plus.png"
+import instagram from "./../assets/temp/icons/instagram.png"
+
 export default {
 	components: {
 		WrapperCent, AppButton
@@ -68,6 +70,9 @@ export default {
 				{name: 'Планы', link: '#'},				
 				{name: 'Авторизация', link: '#'},
 				{name: 'Отзывы', link: '#'},
+			],
+			images: [
+				vk, twitter, gp, instagram
 			]
 		}
 	}
@@ -84,13 +89,15 @@ export default {
 .footer-wrapper
 	display: flex
 	width: 100%
-	height: 350px
+	height: 100%
 	overflow: hidden
 	.block
 		width: 25%
 		padding: 10px		
 		.map_our
 			border-radius: 20px
+			iframe
+				width: 87%
 		.map_links
 			display: flex
 			flex-direction: row
