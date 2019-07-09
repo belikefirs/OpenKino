@@ -1,8 +1,10 @@
 <template>
     <div class="wrapper-slider" v-resize="onResize">
-        <div class="previous" v-on:click="prevClick"></div>
-        <transition-group name="slider" tag="div">
-            <SliderItem v-for="item in uData" :key="item"
+        <div class="previous" v-on:click="prevClick">
+            <div class="arrow"></div>
+        </div>
+        <transition-group name="slider" tag="div" mode="out-in">
+            <SliderItem v-for="item in uData" :key="item.filmTitle"
             :image="item.image"
             :path="item.path"
             :filmTitle="item.filmTitle"
@@ -10,12 +12,15 @@
             :filmType="item.filmType"
             />
         </transition-group>
-        <div class="next" v-on:click="nextClick"></div>
+        <div class="next" v-on:click="nextClick">
+            <div class="arrow"></div>
+        </div>
     </div>
 </template>
 
 <script>
 import SliderItem from '@/components/Slider/SliderItem.vue'
+import { setTimeout } from 'timers';
 export default {
     components: {
         SliderItem
@@ -33,7 +38,8 @@ export default {
         });
         return {
             maxInPage : 1,
-            uData
+            uData,
+            animFlag : false,
         }
     },
     methods:{
@@ -41,11 +47,27 @@ export default {
             this.maxInPage = Math.round((document.documentElement.clientWidth - 220) / 248);
         },
         nextClick(){
-            this.uData.push(this.uData.shift());
+            if (this.animFlag) return;
+            this.animFlag = true;
+            let temp = this.uData.shift();
+            setTimeout(() => {
+                this.uData.push(temp);
+            }, 300);
+            setTimeout(() => {
+                this.animFlag = false;
+            }, 650);
         },
         prevClick(){
-            this.uData.unshift(this.uData.pop());
-        }
+            if (this.animFlag) return;
+            this.animFlag = true;
+            let temp = this.uData.pop();
+            setTimeout(() => {
+                this.uData.unshift(temp);
+            }, 300);
+            setTimeout(() => {
+                this.animFlag = false;
+            }, 650);
+        },
     },
     computed:{
         
@@ -53,14 +75,24 @@ export default {
 }
 </script>
 
+<style scoped>
+.slider-enter, .slider-leave-to{
+    opacity: 0;
+    transform: scale(0.3);
+}
+.slider-enter-to, .slider-leave{
+    opacity: 1;
+}
+.slider-enter-active, .slider-leave-active{
+    transition: all 0.5s;
+    transform-origin: center 165px;
+}
+.slider-move{
+    transition: transform 0.5s;
+}
+</style>
+
 <style lang="sass" scoped>
-// .slider-move
-//     transition: transform 1s
-// .slider-enter-active, .slider-leave-active 
-//     transition: all 1s
-// .slider-enter, .slider-leave-to
-//     opacity: 0
-//     transform: translateY(30px)
 .wrapper-slider
     position: relative
     width: 100%
@@ -84,28 +116,27 @@ export default {
         cursor: pointer
         user-select: none
         &:active
-            background: white
+            background: black 
+        .arrow
+            display: flex
+            justify-content: center
+            align-items: center
+            &::before, &::after
+                content: ""
+                position: absolute
+                transform-origin: right
+                width: 10px
+                height: 1px
+                background: white
+            &::before
+                transform: rotate(30deg)
+            &::after
+                transform: rotate(-30deg)   
     .previous
         left: 35px
+        .arrow
+            transform: scaleX(-1)
     .next
         right: 35px        
 </style>
 
-<style scoped>
-.slider-move{
-    transition: transform 1s;
-}
-.slider-complete-item {
-  transition: all 1s;
-  display: inline-block;
-  margin-right: 10px;
-}
-.slider-complete-enter, .slider-complete-leave-to
-/* .list-complete-leave-active до версии 2.1.8 */ {
-  opacity: 0;
-  transform: translateY(30px);
-}
-.slider-complete-leave-active {
-  position: absolute;
-}
-</style>

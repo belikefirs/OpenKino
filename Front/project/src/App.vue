@@ -2,7 +2,7 @@
 <!-- style="filter: blur(30px);" -->
 	<div id="app" v-scroll="onScroll">
 		<Module v-if="blurFlag" style="z-index: 200" :width="500" :height="270" @showBlur="blurFlag = false">
-			<PageAuthorization></PageAuthorization>
+			<AppSignIn></AppSignIn>
 		</Module>	
 		
 		<div class="wrapper-page">
@@ -21,7 +21,7 @@
 <script>
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
-import PageAuthorization from '@/components/PageAuthorization.vue'
+import AppSignIn from '@/components/AppSignIn.vue'
 import Home from '@/views/Home.vue'
 import News from '@/views/News.vue'
 import Films from '@/views/Films.vue'

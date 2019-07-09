@@ -9,11 +9,12 @@ public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
-    private long id;
+    private Long id;
 
     @Column(name = "Name")
     private String name;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "limitAge")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "genre")
     private List<Film> films;
+
     public Genre(){}
 }
