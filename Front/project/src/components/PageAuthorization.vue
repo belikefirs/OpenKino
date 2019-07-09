@@ -8,7 +8,7 @@
             </div>
             <div class="buttons">
                 <AppButton style="margin: 20px 0px 10px 0;" v-for="item in links" :key="item.link" :url="{name: item.link}">{{item.name}}</AppButton>
-                <a href="#" style="margin: 30px 0px 10px 15px;"><u>Восстановить пароль</u></a>
+                <a href="#" style="margin: 28px 0px 10px 20px;"><u>Восстановить пароль</u></a>
             </div>
         </div>
     </div>
@@ -38,13 +38,14 @@ export default {
         background: #212121
         border-radius: 8px
         opacity: 0.7
+        border: 2px solid white
         .wrapper_window
             padding: 20px
             .title_auto
                 font-size: 27px
                 color: #ffffff   
                 text-align: left
-                letter-spacing: 1px
+                letter-spacing: 2px
                 font-height: 100
             .login_password
                 input
@@ -66,8 +67,8 @@ export default {
                 flex-direction: row
                 justify-content: start
                 a
-                        text-decoration: none
-                        color: white
-                        font-size: 18px
+                    text-decoration: none
+                    color: white
+                    font-size: 18px
 
 </style>
