@@ -20,8 +20,9 @@ export default {
 
 <style lang="sass">
 .wrapper-totop
+    z-index: 400
     position: fixed
-    bottom: 100px
+    bottom: 50px
     right: 50px
     opacity: 0.6
     z-index: 400

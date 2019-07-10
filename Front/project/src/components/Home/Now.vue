@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Slider from '@/components/AppSlider.vue'
+import Slider from '@/components/Slider/AppSlider.vue'
 import WrapperCent from '@/components/AppWrapperCenter.vue'
 export default {
 	components: {
@@ -22,6 +22,7 @@ export default {
 					filmTitle: "Алладин",
 					filmStyle: "Приключения",
 					filmType: "2D",
+					limitAge: 6,
 				},
 				{ 
 					image: "https://images.kinomax.ru/films/4/4470/560x302/p_44491c7.jpg",
@@ -29,6 +30,7 @@ export default {
 					filmTitle: "Битва за Землю",
 					filmStyle: "Фантастика, Экшн",
 					filmType: "2D",
+					limitAge: 16,
 				},
 				{ 
 					image: "https://images.kinomax.ru/films/4/4479/560x302/p_53834f0.jpg",
@@ -36,6 +38,7 @@ export default {
 					filmTitle: "План побега 3",
 					filmStyle: "Экшн, Триллер",
 					filmType: "2D",
+					limitAge: 18,
 				},
 				{ 
 					image: "https://images.kinomax.ru/films/4/4477/560x302/p_8157f91.jpg",
@@ -43,6 +46,7 @@ export default {
 					filmTitle: "Человек-паук: Вдали от дома",
 					filmStyle: "Приключения, Экшн",
 					filmType: "2D, 3D",
+					limitAge: 12,
 				},
 				{ 
 					image: "https://images.kinomax.ru/films/4/4456/560x302/p_b351c28.jpg",
@@ -50,6 +54,7 @@ export default {
 					filmTitle: "История игрушек 4",
 					filmStyle: "Анимация, Приключения",
 					filmType: "2D",
+					limitAge: 6,
 				},
 				{ 
 					image: "https://images.kinomax.ru/films/4/4474/560x302/p_9e4a973.jpg",
@@ -57,6 +62,7 @@ export default {
 					filmTitle: "Собачья жизнь 2",
 					filmStyle: "Семейный",
 					filmType: "2D",
+					limitAge: 6,
 				},
 				{ 
 					image: "https://images.kinomax.ru/films/4/4469/560x302/p_da43f15.jpg",
@@ -64,6 +70,7 @@ export default {
 					filmTitle: "Проклятье Аннабель 3",
 					filmStyle: "Ужасы",
 					filmType: "2D",
+					limitAge: 18,
 				},
 				
 			]

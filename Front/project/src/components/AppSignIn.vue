@@ -1,7 +1,6 @@
 <template>
     <div class="wrapper-auto">
         <div class="wrapper_window">
-            <p class="title_auto">Вход</p>
             <div class="login_password">
                 <input type="email" placeholder="E-mail">
                 <input type="password" placeholder="Пароль">
@@ -44,14 +43,6 @@ export default {
     opacity: 0.7
     border: 1px solid white
     .wrapper_window
-        padding: 20px
-        .title_auto
-            font-size: 27px
-            font-weight: 100
-            color: #ffffff   
-            text-align: left
-            letter-spacing: 2px
-            font-height: 100
         .login_password
             input
                 border-radius: 2px
