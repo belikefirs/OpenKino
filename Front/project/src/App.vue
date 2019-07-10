@@ -31,7 +31,7 @@ import BackToTop from '@/components/AppButtonToTop.vue'
 
 export default {
 	components: {
-		Header, Footer, PageAuthorization, Home, News, Films, About, Module, BackToTop
+		Header, Footer, Home, News, Films, About, Module, BackToTop, AppSignIn
 	},
 
 	data() {

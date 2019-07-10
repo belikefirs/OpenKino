@@ -9,6 +9,7 @@
             <div class="buttons">
                 <AppButton style="margin: 20px 0px 10px 0;" v-for="item in links" :key="item.link" :url="{name: item.link}">{{item.name}}</AppButton>
                 <a href="#" style="margin: 28px 0px 10px 20px;"><u>Восстановить пароль</u></a>
+                <AppButtonSignIn style="margin: 18px 0px 10px 25px;" v-for="item in links_2" :key="item.link" :url="{name: item.link}">{{item.name}}</AppButtonSignIn>
             </div>
         </div>
     </div>
@@ -16,14 +17,18 @@
 
 <script>
 import AppButton from '@/components/AppButton.vue'
+import AppButtonSignIn from '@/components/AppButtonAuthorization.vue'
 export default {
 	components: {
-		AppButton
+		AppButton, AppButtonSignIn
 	},
 	data () {
 		return {
 			links: [
-                {name: 'Войти', link: '#'},
+                {name: 'Войти', link: '#'}
+            ],
+            links_2: [
+                {name: 'Регистрация', link: '#'}
 			],
 		}
 	}
@@ -37,7 +42,7 @@ export default {
     background: #212121
     border-radius: 8px
     opacity: 0.7
-    border: 2px solid white
+    border: 1px solid white
     .wrapper_window
         padding: 20px
         .title_auto
