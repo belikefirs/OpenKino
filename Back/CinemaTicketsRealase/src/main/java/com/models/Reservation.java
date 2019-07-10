@@ -22,6 +22,13 @@ public class Reservation {
     @JoinColumn(name = "ID_USERKINO", nullable = false)
     private KinoUser kinoUser;
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "ID_DISCOUNT", nullable = false)
+    private Discount discount;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "reservation")
+    private List<Place> places;
+
 
 
 
