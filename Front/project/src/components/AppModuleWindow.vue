@@ -1,5 +1,6 @@
 <template>
-    <div class="wrapper_module_window" v-on:click="changeBlur">
+    <div class="wrapper_module_window">
+        <div class="backgroundMask" @click="changeBlur"></div>
         <div class="container" :style="{width: width + 'px', height: height + 'px'}">
             <slot></slot>
         </div>
@@ -37,6 +38,12 @@ export default {
     left: 0;
     height: 100vh;
     width: 100vw;
+    background: rgba(31,31,31,0.5);
+}
+.backgroundMask{
+    position: absolute;
+    height: 100%;
+    width: 100%;
     background: rgba(31,31,31,0.5);
 }
 .container{
