@@ -4,10 +4,10 @@
 		<Module v-if="blurFlag" style="z-index: 200" :width="500" :height="270" @showBlur="blurFlag = false">
 			<AppSignIn></AppSignIn>
 		</Module>	
-		
+		<!--<Registration/> -->
 		<div class="wrapper-page">
 			<Header :offsetTop="offsetTop" @showBlur="blurFlag = true"></Header>
-			<BackToTop @goTop="goTop"></BackToTop>
+			<BackToTop v-if="offsetTop > 300" @goTop="goTop"></BackToTop>
 			<div id="page">
 				<router-view/>
 			</div>
@@ -28,10 +28,11 @@ import Films from '@/views/Films.vue'
 import About from '@/views/About.vue'
 import Module from '@/components/AppModuleWindow.vue'
 import BackToTop from '@/components/AppButtonToTop.vue'
+import Registration from '@/components/AppRegistration.vue'
 
 export default {
 	components: {
-		Header, Footer, Home, News, Films, About, Module, BackToTop, AppSignIn
+		Header, Footer, Home, News, Films, About, Module, BackToTop, AppSignIn, Registration
 	},
 
 	data() {
@@ -62,6 +63,11 @@ export default {
 	// created () {
 	// 	this.$store.dispatch('fetchGetNews')
 	// }
+	mounted () {
+		this.$store.dispatch('TEXT')
+		.then(hall => {console.log('APP', hall.data)})
+		.catch()
+	}
 }
 </script>
 

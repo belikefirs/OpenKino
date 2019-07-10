@@ -24,6 +24,7 @@ export default {
     bottom: 100px
     right: 50px
     opacity: 0.6
+    z-index: 400
     &:hover
         border-radius: 50%
         background: rgb(white, 0.9)
