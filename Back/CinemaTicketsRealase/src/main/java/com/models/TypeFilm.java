@@ -15,5 +15,6 @@ public class TypeFilm {
     private String name;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "limitAge")
     private List<Film> films;
+
     public TypeFilm(){}
 }
