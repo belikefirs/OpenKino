@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper-totop" @click="$emit('goTop')">
-        <a v-for="item in imagetotop" :key="item" href="#"><img :src="item" width="110px" height="105px" alt=""></a>
+        <a v-for="item in imagetotop" :key="item" href="#"><img :src="item" width="50px" height="45px" alt=""></a>
     </div>
 </template>
 

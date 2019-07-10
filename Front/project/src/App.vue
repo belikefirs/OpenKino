@@ -49,6 +49,7 @@ export default {
 			const scroll = window.pageYOffset || document.documentElement.scrollTop;
 			scroll = 0
 			this.offsetTop = scroll;
+
 		}
 	},
 
