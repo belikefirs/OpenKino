@@ -10,6 +10,7 @@
             :filmTitle="item.filmTitle"
             :filmStyle="item.filmStyle"
             :filmType="item.filmType"
+            :limitAge="item.limitAge"
             />
         </transition-group>
         <div class="next" v-on:click="nextClick">
@@ -108,9 +109,9 @@ export default {
         z-index: 1
         position: absolute
         top: calc(50% - 15px)
-        width: 30px
-        height: 30px
-        border-radius: 15px
+        width: 50px
+        height: 50px
+        border-radius: 50px
         background: #ff0000
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
         cursor: pointer
@@ -125,9 +126,10 @@ export default {
                 content: ""
                 position: absolute
                 transform-origin: right
-                width: 10px
+                width: 15px
                 height: 1px
-                background: white
+                background: #fff
+                box-shadow: 0px 4px 4px black
             &::before
                 transform: rotate(30deg)
             &::after
