@@ -2,14 +2,16 @@
 <!-- style="filter: blur(30px);" -->
 	<div id="app" v-scroll="onScroll">
 		<Module v-if="blurFlag" style="z-index: 200" :width="500" :height="270" @showBlur="blurFlag = false">
-			<PageAuthorization></PageAuthorization>
+			<AppSignIn></AppSignIn>
 		</Module>	
 		
 		<div class="wrapper-page">
 			<Header :offsetTop="offsetTop" @showBlur="blurFlag = true"></Header>
+			<BackToTop @goTop="goTop"></BackToTop>
 			<div id="page">
 				<router-view/>
 			</div>
+			
 			<Footer></Footer>
 		</div>
 		
@@ -19,16 +21,17 @@
 <script>
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
-import PageAuthorization from '@/components/PageAuthorization.vue'
+import AppSignIn from '@/components/AppSignIn.vue'
 import Home from '@/views/Home.vue'
 import News from '@/views/News.vue'
 import Films from '@/views/Films.vue'
 import About from '@/views/About.vue'
 import Module from '@/components/AppModuleWindow.vue'
+import BackToTop from '@/components/AppButtonToTop.vue'
 
 export default {
 	components: {
-		Header, Footer, PageAuthorization, Home, News, Films, About, Module
+		Header, Footer, Home, News, Films, About, Module, BackToTop, AppSignIn
 	},
 
 	data() {
@@ -41,6 +44,12 @@ export default {
 	methods: {
 		onScroll (e) {
 			this.offsetTop = window.pageYOffset || document.documentElement.scrollTop;
+		},
+		goTop () {
+			const scroll = window.pageYOffset || document.documentElement.scrollTop;
+			scroll = 0
+			this.offsetTop = scroll;
+
 		}
 	},
 
@@ -84,6 +93,6 @@ export default {
 
 <style>
 	.blur{
-		filter: blur(5px)
+		filter: blur(15px)
 	}
 </style>

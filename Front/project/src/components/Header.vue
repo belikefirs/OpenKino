@@ -63,7 +63,7 @@ export default {
 		},
 		bg() {
 			return "rgba(31, 31, 31, " + this.bgOpacity + ")";
-		},
+		}
 	}
 }
 </script>

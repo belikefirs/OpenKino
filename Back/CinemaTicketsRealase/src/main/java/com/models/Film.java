@@ -10,11 +10,11 @@ public class Film {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
-    private long id;
+    private Long id;
     @Column(name = "Name")
     private String name;
     @Column(name = "Lenght")
-    private long lenght;
+    private Long lenght;
     @ManyToOne
     @JoinColumn(name = "ID_LIMIT_AGE", unique = true, nullable = false, updatable = false)
     private LimitAge limitAge;
@@ -27,7 +27,8 @@ public class Film {
     @ManyToOne
     @JoinColumn(name = "ID_GENRE", unique = true, nullable = false, updatable = false)
     private Genre genre;
-    @ManyToOne
-    @JoinColumn(name = "ID_SESSION", unique = true, nullable = false, updatable = false)
-    private Session session;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "film")
+    private List<Session> sessions;
+
+    public Film (){}
 }
