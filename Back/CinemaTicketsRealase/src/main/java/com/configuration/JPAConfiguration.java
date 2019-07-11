@@ -25,14 +25,14 @@ public class JPAConfiguration {
     @Bean
     public DataSource dataSource(){
         JdbcDataSource jdbcDataSource = new JdbcDataSource();
-        jdbcDataSource.setURL("jdbc:h2:C:\\Users\\user\\Documents\\GitHub\\OpenKino\\OpenKino_DB");
+        jdbcDataSource.setURL("jdbc:h2:C:\\Users\\Acer-PC\\Documents\\GitHub\\OpenKino\\OpenKino_DB");
         jdbcDataSource.setUser("admin");
         jdbcDataSource.setPassword("admin");
         return jdbcDataSource;
     }
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
-
+        System.out.println("--------------------------");
         HashMap<String, String > hibernatePropertys = new HashMap<>();
         hibernatePropertys.put("hibernate.hbm2ddl.auto","update");
         hibernatePropertys.put("hibernate.connection.driver_class","org.h2.Driver");

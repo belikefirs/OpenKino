@@ -1,9 +1,7 @@
 package com.controller;
-
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +20,7 @@ private List<HashData> list;
         }
         return list;
     }
+
     @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
     static class HashData{
         private String name;
@@ -30,7 +29,6 @@ private List<HashData> list;
             this.id = id;
             this.name = name;
         }
-
     }
 
 }
