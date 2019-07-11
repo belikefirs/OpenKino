@@ -1,8 +1,12 @@
 <template>
     <div class="wrapper_module_window">
         <div class="backgroundMask" @click="changeBlur"></div>
-        <div class="container" :style="{width: width + 'px', height: height + 'px'}">
-            <slot></slot>
+        <div class="container"> 
+            <!-- :style="{width: width + 'px', height: height + 'px'}" -->
+            <p class="Title">
+                <slot name="title"></slot>
+            </p>
+            <slot name="content"></slot>
         </div>
     </div>
 </template>
@@ -50,5 +54,14 @@ export default {
     background: #212121;
     border-radius: 8px;
     margin: 100px auto 0;
+}
+.Title{
+    padding: 20px;
+    font-size: 27px;
+    font-weight: 100;
+    color: #ffffff;   
+    text-align: left;
+    letter-spacing: 2px;
+    font-weight: 100;
 }
 </style>

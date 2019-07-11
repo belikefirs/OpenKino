@@ -2,12 +2,15 @@
 <!-- style="filter: blur(30px);" -->
 	<div id="app" v-scroll="onScroll">
 		<Module v-if="blurFlag" style="z-index: 200" :width="500" :height="270" @showBlur="blurFlag = false">
-			<AppSignIn></AppSignIn>
+			<template v-slot:title>Вход</template>
+			<template v-slot:content>
+				<AppSignIn></AppSignIn>
+			</template>
 		</Module>	
 		
 		<div class="wrapper-page">
 			<Header :offsetTop="offsetTop" @showBlur="blurFlag = true"></Header>
-			<BackToTop @goTop="goTop"></BackToTop>
+			<BackToTop v-if="offsetTop > 400" @goTop="goTop"></BackToTop>
 			<div id="page">
 				<router-view/>
 			</div>
@@ -26,12 +29,12 @@ import Home from '@/views/Home.vue'
 import News from '@/views/News.vue'
 import Films from '@/views/Films.vue'
 import About from '@/views/About.vue'
-import Module from '@/components/AppModuleWindow.vue'
+import Modal from '@/components/AppModalWindow.vue'
 import BackToTop from '@/components/AppButtonToTop.vue'
 
 export default {
 	components: {
-		Header, Footer, Home, News, Films, About, Module, BackToTop, AppSignIn
+		Header, Footer, Home, News, Films, About, Modal, BackToTop, AppSignIn
 	},
 
 	data() {
@@ -54,7 +57,6 @@ export default {
 	},
 
 	computed: {
-
 		// news () {
 		// 	return this.$store.state.news;
 		// },
