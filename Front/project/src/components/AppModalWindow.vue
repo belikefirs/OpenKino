@@ -6,8 +6,15 @@
             <p class="Title">
                 <slot name="title"></slot>
             </p>
-            <slot name="content"></slot>
-            <slot name="buttons"></slot>        
+            <div class="wrapper-content">
+                <slot name="content"></slot>
+            </div>
+            <div class="wrapper-buttons">
+                <slot name="buttons"
+
+                ></slot>  
+            </div>
+                  
         </div>
     </div>
 </template>
@@ -71,4 +78,16 @@ export default {
     letter-spacing: 1px;
     font-weight: 100;
 }
+.wrapper-buttons {
+    margin-left: 20px
+
+}
+</style>
+<style lang="sass" scoped>
+.wrapper-buttons
+    a
+        text-decoration: none
+        color: white
+        font-size: 18px
+        font-weight: 100
 </style>

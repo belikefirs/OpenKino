@@ -21,15 +21,15 @@
                 <p>{{n}}</p>
             </div>
         </div>
-        <toBookButton class="toBookButton" v-on:click.native="setNotFree()">Забронировать билет</toBookButton>
+        <AppButton style="margin: 0 0 0 30px" class="toBookButton" v-on:click.native="setNotFree()">Забронировать билет</AppButton>
     </div>    
 </template>
 
 <script>
-import toBookButton from '@/components/AppButtonAuthorization.vue'
+import AppButton from '@/components/AppButton.vue'
 export default {
     components:{
-        toBookButton
+        AppButton
     },
     data () {
         return {

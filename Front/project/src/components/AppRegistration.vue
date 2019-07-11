@@ -3,29 +3,30 @@
         <div class="wrapper_window">
             <p class="title_auto">Регистрация</p>
             <div class="login_password" style="margin: 30px 0 0 0">
-                <input type="name" placeholder="Имя">
                 <input type="surname" placeholder="Фамилия">
+                <input type="name" placeholder="Имя">
+                <input type="age" placeholder="Возраст">
                 <input type="email" placeholder="E-mail">
+                <input type="phone" placeholder="Номер телефона">
                 <input type="password" placeholder="Пароль">
-                <input type="password" placeholder="Повторите пароль">
             </div>
             <div class="buttons">
-                <AppButtonSignIn style="margin: 18px 0px 10px 25px;" v-for="item in links" :key="item.link" :url="{name: item.link}">{{item.name}}</AppButtonSignIn>
+                <AppButton  class="button-registration" style="margin: 18px 0px 10px 0;" v-for="item in links" :key="item.link" :url="{name: item.link}">{{item.name}}</AppButton>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import AppButtonSignIn from '@/components/AppButtonAuthorization.vue'
+import AppButton from '@/components/AppButton.vue'
 export default {
     components: {
-        AppButtonSignIn
+        AppButton
     },
     data() {
         return {
             links: [
-                {name: 'Регистрация', link: ''}
+                {name: 'Регистрация', link: '#'}
             ]
         }
     }
@@ -34,8 +35,9 @@ export default {
 
 <style lang="sass">
 .wrapper-registra
+    z-index: 1000
     width: 400px
-    height: 450px
+    height: 100%
     background: linear-gradient(to top left, #d1d1d1, #212121)
     border-radius: 8px
     opacity: 0.8
@@ -66,5 +68,5 @@ export default {
         .buttons
             display: flex
             flex-direction: row
-            justify-content: center
+            justify-content: start
 </style>

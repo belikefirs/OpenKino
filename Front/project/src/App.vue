@@ -6,16 +6,24 @@
 			<template v-slot:content>
 				<AppSignIn></AppSignIn>
 			</template>
-		</Modal>	
-		
+			<template v-slot:buttons>
+				<AppButton style="margin: 20px 0px 10px 0;" >Войти</AppButton>
+                <a href="#" style="margin: 28px 0px 10px 20px;"><u>Восстановить пароль</u></a>
+				<AppButton class="button-registration"  style="margin: 18px 0px 10px 25px;" @click="$emit('changeReg')">Регистрация</AppButton>
+			</template>
+			<Registration></Registration>
+		</Modal>
+
 		<div class="wrapper-page">
 			<Header :offsetTop="offsetTop" @showBlur="blurFlag = true"></Header>
 			<BackToTop v-if="offsetTop > 400" @goTop="goTop"></BackToTop>
+			
 			<div id="page">
 				<router-view/>
 			</div>
 			
 			<Footer></Footer>
+
 		</div>
 		
 	</div>
@@ -32,16 +40,18 @@ import About from '@/views/About.vue'
 import Modal from '@/components/AppModalWindow.vue'
 import BackToTop from '@/components/AppButtonToTop.vue'
 import Registration from '@/components/AppRegistration.vue'
+import AppButton from '@/components/AppButton.vue'
 
 export default {
 	components: {
-		Header, Footer, Home, News, Films, About, Modal, BackToTop, AppSignIn
+		Header, Footer, Home, News, Films, About, Modal, BackToTop, AppSignIn, AppButton, Registration
 	},
 
 	data() {
 		return {
 			offsetTop: 0,
-			blurFlag: false
+			blurFlag: false,
+			RegFlag: true
 		}
 	},
 
@@ -53,7 +63,9 @@ export default {
 			const scroll = window.pageYOffset || document.documentElement.scrollTop;
 			scroll = 0
 			this.offsetTop = scroll;
-
+		},
+		changeReg () {
+			this.RegFlag = true;
 		}
 	},
 
