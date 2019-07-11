@@ -1,12 +1,12 @@
 <template>
 <!-- style="filter: blur(30px);" -->
 	<div id="app" v-scroll="onScroll">
-		<Module v-if="blurFlag" style="z-index: 200" :width="500" :height="270" @showBlur="blurFlag = false">
+		<Modal v-if="blurFlag" style="z-index: 200" :width="500" :height="270" @showBlur="blurFlag = false">
 			<template v-slot:title>Вход</template>
 			<template v-slot:content>
 				<AppSignIn></AppSignIn>
 			</template>
-		</Module>	
+		</Modal>	
 		
 		<div class="wrapper-page">
 			<Header :offsetTop="offsetTop" @showBlur="blurFlag = true"></Header>
