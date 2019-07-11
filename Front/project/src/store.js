@@ -43,15 +43,15 @@ export default new Vuex.Store({
   },
   actions: {
     TEXT (context, payload)  {
-      return AXIOS.get('/')
-      // return new Promise(resolve => {
-      // 	context.commit('setHall', hall)
-      // 	console.log('payload', payload)
-      // 	resolve(hall)
+      //return AXIOS.get('/')
+      return new Promise(resolve => {
+      	context.commit('setHall', hall)
+      	console.log('payload', payload)
+      	resolve(hall)
 
-      // }, reject => {
+      }, reject => {
 
-      // });
+      });
     }
   }
 });
