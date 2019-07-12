@@ -8,9 +8,12 @@ import java.util.List;
 @RestController
 public class HelloController {
 
+
+
     private static String[] LISTFILMS = {"Мстители", "Железный человек", "Миссия невыполнима",
 "Марсианин", "Интерстеллар", "Принц Персии"};
 private List<HashData> list;
+
     @GetMapping("/hello")
     public List<HashData> getHello(){
         list = new ArrayList<>(6);
@@ -30,5 +33,9 @@ private List<HashData> list;
             this.name = name;
         }
     }
+
+
+
+
 
 }

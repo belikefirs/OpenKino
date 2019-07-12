@@ -1,12 +1,12 @@
 <template>
 <!-- style="filter: blur(30px);" -->
 	<div id="app" v-scroll="onScroll">
-		<Module v-if="blurFlag" style="z-index: 200" :width="500" :height="270" @showBlur="blurFlag = false">
+		<Modal v-if="blurFlag" style="z-index: 200" :width="500" :height="270" @showBlur="blurFlag = false">
 			<template v-slot:title>Вход</template>
 			<template v-slot:content>
 				<AppSignIn></AppSignIn>
 			</template>
-		</Module>	
+		</Modal>	
 		
 		<div class="wrapper-page">
 			<Header :offsetTop="offsetTop" @showBlur="blurFlag = true"></Header>
@@ -31,6 +31,7 @@ import Films from '@/views/Films.vue'
 import About from '@/views/About.vue'
 import Modal from '@/components/AppModalWindow.vue'
 import BackToTop from '@/components/AppButtonToTop.vue'
+import Registration from '@/components/AppRegistration.vue'
 
 export default {
 	components: {
@@ -64,6 +65,11 @@ export default {
 	// created () {
 	// 	this.$store.dispatch('fetchGetNews')
 	// }
+	mounted () {
+		this.$store.dispatch('TEXT')
+		.then(hall => {console.log('APP', hall.data)})
+		.catch()
+	}
 }
 </script>
 

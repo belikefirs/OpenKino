@@ -1,6 +1,7 @@
 <template>
     <div class="wrapper-home">
         <Modal>
+            <template v-slot:title>Бронирование билетов</template>
             <template v-slot:content>               
                 <AppCinema></AppCinema>
             </template>
@@ -19,6 +20,6 @@ export default {
 }
 </script>
 
-<style lang="sass">
-        
+<style scoped>
+
 </style>

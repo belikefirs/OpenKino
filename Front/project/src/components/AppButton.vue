@@ -2,8 +2,10 @@
     <div class="wrapper-button">
         <router-link v-if="url" :to="url" class="text">
             <p><slot></slot></p>
-            </router-link>
-        <div v-else><slot></slot></div>
+        </router-link>
+        <div v-else>
+            <p><slot></slot></p>
+        </div>
     </div>
 </template>
 
@@ -21,13 +23,14 @@ export default {
 .wrapper-button
     text-align: center
     line-height: 35px
-    width: 121px
+    min-width: 121px
     height: 35px
     border: 1px solid white
     border-radius: 15px
     text-decoration: none
     user-select: none
     transition: background 0.5s
+    cursor: pointer
     &:hover
         background: rgba(white, 0.3)
     .text
