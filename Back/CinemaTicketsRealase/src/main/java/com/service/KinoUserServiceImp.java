@@ -10,4 +10,5 @@ public class KinoUserServiceImp implements  KinoUserService {
     public Long save(KinoUser kinoUser) {
         return kinoUserService.save(kinoUser);
     }
+
 }
