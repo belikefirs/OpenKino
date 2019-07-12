@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "IDENTIFICATION")
 public class Identification {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
 
     @Column(name = "LOGIN")
@@ -15,9 +15,40 @@ public class Identification {
     @Column(name = "PASSWORD")
     private String password;
 
-    @OneToOne(optional = false,mappedBy = "identification")
+    @OneToOne(mappedBy = "identification")
     private KinoUser kinoUser;
 
     public Identification(){}
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public KinoUser getKinoUser() {
+        return kinoUser;
+    }
+
+    public void setKinoUser(KinoUser kinoUser) {
+        this.kinoUser = kinoUser;
+    }
 }

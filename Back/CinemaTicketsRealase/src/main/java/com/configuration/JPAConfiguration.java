@@ -2,6 +2,7 @@ package com.configuration;
 
 import org.h2.jdbcx.JdbcDataSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -19,21 +20,21 @@ import java.util.HashMap;
 @Configuration
 @EnableJpaRepositories(basePackages = "com")
 @EnableTransactionManagement
+@ComponentScan("com")
 public class JPAConfiguration {
     @Bean
     public DataSource dataSource(){
         JdbcDataSource jdbcDataSource = new JdbcDataSource();
-        jdbcDataSource.setURL("jdbc:h2:C:\\OpenKino\\OpenKino_DB");
+        jdbcDataSource.setURL("jdbc:h2:C:\\Users\\user\\Documents\\GitHub\\OpenKino\\OpenKino_db");
         jdbcDataSource.setUser("admin");
         jdbcDataSource.setPassword("admin");
-
         return jdbcDataSource;
     }
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
-
+        System.out.println("___________________________________________");
         HashMap<String, String > hibernatePropertys = new HashMap<>();
-        hibernatePropertys.put("hibernate.hbm2ddl.auto","update");
+        hibernatePropertys.put("hibernate.hbm2ddl.auto","create-drop");
         hibernatePropertys.put("hibernate.connection.driver_class","org.h2.Driver");
         hibernatePropertys.put("hibernate.dialect","org.hibernate.dialect.H2Dialect");
         hibernatePropertys.put("hibernate.show_sql","true");
@@ -41,9 +42,7 @@ public class JPAConfiguration {
         hibernatePropertys.put("hibernate.connection.charSet","UTF-8");
         hibernatePropertys.put("hibernate.format_sql","true");
         hibernatePropertys.put("hibernate.use_sql_comments","true");
-
         HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
-
         adapter.setGenerateDdl(true);
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(adapter);

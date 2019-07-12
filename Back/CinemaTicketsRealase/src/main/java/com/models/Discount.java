@@ -8,8 +8,7 @@ import java.util.List;
 public class Discount {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column (name="ID")
+    @GeneratedValue
     private Long id;
 
     @Column(name = "NAME")
