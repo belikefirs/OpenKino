@@ -1,7 +1,5 @@
 package com.models;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -28,12 +26,11 @@ public class    KinoUser {
     @Column(name = "MAIL")
     private String mail;
 
+    @Column(name = "PASSWORD")
+    private String password;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "kinoUser")
     private List<Card> cards;
-
-    @OneToOne()
-    @JoinColumn(name="ID_IDENTIFICATION")
-    private Identification identification;
 
     @ManyToOne
     @JoinColumn(name = "ID_POSITION")
@@ -89,20 +86,20 @@ public class    KinoUser {
         this.mail = mail;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public List<Card> getCards() {
         return cards;
     }
 
     public void setCards(List<Card> cards) {
         this.cards = cards;
-    }
-
-    public Identification getIdentification() {
-        return identification;
-    }
-
-    public void setIdentification(Identification identification) {
-        this.identification = identification;
     }
 
     public Position getPosition() {
