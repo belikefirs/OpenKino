@@ -15,16 +15,16 @@ public class Film {
     @Column(name = "Lenght")
     private Long lenght;
     @ManyToOne
-    @JoinColumn(name = "ID_LIMIT_AGE", unique = true, nullable = false, updatable = false)
+    @JoinColumn(name = "ID_LIMIT_AGE")
     private LimitAge limitAge;
     @ManyToOne
-    @JoinColumn(name = "ID_RATING", unique = true, nullable = false, updatable = false)
+    @JoinColumn(name = "ID_RATING")
     private Rating rating;
     @ManyToOne
-    @JoinColumn(name = "ID_TYPE_FILM", unique = true, nullable = false, updatable = false)
+    @JoinColumn(name = "ID_TYPE_FILM")
     private TypeFilm typeFilm;
     @ManyToOne
-    @JoinColumn(name = "ID_GENRE", unique = true, nullable = false, updatable = false)
+    @JoinColumn(name = "ID_GENRE")
     private Genre genre;
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "film")
     private List<Session> sessions;

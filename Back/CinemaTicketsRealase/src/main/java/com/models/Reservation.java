@@ -19,16 +19,19 @@ public class Reservation {
     private Date end;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "ID_USERKINO", nullable = false)
+    @JoinColumn(name = "ID_USERKINO")
     private KinoUser kinoUser;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "ID_DISCOUNT", nullable = false)
+    @JoinColumn(name = "ID_DISCOUNT")
     private Discount discount;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "reservation")
     private List<Place> places;
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "ID_BUY")
+    private Buy buy;
 
 
 

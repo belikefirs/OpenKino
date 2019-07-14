@@ -52,7 +52,7 @@ export default {
                 this.$el.style.minHeight = '100vh';
                 setTimeout(() => {
                          this.$el.style.minHeight = '';
-                }, 1010);
+                }, 1100);
             }
         }
     },
@@ -115,19 +115,19 @@ export default {
 
 .trSwitch-left-enter{
     transform: translateX(-100%);
-    /* opacity: 0; */
+    opacity: 0;
 }
 .trSwitch-left-leave-to{
     transform: translateX(100%);
-    /* opacity: 0; */
+    opacity: 0;
 }
 .trSwitch-right-enter{
     transform: translateX(100%);
-    /* opacity: 0; */
+    opacity: 0;
 }
 .trSwitch-right-leave-to{
     transform: translateX(-100%);
-    /* opacity: 0; */
+    opacity: 0;
 }
 
 .trSwitch-left-enter-active, .trSwitch-left-leave-active, .trSwitch-right-enter-active, .trSwitch-right-leave-active{
