@@ -1,29 +1,34 @@
 <template>
-    <div class="wrapper_module_window" @click.self="changeBlur">
-        <div class="container" :style="{'border-radius' : title ? '8px' : '0'}"> 
-            <p class="Title" v-if="title">
-                {{title}}
-            </p>
-            <div class="wrapper-content">
-                <slot name="content"></slot>
+    <transition name="trShow">
+        <div class="wrapper_module_window" v-if="show" @click.self="changeBlur">
+            <div v-if="show" class="container" :style="{'border-radius' : title ? '8px' : '0'}"> 
+                <p class="title" v-if="title">{{title}}</p>
+                <div class="wrapper-content">
+                    <slot name="content"></slot>
+                </div>
+                <div class="wrapper-buttons">
+                    <slot name="buttons"></slot>  
+                </div>
             </div>
-            <div class="wrapper-buttons">
-                <slot name="buttons"></slot>  
-            </div>
-                  
         </div>
-    </div>
+    </transition>
 </template>
 
 <script>
 export default {
     props:{
         title: String,
+        show: {
+            type: Boolean,
+            required: true,
+        },
         width: {
             type: Number,
+            required: false,
         },
         height: {
             type: Number,
+            required: false,
         },
     },
     methods:{
@@ -41,7 +46,7 @@ export default {
 <style scoped>
 .wrapper_module_window {
     z-index: 200;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
@@ -56,8 +61,9 @@ export default {
     /* z-index: 201; */
     background: #111;
     margin: 100px auto 0;
+    transition: all 1s;
 }
-.Title{
+.title{
     padding: 20px;
     font-size: 27px;
     font-weight: 100;
@@ -68,9 +74,20 @@ export default {
 }
 .wrapper-buttons {
     margin-left: 20px
+}
 
+.trShow-enter, .trShow-leave-to {
+    opacity: 0;
+    transform: translateY(-1000px);
+}
+.trShow-enter-active, .trShow-leave-active {
+    transition: all .5s;
+}
+.trShow-move{
+    transition: all 1s;
 }
 </style>
+
 <style lang="sass" scoped>
 .wrapper-buttons
     a

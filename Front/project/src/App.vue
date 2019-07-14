@@ -1,6 +1,6 @@
 <template>
 	<div id="app" v-scroll="onScroll">
-		<Modal v-if="blurFlag" style="z-index: 200" @showBlur="blurFlag = false">
+		<Modal style="z-index: 200" :show="blurFlag" @showBlur="blurFlag = false">
 			<template v-slot:content>
 				<AppLogReg></AppLogReg>
 			</template>
