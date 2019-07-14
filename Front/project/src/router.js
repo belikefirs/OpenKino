@@ -26,6 +26,12 @@ export default new Router({
 			name: 'about',
 			component: () => import('./views/About.vue')
 		},
+		{
+			path: '/film/add',
+			name: 'addFilm',
+			component: () => import('./views/PageFilmAdd.vue')
+		},
+
 		
 	],
 });
