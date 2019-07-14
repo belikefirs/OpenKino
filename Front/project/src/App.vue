@@ -1,17 +1,20 @@
 <template>
 <!-- style="filter: blur(30px);" -->
 	<div id="app" v-scroll="onScroll">
+		
 		<Modal v-if="blurFlag" style="z-index: 200" :width="500" :height="270" @showBlur="blurFlag = false">
+			
 			<template v-slot:title>Вход</template>
 			<template v-slot:content>
 				<AppSignIn></AppSignIn>
 			</template>
 			<template v-slot:buttons>
-				<AppButton style="margin: 20px 0px 10px 0;" >Войти</AppButton>
+				<Registration v-if="RegFlag" @changeReg="changeReg"></Registration>
+				<!--<AppButton style="margin: 20px 0px 10px 0;" >Войти</AppButton>
                 <a href="#" style="margin: 28px 0px 10px 20px;"><u>Восстановить пароль</u></a>
-				<AppButton class="button-registration"  style="margin: 18px 0px 10px 25px;" @click="$emit('changeReg')">Регистрация</AppButton>
+				<AppButton @click="changeReg" class="button-registration" style="margin: 18px 0px 10px 25px;" >Регистрация</AppButton> -->
 			</template>
-			<Registration></Registration>
+			
 		</Modal>
 
 		<div class="wrapper-page">
@@ -51,7 +54,7 @@ export default {
 		return {
 			offsetTop: 0,
 			blurFlag: false,
-			RegFlag: true
+			RegFlag: false
 		}
 	},
 

@@ -10,7 +10,7 @@
                 <input type="phone" placeholder="Номер телефона">
                 <input type="password" placeholder="Пароль">
             </div>
-            <div class="buttons">
+            <div class="button">
                 <AppButton  class="button-registration" style="margin: 18px 0px 10px 0;" v-for="item in links" :key="item.link" :url="{name: item.link}">{{item.name}}</AppButton>
             </div>
         </div>
@@ -28,6 +28,11 @@ export default {
             links: [
                 {name: 'Регистрация', link: '#'}
             ]
+        }
+    },
+    methods: {
+        changeReg() {
+            alert("fjfjf");
         }
     }
 }
@@ -65,7 +70,7 @@ export default {
                 // letter-spacing: 2px
                 border-radius: 10px
                 outline: none
-        .buttons
+        .button
             display: flex
             flex-direction: row
             justify-content: start

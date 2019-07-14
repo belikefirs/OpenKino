@@ -4,10 +4,10 @@
                 <input type="email" placeholder="E-mail">
                 <input type="password" placeholder="Пароль">
             </div>
-            <div class="buttons">
-                <!-- <AppButton style="margin: 20px 0px 10px 0;" v-for="item in links" :key="item.link" :url="{name: item.link}">{{item.name}}</AppButton>
-                <a href="#" style="margin: 28px 0px 10px 20px;"><u>Восстановить пароль</u></a>
-                <AppButtonSignIn style="margin: 18px 0px 10px 25px;" v-for="item in links_2" :key="item.link" :url="{name: item.link}">{{item.name}}</AppButtonSignIn> -->
+            <div class="buttons" style="margin: 0px 0px 0 20px;">
+                <AppButton class="wrapper-button" style="margin: 14px 0px 15px" v-for="item in links" :key="item.link" :url="{name: item.link}">{{item.name}}</AppButton>
+                <a href="#" style="margin: 14px 8px 15px 15px"><u>Восстановить пароль</u></a>
+                <AppButton @click="$emit('changeReg')" class="button-registration" style="margin: 14px 0px 15px 22px" v-for="item in links2" :key="item.link" :url="{name: item.link}">{{item.name}}</AppButton>
             </div> 
     </div>
 </template>
@@ -22,11 +22,12 @@ export default {
 	data () {
 		return {
 			links: [
-                {name: 'Войти', link: '#'}
+                {name: 'Войти', link: '#'},
+                
             ],
-            links_2: [
-                {name: 'Регистрация', link: '#'}
-			],
+            links2: [
+                {name: 'Регистрация', link: '#'},
+            ]
 		}
 	}
 }
