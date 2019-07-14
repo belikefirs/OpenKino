@@ -64,11 +64,7 @@ export default {
 	computed: {
 
 	},
-	mounted () {
-		this.$store.dispatch('TEXT')
-		.then(hall => {console.log('APP', hall.data)})
-		.catch()
-	}
+
 }
 </script>
 

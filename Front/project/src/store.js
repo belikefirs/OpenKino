@@ -19,11 +19,11 @@ const hall = {
 
 export default new Vuex.Store({
   state: {
-    hall: [],
+    halldata: [],
   },
   mutations: {
     setHall (state, data) {
-      state.hall = data
+      state.halldata = data
     },
   },
   actions: {
