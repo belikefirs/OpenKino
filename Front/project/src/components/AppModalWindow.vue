@@ -1,18 +1,14 @@
 <template>
-    <div class="wrapper_module_window">
-        <div class="backgroundMask" @click="changeBlur"></div>
-        <div class="container"> 
-            <!-- :style="{width: width + 'px', height: height + 'px'}" -->
-            <p class="Title">
-                <slot name="title"></slot>
+    <div class="wrapper_module_window" @click.self="changeBlur">
+        <div class="container" :style="{'border-radius' : title ? '8px' : '0'}"> 
+            <p class="Title" v-if="title">
+                {{title}}
             </p>
             <div class="wrapper-content">
                 <slot name="content"></slot>
             </div>
             <div class="wrapper-buttons">
-                <slot name="buttons"
-
-                ></slot>  
+                <slot name="buttons"></slot>  
             </div>
                   
         </div>
@@ -22,13 +18,12 @@
 <script>
 export default {
     props:{
+        title: String,
         width: {
             type: Number,
-            requared: true
         },
         height: {
             type: Number,
-            requared: true
         },
     },
     methods:{
@@ -37,7 +32,7 @@ export default {
 		}
     },
     computed:{
-        
+
     }
 }
 </script>
@@ -51,22 +46,15 @@ export default {
     left: 0;
     height: 100vh;
     width: 100%;
-    background: rgba(31,31,31,0.5);
     display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.backgroundMask{
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    /* background: linear-gradient(#f43,#34f) */
-    background: rgba(31,31,31,0.5);
+    flex-direction: column;
+    justify-content: top;
+    align-items: top;
+    background: rgba(31,31,31,0.9);
 }
 .container{
-    z-index: 201;
-    background: #212121;
-    border-radius: 8px;
+    /* z-index: 201; */
+    background: #111;
     margin: 100px auto 0;
 }
 .Title{

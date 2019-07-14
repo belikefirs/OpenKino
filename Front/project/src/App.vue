@@ -1,20 +1,9 @@
 <template>
-<!-- style="filter: blur(30px);" -->
 	<div id="app" v-scroll="onScroll">
-		
-		<Modal v-if="blurFlag" style="z-index: 200" :width="500" :height="270" @showBlur="blurFlag = false">
-			
-			<template v-slot:title>Вход</template>
+		<Modal v-if="blurFlag" style="z-index: 200" @showBlur="blurFlag = false">
 			<template v-slot:content>
-				<AppSignIn></AppSignIn>
+				<AppLogReg></AppLogReg>
 			</template>
-			<template v-slot:buttons>
-				<Registration v-if="RegFlag" @changeReg="changeReg"></Registration>
-				<!--<AppButton style="margin: 20px 0px 10px 0;" >Войти</AppButton>
-                <a href="#" style="margin: 28px 0px 10px 20px;"><u>Восстановить пароль</u></a>
-				<AppButton @click="changeReg" class="button-registration" style="margin: 18px 0px 10px 25px;" >Регистрация</AppButton> -->
-			</template>
-			
 		</Modal>
 
 		<div class="wrapper-page">
@@ -35,7 +24,10 @@
 <script>
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
-import AppSignIn from '@/components/AppSignIn.vue'
+
+import AppButton from '@/components/AppButton.vue'
+import AppLogReg from '@/components/AppLogReg.vue'
+
 import Home from '@/views/Home.vue'
 import News from '@/views/News.vue'
 import Films from '@/views/Films.vue'
@@ -43,17 +35,17 @@ import About from '@/views/About.vue'
 import Modal from '@/components/AppModalWindow.vue'
 import BackToTop from '@/components/AppButtonToTop.vue'
 import Registration from '@/components/AppRegistration.vue'
-import AppButton from '@/components/AppButton.vue'
+
 
 export default {
 	components: {
-		Header, Footer, Home, News, Films, About, Modal, BackToTop, AppSignIn, AppButton, Registration
+		Header, Footer, Home, News, Films, About, Modal, BackToTop, AppLogReg, AppButton, Registration
 	},
 
 	data() {
 		return {
 			offsetTop: 0,
-			blurFlag: false,
+			blurFlag: true,
 			RegFlag: false
 		}
 	},
@@ -67,19 +59,11 @@ export default {
 			scroll = 0
 			this.offsetTop = scroll;
 		},
-		changeReg () {
-			this.RegFlag = true;
-		}
 	},
 
 	computed: {
-		// news () {
-		// 	return this.$store.state.news;
-		// },
+
 	},
-	// created () {
-	// 	this.$store.dispatch('fetchGetNews')
-	// }
 	mounted () {
 		this.$store.dispatch('TEXT')
 		.then(hall => {console.log('APP', hall.data)})
@@ -92,7 +76,7 @@ export default {
 *
 	margin: 0
 	padding: 0
-	box-sizing: border-box
+	// box-sizing: border-box
 	overflow: none
 #app
 	display: flex
@@ -112,10 +96,4 @@ export default {
 	margin-top: 200px
 	width: 100%
 	//min-height: 150vh
-</style>
-
-<style>
-	.blur{
-		filter: blur(15px)
-	}
 </style>
