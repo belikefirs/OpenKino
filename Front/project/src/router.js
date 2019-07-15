@@ -14,7 +14,7 @@ export default new Router({
 		{
 			path: '/news',
 			name: 'news',
-			component: () => import('./views/Films.vue')
+			component: () => import('./views/News.vue')
 		},
 		{
 			path: '/films',
@@ -26,6 +26,12 @@ export default new Router({
 			name: 'about',
 			component: () => import('./views/About.vue')
 		},
+		{
+			path: '/film/add',
+			name: 'addFilm',
+			component: () => import('./views/PageFilmAdd.vue')
+		},
+
 		
 	],
 });

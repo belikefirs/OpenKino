@@ -6,9 +6,10 @@
 					<p>Мы находимся</p>
 				</div>
 				<div class="map_our">
-					<iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A6ac60f48d30a3bb5f9c2a48637f5bf13073315e990b2f3eb7c111d92824aba5b&amp;source=constructor" 
+					<Map></Map>
+					<!--<iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A6ac60f48d30a3bb5f9c2a48637f5bf13073315e990b2f3eb7c111d92824aba5b&amp;source=constructor" 
 					width="250" height="131" frameborder="1">
-					</iframe>
+					</iframe> -->
 				</div>
 				<div class="our_info">
 					<p><u>О нас</u><br><br>
@@ -50,10 +51,12 @@ import vk from "./../assets/temp/icons/vk.png"
 import twitter from "./../assets/temp/icons/twitter.png"
 import gp from "./../assets/temp/icons/google-plus.png"
 import instagram from "./../assets/temp/icons/instagram.png"
+import Map from '@/components/AppMap.vue'
+
 
 export default {
 	components: {
-		WrapperCent, AppButton
+		WrapperCent, AppButton, Map
 	},
 	data () {
 		return {
@@ -74,6 +77,11 @@ export default {
 			images: [
 				vk, twitter, gp, instagram
 			]
+		}
+	},
+	methods: {
+		map_cinema(){
+
 		}
 	}
 }

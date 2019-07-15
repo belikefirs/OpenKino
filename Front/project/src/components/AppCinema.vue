@@ -106,6 +106,11 @@ export default {
     },
     computed:{
 
+    },
+    mounted () {
+    this.$store.dispatch('TEXT')
+    .then(hall => {console.log('APP', hall.data)})
+    .catch()
     }
 }
 </script>
@@ -113,7 +118,7 @@ export default {
 <style scoped>
 .wrapper-cinema{
     background: #313166;
-    border-radius: 0 0 8px 9px;
+    border-radius: 0 0 8px 8px;
     padding: 0 0 15px;
 }
 .wrapper-cinema .screen{
@@ -162,6 +167,6 @@ export default {
 .toBookButton{
     margin: 15px 15px 0 auto;
     width: 220px;
-    border-radius: 5px;
+    border-radius: 6px;
 }
 </style>
