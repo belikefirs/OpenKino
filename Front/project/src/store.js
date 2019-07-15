@@ -19,6 +19,10 @@ const hall = {
 
 export default new Vuex.Store({
   state: {
+    user: {
+      role: 'non',
+      surname: 'Uvv'
+    },
     halldata: [],
   },
   mutations: {

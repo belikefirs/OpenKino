@@ -10,6 +10,7 @@
 			<Header :offsetTop="offsetTop" @showBlur="blurFlag = true"></Header>
 			<BackToTop v-if="offsetTop > 400" @goTop="goTop"></BackToTop>
 			<div id="page">
+				<div v-if="isAdminPage" class="left-panel">dasdasdasdasdasdasdasd</div>
 				<router-view/>
 			</div>
 			<Footer></Footer>
@@ -29,24 +30,35 @@ import Home from '@/views/Home.vue'
 import News from '@/views/News.vue'
 import Films from '@/views/Films.vue'
 import About from '@/views/About.vue'
+import Admin from '@/views/Admin.vue'
+
 import Modal from '@/components/AppModalWindow.vue'
 import BackToTop from '@/components/AppButtonToTop.vue'
 
 export default {
 	components: {
-		Header, Footer, Home, News, Films, About, Modal, BackToTop, AppLogReg, AppButton
+		Header, Footer, 
+		Home, News, Films, About, Admin,
+		Modal, BackToTop, AppLogReg, AppButton
 	},
 
 	data() {
 		return {
 			offsetTop: 0,
-			blurFlag: true,
-			RegFlag: false
+			blurFlag: false,
+			RegFlag: false,
+			isAdminPage: false,
+		}
+	},
+
+	watch:{
+		$route(route){
+			this.isAdminPage = route.path.indexOf('admin') > -1;
 		}
 	},
 
 	methods: {
-		onScroll (e) {
+		onScroll () {
 			this.offsetTop = window.pageYOffset || document.documentElement.scrollTop;
 		},
 		goTop () {
