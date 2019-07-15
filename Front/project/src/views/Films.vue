@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper-film">
-        <Modal :title="'Бронирование билетов'" :width="500" :height="500">
+        <Modal :show="true" :title="'Бронирование билетов'" :width="500" :height="500">
             <template v-slot:content>               
                 <AppCinema></AppCinema>
             </template>

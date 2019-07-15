@@ -1,6 +1,6 @@
 <template>
 	<div id="app" v-scroll="onScroll">
-		<Modal v-if="blurFlag" style="z-index: 200" @showBlur="blurFlag = false">
+		<Modal style="z-index: 200" :show="blurFlag" @showBlur="blurFlag = false">
 			<template v-slot:content>
 				<AppLogReg></AppLogReg>
 			</template>
@@ -9,13 +9,11 @@
 		<div class="wrapper-page">
 			<Header :offsetTop="offsetTop" @showBlur="blurFlag = true"></Header>
 			<BackToTop v-if="offsetTop > 400" @goTop="goTop"></BackToTop>
-			
 			<div id="page">
+				<div v-if="isAdminPage" class="left-panel">dasdasdasdasdasdasdasd</div>
 				<router-view/>
 			</div>
-			
 			<Footer></Footer>
-
 		</div>
 		
 	</div>
@@ -32,26 +30,35 @@ import Home from '@/views/Home.vue'
 import News from '@/views/News.vue'
 import Films from '@/views/Films.vue'
 import About from '@/views/About.vue'
+import Admin from '@/views/Admin.vue'
+
 import Modal from '@/components/AppModalWindow.vue'
 import BackToTop from '@/components/AppButtonToTop.vue'
-import Registration from '@/components/AppRegistration.vue'
-
 
 export default {
 	components: {
-		Header, Footer, Home, News, Films, About, Modal, BackToTop, AppLogReg, AppButton, Registration
+		Header, Footer, 
+		Home, News, Films, About, Admin,
+		Modal, BackToTop, AppLogReg, AppButton
 	},
 
 	data() {
 		return {
 			offsetTop: 0,
-			blurFlag: true,
-			RegFlag: false
+			blurFlag: false,
+			RegFlag: false,
+			isAdminPage: false,
+		}
+	},
+
+	watch:{
+		$route(route){
+			this.isAdminPage = route.path.indexOf('admin') > -1;
 		}
 	},
 
 	methods: {
-		onScroll (e) {
+		onScroll () {
 			this.offsetTop = window.pageYOffset || document.documentElement.scrollTop;
 		},
 		goTop () {
@@ -72,7 +79,7 @@ export default {
 *
 	margin: 0
 	padding: 0
-	// box-sizing: border-box
+	box-sizing: border-box
 	overflow: none
 #app
 	display: flex
