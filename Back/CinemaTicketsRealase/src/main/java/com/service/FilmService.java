@@ -10,6 +10,12 @@ public interface FilmService {
     Long updateFilmById(Film film);
     Film findFimlById(Long id);
 
+    Long setGenreByFilmId(Long id, Long idGenre);
+    Long setTypeFilmById(Long id, Long idTypeFilm);
+    Long setLimitAgeById(Long id,Long idLimiteAge);
+    Long setRatingById(Long id, Long idRating);
+
+
     Long saveGenre(Genre genre);
     void deleteGenreById(Long id);
     List<Genre> findAllGenre();

@@ -27,8 +27,11 @@ public class KinoUserController {
     }
 
     @GetMapping("/updateKinoUserById")
-    public String updateKinoUserById(){
-        kinUserService.updateKinoUserById(1L,"Sasha","Ivanov",21,"123","123@123.ru");
+    public String updateKinoUserById(KinoUser kinoUser){
+        kinoUser.setId(1L);
+        kinoUser.setName("Sasha");
+        kinoUser.setAge(50);
+        kinUserService.updateKinoUser(kinoUser);
         return "Update KinoUserById";
     }
 

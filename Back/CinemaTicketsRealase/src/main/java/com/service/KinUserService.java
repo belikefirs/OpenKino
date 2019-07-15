@@ -8,8 +8,7 @@ import java.util.List;
 public interface KinUserService {
     Long saveKinoUser(KinoUser kinoUser);
     KinoUser findKinoUserById(Long id);
-    Long updateKinoUserById(Long id,String name,String fname, Integer age, String phone, String mail);
-    Long updatePasswordById(Long id, String password);
+    Long updateKinoUser(KinoUser kinoUser);
     void deleteById(Long id);
     List<Card> getCardsById(Long id);
     Long setPositionKinoUserById(Long idPosition, Long id);

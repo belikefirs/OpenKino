@@ -12,6 +12,8 @@ public class Film {
     private Long id;
     @Column(name = "Name")
     private String name;
+    @Column(name = "DESCRIPTION")
+    private String description;
     @Column(name = "Lenght")
     private Long lenght;
     @ManyToOne
@@ -89,6 +91,14 @@ public class Film {
 
     public List<Session> getSessions() {
         return sessions;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setSessions(List<Session> sessions) {

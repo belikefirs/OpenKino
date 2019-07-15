@@ -37,29 +37,24 @@ public class KinUserServiceImpl implements KinUserService {
     @Override
     @Transactional
     public KinoUser findKinoUserById(Long id) {
-        return kinoUserDao.getOne(id);
+        return kinoUserDao.findById(id).get();
     }
 
     @Override
     @Transactional
-    public Long updateKinoUserById(Long id, String name, String fname, Integer age, String phone, String mail) {
-        KinoUser kinoUser = kinoUserDao.getOne(id);
-        kinoUser.setName(name);
-        kinoUser.setfName(fname);
-        kinoUser.setAge(age);
-        kinoUser.setMail(mail);
-        kinoUser.setPhone(phone);
-        return kinoUserDao.save(kinoUser).getId();
+    public Long updateKinoUser(KinoUser kinoUser) {
+        KinoUser kinoUser1 = kinoUserDao.findById(kinoUser.getId()).get();
+        kinoUser1.setName(kinoUser.getName());
+        kinoUser1.setfName(kinoUser.getfName());
+        kinoUser1.setAge(kinoUser.getAge());
+        kinoUser1.setMail(kinoUser.getMail());
+        kinoUser1.setPhone(kinoUser.getPhone());
+        kinoUser1.setPosition(kinoUser.getPosition());
+        kinoUser1.setCards(kinoUser.getCards());
+        kinoUser1.setPassword(kinoUser.getPassword());
+        return saveKinoUser(kinoUser1);
     }
 
-
-    @Override
-    @Transactional
-    public Long updatePasswordById(Long id, String password) {
-        KinoUser kinoUser = kinoUserDao.getOne(id);
-        kinoUser.setPassword(password);
-        return kinoUserDao.save(kinoUser).getId();
-    }
 
     @Override
     @Transactional
@@ -82,8 +77,8 @@ public class KinUserServiceImpl implements KinUserService {
     @Override
     @Transactional
     public Long setPositionKinoUserById(Long idPosition, Long id) {
-        KinoUser kinoUser = kinoUserDao.getOne(id);
-        Position position = positionDao.getOne(idPosition);
+        Position position = positionDao.findById(idPosition).get();
+        KinoUser kinoUser = kinoUserDao.findById(id).get();
         kinoUser.setPosition(position);
         return kinoUserDao.save(kinoUser).getId();
     }
@@ -91,17 +86,13 @@ public class KinUserServiceImpl implements KinUserService {
     @Override
     @Transactional
     public Position getPositionKinoUserById(Long id) {
-        return kinoUserDao.getOne(id).getPosition();
+        return kinoUserDao.findById(id).get().getPosition();
     }
 
     @Override
     @Transactional
     public Long saveCard(Long id,Card card) {
-        card.setKinoUser(kinoUserDao.getOne(id));
+        card.setKinoUser(kinoUserDao.findById(id).get());
         return cardDao.save(card).getId();
     }
-
-
-
-
 }
