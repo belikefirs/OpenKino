@@ -19,12 +19,17 @@ export default new Router({
 		{
 			path: '/films',
 			name: 'films',
-			component: () => import( './views/Films.vue'),
+			component: () => import('./views/Films.vue'),
 		},
 		{
 			path: '/about',
 			name: 'about',
 			component: () => import('./views/About.vue')
+		},
+		{
+			path: '/admin',
+			name: 'admin',
+			component: () => import('./views/Admin.vue')
 		},
 		{
 			path: '/film/add',
