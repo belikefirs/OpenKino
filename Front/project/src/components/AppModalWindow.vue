@@ -1,7 +1,8 @@
 <template>
-    <transition name="trShow">
+    <transition name="trBack">
         <div class="wrapper_module_window" v-if="show" @click.self="changeBlur">
-            <div v-if="show" class="container" :style="{'border-radius' : title ? '8px' : '0'}"> 
+            <div v-if="show" class="container"
+            :style="{'border-radius' : title ? '8px' : '0', background: title ? '#111' : '#1110'}"> 
                 <p class="title" v-if="title">{{title}}</p>
                 <div class="wrapper-content">
                     <slot name="content"></slot>
@@ -59,7 +60,7 @@ export default {
 }
 .container{
     /* z-index: 201; */
-    background: #111;
+    /* background: #111; */
     margin: 100px auto 0;
     transition: all 1s;
 }
@@ -76,15 +77,18 @@ export default {
     margin-left: 20px
 }
 
-.trShow-enter, .trShow-leave-to {
+.trBack-enter, .trBack-leave-to {
     opacity: 0;
-    transform: translateY(-1000px);
 }
-.trShow-enter-active, .trShow-leave-active {
-    transition: all .5s;
+.trBack-enter-active, .trBack-leave-active {
+    transition: opacity .5s;
 }
-.trShow-move{
-    transition: all 1s;
+
+.trBack-enter .container, .trBack-leave-to .container{
+    transform: translateY(-100vh);
+}
+.trBack-move .container{
+    transition: transform 0.5s;
 }
 </style>
 

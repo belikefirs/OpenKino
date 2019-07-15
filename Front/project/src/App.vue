@@ -9,13 +9,10 @@
 		<div class="wrapper-page">
 			<Header :offsetTop="offsetTop" @showBlur="blurFlag = true"></Header>
 			<BackToTop v-if="offsetTop > 400" @goTop="goTop"></BackToTop>
-			
 			<div id="page">
 				<router-view/>
 			</div>
-			
 			<Footer></Footer>
-
 		</div>
 		
 	</div>
@@ -34,12 +31,10 @@ import Films from '@/views/Films.vue'
 import About from '@/views/About.vue'
 import Modal from '@/components/AppModalWindow.vue'
 import BackToTop from '@/components/AppButtonToTop.vue'
-import Registration from '@/components/AppRegistration.vue'
-
 
 export default {
 	components: {
-		Header, Footer, Home, News, Films, About, Modal, BackToTop, AppLogReg, AppButton, Registration
+		Header, Footer, Home, News, Films, About, Modal, BackToTop, AppLogReg, AppButton
 	},
 
 	data() {
@@ -76,7 +71,7 @@ export default {
 *
 	margin: 0
 	padding: 0
-	// box-sizing: border-box
+	box-sizing: border-box
 	overflow: none
 #app
 	display: flex
