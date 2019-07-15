@@ -4,22 +4,23 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import javax.persistence.*;
 
-
 @Entity
-@Table(name = "CARD")
+@Table(name = "IDENTIFICATION")
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class Card {
-
+public class Identification {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column (name = "BALANCE")
-    private String balance;
+    @Column(name = "LOGIN")
+    private String login;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "ID_CARD", nullable = false)
+    @Column(name = "PASSWORD")
+    private String password;
+
+    @OneToOne(optional = false,mappedBy = "identification")
     private KinoUser kinoUser;
 
-    public Card(){}
+    public Identification(){}
+
 }

@@ -18,14 +18,13 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 
 @Configuration
-@EnableJpaRepositories
+@EnableJpaRepositories(basePackages = "com")
 @EnableTransactionManagement
-@ComponentScan("com")
 public class JPAConfiguration {
     @Bean
     public DataSource dataSource(){
         JdbcDataSource jdbcDataSource = new JdbcDataSource();
-        jdbcDataSource.setURL("jdbc:h2:C:\\Users\\user\\Documents\\GitHub\\OpenKino\\OpenKino_DB");
+        jdbcDataSource.setURL("jdbc:h2:C:\\Users\\Acer-PC\\Documents\\GitHub\\OpenKino\\OpenKino_DB");
         jdbcDataSource.setUser("admin");
         jdbcDataSource.setPassword("admin");
         return jdbcDataSource;

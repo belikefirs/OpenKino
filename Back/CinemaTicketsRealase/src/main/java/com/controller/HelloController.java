@@ -1,6 +1,8 @@
 package com.controller;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,7 @@ public class HelloController {
 private List<HashData> list;
 
     @GetMapping("/hello")
-    public List<HashData> getHello(){
+    public List<HashData> getHello(@RequestBody Object body){
         list = new ArrayList<>(6);
         for (int i = 0; i < 6; i++){
             HashData data = new HashData(i ,LISTFILMS[i]);

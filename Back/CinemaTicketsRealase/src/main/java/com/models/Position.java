@@ -1,9 +1,12 @@
 package com.models;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "POSITION")
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Position {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,4 +19,5 @@ public class Position {
     private List<KinoUser> kinoUsers;
 
     public Position(){}
+
 }

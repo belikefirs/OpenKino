@@ -1,11 +1,14 @@
 package com.models;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "RESERVATION")
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
