@@ -9,49 +9,34 @@ const hall = {
   width: 50,
   height: 50,
   places: [
-    {
-      id: 5,
-      x: 5,
-      y: 3,
-      type: 'SEED',
-    },
-
-    {
-      id: 3,
-      x: 3,
-      y: 4,
-      type: 'SEED_FULL'
-    },
-
-    {
-      id: 6,
-      x: 2,
-      y: 2,
-      type: 'EMPTY'
-    }
-  ]
+    {id: 0, x: 0, y: 0, type: 'Free', value: 1},
+    {id: 1, x: 1, y: 0, type: 'Free', value: 2},
+    {id: 2, x: 2, y: 0, type: 'Free', value: 3},
+    {id: 3, x: 3, y: 0, type: 'Free', value: 4},
+    {id: 4, x: 4, y: 0, type: 'NotFree', value: 5},
+  ],
 }
 
 export default new Vuex.Store({
   state: {
-    hall: null
+    hall: [],
   },
   mutations: {
     setHall (state, data) {
       state.hall = data
-    }
+    },
   },
   actions: {
-    TEXT (context, payload)  {
+    TEXT (context)  {
       //return AXIOS.get('/')
       return new Promise(resolve => {
       	context.commit('setHall', hall)
-      	console.log('payload', payload)
+      	//console.log('payload', payload)
       	resolve(hall)
 
       }, reject => {
 
       });
-    }
-  }
+    },
+  },
 });

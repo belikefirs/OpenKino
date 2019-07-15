@@ -1,13 +1,10 @@
 package com.models;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-
 import javax.persistence.*;
 
 
 @Entity
 @Table(name = "CARD")
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Card {
 
     @Id

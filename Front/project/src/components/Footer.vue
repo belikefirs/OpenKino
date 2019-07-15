@@ -37,7 +37,7 @@
 				<div class="title">
 					<p>Наши фесты</p>
 				</div>
-				<AppButton style="margin: 0 0 10px;" v-for="(item, key) in links" :key="key" :url="{name: item.link}">{{item.name}}</AppButton>
+				<AppButton style="margin: 0 10px 0 0;" v-for="(item, key) in links" :key="key" :url="{name: item.link}">{{item.name}}</AppButton>
 			</div>
 		</div>
 	</WrapperCent>
