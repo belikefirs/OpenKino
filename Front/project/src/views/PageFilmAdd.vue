@@ -1,15 +1,15 @@
 <template>
     <div class="wrapper-admin">
         <p>Здравствуйте: Иван</p>
-        <form class="log inputCont">
-            <input type="name" placeholder="Название фильма">
-            <input type="length" placeholder="Продолжительность">
-            <input type="view" placeholder="Тип">
+        <form class="log inputCont" @submit.prevent="savaFilm">
+            <input v-model="form.name" placeholder="Название фильма">
+            <input v-model="form.length" placeholder="Продолжительность">
+            <input v-model="form.typeFilm.name" placeholder="Тип">
             <AddFilm></AddFilm>
-            <input type="age" placeholder="Возрастное ограничение">
-            <input type="rating" placeholder="Рейтинг">
+            <input v-model="form.limitAge.age" placeholder="Возрастное ограничение">
+            <input v-model="form.rating.rating" placeholder="Рейтинг">
             <br>
-            <div class="button">Сохранить</div>
+            <button class="button">Сохранить</button>
         </form>  
     </div>
 </template>
@@ -19,6 +19,32 @@ import AddFilm from '@/components/FilmsTypeFilter.vue'
 export default {
     components: {
         AddFilm
+    },
+    data() {
+        return {
+            form: {
+                name: '',
+                length: '',
+                typeFilm: {
+                        name: "String",
+                        },
+                genre: {
+                        name: "String"
+                        },
+                limitAge: {
+                    limitAge:"Integer"
+                        },
+                rating: {
+                    rating:"Integer"
+                    }
+                
+            }
+        }
+    },
+    methods: {
+        savaFilm() {
+            this.$store.dispatch('TEXT', this.form)
+        }
     }
 }
 </script>

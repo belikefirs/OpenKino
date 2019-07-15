@@ -27,16 +27,8 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    TEXT (context)  {
-      //return AXIOS.get('/')
-      return new Promise(resolve => {
-      	context.commit('setHall', hall)
-      	//console.log('payload', payload)
-      	resolve(hall)
-
-      }, reject => {
-
-      });
+    TEXT (context, data)  {
+      AXIOS.post("/Film", data)
     },
   },
 });
