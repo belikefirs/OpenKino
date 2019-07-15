@@ -17,12 +17,12 @@ public class Position {
 
     public Position(){}
 
-    public List<KinoUser> getKinoUsers() {
-        return kinoUsers;
+    public Long getId() {
+        return id;
     }
 
-    public void setKinoUsers(List<KinoUser> kinoUsers) {
-        this.kinoUsers = kinoUsers;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -33,11 +33,11 @@ public class Position {
         this.name = name;
     }
 
-    public Long getId() {
-        return id;
+    public void setKinoUsers(List<KinoUser> kinoUsers) {
+        this.kinoUsers = kinoUsers;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public List<KinoUser> getKinoUsers() {
+        return kinoUsers;
     }
 }

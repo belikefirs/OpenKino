@@ -1,6 +1,5 @@
 package com.models;
 
-
 import javax.persistence.*;
 
 
@@ -9,13 +8,14 @@ import javax.persistence.*;
 public class Card {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column (name = "BALANCE")
-    private Double balance;
+    private String balance;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "ID_CARD")
+    @JoinColumn(name = "ID_CARD", nullable = false)
     private KinoUser kinoUser;
 
     public Card(){}
@@ -28,11 +28,11 @@ public class Card {
         this.id = id;
     }
 
-    public Double getBalance() {
+    public String getBalance() {
         return balance;
     }
 
-    public void setBalance(Double balance) {
+    public void setBalance(String balance) {
         this.balance = balance;
     }
 
