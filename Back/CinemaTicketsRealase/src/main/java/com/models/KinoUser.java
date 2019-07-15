@@ -15,7 +15,7 @@ public class    KinoUser {
     private String fName;
 
     @Column (name = "LNAME")
-    private String lName;
+    private String name;
 
     @Column(name = "AGE")
     private Integer age;
@@ -54,12 +54,12 @@ public class    KinoUser {
         this.fName = fName;
     }
 
-    public String getlName() {
-        return lName;
+    public String getName() {
+        return name;
     }
 
-    public void setlName(String lName) {
-        this.lName = lName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getAge() {
