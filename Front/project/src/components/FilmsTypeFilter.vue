@@ -11,26 +11,21 @@
 
 <script>
 export default {
+    props:{
+        filmTypeList: Object,
+    },
     data() {
         return {
             showList: false,
             searchtype: '',
-            types: [
-                {name: 'Боевик'},
-                {name: 'Комедия'},
-                {name: 'Экшен'},
-                {name: 'Ужасы'},
-                {name: 'Драма'},
-                {name: 'Триллер'},
-            ]
         }
     },
     computed: {
         searchwords: function() {
             var searchwords = this.searchtype && this.searchtype.toLowerCase();
-            var searcharray = this.types;
+            var searcharray = this.filmTypeList;
 
-            searcharray = this.types.filter(function(item){
+            searcharray = this.filmTypeList.filter(function(item){
                 if(item.name.toLowerCase().indexOf(searchwords) !== -1) {
                     return item;
                 }
