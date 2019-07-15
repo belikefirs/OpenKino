@@ -30,5 +30,8 @@ export default new Vuex.Store({
     TEXT (context, data)  {
       AXIOS.post("/Film", data)
     },
+    GET_data(context) {
+      AXIOS.getUri("/Film/type");
+    }
   },
 });

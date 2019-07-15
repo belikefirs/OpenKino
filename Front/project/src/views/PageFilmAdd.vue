@@ -45,6 +45,9 @@ export default {
         savaFilm() {
             this.$store.dispatch('TEXT', this.form)
         }
+    },
+    created() {
+        this.$store.dispatch('GET-data')
     }
 }
 </script>
