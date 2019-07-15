@@ -2,6 +2,7 @@ package com.models;
 
 import javax.naming.spi.DirObjectFactory;
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -21,6 +22,9 @@ public class Card {
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_CARD", nullable = false)
     private KinoUser kinoUser;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "card")
+    private List<Buy> buys;
 
     public Card(){}
 

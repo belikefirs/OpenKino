@@ -67,7 +67,7 @@ public class KinUserServiceImpl implements KinUserService {
     @Override
     @Transactional
     public List<Card> getCardsById(Long id) {
-        return null;
+        return cardDao.findAllByKinoUserId(id);
     }
 
     @Override
