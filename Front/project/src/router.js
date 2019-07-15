@@ -14,7 +14,7 @@ export default new Router({
 		{
 			path: '/news',
 			name: 'news',
-			component: () => import('./views/Films.vue')
+			component: () => import('./views/News.vue')
 		},
 		{
 			path: '/films',

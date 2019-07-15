@@ -21,15 +21,15 @@
                 <p>{{n}}</p>
             </div>
         </div>
-        <toBookButton class="toBookButton" v-on:click.native="setNotFree()">Забронировать билет</toBookButton>
+        <AppButton style="margin: 0 0 0 30px" class="toBookButton" v-on:click.native="setNotFree()">Забронировать билет</AppButton>
     </div>    
 </template>
 
 <script>
-import toBookButton from '@/components/AppButtonAuthorization.vue'
+import AppButton from '@/components/AppButton.vue'
 export default {
     components:{
-        toBookButton
+        AppButton
     },
     data () {
         return {
@@ -113,7 +113,7 @@ export default {
 <style scoped>
 .wrapper-cinema{
     background: #313166;
-    border-radius: 0 0 8px 9px;
+    border-radius: 0 0 8px 8px;
     padding: 0 0 15px;
 }
 .wrapper-cinema .screen{
@@ -162,6 +162,6 @@ export default {
 .toBookButton{
     margin: 15px 15px 0 auto;
     width: 220px;
-    border-radius: 5px;
+    border-radius: 6px;
 }
 </style>
