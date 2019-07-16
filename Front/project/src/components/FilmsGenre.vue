@@ -1,11 +1,13 @@
 <template>
     <div class="search">
         <input type="text" :placeholder="ph" v-model="searchtype" @focus="showList = true" @blur="showList = false">
-        <ul v-if="showList">
-            <li v-for="(item) in searchwords" :key="item.name" class="listType">
-                <label>{{item.name}}</label>
-            </li>
-        </ul>
+        <transition name="list">  
+            <ul v-if="showList">
+                <li v-for="(item) in searchwords" :key="item.name" class="listType">
+                    <label>{{item.name}}</label>
+                </li>
+            </ul>
+        </transition>  
     </div>
 </template>
 
@@ -19,14 +21,21 @@ export default {
         return {
             showList: false,
             searchtype: '',
+            types:[
+                {name: 'Комедия'},
+                {name: 'Боевик'},
+                {name: 'Триллер'},
+                {name: 'Экшен'},
+                {name: 'Драма'},
+            ]
         }
     },
     computed: {
         searchwords: function() {
             var searchwords = this.searchtype && this.searchtype.toLowerCase();
-            var searcharray = this.filmTypeList;
+            var searcharray = this.types;
 
-            searcharray = this.filmTypeList.filter(function(item){
+            searcharray = this.types.filter(function(item){
                 if(item.name.toLowerCase().indexOf(searchwords) !== -1) {
                     return item;
                 }
@@ -55,5 +64,11 @@ export default {
 }
 .listType {
     list-style-type: none;
+}
+.list-enter-active{
+  transition: opacity .5s;
+}
+.list-enter{
+  opacity: 0;
 }
 </style>
