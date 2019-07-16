@@ -1,9 +1,9 @@
 <template>
     <div class="search">
         <input type="text" :placeholder="ph" v-model="searchtype" @focus="showList = true" @blur="showList = false">
-        <transition name="list">  
-            <ul v-if="showList">
-                <li v-for="(item) in searchwords" :key="item.name" class="listType">
+        <transition name="listTipes">  
+            <ul v-if="showList" class="list">
+                <li v-for="(item) in searchwords" :key="item.name" class="Types">
                     <label>{{item.name}}</label>
                 </li>
             </ul>
@@ -62,8 +62,19 @@ export default {
 	font-size: 18px;
 	font-weight: 300;
 }
-.listType {
+.Types {
     list-style-type: none;
+    height: 100%;
+    background: rgb(255, 255, 255);
+    width: 100%;
+
+}
+.Types:hover {
+    background: rgb(85, 150, 247);
+    opacity: 0.8;
+}
+.listTipes{
+    padding: 10px;
 }
 .list-enter-active{
   transition: opacity .5s;
