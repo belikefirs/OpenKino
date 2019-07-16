@@ -8,8 +8,7 @@ import java.util.List;
 @Table(name = "FILM")
 public class Film {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
+    @GeneratedValue
     private Long id;
     @Column(name = "Name")
     private String name;
@@ -32,48 +31,12 @@ public class Film {
 
     public Film (){}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getId() {
         return id;
     }
 
-    public void setRating(Rating rating) {
-        this.rating = rating;
-    }
-
-    public void setTypeFilm(TypeFilm typeFilm) {
-        this.typeFilm = typeFilm;
-    }
-
-    public void setGenre(Genre genre) {
-        this.genre = genre;
-    }
-
-    public void setLenght(Long lenght) {
-        this.lenght = lenght;
-    }
-
-    public void setLimitAge(LimitAge limitAge) {
-        this.limitAge = limitAge;
-    }
-
-    public List<Session> getSessions() {
-        return sessions;
-    }
-
-    public LimitAge getLimitAge() {
-        return limitAge;
-    }
-
-    public void setSessions(List<Session> sessions) {
-        this.sessions = sessions;
-    }
-
-    public Genre getGenre() {
-        return genre;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -88,12 +51,47 @@ public class Film {
         return lenght;
     }
 
+    public void setLenght(Long lenght) {
+        this.lenght = lenght;
+    }
+
+    public LimitAge getLimitAge() {
+        return limitAge;
+    }
+
+    public void setLimitAge(LimitAge limitAge) {
+        this.limitAge = limitAge;
+    }
+
     public Rating getRating() {
         return rating;
+    }
+
+    public void setRating(Rating rating) {
+        this.rating = rating;
     }
 
     public TypeFilm getTypeFilm() {
         return typeFilm;
     }
 
+    public void setTypeFilm(TypeFilm typeFilm) {
+        this.typeFilm = typeFilm;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
+    public List<Session> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(List<Session> sessions) {
+        this.sessions = sessions;
+    }
 }

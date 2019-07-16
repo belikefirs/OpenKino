@@ -19,15 +19,13 @@ import java.util.List;
 
 @Service
 public class KinUserServiceImpl implements KinUserService {
+    @Autowired
     private KinoUserDao kinoUserDao;
+    @Autowired
     private CardDao cardDao;
+    @Autowired
     private PositionDao positionDao;
 
-    public KinUserServiceImpl(KinoUserDao kinoUserDao, CardDao cardDao, PositionDao positionDao) {
-        this.kinoUserDao = kinoUserDao;
-        this.cardDao = cardDao;
-        this.positionDao = positionDao;
-    }
 
     @Override
     @Transactional
@@ -44,17 +42,17 @@ public class KinUserServiceImpl implements KinUserService {
 
     @Override
     @Transactional
-    public Long updateKinoUser(KinoUser kinoUser){
+    public Long updateKinoUser(KinoUser kinoUser) {
         KinoUser kinoUser1 = kinoUserDao.findById(kinoUser.getId()).get();
         kinoUser1.setName(kinoUser.getName());
         kinoUser1.setfName(kinoUser.getfName());
         kinoUser1.setAge(kinoUser.getAge());
-        kinoUser1.setPhone(kinoUser.getPhone());
         kinoUser1.setMail(kinoUser.getMail());
-        kinoUser1.setPassword(kinoUser.getPassword());
+        kinoUser1.setPhone(kinoUser.getPhone());
         kinoUser1.setPosition(kinoUser.getPosition());
         kinoUser1.setCards(kinoUser.getCards());
-        return kinoUserDao.save(kinoUser1).getId();
+        kinoUser1.setPassword(kinoUser.getPassword());
+        return saveKinoUser(kinoUser1);
     }
 
 
@@ -79,8 +77,9 @@ public class KinUserServiceImpl implements KinUserService {
     @Override
     @Transactional
     public Long setPositionKinoUserById(Long idPosition, Long id) {
+        Position position = positionDao.findById(idPosition).get();
         KinoUser kinoUser = kinoUserDao.findById(id).get();
-        kinoUser.setPosition(positionDao.findById(idPosition).get());
+        kinoUser.setPosition(position);
         return kinoUserDao.save(kinoUser).getId();
     }
 
@@ -96,8 +95,4 @@ public class KinUserServiceImpl implements KinUserService {
         card.setKinoUser(kinoUserDao.findById(id).get());
         return cardDao.save(card).getId();
     }
-
-
-
-
 }

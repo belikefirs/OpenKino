@@ -6,9 +6,13 @@
 			<router-link to="/" class="logo"></router-link>
 			<div style="flex: 2"></div>
 			<AppButton style="margin: 0 10px" v-for="item in links" :key="item.link" :url="{name: item.link}">{{item.name}}</AppButton>
-			<div class="signIn" @click="changeBlur">
+			<AppButton style="margin: 0 10px" :url="{name: 'admin'}">Еще</AppButton>
+			<div v-if="signInState == 0" class="signIn" @click="changeBlur">
 				<div class="signIn-logo"></div>
 				<p class="text">Войти</p>
+			</div>
+			<div v-else class="signIn">
+				<p class="text" style="font-size: 18px">{{userName}}</p>
 			</div>
 		</div>
 	</WrapperCent>
@@ -48,7 +52,6 @@ export default {
 				{name: 'Новости', link: 'news'},
 				{name: 'Фильмы', link: 'films'},
 				{name: 'О нас', link: 'about'},
-				{name: 'Еще', link: ''},
 			]
 		}
 	},
@@ -63,6 +66,28 @@ export default {
 		},
 		bg() {
 			return "rgba(31, 31, 31, " + this.bgOpacity + ")";
+		},
+		signInState(){
+			if (!this.$store.state.user) return 0;
+
+			switch (this.$store.state.user.role) {
+				case 'regular':
+					return 1;
+					break;
+				case 'moder':
+					return 2;
+					break;
+				case 'admin':
+					return 3;
+					break;
+				default:
+					return 0;
+					break;
+			}
+		},
+		userName(){
+			if (!this.$store.state.user) return 'Error';
+			return this.$store.state.user.surname;
 		}
 	}
 }

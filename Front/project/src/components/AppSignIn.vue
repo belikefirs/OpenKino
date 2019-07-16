@@ -29,7 +29,8 @@ export default {
                 {name: 'Регистрация', link: '#'},
             ]
 		}
-	}
+    },
+
 }
 </script>
 
