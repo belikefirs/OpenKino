@@ -119,21 +119,25 @@ export default {
         &:active
             background: black 
         .arrow
-            display: flex
-            justify-content: center
-            align-items: center
-            &::before, &::after
-                content: ""
-                position: absolute
-                transform-origin: right
-                width: 15px
-                height: 1px
-                background: #fff
-                box-shadow: 0px 4px 4px black
-            &::before
-                transform: rotate(30deg)
-            &::after
-                transform: rotate(-30deg)   
+            width: 100%
+            height: 100%
+            background: url('../../assets/arrow.svg') center no-repeat
+            background-size: 25%
+            // display: flex
+            // justify-content: center
+            // align-items: center
+            // &::before, &::after
+            //     content: ""
+            //     position: absolute
+            //     transform-origin: right
+            //     width: 15px
+            //     height: 1px
+            //     background: #fff
+            //     box-shadow: 0px 4px 4px black
+            // &::before
+            //     transform: rotate(30deg)
+            // &::after
+            //     transform: rotate(-30deg)   
     .previous
         left: 35px
         .arrow
