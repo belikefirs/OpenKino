@@ -12,7 +12,7 @@ public class Rating {
     private Long id;
 
     @Column(name = "RATING")
-    private Integer rating;
+    private Double rating;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "rating")
     private List<Film> films;
@@ -26,11 +26,11 @@ public class Rating {
         this.id = id;
     }
 
-    public Integer getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 

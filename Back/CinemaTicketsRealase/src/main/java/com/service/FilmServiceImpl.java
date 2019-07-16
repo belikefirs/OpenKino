@@ -2,10 +2,12 @@ package com.service;
 import com.dao.*;
 import com.models.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class FilmServiceImpl implements FilmService {
     private FilmDao filmDao;
     private RatingDao ratingDao;
@@ -23,6 +25,22 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public Long saveFilm(Film film) {
+        if (film.getRating() != null) {
+            Rating rating = film.getRating();
+            if(film.getRating().getId() == null){
+                ratingDao.save(rating);
+            }
+        }
+        if (film.getLimitAge()!=null) {
+            LimitAge limitAge = film.getLimitAge();
+            if (film.getId()==null) {
+                limitAgeDao.save(limitAge);
+            }
+        }
+
+        else {
+        }
+
         return filmDao.save(film).getId();
     }
 

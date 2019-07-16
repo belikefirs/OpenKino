@@ -1,5 +1,7 @@
 package com.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.lang.model.element.Name;
 import javax.persistence.*;
 import java.util.List;
@@ -8,7 +10,7 @@ import java.util.List;
 @Table(name = "FILM")
 public class Film {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(name = "Name")
     private String name;
@@ -19,6 +21,7 @@ public class Film {
     @ManyToOne
     @JoinColumn(name = "ID_LIMIT_AGE")
     private LimitAge limitAge;
+
     @ManyToOne
     @JoinColumn(name = "ID_RATING")
     private Rating rating;

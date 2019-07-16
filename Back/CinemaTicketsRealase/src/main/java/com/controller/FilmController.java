@@ -4,29 +4,26 @@ import com.models.Film;
 import com.models.Rating;
 import com.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by mbelo on 15.07.2019.
  */
 @RestController
+@RequestMapping("/Film")
 public class FilmController {
+
     @Autowired
     private FilmService filmService;
 
-    @GetMapping("/savefilm")
-    public Long saveFilm(Film film){
-        film.setName("Титаник");
-        film.setName("Драма");
-        film.setLenght(7200L);
+    @PostMapping("")
+    public Long saveFilm(@RequestBody Film film){
         return filmService.saveFilm(film);
     }
 
-    @GetMapping("/saveRating")
-    public Long saveRating(Rating rating){
-        rating.setRating(5);
-        return filmService.saveRating(rating);
+    @GetMapping("/{id}")
+    public Film get(@PathVariable Long id){
+        return filmService.findFimlById(id);
     }
 
     @GetMapping("/setRating")
