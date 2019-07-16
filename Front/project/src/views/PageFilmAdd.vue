@@ -5,7 +5,7 @@
             <input type="name" placeholder="Название фильма">
             <input type="length" placeholder="Продолжительность">
             <input type="view" placeholder="Тип">
-            <input type="type" placeholder="Жанр">
+            <AddFilm></AddFilm>
             <input type="age" placeholder="Возрастное ограничение">
             <input type="rating" placeholder="Рейтинг">
             <br>
@@ -15,8 +15,11 @@
 </template>
 
 <script>
-
+import AdddFilm from '@/views/Admin.vue'
 export default {
+    components: {
+        AddFilm
+    }
 }
 </script>
 
