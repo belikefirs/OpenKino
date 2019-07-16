@@ -13,11 +13,11 @@ public class Hall {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "Y")
-    private Integer y;
+    @Column(name = "Width")
+    private Integer width;
 
-    @Column(name = "X")
-    private Integer x;
+    @Column(name = "Height")
+    private Integer heighgt;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "hall")
     private List<Place> places;
@@ -27,4 +27,44 @@ public class Hall {
 
     public Hall(){}
 
+
+    public Long getId() {
+        return id;
+    }
+
+    public Integer getWidth() {
+        return width;
+    }
+
+    public Integer getHeight() {
+        return heighgt;
+    }
+
+    public List<Place> getPlaces() {
+        return places;
+    }
+
+    public List<Session> getSessions() {
+        return sessions;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setWidth(Integer width) {
+        this.width = width;
+    }
+
+    public void setHeight(Integer heighgt) {
+        this.heighgt = heighgt;
+    }
+
+    public void setPlaces(List<Place> places) {
+        this.places = places;
+    }
+
+    public void setSessions(List<Session> sessions) {
+        this.sessions = sessions;
+    }
 }
