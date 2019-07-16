@@ -19,7 +19,7 @@ export default new Router({
 		{
 			path: '/films',
 			name: 'films',
-			component: () => import( './views/Films.vue'),
+			component: () => import('./views/Films.vue'),
 		},
 		{
 			path: '/about',
@@ -30,6 +30,11 @@ export default new Router({
 			path: '/admin',
 			name: 'admin',
 			component: () => import('./views/Admin.vue')
+		},
+		{
+			path: '/film/add',
+			name: 'addFilm',
+			component: () => import('./views/PageFilmAdd.vue')
 		},
 
 		

@@ -1,13 +1,13 @@
 <template>
     <div class="wrapper-admin">
         <p>Здравствуйте: Иван</p>
-        <form class="log inputCont">
-            <input type="name" placeholder="Название фильма">
-            <input type="length" placeholder="Продолжительность">
-            <input type="view" placeholder="Тип">
-            <AddFilm></AddFilm>
-            <input type="age" placeholder="Возрастное ограничение">
-            <input type="rating" placeholder="Рейтинг">
+        <form class="log inputCont" @submit.prevent="savaFilm">
+            <input v-model="form.name" placeholder="Название фильма">
+            <input v-model="form.lenght" placeholder="Продолжительность">
+            <input v-model="form.typeFilm.name" placeholder="Тип">
+            <AddFilm :filmTypeList="this.$store.state.typeFilmList"></AddFilm>
+            <input v-model="form.limiteAge.age" placeholder="Возрастное ограничение">
+            <input v-model="form.rating.rating" placeholder="Рейтинг">
             <br>
             <button class="button">Сохранить</button>
         </form>  
@@ -15,18 +15,47 @@
 </template>
 
 <script>
-import AdddFilm from '@/views/Admin.vue'
+import AddFilm from '@/components/FilmsTypeFilter.vue'
 export default {
     components: {
         AddFilm
-    }
+    },
+    data() {
+        return {
+            form: {
+                name: '',
+                lenght: '',
+                typeFilm: {
+                    name: "String",
+                },
+                genre: {
+                    name: "String"
+                },
+                limiteAge: {
+                    age:"Integer"
+                },
+                rating: {
+                    rating:"Integer"
+                }
+                
+            }
+        }
+    },
+    methods: {
+        savaFilm() {
+            this.$store.dispatch('ADD_FILM', this.form)
+        }
+    },
+    created(){
+        this.$store.dispatch('GET_TYPE_FILM_LIST');
+    },
 }
 </script>
 
 <style>
 .wrapper-admin {
     width: 500px;
-    height: 500px;
+    height: 100%;
     background: white;
     overflow: hidden;
     position: relative;
@@ -54,6 +83,7 @@ export default {
     font-family: 'Roboto', sans-serif;
 	font-size: 18px;
 	font-weight: 300;
+    list-style-type: none;
 }
 .inputCont input:focus{
     outline: 0;
@@ -63,16 +93,22 @@ export default {
     text-align: center;
     line-height: 44px;
     min-width: 115px;
-    height: 42px;
+    height: 44px;
     text-decoration: none;
     user-select: none;
-    background: white;
+    background: #fff;
     cursor: pointer;
     text-decoration: none;
     font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    font-weight: 400;
+    font-size: 20px;
+    font-weight: 300;
     color: black;
     outline: none;
+    border: 1px solid #aaa;
+}
+.button:hover {
+    background: #222;
+    color: white;
+    transition: all 0.3s ease-out;
 }
 </style>
