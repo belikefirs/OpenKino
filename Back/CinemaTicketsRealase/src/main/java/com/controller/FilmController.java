@@ -1,7 +1,4 @@
-package com.controller;
 
-import com.dao.CardDao;
-import com.models.Card;
 import com.models.Film;
 import com.models.Rating;
 import com.models.TypeFilm;

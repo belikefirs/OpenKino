@@ -9,5 +9,8 @@
         <module name="CinemaTicketsRealase" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="CinemaTicketsRealase" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
