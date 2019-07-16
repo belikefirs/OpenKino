@@ -10,7 +10,7 @@
 			<Header :offsetTop="offsetTop" @showBlur="blurFlag = true"></Header>
 			<BackToTop v-if="offsetTop > 400" @goTop="goTop"></BackToTop>
 			<div id="page">
-				<div v-if="isAdminPage" class="left-panel">dasdasdasdasdasdasdasd</div>
+				<AdminPanel v-if="isAdminPage" />
 				<router-view/>
 			</div>
 			<Footer></Footer>
@@ -22,6 +22,7 @@
 <script>
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
+import AdminPanel from '@/components/AppAdminPanel.vue'
 
 import AppButton from '@/components/AppButton.vue'
 import AppLogReg from '@/components/AppLogReg.vue'
@@ -37,7 +38,7 @@ import BackToTop from '@/components/AppButtonToTop.vue'
 
 export default {
 	components: {
-		Header, Footer, 
+		Header, Footer, AdminPanel,
 		Home, News, Films, About, Admin,
 		Modal, BackToTop, AppLogReg, AppButton
 	},
