@@ -12,7 +12,7 @@ import java.util.List;
 public class HallController {
     public final static int width = 50;
     public final static int height = 50;
-    public Hall hall;
+    public Hall hall1;
     public HallController(){
 
 
