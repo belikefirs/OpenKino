@@ -22,7 +22,7 @@ public interface FilmService {
 
     Long saveTypeFilm(TypeFilm typeFilm);
     void deleteTypeFilmById(Long id);
-    List<TypeFilm> findAllTypeFilmBYId();
+    List<TypeFilm> findAllTypeFilm();
 
     Long saveLimitAge(LimitAge limitAge);
     void deleteLimitAgeById(Long id);
