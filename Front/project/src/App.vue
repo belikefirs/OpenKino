@@ -1,19 +1,29 @@
 <template>
 	<div id="app" v-scroll="onScroll">
-		<Modal style="z-index: 200" :show="blurFlag" @showBlur="blurFlag = false">
-			<template v-slot:content>
-				<AppLogReg></AppLogReg>
-			</template>
-		</Modal>
 
-		<div class="wrapper-page">
-			<Header :offsetTop="offsetTop" @showBlur="blurFlag = true"></Header>
-			<BackToTop v-if="offsetTop > 400" @goTop="goTop"></BackToTop>
-			<div id="page">
-				<AdminPanel v-if="isAdminPage" />
-				<router-view/>
+		<div class="user" v-if="!isAdminPage">
+			<Modal style="z-index: 200" :show="blurFlag" @showBlur="blurFlag = false">
+				<template v-slot:content>
+					<AppLogReg></AppLogReg>
+				</template>
+			</Modal>
+
+			<div class="wrapper-user-page">
+				<Header :offsetTop="offsetTop" @showBlur="blurFlag = true"></Header>
+				<BackToTop v-if="offsetTop > 400" @goTop="goTop"></BackToTop>
+				<router-view style="margin-top: 200px"/>
+				<Footer></Footer>
 			</div>
-			<Footer></Footer>
+		</div>
+
+
+		<div class="admin" v-else>
+			<div class="wrapper-admin-page">
+				<AdminPanel/>
+				<div class="admin-tool">
+					<router-view/>
+				</div>
+			</div>
 		</div>
 		
 	</div>
@@ -91,13 +101,17 @@ export default {
 	font-size: 18px
 	font-weight: 300
 	background: #fff
-.wrapper-page
-	width: 100%
+.wrapper-user-page
 	display: flex
 	flex-direction: column
 	background: #000 url('assets/bg-image.jpg') top no-repeat
-#page
-	margin-top: 200px
-	width: 100%
-	//min-height: 150vh
+.wrapper-admin-page
+	display: flex
+	flex-direction: row
+	background: linear-gradient(60deg, #f42,#24f)
+	.admin-tool
+		flex: 1
+		// display: flex
+		// justify-content: center
+		// align-items: center
 </style>

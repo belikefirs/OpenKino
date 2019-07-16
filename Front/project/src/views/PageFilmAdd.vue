@@ -4,8 +4,8 @@
         <form class="log inputCont" @submit.prevent="savaFilm">
             <input v-model="form.name" placeholder="Название фильма">
             <input v-model="form.lenght" placeholder="Продолжительность">
-            <input v-model="form.typeFilm.name" placeholder="Тип">
-            <AddFilm :filmTypeList="this.$store.state.typeFilmList"></AddFilm>
+            <AddFilm :filmTypeList="this.$store.state.typeFilmList" :ph="'Тип'"></AddFilm>
+            <AddFilm :filmTypeList="this.$store.state.genreFilmList" :ph="'Жанр'"></AddFilm>
             <input v-model="form.limiteAge.age" placeholder="Возрастное ограничение">
             <input v-model="form.rating.rating" placeholder="Рейтинг">
             <br>
@@ -26,16 +26,16 @@ export default {
                 name: '',
                 lenght: '',
                 typeFilm: {
-                    name: "String",
+                    name: "",
                 },
                 genre: {
-                    name: "String"
+                    name: ""
                 },
                 limiteAge: {
-                    age:"Integer"
+                    age:""
                 },
                 rating: {
-                    rating:"Integer"
+                    rating:""
                 }
                 
             }
@@ -43,11 +43,12 @@ export default {
     },
     methods: {
         savaFilm() {
-            this.$store.dispatch('ADD_FILM', this.form)
-        }
+            this.$store.dispatch('ADD_FILM', this.form);
+        },
     },
     created(){
         this.$store.dispatch('GET_TYPE_FILM_LIST');
+        this.$store.dispatch('GET_GENRE_FILM_LIST');
     },
 }
 </script>
