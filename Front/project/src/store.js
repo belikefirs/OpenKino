@@ -29,6 +29,9 @@ export default new Vuex.Store({
 		setTypeFilmList(state, data){
 			state.typeFilmList = data;
 		},
+		setGenreFilmList(state, data){
+			state.genreFilmList = data;
+		},
 	},
 	actions: {
 		ADD_FILM (context, data) {
@@ -37,6 +40,11 @@ export default new Vuex.Store({
 		GET_TYPE_FILM_LIST (context) {
 			return AXIOS.get('/Film/type').then(({data}) => {
 				context.commit('setTypeFilmList', data);
+			});
+		},
+		GET_GENRE_FILM_LIST (context) {
+			return AXIOS.get('/Film/genre').then(({data}) => {
+				context.commit('setGenreFilmList', data);
 			});
 		},
 	},

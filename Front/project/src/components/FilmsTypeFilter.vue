@@ -1,6 +1,6 @@
 <template>
     <div class="search">
-        <input type="text" placeholder="Введите жанр фильма:" v-model="searchtype" @focus="showList = true" @blur="showList = false">
+        <input type="text" :placeholder="ph" v-model="searchtype" @focus="showList = true" @blur="showList = false">
         <ul v-if="showList">
             <li v-for="(item) in searchwords" :key="item.name" class="listType">
                 <label>{{item.name}}</label>
@@ -13,6 +13,7 @@
 export default {
     props:{
         filmTypeList: Object,
+        ph: String,
     },
     data() {
         return {
