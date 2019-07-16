@@ -16,4 +16,28 @@ public class Position {
     private List<KinoUser> kinoUsers;
 
     public Position(){}
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setKinoUsers(List<KinoUser> kinoUsers) {
+        this.kinoUsers = kinoUsers;
+    }
+
+    public List<KinoUser> getKinoUsers() {
+        return kinoUsers;
+    }
 }

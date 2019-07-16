@@ -1,6 +1,5 @@
 package com.models;
 
-import javax.naming.spi.DirObjectFactory;
 import javax.persistence.*;
 
 
@@ -9,14 +8,11 @@ import javax.persistence.*;
 public class Card {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "NUMBER")
-    private Long number;
-
     @Column (name = "BALANCE")
-    private Double balance;
+    private String balance;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_CARD", nullable = false)
@@ -32,11 +28,11 @@ public class Card {
         this.id = id;
     }
 
-    public Double getBalance() {
+    public String getBalance() {
         return balance;
     }
 
-    public void setBalance(Double balance) {
+    public void setBalance(String balance) {
         this.balance = balance;
     }
 
@@ -46,13 +42,5 @@ public class Card {
 
     public void setKinoUser(KinoUser kinoUser) {
         this.kinoUser = kinoUser;
-    }
-
-    public Long getNumber() {
-        return number;
-    }
-
-    public void setNumber(Long number) {
-        this.number = number;
     }
 }
