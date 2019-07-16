@@ -14,6 +14,7 @@ public class LimitAge {
     private Integer age;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "limitAge")
     private List<Film> films;
+
     public LimitAge(){}
 
     public Long getId() {

@@ -1,5 +1,7 @@
 package com.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,7 +15,8 @@ public class TypeFilm {
     private Long id;
     @Column(name = "Name")
     private String name;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "limitAge")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "typeFilm")
+    @JsonBackReference
     private List<Film> films;
 
     public TypeFilm(){}

@@ -1,6 +1,7 @@
 package com.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.lang.model.element.Name;
 import javax.persistence.*;
@@ -27,7 +28,9 @@ public class Film {
     private Rating rating;
     @ManyToOne
     @JoinColumn(name = "ID_TYPE_FILM")
+    // @JsonManagedReference
     private TypeFilm typeFilm;
+
     @ManyToOne
     @JoinColumn(name = "ID_GENRE")
     private Genre genre;
