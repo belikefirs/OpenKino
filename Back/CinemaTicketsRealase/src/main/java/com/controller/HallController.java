@@ -1,12 +1,7 @@
 package com.controller;
 
 import com.models.Hall;
-import com.models.Place;
-import com.models.Session;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 public class HallController {

@@ -12,7 +12,7 @@ public class Card {
     private Long id;
 
     @Column (name = "BALANCE")
-    private String balance;
+    private Double balance;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_CARD", nullable = false)
@@ -28,11 +28,11 @@ public class Card {
         this.id = id;
     }
 
-    public String getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
-    public void setBalance(String balance) {
+    public void setBalance(Double balance) {
         this.balance = balance;
     }
 

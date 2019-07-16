@@ -1,8 +1,6 @@
 package com.filter;
 
 import com.configuration.JwtConfig;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.models.KinoUser;
 import io.jsonwebtoken.Jwts;

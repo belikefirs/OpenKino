@@ -1,9 +1,5 @@
 package com.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import javax.lang.model.element.Name;
 import javax.persistence.*;
 import java.util.List;
 

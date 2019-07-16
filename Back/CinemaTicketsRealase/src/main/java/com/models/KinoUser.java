@@ -1,7 +1,6 @@
 package com.models;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,7 +19,7 @@ public class KinoUser {
     private String fName;
 
     @Column (name = "LNAME")
-    private String Name;
+    private String name;
     @Column(name = "PASSWORD")
     private String password;
     @Column(name = "AGE")
@@ -35,9 +34,6 @@ public class KinoUser {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "kinoUser")
     private List<Card> cards;
 
-    @OneToOne(optional = false)
-    @JoinColumn(name="ID_IDENTIFICATION", unique = true, nullable = false, updatable = false)
-    private Identification identification;
 
 
     @ManyToOne
@@ -63,7 +59,7 @@ public class KinoUser {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public String getPhone() {
@@ -90,12 +86,8 @@ public class KinoUser {
         this.fName = fName;
     }
 
-    public void setIdentification(Identification identification) {
-        this.identification = identification;
-    }
-
-    public void setName(String Name) {
-        this.Name = Name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setMail(String mail) {
@@ -110,9 +102,6 @@ public class KinoUser {
         this.position = position;
     }
 
-    public Identification getIdentification() {
-        return identification;
-    }
 
     public void setId(Long id) {
         this.id = id;
