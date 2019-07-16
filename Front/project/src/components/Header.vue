@@ -6,7 +6,7 @@
 			<router-link to="/" class="logo"></router-link>
 			<div style="flex: 2"></div>
 			<AppButton style="margin: 0 10px" v-for="item in links" :key="item.link" :url="{name: item.link}">{{item.name}}</AppButton>
-			<AppButton style="margin: 0 10px" url="admin">Еще</AppButton>
+			<AppButton style="margin: 0 10px" :url="{name: 'admin'}">Еще</AppButton>
 			<div v-if="signInState == 0" class="signIn" @click="changeBlur">
 				<div class="signIn-logo"></div>
 				<p class="text">Войти</p>

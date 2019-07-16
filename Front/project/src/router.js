@@ -27,9 +27,9 @@ export default new Router({
 			component: () => import('./views/About.vue')
 		},
 		{
-			path: '/film/add',
-			name: 'addFilm',
-			component: () => import('./views/PageFilmAdd.vue')
+			path: '/admin',
+			name: 'admin',
+			component: () => import('./views/Admin.vue')
 		},
 
 		
