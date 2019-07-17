@@ -11,7 +11,6 @@ public class TypeFilm {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
     private Long id;
     @Column(name = "Name")
     private String name;

@@ -6,8 +6,6 @@ import com.models.Hall;
 import com.models.Place;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.beans.Transient;
-import java.util.ArrayList;
 import java.util.List;
 
 public class HallServiceImpl implements HallService {

@@ -24,12 +24,12 @@ public class Place {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_RESERVATION", nullable = false)
-    @JsonManagedReference
+    // @JsonManagedReference
     private Reservation reservation;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_HALL")
-    @JsonManagedReference
+    // @JsonManagedReference
     private Hall hall;
 
 

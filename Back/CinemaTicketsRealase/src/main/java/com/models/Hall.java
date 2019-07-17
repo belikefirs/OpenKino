@@ -21,11 +21,11 @@ public class Hall {
     private Integer height;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "hall")
-    @JsonBackReference
+    // @JsonBackReference
     private List<Place> places;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "hall")
-    @JsonBackReference
+    // @JsonBackReference
     private List<Session> sessions;
 
     public Hall(){}

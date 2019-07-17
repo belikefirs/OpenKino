@@ -67,7 +67,7 @@ public class FilmServiceImpl implements FilmService {
         film1.setLenght(film.getLenght());
         film1.setLimitAge(film.getLimitAge());
         film1.setRating(film.getRating());
-        film1.setSessions(film.getSessions());
+        // film1.setSessions(film.getSessions());
         film1.setTypeFilm(film.getTypeFilm());
      //   film1.setDescription(film.getDescription());
         return filmDao.save(film1).getId();

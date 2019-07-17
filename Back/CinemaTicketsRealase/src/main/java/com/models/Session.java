@@ -12,7 +12,6 @@ import java.util.Date;
 public class Session {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column (name="ID")
     private Long id;
     @Column(name = "Name")
     private String name;
@@ -25,12 +24,12 @@ public class Session {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_FILM")
-    @JsonManagedReference
+    // // @JsonManagedReference
     private Film film;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_HALL")
-    @JsonManagedReference
+    //// @JsonManagedReference
     private Hall hall;
 
     public Session(){}

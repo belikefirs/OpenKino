@@ -3,7 +3,6 @@ package com.service;
 import com.models.Hall;
 import com.models.Place;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface HallService {

@@ -1,4 +1,4 @@
-package main;
+package com;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
