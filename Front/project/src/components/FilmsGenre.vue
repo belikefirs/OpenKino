@@ -1,11 +1,13 @@
 <template>
     <div class="search">
         <input type="text" :placeholder="ph" v-model="searchtype" @focus="showList = true" @blur="showList = false">
-        <ul v-if="showList">
-            <li v-for="(item) in searchwords" :key="item.name" class="listType">
-                <label>{{item.name}}</label>
-            </li>
-        </ul>
+        <transition name="listTipes">  
+            <ul v-if="showList" class="list">
+                <li v-for="(item) in searchwords" :key="item.name" class="Types">
+                    <label>{{item.name}}</label>
+                </li>
+            </ul>
+        </transition>  
     </div>
 </template>
 
@@ -19,14 +21,21 @@ export default {
         return {
             showList: false,
             searchtype: '',
+            types:[
+                {name: 'Комедия'},
+                {name: 'Боевик'},
+                {name: 'Триллер'},
+                {name: 'Экшен'},
+                {name: 'Драма'},
+            ]
         }
     },
     computed: {
         searchwords: function() {
             var searchwords = this.searchtype && this.searchtype.toLowerCase();
-            var searcharray = this.filmTypeList;
+            var searcharray = this.types;
 
-            searcharray = this.filmTypeList.filter(function(item){
+            searcharray = this.types.filter(function(item){
                 if(item.name.toLowerCase().indexOf(searchwords) !== -1) {
                     return item;
                 }
@@ -53,7 +62,24 @@ export default {
 	font-size: 18px;
 	font-weight: 300;
 }
-.listType {
+.Types {
     list-style-type: none;
+    height: 100%;
+    background: rgb(255, 255, 255);
+    width: 100%;
+
+}
+.Types:hover {
+    background: rgb(85, 150, 247);
+    opacity: 0.8;
+}
+.listTipes{
+    padding: 10px;
+}
+.list-enter-active{
+  transition: opacity .5s;
+}
+.list-enter{
+  opacity: 0;
 }
 </style>

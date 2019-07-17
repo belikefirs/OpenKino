@@ -1,6 +1,8 @@
 package com.models;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -16,12 +18,14 @@ public class Hall {
     private Integer width;
 
     @Column(name = "Height")
-    private Integer heighgt;
+    private Integer height;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "hall")
+    @JsonBackReference
     private List<Place> places;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "hall")
+    @JsonBackReference
     private List<Session> sessions;
 
     public Hall(){}
@@ -36,7 +40,7 @@ public class Hall {
     }
 
     public Integer getHeight() {
-        return heighgt;
+        return height;
     }
 
     public List<Place> getPlaces() {
@@ -56,7 +60,7 @@ public class Hall {
     }
 
     public void setHeight(Integer heighgt) {
-        this.heighgt = heighgt;
+        this.height = heighgt;
     }
 
     public void setPlaces(List<Place> places) {

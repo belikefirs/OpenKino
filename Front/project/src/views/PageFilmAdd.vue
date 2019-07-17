@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import AddFilm from '@/components/FilmsTypeFilter.vue'
+import AddFilm from '@/components/FilmsGenre.vue'
 export default {
     components: {
         AddFilm
