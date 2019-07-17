@@ -23,11 +23,11 @@ public class FilmController {
     public Long saveFilm(@RequestBody Film film){
         return filmService.saveFilm(film);
     }
+
     @PutMapping("/updateFilm")
     public Long updateFilm(@RequestBody Film film){
-        return updateFilm(film);
+        return filmService.updateFilmById(film);
     }
-
 
     @GetMapping("/{id}")
     public Film get(@PathVariable Long id){
