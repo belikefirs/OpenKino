@@ -16,6 +16,7 @@ export default {
         return {
             buttons:[
                 {text: "Управление фильмами", link:"addFilm"},
+                {text: "Список фильмов", link:"showFilm"},
             ],
         }
     }

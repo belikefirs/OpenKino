@@ -1,9 +1,14 @@
 <template>
     <div class="search">
-        <input type="text" :placeholder="ph" v-model="searchtype" @focus="showList = true" @blur="showList = false">
+        <input type="text"  
+            :value="value"
+            @input="$emit('input', $event.target.value)" 
+            :placeholder="ph"
+            @focus="showList = true" 
+>
         <transition name="listTipes">  
             <ul v-if="showList" class="list">
-                <li v-for="(item) in searchwords" :key="item.name" class="Types">
+                <li v-for="(item) in searchwords" :key="item.name" @click="clickword(item)" class="Types" >
                     <label>{{item.name}}</label>
                 </li>
             </ul>
@@ -14,13 +19,13 @@
 <script>
 export default {
     props:{
-        filmTypeList: Object,
+        value: String,
+        filmTypeList: Array,
         ph: String,
     },
     data() {
         return {
             showList: false,
-            searchtype: '',
             types:[
                 {name: 'Комедия'},
                 {name: 'Боевик'},
@@ -32,8 +37,8 @@ export default {
     },
     computed: {
         searchwords: function() {
-            var searchwords = this.searchtype && this.searchtype.toLowerCase();
-            var searcharray = this.types;
+            var searchwords = this.value && this.value.toLowerCase();
+            var searcharray =  [] ||this.types;
 
             searcharray = this.types.filter(function(item){
                 if(item.name.toLowerCase().indexOf(searchwords) !== -1) {
@@ -42,6 +47,11 @@ export default {
             }
             )
             return searcharray;
+        }
+    },
+    methods: {
+                clickword: function(item) {
+            this.$emit('randomName', item);
         }
     }
 }
