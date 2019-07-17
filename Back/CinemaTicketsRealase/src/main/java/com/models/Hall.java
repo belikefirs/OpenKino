@@ -2,7 +2,6 @@ package com.models;
 
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 @Entity

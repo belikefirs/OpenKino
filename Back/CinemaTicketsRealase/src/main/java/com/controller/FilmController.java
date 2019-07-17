@@ -1,6 +1,6 @@
-
+package com.controller;
+import com.dao.CardDao;
 import com.models.Film;
-import com.models.Rating;
 import com.models.TypeFilm;
 import com.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +17,7 @@ public class FilmController {
 
     @Autowired
     private FilmService filmService;
-    @Autowired
-    private CardDao cardDao;
+
 
     @PostMapping("")
     public Long saveFilm(@RequestBody Film film){
@@ -36,8 +35,4 @@ public class FilmController {
     }
 
 
-    @GetMapping("/test/{id}")
-    public List<Card> getCard(@PathVariable Long id){
-        return cardDao.findAllByKinoUserId(id);
-    }
 }
