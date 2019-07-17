@@ -17,7 +17,7 @@ public class HallServiceImpl implements HallService {
     }
     @Override
     @Transactional
-    public Long saveHall(Hall hall) {
+    public Long saveHall(Hall hall) {////////////////////////////////////////////////
         hallDao.save(hall);
         return hall.getId();
     }
