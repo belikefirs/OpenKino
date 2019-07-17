@@ -1,5 +1,8 @@
 package com.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,21 +17,25 @@ public class Film {
     @Column(name = "Lenght")
     private Long lenght;
     @ManyToOne
-    @JoinColumn(name = "ID_LIMIT_AGE", unique = true, nullable = false, updatable = false)
+    @JoinColumn(name = "ID_LIMIT_AGE")
+    @JsonManagedReference
     private LimitAge limitAge;
 
     @ManyToOne
-    @JoinColumn(name = "ID_RATING", unique = true, nullable = false, updatable = false)
+    @JoinColumn(name = "ID_RATING")
+    @JsonManagedReference
     private Rating rating;
     @ManyToOne
     @JoinColumn(name = "ID_TYPE_FILM")
-    // @JsonManagedReference
+    @JsonManagedReference
     private TypeFilm typeFilm;
 
     @ManyToOne
-    @JoinColumn(name = "ID_GENRE", unique = true, nullable = false, updatable = false)
+    @JoinColumn(name = "ID_GENRE")
+    @JsonManagedReference
     private Genre genre;
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "film")
+    @JsonBackReference
     private List<Session> sessions;
 
     public Film (){}

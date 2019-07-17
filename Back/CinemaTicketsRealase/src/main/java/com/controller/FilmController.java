@@ -18,7 +18,6 @@ public class FilmController {
     @Autowired
     private FilmService filmService;
 
-
     @PostMapping("")
     public Long saveFilm(@RequestBody Film film){
         return filmService.saveFilm(film);
@@ -27,6 +26,10 @@ public class FilmController {
     @GetMapping("/{id}")
     public Film get(@PathVariable Long id){
         return filmService.findFimlById(id);
+    }
+    @GetMapping("/all")
+    public List <Film> getAll(){
+        return filmService.findAllFilm();
     }
 
     @GetMapping("/type")

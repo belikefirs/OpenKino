@@ -1,5 +1,7 @@
 package com.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,6 +15,7 @@ public class LimitAge {
     @Column(name = "Age")
     private int age;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "limitAge")
+    @JsonBackReference
     private List<Film> films;
 
     public LimitAge(){}

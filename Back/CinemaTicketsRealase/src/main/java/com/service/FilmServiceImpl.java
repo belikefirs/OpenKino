@@ -169,4 +169,9 @@ public class FilmServiceImpl implements FilmService {
     public List<Rating> findAllRating() {
         return ratingDao.findAll();
     }
+
+    @Override
+    public List<Film> findAllFilm() {
+        return filmDao.findAll();
+    }
 }

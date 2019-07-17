@@ -31,5 +31,6 @@ public interface FilmService {
     Long saveRating(Rating rating);
     void deleteRatingById(Long id);
     List <Rating> findAllRating();
+    List <Film> findAllFilm();
 
 }
