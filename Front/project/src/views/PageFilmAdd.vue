@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper-admin">
-        <p>Здравствуйте: Иван</p>
+        <p>Здравствуйте: Гость</p>
         <form class="log inputCont" @submit.prevent="savaFilm">
             <input v-model="form.name" placeholder="Название фильма">
             <input v-model="form.lenght" placeholder="Продолжительность">
