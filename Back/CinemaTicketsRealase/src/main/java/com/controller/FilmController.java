@@ -2,6 +2,7 @@ package com.controller;
 import com.dao.CardDao;
 import com.models.Film;
 import com.models.Genre;
+import com.models.LimitAge;
 import com.models.TypeFilm;
 import com.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class FilmController {
     public Long saveFilm(@RequestBody Film film){
         return filmService.saveFilm(film);
     }
+    @PutMapping("/updateFilm")
+    public Long updateFilm(@RequestBody Film film){
+        return updateFilm(film);
+    }
+
 
     @GetMapping("/{id}")
     public Film get(@PathVariable Long id){
@@ -42,6 +48,12 @@ public class FilmController {
     public List<Genre> getGenre(){
         return filmService.findAllGenre();
     }
+
+    @GetMapping("/limitAge")
+    public List<LimitAge> getLimitage(){
+        return filmService.findAllLimitAge();
+    }
+
 
 
 
