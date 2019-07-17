@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Created by mbelo on 15.07.2019.
- */
 @RestController
 @RequestMapping("/Film")
 public class FilmController {
@@ -31,7 +28,7 @@ public class FilmController {
 
     @GetMapping("/{id}")
     public Film get(@PathVariable Long id){
-        return filmService.findFimlById(id);
+        return filmService.findFilmById(id);
     }
     @GetMapping("/all")
     public List <Film> getAll(){

@@ -74,21 +74,21 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public Film findFimlById(Long id) {
+    public Film findFilmById(Long id) {
         return filmDao.findById(id).get();
     }
 
     @Override
     public Long setGenreByFilmId(Long id, Long idGenre) {
         Genre genre = genreDao.findById(idGenre).get();
-        Film film = findFimlById(id);
+        Film film = findFilmById(id);
         film.setGenre(genre);
         return saveFilm(film);
     }
 
     @Override
     public Long setTypeFilmById(Long id, Long idTypeFilm) {
-        Film film = findFimlById(id);
+        Film film = findFilmById(id);
         TypeFilm typeFilm = typeFilmDao.findById(idTypeFilm).get();
         film.setTypeFilm(typeFilm);
         return saveFilm(film);
@@ -96,7 +96,7 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public Long setLimitAgeById(Long id, Long idLimiteAge) {
-        Film film = findFimlById(id);
+        Film film = findFilmById(id);
         LimitAge limitAge = limitAgeDao.findById(idLimiteAge).get();
         film.setLimitAge(limitAge);
         return saveFilm(film);
@@ -104,7 +104,7 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public Long setRatingById(Long id, Long idRating) {
-        Film film = findFimlById(id);
+        Film film = findFilmById(id);
         Rating rating = ratingDao.findById(idRating).get();
         film.setRating(rating);
         return saveFilm(film);
@@ -174,4 +174,5 @@ public class FilmServiceImpl implements FilmService {
     public List<Film> findAllFilm() {
         return filmDao.findAll();
     }
+
 }

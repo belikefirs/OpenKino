@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -37,7 +38,7 @@ public class Film {
     private Genre genre;
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "film")
     @JsonIgnore
-    private List<Session> sessions;
+    private List<Session> sessions = new ArrayList();
 
     public Film (){}
 

@@ -6,6 +6,7 @@ import com.service.KinUserService;
 import com.tokens.FilterToken;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 
 @EnableWebSecurity
+@ComponentScan("com")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private KinUserService kinUserService;
     private ApplicationContext context;

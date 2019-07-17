@@ -22,7 +22,7 @@ public class Session {
     @Column(name = "END")
     private Date end;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_FILM")
     // // @JsonManagedReference
     private Film film;
