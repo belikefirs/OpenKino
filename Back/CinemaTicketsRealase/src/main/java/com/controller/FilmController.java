@@ -1,6 +1,7 @@
 package com.controller;
 import com.dao.CardDao;
 import com.models.Film;
+import com.models.Genre;
 import com.models.TypeFilm;
 import com.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,13 @@ public class FilmController {
     public List<TypeFilm> getType(){
         return filmService.findAllTypeFilm();
     }
+
+    @GetMapping("/genre")
+    public List<Genre> getGenre(){
+        return filmService.findAllGenre();
+    }
+
+
 
 
 }
