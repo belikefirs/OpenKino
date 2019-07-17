@@ -17,15 +17,14 @@ public class HallServiceImpl implements HallService {
     }
     @Override
     @Transactional
-    public Long saveHall(Hall hall) {
+    public Long saveHall(Hall hall) {////////////////////////////////////////////////
         hallDao.save(hall);
         return hall.getId();
     }
 
     @Override
     @Transactional
-    public Hall findGHallbyId(Long id) {
-
+    public Hall findHallbyId(Long id) {
         return hallDao.findById(id).get();
     }
 
@@ -48,10 +47,37 @@ public class HallServiceImpl implements HallService {
     @Override
     @Transactional
     public List<Place> getPlaces(Long id) {
+        Hall hall = hallDao.findById(id).get();
+        List<Place> places = placeDao.getFindbyIdHall(hall.getId());
+        return places;
+    }
+
+    @Override
+    @Transactional
+    public Place getPlace(Long idHall, Long idPlaces) {
         return null;
     }
 
     @Override
+    @Transactional
+    public List<Place> getPlacesNotReservation(Long id) {
+        Hall hall = hallDao.findById(id).get();
+        List<Place>  places =
+                placeDao.getFindbyIdHallPlacesnotReservation(hall.getId());
+        return places;
+    }
+
+    @Override
+    @Transactional
+    public List<Place> getPlacesReservation(Long id) {
+        Hall hall =  hallDao.findById(id).get();
+        List<Place> places =
+                placeDao.getFindbyIdHallPlacesisReservation(hall.getId());
+        return places;
+    }
+
+    @Override
+    @Transactional
     public Integer getSize(Long id) {
         Hall hall = hallDao.findById(id).get();
         return hall.getWidth() * hall.getHeight();

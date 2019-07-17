@@ -6,11 +6,14 @@ import com.models.Place;
 import java.util.List;
 
 public interface HallService {
-    public Long saveHall(Hall hall);
-    public Hall findGHallbyId(Long id);
-    public Long updateHall(Hall hall);
-    public void deleteHall(Long id);
-    public List<Place> getPlaces(Long id);
-    public Integer getSize(Long id);
+    Long saveHall(Hall hall);
+     Hall findHallbyId(Long id);
+     Long updateHall(Hall hall);
+     void deleteHall(Long id);
+    Integer getSize(Long id);
+    List<Place> getPlaces(Long idHall);
+    Place getPlace(Long idHall, Long idPlaces);
+    List<Place> getPlacesNotReservation(Long id);
+     List<Place> getPlacesReservation(Long id);
 
 }

@@ -15,7 +15,7 @@ public class Card {
     private Double balance;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "ID_CARD", nullable = false)
+    @JoinColumn(name = "ID_CARD")
     private KinoUser kinoUser;
 
     public Card(){}

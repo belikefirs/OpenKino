@@ -31,6 +31,9 @@ public class KinoUser {
     @Column(name = "MAIL")
     private String mail;
 
+    @Column (name = "STATUS")
+    private Boolean action;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "kinoUser")
     private List<Card> cards;
 
@@ -113,5 +116,13 @@ public class KinoUser {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Boolean getAction() {
+        return action;
+    }
+
+    public void setAction(Boolean action) {
+        this.action = action;
     }
 }

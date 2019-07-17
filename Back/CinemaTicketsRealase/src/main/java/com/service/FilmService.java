@@ -5,10 +5,10 @@ import java.util.List;
 
 public interface FilmService {
 
-    Long saveFilm(Film film);
-    void deleteFilmById(Long id);
+    Long saveFilm(Film film);//
+    void deleteFilmById(Long id);//
     Long updateFilmById(Film film);
-    Film findFimlById(Long id);
+    Film findFilmById(Long id);//
 
     Long setGenreByFilmId(Long id, Long idGenre);
     Long setTypeFilmById(Long id, Long idTypeFilm);
@@ -31,5 +31,6 @@ public interface FilmService {
     Long saveRating(Rating rating);
     void deleteRatingById(Long id);
     List <Rating> findAllRating();
+    List <Film> findAllFilm();
 
 }

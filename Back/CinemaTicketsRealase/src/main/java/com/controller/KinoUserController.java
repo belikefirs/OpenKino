@@ -1,45 +1,74 @@
 package com.controller;
 
-import com.models.Card;
 import com.models.KinoUser;
+import com.models.Position;
 import com.service.KinUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-/**
- * Created by mbelo on 14.07.2019.
- */
+import java.util.List;
+
+
 @RestController
+@RequestMapping("/KinoUser")
 public class KinoUserController {
-    @Autowired
+
+@Autowired
     private KinUserService kinUserService;
 
 
 
-    @GetMapping("/saveKinoUser")
-    public String saveKinoUser(KinoUser kinoUser){
-        kinoUser.setName("misha");
-        kinUserService.saveKinoUser(kinoUser);
-        return "KinoUser save";
+    @PostMapping("/save")
+    public Long saveKinoUser(@RequestBody KinoUser kinoUser) {
+
+        return kinUserService.saveKinoUser(kinoUser);
     }
 
-    @GetMapping("/updateKinoUserById")
-    public String updateKinoUserById(KinoUser kinoUser){
-        kinoUser.setId(1L);
-        kinoUser.setName("Sasha");
-        kinoUser.setAge(50);
-        kinUserService.updateKinoUser(kinoUser);
-        return "Update KinoUserById";
+    @PutMapping("/update")
+    public Long updateKinoUser(@RequestBody KinoUser kinoUser) {
+        return kinUserService.updateKinoUser(kinoUser);
     }
 
-    @GetMapping("/saveCard")
-    public Long saveCard(Card card){
-        card.setId(22031123344L);
-        card.setBalance(500.0);
-        kinUserService.saveCard(1L,card);
-        return card.getId();
+    @DeleteMapping("/delete/{id}")
+    public void deleteKinoUser(@PathVariable Long id) {
+        kinUserService.deleteById(id);
     }
+
+    @PutMapping("/block")
+    public Long activeKinoUser(@RequestBody KinoUser kinoUser) {
+        return kinUserService.action_true(kinoUser);
+    }
+
+    @PutMapping("/active")
+    public Long blockKinoUser(@RequestBody KinoUser kinoUser) {
+        return kinUserService.action_false(kinoUser);
+    }
+
+    @GetMapping("/all")
+    public List<KinoUser> getAll() {
+        return kinUserService.findKinoUserAll();
+    }
+
+    @GetMapping("/{id}")
+    public KinoUser get(@PathVariable Long id) {
+        return kinUserService.findKinoUserById(id);
+    }
+
+   /* @PutMapping("/setRole/{id}")
+    public KinoUser setPosition(@RequestBody KinoUser kinoUser) {
+        int id = 0;
+        switch (kinoUser.getPosition().getName()) {
+            case "User":
+            case "Пользователь":
+                id = 1;
+                break;
+            case "Admin":
+            case "Администратор":
+                id = 2;
+                break;
+        }
+        return kinUserService.setPositionKinoUserById(idPosition, id)
+    }*/
 
 
 }

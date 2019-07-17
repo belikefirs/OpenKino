@@ -1,5 +1,7 @@
 package com.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 
@@ -10,7 +12,6 @@ import java.util.Date;
 public class Session {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column (name="ID")
     private Long id;
     @Column(name = "Name")
     private String name;
@@ -21,12 +22,14 @@ public class Session {
     @Column(name = "END")
     private Date end;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_FILM")
+    // // @JsonManagedReference
     private Film film;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_HALL")
+    //// @JsonManagedReference
     private Hall hall;
 
     public Session(){}

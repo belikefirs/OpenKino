@@ -1,9 +1,11 @@
 package com.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
+@Entity(name="limit_age")
 @Table(name = "LIMIT_AGE")
 public class LimitAge {
     @Id
@@ -13,6 +15,7 @@ public class LimitAge {
     @Column(name = "Age")
     private int age;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "limitAge")
+    @JsonBackReference
     private List<Film> films;
 
     public LimitAge(){}

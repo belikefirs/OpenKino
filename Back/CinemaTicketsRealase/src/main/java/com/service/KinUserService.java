@@ -7,12 +7,17 @@ import java.util.List;
 
 public interface KinUserService {
     Long saveKinoUser(KinoUser kinoUser);
-    KinoUser findKinoUserById(Long id);
     Long updateKinoUser(KinoUser kinoUser);
+
+    KinoUser findKinoUserById(Long id);
     void deleteById(Long id);
-    List<Card> getCardsById(Long id);
+    List<KinoUser> findKinoUserAll();
+
+    Long action_true(KinoUser kinoUser);
+    Long action_false(KinoUser kinoUser);
+
     Long setPositionKinoUserById(Long idPosition, Long id);
     Position getPositionKinoUserById(Long id);
-    Long saveCard(Long id, Card card);
     Long savePosition(Position position);
+
 }

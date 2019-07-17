@@ -3,12 +3,10 @@ package com.configuration;
 import com.filter.BasicAuthenticationVUFilter;
 import com.filter.EncodingFilter;
 import com.service.KinUserService;
-import com.service.KinUserServiceImpl;
 import com.tokens.FilterToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 
 @EnableWebSecurity
+@ComponentScan("com")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private KinUserService kinUserService;
     private ApplicationContext context;
@@ -50,11 +49,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/protected/**").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/confidential/**").access("hasRole('ROLE_SUPERADMIN')")
                 .antMatchers("/user/create").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .formLogin().defaultSuccessUrl("/", false);
+                .formLogin().disable();
 
     }
     @Override
