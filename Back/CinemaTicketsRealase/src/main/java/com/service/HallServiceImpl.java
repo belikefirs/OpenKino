@@ -4,10 +4,11 @@ import com.dao.HallDao;
 import com.dao.PlaceDao;
 import com.models.Hall;
 import com.models.Place;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
+@Service
 public class HallServiceImpl implements HallService {
     private HallDao hallDao;
     private PlaceDao placeDao;
@@ -18,8 +19,7 @@ public class HallServiceImpl implements HallService {
     @Override
     @Transactional
     public Long saveHall(Hall hall) {////////////////////////////////////////////////
-        hallDao.save(hall);
-        return hall.getId();
+        return hallDao.save(hall).getId();
     }
 
     @Override

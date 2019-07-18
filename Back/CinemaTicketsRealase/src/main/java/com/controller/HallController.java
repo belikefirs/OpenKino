@@ -3,6 +3,7 @@ package com.controller;
 import com.models.Hall;
 import com.models.Place;
 import com.service.HallService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,11 +12,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/hall")
 public class HallController {
-    public final static int width = 50;
-    public final static int height = 50;
+    @Autowired
     public HallService hallService;
     @PostMapping("/save")
-    @ResponseStatus(HttpStatus.CREATED)
     public Long save(@RequestBody Hall hall){
         return hallService.saveHall(hall);
     }

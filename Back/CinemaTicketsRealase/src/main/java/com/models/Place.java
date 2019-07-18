@@ -23,7 +23,7 @@ public class Place {
     private Double price;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "ID_RESERVATION", nullable = false)
+    @JoinColumn(name = "ID_RESERVATION")
     // @JsonManagedReference
     private Reservation reservation;
 

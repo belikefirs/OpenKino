@@ -15,7 +15,6 @@ public interface FilmService {
     Long setLimitAgeById(Long id,Long idLimiteAge);
     Long setRatingById(Long id, Long idRating);
 
-
     Long saveGenre(Genre genre);
     void deleteGenreById(Long id);
     List<Genre> findAllGenre();
