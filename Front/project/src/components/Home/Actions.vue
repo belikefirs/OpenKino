@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Slider from '@/components/Slider/AppSlider.vue'
+import Slider from '@/components/AppSlider.vue'
 import WrapperCent from '@/components/AppWrapperCenter.vue'
 export default {
 	components: {

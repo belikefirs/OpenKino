@@ -6,7 +6,7 @@
             :placeholder="ph"
             @focus="showList = true"
             @click="clickClear"
->
+        >
         <transition name="listTipes">  
             <ul v-if="showList" class="list">
                 <li v-for="(item) in searchwords" :key="item.name" @click="clickWord(item), showList = false" class="Types">

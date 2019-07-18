@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import SliderItem from '@/components/Slider/SliderItem.vue'
+import SliderItem from '@/components/AppFilmCard.vue'
 import { setTimeout } from 'timers';
 export default {
     components: {
@@ -121,7 +121,7 @@ export default {
         .arrow
             width: 100%
             height: 100%
-            background: url('../../assets/arrow.svg') center no-repeat
+            background: url('../assets/arrow.svg') center no-repeat
             background-size: 25%
             // display: flex
             // justify-content: center

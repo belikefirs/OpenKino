@@ -41,7 +41,6 @@ import Home from '@/views/Home.vue'
 import News from '@/views/News.vue'
 import Films from '@/views/Films.vue'
 import About from '@/views/About.vue'
-import Admin from '@/views/Admin.vue'
 
 import Modal from '@/components/AppModalWindow.vue'
 import BackToTop from '@/components/AppButtonToTop.vue'
@@ -49,7 +48,7 @@ import BackToTop from '@/components/AppButtonToTop.vue'
 export default {
 	components: {
 		Header, Footer, AdminPanel,
-		Home, News, Films, About, Admin,
+		Home, News, Films, About,
 		Modal, BackToTop, AppLogReg, AppButton
 	},
 
