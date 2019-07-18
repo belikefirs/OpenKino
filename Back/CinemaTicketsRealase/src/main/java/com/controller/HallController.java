@@ -3,6 +3,7 @@ package com.controller;
 import com.models.Hall;
 import com.models.Place;
 import com.service.HallService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,16 +12,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/hall")
 public class HallController {
-    public final static int width = 50;
-    public final static int height = 50;
-    public HallService hallService;
+    public final HallService hallService;
+
+    public HallController(HallService hallService) {
+        this.hallService = hallService;
+    }
+
     @PostMapping("/save")
-    @ResponseStatus(HttpStatus.CREATED)
     public Long save(@RequestBody Hall hall){
         return hallService.saveHall(hall);
     }
     @PutMapping("")
-    @ResponseStatus(HttpStatus.FOUND)
     public Long update(@RequestBody Hall hall){
         return hallService.updateHall(hall);
     }
@@ -46,5 +48,4 @@ public class HallController {
     public List<Place> getPlacesIsNotReservation(@PathVariable Long id)  {
         return hallService.getPlacesNotReservation(id);
     }
-
 }

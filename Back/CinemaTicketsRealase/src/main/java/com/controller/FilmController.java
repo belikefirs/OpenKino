@@ -13,18 +13,23 @@ import java.util.List;
 @RequestMapping("/Film")
 public class FilmController {
 
-    @Autowired
-    private FilmService filmService;
+    private final FilmService filmService;
+
+    public FilmController(FilmService filmService) {
+        this.filmService = filmService;
+    }
 
     @PostMapping("")
     public Long saveFilm(@RequestBody Film film){
         return filmService.saveFilm(film);
     }
 
-    @PutMapping("/updateFilm")
+    @PutMapping("/update")
     public Long updateFilm(@RequestBody Film film){
         return filmService.updateFilmById(film);
     }
+
+    @DeleteMapping("/delete")
 
     @GetMapping("/{id}")
     public Film get(@PathVariable Long id){
