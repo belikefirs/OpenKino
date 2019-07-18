@@ -4,7 +4,8 @@
             :value="value"
             @input="$emit('input', $event.target.value)" 
             :placeholder="ph"
-            @focus="showList = true" 
+            @focus="showList = true"
+            @blur="showList = false" 
 >
         <transition name="listTipes">  
             <ul v-if="showList" class="list">
@@ -50,8 +51,8 @@ export default {
         }
     },
     methods: {
-                clickword: function(item) {
-            this.$emit('randomName', item);
+        clickword: function(item) {
+            this.$emit('clickWord', item);
         }
     }
 }
