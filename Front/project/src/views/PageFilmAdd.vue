@@ -1,24 +1,24 @@
 <template>
-    <div class="wrapper-admin">
+    <div class="wrapper-admin-addFilm">
         <p>Здравствуйте: Гость</p>
         <form class="log inputCont" @submit.prevent="savaFilm">
             <input v-model="form.name" placeholder="Название фильма">
             <input v-model="form.lenght" placeholder="Продолжительность">
-            <AddFilm v-model="form.typeFilm.name" :filmTypeList="this.$store.state.typeFilmList" :ph="'Тип'" @clickWord="getType"></AddFilm>
-            <AddFilm :filmTypeList="this.$store.state.genreFilmList" :ph="'Жанр'" v-model="form.genre.name" @clickWord="getGenre"></AddFilm>
+            <ddList v-model="form.typeFilm.name" :List="this.$store.state.typeFilmList" :ph="'Тип'" @clickWord="getType"></ddList>
+            <ddList v-model="form.genre.name" :List="this.$store.state.genreFilmList" :ph="'Жанр'" @clickWord="getGenre"></ddList>
             <input v-model="form.limitAge.age" placeholder="Возрастное ограничение">
             <input v-model="form.rating.rating" placeholder="Рейтинг">
             <br>
-            <button class="button">Сохранить</button>
+            <button class="button">Добавить</button>
         </form>  
     </div>
 </template>
 
 <script>
-import AddFilm from '@/components/FilmsGenre.vue'
+import ddList from '@/components/DropDownList.vue'
 export default {
     components: {
-        AddFilm
+        ddList
     },
     data() {
         return {
@@ -26,16 +26,16 @@ export default {
                 name: '',
                 lenght: '',
                 typeFilm: {
-                    name: "",
+                    name: '',
                 },
                 genre: {
-                    name: ""
+                    name: '',
                 },
                 limitAge: {
-                    age:""
+                    age: '',
                 },
                 rating: {
-                    rating:""
+                    rating: '',
                 }
                 
             }
@@ -47,7 +47,6 @@ export default {
         },
         getType (val) {
             this.form.typeFilm.name = val.name;
-            console.log(val)
         },
         getGenre (val) {
             this.form.genre.name = val.name;
@@ -61,15 +60,15 @@ export default {
 </script>
 
 <style>
-.wrapper-admin {
-    width: 500px;
+.wrapper-admin-addFilm {
+    width: 100%;
     height: 100%;
     background: white;
     overflow: hidden;
     position: relative;
     z-index: 100;
 }
-.wrapper-admin p {
+.wrapper-admin-addFilm p {
     font-family: 'Roboto', sans-serif;
 	font-size: 18px;
 	font-weight: 300;
@@ -79,6 +78,7 @@ export default {
 }
 .inputCont{
     z-index: 0;
+
     padding: 18px 27px;
     display: flex;
     flex-direction: column;

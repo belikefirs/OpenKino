@@ -6,8 +6,8 @@
             :placeholder="ph"
             @focus="showList = true"
             @blur="showList = false" 
->
-        <transition name="listTipes">  
+        >
+        <transition name="list  Tipes">  
             <ul v-if="showList" class="list">
                 <li v-for="(item) in searchwords" :key="item.name" @click="clickword(item)" class="Types" >
                     <label>{{item.name}}</label>
@@ -21,27 +21,20 @@
 export default {
     props:{
         value: String,
-        filmTypeList: Array,
+        List: Array,
         ph: String,
     },
     data() {
         return {
             showList: false,
-            types:[
-                {name: 'Комедия'},
-                {name: 'Боевик'},
-                {name: 'Триллер'},
-                {name: 'Экшен'},
-                {name: 'Драма'},
-            ]
         }
     },
     computed: {
         searchwords: function() {
             var searchwords = this.value && this.value.toLowerCase();
-            var searcharray =  [] ||this.types;
+            var searcharray =  [] || this.List;
 
-            searcharray = this.types.filter(function(item){
+            searcharray = this.List.filter(function(item){
                 if(item.name.toLowerCase().indexOf(searchwords) !== -1) {
                     return item;
                 }
