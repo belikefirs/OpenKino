@@ -67,9 +67,7 @@ public class FilmServiceImpl implements FilmService {
         film1.setLenght(film.getLenght());
         film1.setLimitAge(film.getLimitAge());
         film1.setRating(film.getRating());
-        // film1.setSessions(film.getSessions());
         film1.setTypeFilm(film.getTypeFilm());
-     //   film1.setDescription(film.getDescription());
         return filmDao.save(film1).getId();
     }
 
@@ -79,45 +77,11 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public Long setGenreByFilmId(Long id, Long idGenre) {
-        Genre genre = genreDao.findById(idGenre).get();
-        Film film = findFilmById(id);
-        film.setGenre(genre);
-        return saveFilm(film);
-    }
-
-    @Override
-    public Long setTypeFilmById(Long id, Long idTypeFilm) {
-        Film film = findFilmById(id);
-        TypeFilm typeFilm = typeFilmDao.findById(idTypeFilm).get();
-        film.setTypeFilm(typeFilm);
-        return saveFilm(film);
-    }
-
-    @Override
-    public Long setLimitAgeById(Long id, Long idLimiteAge) {
-        Film film = findFilmById(id);
-        LimitAge limitAge = limitAgeDao.findById(idLimiteAge).get();
-        film.setLimitAge(limitAge);
-        return saveFilm(film);
-    }
-
-    @Override
-    public Long setRatingById(Long id, Long idRating) {
-        Film film = findFilmById(id);
-        Rating rating = ratingDao.findById(idRating).get();
-        film.setRating(rating);
-        return saveFilm(film);
-    }
-
-    @Override
-    public Long saveGenre(Genre genre) {
-        return genreDao.save(genre).getId();
-    }
-
-    @Override
-    public void deleteGenreById(Long id) {
-        genreDao.deleteById(id);
+    public Long updateGenre(Genre genre) {
+        Genre genre1 = genreDao.findById(genre.getId()).get();
+        genre1.setName(genre.getName());
+        genre1.setFilms(genre.getFilms());
+        return genreDao.save(genre1).getId();
     }
 
     @Override
@@ -126,14 +90,12 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public Long saveTypeFilm(TypeFilm typeFilm) {
-        return typeFilmDao.save(typeFilm).getId();
-    }
-
-    @Override
-    public void deleteTypeFilmById(Long id) {
-        typeFilmDao.deleteById(id);
-    }
+    public Long updateTypeFilm(TypeFilm typeFilm) {
+        TypeFilm typeFilm1 = typeFilmDao.findById(typeFilm.getId()).get();
+        typeFilm1.setName(typeFilm.getName());
+        typeFilm1.setFilms(typeFilm.getFilms());
+        return typeFilmDao.save(typeFilm1).getId();
+        }
 
     @Override
     public List<TypeFilm> findAllTypeFilm() {
@@ -141,13 +103,11 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public Long saveLimitAge(LimitAge limitAge) {
-        return limitAgeDao.save(limitAge).getId();
-    }
-
-    @Override
-    public void deleteLimitAgeById(Long id) {
-        limitAgeDao.deleteById(id);
+    public Long updateLimitAge(LimitAge limitAge) {
+        LimitAge limitAge1 = limitAgeDao.findById(limitAge.getId()).get();
+        limitAge1.setAge(limitAge.getAge());
+        limitAge1.setFilms(limitAge.getFilms());
+        return limitAgeDao.save(limitAge1).getId();
     }
 
     @Override
@@ -156,13 +116,11 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public Long saveRating(Rating rating) {
-        return ratingDao.save(rating).getId();
-    }
-
-    @Override
-    public void deleteRatingById(Long id) {
-    ratingDao.deleteById(id);
+    public Long updateRating(Rating rating) {
+        Rating rating1 = ratingDao.findById(rating.getId()).get();
+        rating1.setRating(rating.getRating());
+        rating1.setFilms(rating.getFilms());
+        return ratingDao.save(rating1).getId();
     }
 
     @Override

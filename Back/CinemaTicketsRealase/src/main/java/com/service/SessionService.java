@@ -11,5 +11,5 @@ public interface SessionService {
     void deleteSessionById(Long id);
     Long updateSesById(Session session);
     Session findSessionById(Long id);
-
+    List<Session> findSessionAll();
 }
