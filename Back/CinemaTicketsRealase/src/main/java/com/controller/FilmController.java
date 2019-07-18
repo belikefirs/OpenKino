@@ -1,8 +1,5 @@
 package com.controller;
-import com.models.Film;
-import com.models.Genre;
-import com.models.LimitAge;
-import com.models.TypeFilm;
+import com.models.*;
 import com.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -66,9 +63,16 @@ public class FilmController {
         return filmService.findAllLimitAge();
     }
     @PutMapping("/limitAge")
-    public Long updateLimitAge(LimitAge limitAge){
+    public Long updateLimitAge(@RequestBody LimitAge limitAge){
         return filmService.updateLimitAge(limitAge);
     }
-
+    @GetMapping("/rating")
+    public List <Rating> getRating(){
+        return filmService.findAllRating();
+    }
+    @PutMapping("/rating")
+    public Long updateRating(@RequestBody Rating rating){
+        return filmService.updateRating(rating);
+    }
 
 }
