@@ -1,6 +1,7 @@
 package com.models;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
@@ -34,11 +35,11 @@ public class KinoUser {
     @Column (name = "STATUS")
     private Boolean action;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "kinoUser")
     private List<Card> cards;
 
-
-
+@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "ID_POSITION", unique = true, nullable = false, updatable = false)
     private Position position;
