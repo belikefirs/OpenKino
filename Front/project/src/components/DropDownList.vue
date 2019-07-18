@@ -27,14 +27,22 @@ export default {
     data() {
         return {
             showList: false,
+            types: [
+                {name: 'Боевик'},
+                {name: 'Комедия'},
+                {name: 'Экшен'},
+                {name: 'Ужасы'},
+                {name: 'Драма'},
+                {name: 'Триллер'},
+            ]
         }
     },
     computed: {
         searchwords: function() {
             var searchwords = this.value && this.value.toLowerCase();
-            var searcharray =  [] || this.List;
+            var searcharray =  [] || this.types;
 
-            searcharray = this.List.filter(function(item){
+            searcharray = this.types.filter(function(item){
                 if(item.name.toLowerCase().indexOf(searchwords) !== -1) {
                     return item;
                 }
