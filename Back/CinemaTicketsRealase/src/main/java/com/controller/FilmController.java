@@ -13,8 +13,11 @@ import java.util.List;
 @RequestMapping("/Film")
 public class FilmController {
 
-    @Autowired
-    private FilmService filmService;
+    private final FilmService filmService;
+
+    public FilmController(FilmService filmService) {
+        this.filmService = filmService;
+    }
 
     @PostMapping("")
     public Long saveFilm(@RequestBody Film film){

@@ -12,14 +12,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/hall")
 public class HallController {
-    @Autowired
-    public HallService hallService;
+    public final HallService hallService;
+
+    public HallController(HallService hallService) {
+        this.hallService = hallService;
+    }
+
     @PostMapping("/save")
     public Long save(@RequestBody Hall hall){
         return hallService.saveHall(hall);
     }
     @PutMapping("")
-    @ResponseStatus(HttpStatus.FOUND)
     public Long update(@RequestBody Hall hall){
         return hallService.updateHall(hall);
     }
@@ -45,5 +48,4 @@ public class HallController {
     public List<Place> getPlacesIsNotReservation(@PathVariable Long id)  {
         return hallService.getPlacesNotReservation(id);
     }
-
 }
