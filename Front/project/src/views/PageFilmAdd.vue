@@ -4,8 +4,8 @@
         <form class="log inputCont" @submit.prevent="savaFilm">
             <input v-model="form.name" placeholder="Название фильма">
             <input v-model="form.lenght" placeholder="Продолжительность">
-            <AddFilm v-model="form.typeFilm.name" :filmTypeList="this.$store.state.typeFilmList" :ph="'Тип'" @clickWord="getType"></AddFilm>
-            <AddFilm :filmTypeList="this.$store.state.genreFilmList" :ph="'Жанр'" v-model="form.genre.name" @clickWord="getGenre"></AddFilm>
+            <AddFilm v-model="form.typeFilm.name" :filmTypeList="this.$store.state.typeFilmList" :ph="'Тип'" @clickItem="getType" @clickClear="getClearType"></AddFilm>
+            <AddFilm :filmTypeList="this.$store.state.genreFilmList" :ph="'Жанр'" v-model="form.genre.name" @clickItem="getGenre" @clickClear="getClearGenre"></AddFilm>
             <input v-model="form.limitAge.age" placeholder="Возрастное ограничение">
             <input v-model="form.rating.rating" placeholder="Рейтинг">
             <br>
@@ -47,10 +47,15 @@ export default {
         },
         getType (val) {
             this.form.typeFilm.name = val.name;
-            console.log(val)
         },
         getGenre (val) {
             this.form.genre.name = val.name;
+        },
+        getClearType () {
+            this.form.typeFilm.name = '';
+        },
+        getClearGenre () {
+            this.form.genre.name = '';
         }
     },
     created() {

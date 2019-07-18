@@ -5,11 +5,11 @@
             @input="$emit('input', $event.target.value)" 
             :placeholder="ph"
             @focus="showList = true"
-            @blur="showList = false" 
+            @click="clickClear"
 >
         <transition name="listTipes">  
             <ul v-if="showList" class="list">
-                <li v-for="(item) in searchwords" :key="item.name" @click="clickword(item)" class="Types" >
+                <li v-for="(item) in searchwords" :key="item.name" @click="clickWord(item), showList = false" class="Types">
                     <label>{{item.name}}</label>
                 </li>
             </ul>
@@ -51,9 +51,13 @@ export default {
         }
     },
     methods: {
-        clickword: function(item) {
-            this.$emit('clickWord', item);
+        clickWord: function(item) {
+            this.$emit('clickItem', item);
+        },
+        clickClear: function() {
+            this.$emit('clickClear');
         }
+
     }
 }
 </script>
