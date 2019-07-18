@@ -56,7 +56,6 @@ export default {
     z-index: 0;
     display: flex;
     flex-direction: column;
-    background: #eee;
 }
 .search input{
     margin: 9px 0;
