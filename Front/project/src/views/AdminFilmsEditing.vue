@@ -4,14 +4,53 @@
             <v-flex sm6>
                 <v-text-field
                 v-model="searchBox"
-                label="Solo"
                 prepend-inner-icon="search"
                 placeholder="Поиск"
                 solo
                 ></v-text-field>
             </v-flex>
             <v-spacer></v-spacer>
-            <v-btn sm1 color="primary" @click="addClick">Добавить</v-btn>
+            <v-dialog
+            v-model="dialog"
+            width="500">
+                <template v-slot:activator="{ on }">
+                    <v-btn sm1 color="primary" v-on="on">Добавить</v-btn>
+                </template>
+                <v-card>
+                    <v-card-title>Добавление фильма</v-card-title>
+                    <v-card-text>
+                        <v-text-field
+                        v-model="editingItem.name"
+                        label="Название"
+                        />
+                        <v-text-field
+                        v-model="editingItem.lenght"
+                        label="Длительность"
+                        />
+                        <v-text-field
+                        v-model="editingItem.rating"
+                        label="Рейтинг"
+                        />
+                        <v-text-field
+                        v-model="editingItem.genre"
+                        label="Жанр"
+                        />
+                        <v-text-field
+                        v-model="editingItem.typeFilm"
+                        label="Тип фильма"
+                        />
+                        <v-text-field
+                        v-model="editingItem.limitAge"
+                        label="Возрастное ограничение"
+                        />
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn @click="addItem()" color="primary">Добавить</v-btn>
+                        <v-btn @click="dialog = false">Отмена</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
         </v-layout>
         <v-layout>
             <v-flex sm12>
@@ -32,7 +71,7 @@
                                 <v-btn flat icon color="amber" >
                                     <v-icon>edit</v-icon>
                                 </v-btn>
-                                <v-btn flat icon color="red" @click="deleteClick(props.item)">
+                                <v-btn flat icon color="red" @click="deleteItem(props.item)">
                                     <v-icon>delete</v-icon>
                                 </v-btn>
                             </td>
@@ -40,16 +79,21 @@
                     </v-data-table>
                 </v-card>
             </v-flex>
-            
         </v-layout>
     </v-container>
 </template>
 
 <script>
 export default {
+    watch: {
+        'dialog' () {
+            if (!this.dialog) Object.assign(this.editingItem, this.defaultItem);
+        }
+    },
     data(){
         return{
             searchBox: '',
+            dialog: false,
             headers: [
                 {
                     text: 'Название',
@@ -105,23 +149,52 @@ export default {
                     limitAge: 12,
                 },
             ],
+            defaultItem: {
+                name: '',
+                lenght: null,
+                rating: null,
+                genre: '',
+                typeFilm: '',
+                limitAge: null,
+            },
+            editingItem:{
+                name: '',
+                lenght: null,
+                rating: null,
+                genre: '',
+                typeFilm: '',
+                limitAge: null,
+            }
         }
     },
     methods: {
-        addClick(){
+        addItem(){
+            if (this.editingItem.name.length == 0 ||
+                this.editingItem.lenght.length == 0 || 
+                this.editingItem.rating.length == 0 || 
+                this.editingItem.genre.length == 0 || 
+                this.editingItem.typeFilm.length == 0 ||
+                this.editingItem.limitAge.length == 0) return;
             this.items.push({
-                name: 'newName',
-                lenght: 60,
-                rating: 2,
-                genre: 'newGenre',
-                typeFilm: 'newType',
-                limitAge: 3,
+                name: this.editingItem.name,
+                lenght: this.editingItem.lenght,
+                rating: this.editingItem.rating,
+                genre: this.editingItem.genre,
+                typeFilm: this.editingItem.typeFilm,
+                limitAge: this.editingItem.limitAge,
             });
+            this.dialog = false;
+            Object.assign(this.editingItem, this.defaultItem);
         },
-        deleteClick(item){
+        changeItem(item){
+            item = this.editingItem;
+            this.dialog = false;
+            Object.assign(this.editingItem, this.defaultItem);
+        },
+        deleteItem(item){
             const index = this.items.indexOf(item);
             this.items.splice(index, 1);
-        }
+        },
     },
 }
 </script>
