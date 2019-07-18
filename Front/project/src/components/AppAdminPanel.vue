@@ -1,8 +1,40 @@
 <template>
-    <div class="AdminPanel">
+    <!-- <div class="AdminPanel">
         <h1>Панель администратора</h1>
         <AppButton class="AdminButton" v-for="item in buttons" :key="item.text" :url="{name: item.link}" >{{item.text}}</AppButton>
-    </div>
+    </div> -->
+    <v-navigation-drawer
+      stateless
+      value="true"
+    >
+        <v-list>
+            <v-list-tile>
+                <v-list-tile-title>Панель администратора</v-list-tile-title>
+            </v-list-tile>
+    
+            <v-list-group
+                no-action
+                
+                prepend-icon="account_circle"
+                value="true"
+            >
+            <template v-slot:activator>
+                <v-list-tile>Фильмы</v-list-tile>
+            </template>
+
+            <v-list-tile
+                v-for="item in films"
+                :key="'films_' + item.name"
+            >
+                <v-list-tile-title v-text="item.name"></v-list-tile-title>
+                <v-list-tile-action>
+                    <v-icon v-text="item.icon"></v-icon>
+                </v-list-tile-action>
+            </v-list-tile>
+
+            </v-list-group>
+        </v-list>
+    </v-navigation-drawer>
 </template>
 
 <script>
@@ -14,9 +46,10 @@ export default {
     },
     data () {
         return {
-            buttons:[
-                {text: "Управление фильмами", link:"addFilm"},
-                {text: "Список фильмов", link:"showFilm"},
+            films: [
+                {name: 'Добавить', icon: 'add'},
+                {name: 'Изменить', icon: 'add'},
+                {name: 'Удалить', icon: 'add'},
             ],
         }
     }
