@@ -25,13 +25,14 @@ public class CardServicelmpl implements CardService{
     }
 
     @Override
-    public void deleteCardById(Card card) {
-
+    public void deleteCardById(Long id) {
+          cardDao.deleteById(id);
     }
 
     @Override
-    public Card findCardById(Long Id) {
-        return null;
+    public Card findCardById(Long id) {
+        return cardDao.findById(id).get();
+
     }
 
     @Override

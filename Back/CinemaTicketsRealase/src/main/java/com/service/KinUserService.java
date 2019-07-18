@@ -1,5 +1,4 @@
 package com.service;
-import com.models.Card;
 import com.models.KinoUser;
 import com.models.Position;
 
