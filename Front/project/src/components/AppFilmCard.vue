@@ -1,5 +1,5 @@
 <template>
-	<div class="wrapper-Slider-Item">
+	<div class="wrapper-FilmCard">
 		<div class="filmImage" style="background-size: contain;" :style="{backgroundImage: bgImage}" >
 			<div class="limitAge">{{limitAge}}+</div>
 		</div>
@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.wrapper-Slider-Item
+.wrapper-FilmCard
 	margin: 15px
 	width: 218px
 	height: 451px

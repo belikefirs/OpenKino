@@ -92,20 +92,20 @@ export default new Vuex.Store({
 		setGenreFilmList(state, data){
 			state.genreFilmList = data;
 		},
-		addFilm(state, data){
-			state.films = [{ 
+		addToLocalFilm(state, data){
+			state.films.push({ 
 				image: "https://images.kinomax.ru/films/4/4327/560x302/p_2ef3fc9.jpg",
 				path: "path1",
 				filmTitle: data.name,
 				filmStyle: data.genre.name,
 				filmType: data.typeFilm.name,
 				limitAge: data.limitAge.age,
-			}];
+			});
 		},
 	},
 	actions: {
 		ADD_FILM (context, data) {
-			context.commit('addFilm', data);
+			context.commit('addToLocalFilm', data);
 			return AXIOS.post("/Film", data);
 		},
 		GET_TYPE_FILM_LIST (context) {

@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import SliderItem from '@/components/Slider/SliderItem.vue'
+import SliderItem from '@/components/AppFilmCard.vue'
 export default {
     components:{
         SliderItem
@@ -22,18 +22,8 @@ export default {
 
 <style>
 .wrapper-films {
-    /* display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 1vw; */
     display: flex;
     flex-wrap: wrap;
     padding: 5px;
 }
-/* .wrapper-film > div {
-    font-size: 6.5vw;
-    padding: .5em;
-    background: gold;
-    text-align: center;
-} */
 </style>

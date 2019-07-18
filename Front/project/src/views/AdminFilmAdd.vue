@@ -26,15 +26,19 @@ export default {
                 name: '',
                 lenght: '',
                 typeFilm: {
+                    id: null,
                     name: '',
                 },
                 genre: {
+                    id: null,
                     name: '',
                 },
                 limitAge: {
+                    id: null,
                     age: '',
                 },
                 rating: {
+                    id: null,
                     rating: '',
                 }
                 
@@ -67,28 +71,29 @@ export default {
 
 <style>
 .wrapper-admin-addFilm {
+    padding: 30px;
     width: 100%;
     height: 100%;
-    background: white;
     overflow: hidden;
     position: relative;
     z-index: 100;
 }
 .wrapper-admin-addFilm p {
     font-family: 'Roboto', sans-serif;
-	font-size: 18px;
+	font-size: 30px;
 	font-weight: 300;
     text-align: center;
     padding: 10px 0 10px;
-
+    text-shadow: 0 0 10px white;
 }
 .inputCont{
     z-index: 0;
-
     padding: 18px 27px;
+    margin: 100px auto 0;
+    width: 500px;
     display: flex;
     flex-direction: column;
-    background: #eee;
+    background: rgb(238, 238, 238, 0.5);
 }
 .inputCont input{
     margin: 9px 0;
