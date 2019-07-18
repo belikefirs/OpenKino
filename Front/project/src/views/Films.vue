@@ -1,20 +1,16 @@
 <template>
     <div class="wrapper-film">
-        <Modal :show="true" :title="'Бронирование билетов'" :width="500" :height="500">
-            <template v-slot:content>               
-                <AppCinema></AppCinema>
-            </template>
-        </Modal>
+        <FilmFilter></FilmFilter>
     </div>
 </template>
 
 <script>
-import AppCinema from '@/components/AppCinema.vue'
-import Modal from '@/components/AppModalWindow.vue'
+import FilmFilter from '@/components/FilmFilter.vue'
+import FilmFilter from '@/components/FilmFilter.vue'
 
 export default {
     components: {
-        AppCinema, Modal
+        FilmFilter
     }
 }
 </script>
