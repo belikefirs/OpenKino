@@ -1,5 +1,7 @@
 package com.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -22,11 +24,12 @@ public class Session {
     @Column(name = "END")
     private Date end;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_FILM")
     // // @JsonManagedReference
     private Film film;
-
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_HALL")
     //// @JsonManagedReference
@@ -50,6 +53,7 @@ public class Session {
         this.name = name;
     }
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm", locale = "ru_")
     public Date getStart() {
         return start;
     }
@@ -58,6 +62,7 @@ public class Session {
         this.start = start;
     }
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm", locale = "ru_")
     public Date getEnd() {
         return end;
     }
