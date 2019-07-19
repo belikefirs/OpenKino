@@ -40,7 +40,7 @@ public class BasicAuthenticationVUFilter extends UsernamePasswordAuthenticationF
 
             // 2. Create auth object (contains credentials) which will be used by auth manager
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                    creds.getName(), creds.getPassword(), Collections.emptyList());
+                    creds.getMail(), creds.getPassword(), Collections.emptyList());
             return authManager.authenticate(authToken);
         } catch (IOException e) {
             SecurityContextHolder.clearContext();

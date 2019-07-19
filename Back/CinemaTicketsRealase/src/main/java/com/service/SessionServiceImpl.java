@@ -32,28 +32,23 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public void deleteSessionById(Long id) {
+    public List<Session> findSessionAll() {
+        return sessionDao.findAll();
+    }
+
+    @Override
+    public void deleteSession(Long id)  {
         sessionDao.deleteById(id);
     }
 
     @Override
-    public Long updateSesById(Session session) {
-       Session session1 = sessionDao.findById(session.getId()).get();
-       session1.setName(session.getName());
-       session1.setStart(session.getStart());
-       session1.setEnd(session.getEnd());
+    public Long updateSession(Session session) {
+        Session session1 = sessionDao.findById(session.getId()).get();
+        session1.setName(session.getName());
+        session1.setStart(session.getStart());
+        session1.setEnd(session.getEnd());
         session.setFilm(session.getFilm());
         session1.setHall(session.getHall());
         return sessionDao.save(session1).getId();
-    }
-
-    @Override
-    public Session findSessionById(Long id) {
-        return sessionDao.findById(id).get();
-    }
-
-    @Override
-    public List<Session> findSessionAll() {
-        return sessionDao.findAll();
     }
 }
