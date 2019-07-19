@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import SliderItem from '@/components/Slider/SliderItem.vue'
+import SliderItem from '@/components/AppFilmCard.vue'
 export default {
     components:{
         SliderItem

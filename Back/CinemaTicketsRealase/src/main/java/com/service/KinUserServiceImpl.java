@@ -3,12 +3,9 @@ package com.service;
 import com.dao.CardDao;
 import com.dao.KinoUserDao;
 import com.dao.PositionDao;
-import com.models.Card;
 import com.models.KinoUser;
 import com.models.Position;
-import javafx.geometry.Pos;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,14 +24,18 @@ public class KinUserServiceImpl implements KinUserService {
 
     @Override
     public Long saveKinoUser(KinoUser kinoUser) {
-        if(kinoUser.getPosition()!= null) {
+       /* if (kinoUser.getPosition() != null) {
             Position position = kinoUser.getPosition();
-            if(kinoUser.getPosition().getId() == null) {
-                savePosition(position);
+            if(kinoUser.getPosition().getId() == null){
+                positionDao.save(position);
             }
-        }
-        kinoUserDao.save(kinoUser);
-        return kinoUser.getId();
+        }*/
+
+        Position position = new Position();
+        position.setName("User");
+        positionDao.save(position);
+        kinoUser.setPosition(position);
+        return kinoUserDao.save(kinoUser).getId();
     }
 
 
@@ -52,10 +53,11 @@ public class KinUserServiceImpl implements KinUserService {
         kinoUser1.setMail(kinoUser.getMail());
         kinoUser1.setPhone(kinoUser.getPhone());
         kinoUser1.setPosition(kinoUser.getPosition());
-        kinoUser1.setCards(kinoUser.getCards());
+        //kinoUser1.setCards(kinoUser.getCards());
+        kinoUser1.setAction(kinoUser.getAction());
         kinoUser1.setPassword(kinoUser.getPassword());
 
-        return saveKinoUser(kinoUser1);
+        return kinoUserDao.save(kinoUser1).getId();
     }
 
 
@@ -76,7 +78,7 @@ public class KinUserServiceImpl implements KinUserService {
         Position position = positionDao.findById(idPosition).get();
         KinoUser kinoUser = kinoUserDao.findById(id).get();
         kinoUser.setPosition(position);
-        return kinoUserDao.save(kinoUser).getId();
+        return updateKinoUser(kinoUser);
     }
 
     @Override
@@ -93,16 +95,16 @@ public class KinUserServiceImpl implements KinUserService {
 
     @Override
     public Long action_true(KinoUser kinoUser) {
-        KinoUser kinoUser1 = kinoUserDao.findById(kinoUser.getId()).get();
-        kinoUser1.setAction(true);
-        return kinoUserDao.save(kinoUser1).getId();
+
+        kinoUser.setAction(true);
+        return kinoUserDao.save(kinoUser).getId();
     }
 
     @Override
     public Long action_false(KinoUser kinoUser) {
-        KinoUser kinoUser1 = kinoUserDao.findById(kinoUser.getId()).get();
-        kinoUser1.setAction(false);
-        return kinoUserDao.save(kinoUser1).getId();
+
+        kinoUser.setAction(false);
+        return kinoUserDao.save(kinoUser).getId();
     }
 
 }

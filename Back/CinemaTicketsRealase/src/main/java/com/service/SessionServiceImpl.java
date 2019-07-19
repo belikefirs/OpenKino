@@ -9,6 +9,8 @@ import com.models.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class SessionServiceImpl implements SessionService {
@@ -48,5 +50,10 @@ public class SessionServiceImpl implements SessionService {
     @Override
     public Session findSessionById(Long id) {
         return sessionDao.findById(id).get();
+    }
+
+    @Override
+    public List<Session> findSessionAll() {
+        return sessionDao.findAll();
     }
 }

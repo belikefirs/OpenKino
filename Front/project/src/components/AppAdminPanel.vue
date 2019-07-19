@@ -1,8 +1,5 @@
 <template>
-    <div class="AdminPanel">
-        <h1>Панель администратора</h1>
-        <AppButton class="AdminButton" v-for="item in buttons" :key="item.text" :url="{name: item.link}" >{{item.text}}</AppButton>
-    </div>
+    
 </template>
 
 <script>
@@ -14,9 +11,10 @@ export default {
     },
     data () {
         return {
-            buttons:[
-                {text: "Управление фильмами", link:"addFilm"},
-                {text: "Список фильмов", link:"showFilm"},
+            films: [
+                {name: 'Добавить', icon: 'add'},
+                {name: 'Изменить', icon: 'add'},
+                {name: 'Удалить', icon: 'add'},
             ],
         }
     }

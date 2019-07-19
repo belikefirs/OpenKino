@@ -93,14 +93,14 @@ export default new Vuex.Store({
 			state.genreFilmList = data;
 		},
 		addToLocalFilm(state, data){
-			state.films = state.films.concat([{ 
+			state.films.push({ 
 				image: "https://images.kinomax.ru/films/4/4327/560x302/p_2ef3fc9.jpg",
 				path: "path1",
 				filmTitle: data.name,
 				filmStyle: data.genre.name,
 				filmType: data.typeFilm.name,
 				limitAge: data.limitAge.age,
-			}]);
+			});
 		},
 	},
 	actions: {

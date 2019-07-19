@@ -16,15 +16,7 @@
 			</div>
 		</div>
 
-
-		<div class="admin" v-else>
-			<div class="wrapper-admin-page">
-				<AdminPanel/>
-				<div class="admin-tool">
-					<router-view/>
-				</div>
-			</div>
-		</div>
+		<Admin v-else/>
 		
 	</div>
 </template>
@@ -32,7 +24,6 @@
 <script>
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
-import AdminPanel from '@/components/AppAdminPanel.vue'
 
 import AppButton from '@/components/AppButton.vue'
 import AppLogReg from '@/components/AppLogReg.vue'
@@ -48,7 +39,7 @@ import BackToTop from '@/components/AppButtonToTop.vue'
 
 export default {
 	components: {
-		Header, Footer, AdminPanel,
+		Header, Footer,
 		Home, News, Films, About, Admin,
 		Modal, BackToTop, AppLogReg, AppButton
 	},
@@ -58,8 +49,12 @@ export default {
 			offsetTop: 0,
 			blurFlag: false,
 			RegFlag: false,
-			isAdminPage: false,
+			isAdminPage: true,
 		}
+	},
+
+	mounted(){
+		this.isAdminPage = this.$route.path.indexOf('admin') > 1;
 	},
 
 	watch:{
