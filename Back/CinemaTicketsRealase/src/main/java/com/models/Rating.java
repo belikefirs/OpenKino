@@ -1,6 +1,7 @@
 package com.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.*;
+import com.view.Views;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,16 +9,16 @@ import java.util.List;
 @Entity
 @Table(name = "RATING")
 public class Rating {
+    @JsonView(Views.Internal.class)
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
     private Long id;
-
+    @JsonView(Views.Internal.class)
     @Column(name = "RATING")
     private Double rating;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "rating")
-    @JsonBackReference
     private List<Film> films;
     public Rating(){}
 

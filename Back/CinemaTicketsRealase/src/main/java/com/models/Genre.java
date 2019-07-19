@@ -1,23 +1,27 @@
 package com.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.*;
+import com.view.Views;
 
 import javax.persistence.*;
 import java.util.List;
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 
 @Entity
 @Table(name = "GENRE")
 public class Genre {
+    @JsonView(Views.Internal.class)
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
     private Long id;
-
+    @JsonView(Views.Internal.class)
     @Column(name = "Name")
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "genre")
-    @JsonBackReference
     private List<Film> films;
 
     public Genre(){}

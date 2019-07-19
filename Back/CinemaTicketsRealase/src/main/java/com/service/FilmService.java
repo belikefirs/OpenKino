@@ -1,6 +1,5 @@
 package com.service;
 import com.models.*;
-
 import java.util.List;
 
 public interface FilmService {
@@ -22,6 +21,4 @@ public interface FilmService {
 
     Long updateRating(Rating rating);
     List <Rating> findAllRating();
-
-
 }

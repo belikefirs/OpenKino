@@ -1,43 +1,48 @@
 package com.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.view.Views;
 
 import javax.persistence.*;
+import javax.swing.text.View;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "FILM")
 public class Film {
+    @JsonView(Views.Internal.class)
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @JsonView(Views.Internal.class)
     @Column(name = "Name")
     private String name;
+    @JsonView(Views.Internal.class)
     @Column(name = "Lenght")
     private Long lenght;
+    @JsonView(Views.Internal.class)
     @ManyToOne
     @JoinColumn(name = "ID_LIMIT_AGE")
-    //// @JsonManagedReference
     private LimitAge limitAge;
-
+    @JsonView(Views.Internal.class)
     @ManyToOne
     @JoinColumn(name = "ID_RATING")
-    //// @JsonManagedReference
     private Rating rating;
+    @JsonView(Views.Internal.class)
     @ManyToOne
     @JoinColumn(name = "ID_TYPE_FILM")
-    //// @JsonManagedReference
     private TypeFilm typeFilm;
-
+    @JsonView(Views.Internal.class)
     @ManyToOne
     @JoinColumn(name = "ID_GENRE")
-    //// @JsonManagedReference
     private Genre genre;
+
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "film")
-    @JsonIgnore
     private List<Session> sessions = new ArrayList();
 
     public Film (){}
