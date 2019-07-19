@@ -22,7 +22,6 @@ public class HallController {
         return hallService.saveHall(hall);
     }
     @PutMapping("/update")
-    @ResponseStatus(HttpStatus.FOUND)
     public Long update(@RequestBody Hall hall){
         return hallService.updateHall(hall);
     }
@@ -30,7 +29,6 @@ public class HallController {
     public void delete(@PathVariable Long id){
         hallService.deleteHall(id);
     }
-
     @GetMapping("/size/id:\\d+")
     public Integer getSize(@PathVariable Long id){
         return hallService.getSize(id);

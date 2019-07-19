@@ -8,4 +8,5 @@ public interface ReservationService {
     void deleteReservationById(Long id);
     Long saveDiscount(Discount discount);
     void deleteDiscountById(Long id);
+
 }

@@ -12,9 +12,12 @@ import java.util.List;
 public class HallServiceImpl implements HallService {
     private HallDao hallDao;
     private PlaceDao placeDao;
-    public HallServiceImpl(HallDao hallDao, PlaceDao placeDao){
+    private PlaceService placeService;
+
+    public HallServiceImpl(HallDao hallDao, PlaceDao placeDao, PlaceService placeService){
         this.hallDao = hallDao;
         this.placeDao = placeDao;
+        this.placeService = placeService;
     }
     @Override
     @Transactional
