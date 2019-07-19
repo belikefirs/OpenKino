@@ -5,8 +5,7 @@
         :mini-variant.sync="mini"
         permanent
         fixed
-        app
-        >
+        app>
             <v-toolbar flat>
                 <v-list>
                     <v-list-tile>
@@ -22,9 +21,7 @@
                     </v-list-tile>
                 </v-list>
             </v-toolbar>
-
-            <v-divider></v-divider>
-
+            <v-divider/>
             <v-list>
                 <v-list-group prepend-icon="settings">
                     <template v-slot:activator>
@@ -36,7 +33,6 @@
                         <v-list-tile-content v-if="!mini">
                             <v-list-tile-title v-text="item.name"></v-list-tile-title>
                         </v-list-tile-content>
-                        
                         <v-list-tile-action>
                             <v-icon v-text="item.icon"></v-icon>
                         </v-list-tile-action>
@@ -44,11 +40,8 @@
                 
                 </v-list-group>
             </v-list>
-
-            <v-spacer></v-spacer>
-
-            <v-divider></v-divider>
-
+            <v-spacer/>
+            <v-divider/>
             <v-list>
                 <v-list-tile>
                     <v-list-tile-action>
@@ -56,9 +49,7 @@
                     </v-list-tile-action>
                 </v-list-tile>
             </v-list>
-
         </v-navigation-drawer>  
-
         <v-content>
             <v-container fluid fill-height>
                 <v-layout>
@@ -68,12 +59,11 @@
                 </v-layout>
             </v-container>
         </v-content>
-
-        
     </v-app>
 </template>
 
 <script>
+import 'vuetify/dist/vuetify.min.css';
 import AdminPanel from '@/components/AppAdminPanel.vue'
 
 export default {
