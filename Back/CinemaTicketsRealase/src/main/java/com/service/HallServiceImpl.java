@@ -25,7 +25,9 @@ public class HallServiceImpl implements HallService {
     @Override
     @Transactional
     public Hall findHallbyId(Long id) {
-        return hallDao.findById(id).get();
+        Hall hall = hallDao.findById(id).get();
+        hall.getPlaces().size();
+        return hall;
     }
 
     @Override
