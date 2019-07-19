@@ -63,9 +63,6 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public Long updateFilmById(Film film) {
         Film film1 = filmDao.findById(film.getId()).get();
-        if (film1) {
-
-        }
         film1.setName(film.getName());
         film1.setLenght(film.getLenght());
         film1.setLimitAge(film.getLimitAge());
