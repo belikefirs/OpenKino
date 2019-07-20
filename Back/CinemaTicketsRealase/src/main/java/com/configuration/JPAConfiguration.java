@@ -21,7 +21,7 @@ public class JPAConfiguration {
     @Bean
     public DataSource dataSource(){
         JdbcDataSource jdbcDataSource = new JdbcDataSource();
-        jdbcDataSource.setURL("jdbc:h2:C:\\Git\\OpenKino\\OpenKino_db");
+        jdbcDataSource.setURL("jdbc:h2:C:\\Users\\mbelo\\Documents\\GitHub\\OpenKino\\OpenKino_db;AUTO_SERVER=TRUE");
         jdbcDataSource.setUser("admin");
         jdbcDataSource.setPassword("admin");
         return jdbcDataSource;
@@ -30,7 +30,7 @@ public class JPAConfiguration {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
 
         HashMap<String, String > hibernatePropertys = new HashMap<>();
-        hibernatePropertys.put("hibernate.hbm2ddl.auto","create-drop");
+        hibernatePropertys.put("hibernate.hbm2ddl.auto","update");
         hibernatePropertys.put("hibernate.connection.driver_class","org.h2.Driver");
         hibernatePropertys.put("hibernate.dialect","org.hibernate.dialect.H2Dialect");
         hibernatePropertys.put("hibernate.show_sql","true");

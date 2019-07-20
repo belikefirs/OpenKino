@@ -9,6 +9,7 @@ public interface FilmService {
     Long updateFilmById(Film film);
     Film findFilmById(Long id);//
     List <Film> findAllFilm();
+    void updateGRLT(Film film);
 
     Long updateGenre(Genre genre);
     List<Genre> findAllGenre();
