@@ -8,8 +8,9 @@ import java.util.List;
 public interface SessionService {
 
     Long saveSession(Session session);
-    void deleteSessionById(Long id);
-    Long updateSesById(Session session);
-    Session findSessionById(Long id);
+    void deleteSession(Long id);
+    Long updateSession(Session session);
+  //  Session findSessionById(Long id);
     List<Session> findSessionAll();
+
 }

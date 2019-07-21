@@ -53,6 +53,10 @@ export default {
 		}
 	},
 
+	mounted(){
+		this.isAdminPage = this.$route.path.indexOf('admin') > 1;
+	},
+
 	watch:{
 		$route(route){
 			this.isAdminPage = route.path.indexOf('admin') > -1;

@@ -2,8 +2,11 @@ package com.models;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,12 +24,12 @@ public class Hall {
     private Integer height;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "hall")
-    // @JsonBackReference
-    private List<Place> places;
+    @JsonManagedReference
+    private List<Place> places = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "hall")
-    // @JsonBackReference
-    private List<Session> sessions;
+    @JsonIgnore
+    private List<Session> sessions = new ArrayList<>();
 
     public Hall(){}
 

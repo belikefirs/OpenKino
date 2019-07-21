@@ -1,10 +1,12 @@
 package com.service;
 import com.models.KinoUser;
 import com.models.Position;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
-public interface KinUserService {
+public interface KinUserService extends UserDetailsService {
     Long saveKinoUser(KinoUser kinoUser);
     Long updateKinoUser(KinoUser kinoUser);
 
@@ -18,5 +20,4 @@ public interface KinUserService {
     Long setPositionKinoUserById(Long idPosition, Long id);
     Position getPositionKinoUserById(Long id);
     Long savePosition(Position position);
-
 }

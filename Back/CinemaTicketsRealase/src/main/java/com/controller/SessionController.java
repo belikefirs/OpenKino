@@ -20,7 +20,7 @@ public class SessionController {
     }
 
     @GetMapping("/get")
-    public List<Session> getSessionAll(@RequestBody Session session){
+    public List<Session> getSessionAll(){
         return sessionService.findSessionAll();
     }
    /* @PutMapping("/update")

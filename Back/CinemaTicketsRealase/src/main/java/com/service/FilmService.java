@@ -1,6 +1,5 @@
 package com.service;
 import com.models.*;
-
 import java.util.List;
 
 public interface FilmService {
@@ -10,6 +9,11 @@ public interface FilmService {
     Long updateFilmById(Film film);
     Film findFilmById(Long id);//
     List <Film> findAllFilm();
+    void updateGRLT(Film film);
+    List <Film> findAllByRatingId(Long id);
+    List <Film> findAllByGenreId(Long id);
+    List <Film> findAllByTypeFIlmId(Long id);
+    List <Film> findAllByLimitAgeId(Long id);
 
     Long updateGenre(Genre genre);
     List<Genre> findAllGenre();
@@ -22,6 +26,4 @@ public interface FilmService {
 
     Long updateRating(Rating rating);
     List <Rating> findAllRating();
-
-
 }

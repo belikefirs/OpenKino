@@ -3,18 +3,18 @@ package com.configuration;
 import org.springframework.beans.factory.annotation.Value;
 
 public class JwtConfig {
-    @Value("$(security.jwt.uri:/auth")
+    @Value("/auth")
     private String Uri;
-    @Value("${security.jwt.header:Authorization}")
+    @Value("Authorization")
     private String header;
 
-    @Value("${security.jwt.prefix:Bearer }")
+    @Value("Bearer ")
     private String prefix;
 
-    @Value("${security.jwt.expiration:#{24*60*60}}")
+    @Value("#{24*60*60}")
     private int expiration;
 
-    @Value("${security.jwt.secret:EXCLUSIVE_KEY}")
+    @Value("EXCLUSIVE_KEY")
     private String secret;
 
 

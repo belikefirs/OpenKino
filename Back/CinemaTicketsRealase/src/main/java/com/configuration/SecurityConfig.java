@@ -3,6 +3,7 @@ package com.configuration;
 import com.filter.BasicAuthenticationVUFilter;
 import com.filter.EncodingFilter;
 import com.service.KinUserService;
+import com.service.KinUserServiceImpl;
 import com.tokens.FilterToken;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -23,8 +24,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private KinUserService kinUserService;
     private ApplicationContext context;
-    public SecurityConfig(KinUserService kinUserService){
+    public SecurityConfig(ApplicationContext context, KinUserService kinUserService){
         this.kinUserService = kinUserService;
+        this.context = context;
     }
 
     public ApplicationContext getContext() {
@@ -33,9 +35,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception{
-        auth.inMemoryAuthentication().withUser("user").password(bCryptPasswordEncoder().encode("user")).roles("USER");
-        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
-        auth.inMemoryAuthentication().withUser("superadmin").password("superadmin").roles("SUPERADMIN");
+//        auth.inMemoryAuthentication().withUser("user").password(bCryptPasswordEncoder().encode("user")).roles("USER");
+//        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
+//        auth.inMemoryAuthentication().withUser("superadmin").password("superadmin").roles("SUPERADMIN");
+        auth.userDetailsService(kinUserService);
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -47,13 +50,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(new EncodingFilter(), ChannelProcessingFilter.class)
                 .authorizeRequests()
                 .antMatchers("/protected/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/confidential/**").access("hasRole('ROLE_SUPERADMIN')")
+                .antMatchers("/KinoUser/all").access("hasAuthority('User')")
                 .antMatchers("/user/create").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .formLogin().disable();
+                .formLogin().disable()
+       ;
 
     }
     @Override
@@ -67,8 +71,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public JwtConfig jwtConfig() {
         return new JwtConfig();
     }
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+
+
+
+
 }

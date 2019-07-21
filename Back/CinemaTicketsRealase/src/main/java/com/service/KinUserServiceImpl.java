@@ -5,6 +5,9 @@ import com.dao.KinoUserDao;
 import com.dao.PositionDao;
 import com.models.KinoUser;
 import com.models.Position;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,11 +18,14 @@ public class KinUserServiceImpl implements KinUserService {
     private KinoUserDao kinoUserDao;
     private CardDao cardDao;
     private PositionDao positionDao;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public KinUserServiceImpl(KinoUserDao kinoUserDao, CardDao cardDao, PositionDao positionDao) {
+
+    public KinUserServiceImpl(KinoUserDao kinoUserDao, CardDao cardDao, PositionDao positionDao, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.kinoUserDao = kinoUserDao;
         this.cardDao = cardDao;
         this.positionDao = positionDao;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
@@ -35,6 +41,7 @@ public class KinUserServiceImpl implements KinUserService {
         position.setName("User");
         positionDao.save(position);
         kinoUser.setPosition(position);
+        kinoUser.setPassword(bCryptPasswordEncoder.encode(kinoUser.getPassword()));
         return kinoUserDao.save(kinoUser).getId();
     }
 
@@ -66,12 +73,10 @@ public class KinUserServiceImpl implements KinUserService {
         kinoUserDao.deleteById(id);
     }
 
-
     @Override
     public Long savePosition(Position position) {
         return positionDao.save(position).getId();
     }
-
 
     @Override
     public Long setPositionKinoUserById(Long idPosition, Long id) {
@@ -107,4 +112,9 @@ public class KinUserServiceImpl implements KinUserService {
         return kinoUserDao.save(kinoUser).getId();
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+       KinoUser kinoUser= kinoUserDao.findByMailOrPhone(username, username);
+        return kinoUser;
+    }
 }
