@@ -43,6 +43,25 @@ public class FilmController {
         return filmService.findAllFilm();
     }
 
+    @JsonView(Views.Internal.class)
+    @GetMapping("/findAllByRatingId/{id}")
+    public List <Film> findAllByRatingId(@PathVariable Long id){
+        return filmService.findAllByRatingId(id);
+    }
+
+    @JsonView(Views.Internal.class)
+    @GetMapping("/findAllByGenreId/{id}")
+    public List <Film> findAllByGenreId(@PathVariable Long id){
+        return filmService.findAllByGenreId(id);
+    }
+
+    @JsonView(Views.Internal.class)
+    @GetMapping("/findAllByLimitAgeId/{id}")
+    public List <Film> findAllByLimitAgeId(@PathVariable Long id){
+        return filmService.findAllByLimitAgeId(id);
+    }
+
+
     ///=================================TypeFilm========================
     @JsonView(Views.Internal.class)
     @GetMapping("/type")

@@ -137,4 +137,23 @@ public class FilmServiceImpl implements FilmService {
         return filmDao.findAll();
     }
 
+    @Override
+    public List<Film> findAllByRatingId(Long id) {
+        return filmDao.findAllByRatingId(id);
+    }
+
+    @Override
+    public List<Film> findAllByGenreId(Long id) {
+        return filmDao.findAllByGenreId(id);
+    }
+
+    @Override
+    public List<Film> findAllByTypeFIlmId(Long id) {
+        return filmDao.findAllByTypeFilmId(id);
+    }
+
+    @Override
+    public List<Film> findAllByLimitAgeId(Long id) {
+        return filmDao.findAllByLimiteAgeId(id);
+    }
 }
