@@ -28,7 +28,11 @@
 
 <script>
 import WrapperCent from '@/components/AppWrapperCenter.vue'
-import Star from "./../assets/temp/icons/Star.png"
+import Star1 from "./../assets/temp/icons/Star1.png"
+import Star2 from "./../assets/temp/icons/Star2.png"
+import Star3 from "./../assets/temp/icons/Star3.png"
+import Star4 from "./../assets/temp/icons/Star4.png"
+import Star5 from "./../assets/temp/icons/Star5.png"
 import SliderItem from '@/components/AppFilmCard.vue'
 export default {
     components: {
@@ -37,7 +41,7 @@ export default {
     data() {
         return {
             ImageStar: [
-                Star, Star, Star, Star, Star
+                Star1, Star2, Star3, Star4, Star5
             ]
         }
     }
