@@ -34,9 +34,10 @@ import Star3 from "./../assets/temp/icons/Star3.png"
 import Star4 from "./../assets/temp/icons/Star4.png"
 import Star5 from "./../assets/temp/icons/Star5.png"
 import SliderItem from '@/components/AppFilmCard.vue'
+import Slider from '@/components/AppSlider.vue'
 export default {
     components: {
-        WrapperCent, SliderItem 
+        WrapperCent, SliderItem, Slider
     },
     data() {
         return {
@@ -51,7 +52,7 @@ export default {
 <style>
 .wrapper-film {
     width: 100%;
-    height: 1000px;
+    height: 100%;
     display: flex;
     flex-wrap: wrap;
 }
@@ -61,6 +62,7 @@ export default {
     margin-top: 10px;
 }
 .search {
+    background: #fff;
     width: 590px;
     height: 40px;
     color: #f36021;
@@ -69,11 +71,14 @@ export default {
     font-weight: 300;
     margin-right: 20px;
     padding: 5px 5px 5px 25px;
+    border: 1px solid #f36021;
 }
 .search::-webkit-input-placeholder { 
     color: #f36021;
     }
 .date {
+    border: 1px solid #f36021;
+    background: #fff;
     width: 180px;
     height: 40px;
     color: #f36021;
