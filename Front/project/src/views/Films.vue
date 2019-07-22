@@ -6,7 +6,7 @@
 
 <script>
 import FilmFilter from '@/components/FilmFilter.vue'
-import FilmFilter from '@/components/FilmFilter.vue'
+
 
 export default {
     components: {
