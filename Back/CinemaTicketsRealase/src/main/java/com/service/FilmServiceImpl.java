@@ -137,14 +137,7 @@ public class FilmServiceImpl implements FilmService {
         return ratingDao.findAll();
     }
 
-    @Override
-    public List<Film> findAllFilm(String name, Long length, Integer limitAge, Double rating, String typeFilm, String genre) {
-        if (name != null) {
-            return filmDao.findAllByNameContainingIgnoreCase(name);
-        }
 
-        return null;
-    }
 
     @Override
     public List<Film> findAllByRatingId(Long id) {
