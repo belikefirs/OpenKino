@@ -8,12 +8,18 @@ public interface FilmService {
     void deleteFilmById(Long id);//
     Long updateFilmById(Film film);
     Film findFilmById(Long id);//
-    List <Film> findAllFilm();
+    List <Film> findAllFilm(String name,
+                            Long length,
+                            Integer limitAge,
+                            Double rating,
+                            String typeFilm,
+                            String  genre);
     void updateGRLT(Film film);
     List <Film> findAllByRatingId(Long id);
     List <Film> findAllByGenreId(Long id);
     List <Film> findAllByTypeFIlmId(Long id);
     List <Film> findAllByLimitAgeId(Long id);
+    List<Film> findFilmsByNameLike(String name);
 
     Long updateGenre(Genre genre);
     List<Genre> findAllGenre();

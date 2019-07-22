@@ -12,12 +12,10 @@ import java.util.List;
 public class HallServiceImpl implements HallService {
     private HallDao hallDao;
     private PlaceDao placeDao;
-    private PlaceService placeService;
 
-    public HallServiceImpl(HallDao hallDao, PlaceDao placeDao, PlaceService placeService){
+    public HallServiceImpl(HallDao hallDao, PlaceDao placeDao){
         this.hallDao = hallDao;
         this.placeDao = placeDao;
-        this.placeService = placeService;
     }
     @Override
     @Transactional
@@ -87,5 +85,30 @@ public class HallServiceImpl implements HallService {
         Hall hall = hallDao.findById(id).get();
         return hall.getWidth() * hall.getHeight();
     }
-    
+    public Long savePlace(Place place) {
+        return placeDao.save(place).getId();
+    }
+
+    @Override
+    public Long updatePlace(Place place) {
+        Place place1 = placeDao.findById(place.getId()).get();
+        place1.setX(place.getX());
+        place1.setY(place.getY());
+        place1.setPrice(place.getPrice());
+        place1.setHall(place.getHall());
+        place1.setReservation(place.getReservation());
+        return place1.getId();
+    }
+
+    @Override
+    public void deletePlace(Long id) {
+        placeDao.deleteById(id);
+    }
+
+    @Override
+    public Place findPlaceById(Long id) {
+        Place place = placeDao.findById(id).get();
+        return place;
+    }
+
 }
