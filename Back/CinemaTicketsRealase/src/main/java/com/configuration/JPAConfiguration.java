@@ -21,7 +21,7 @@ public class JPAConfiguration {
     @Bean
     public DataSource dataSource(){
         JdbcDataSource jdbcDataSource = new JdbcDataSource();
-        jdbcDataSource.setURL("jdbc:h2:C:\\Users\\mbelo\\Documents\\GitHub\\OpenKino\\OpenKino_db;AUTO_SERVER=TRUE");
+        jdbcDataSource.setURL("jdbc:h2:D:\\OpenKino\\OpenKino_db;AUTO_SERVER=TRUE");
         jdbcDataSource.setUser("admin");
         jdbcDataSource.setPassword("admin");
         return jdbcDataSource;

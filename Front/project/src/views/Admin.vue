@@ -23,20 +23,38 @@
             </v-toolbar>
             <v-divider/>
             <v-list>
-                <v-list-group prepend-icon="settings">
+                <v-list-group
+                prepend-icon="settings"
+                value="true">
                     <template v-slot:activator>
                         <v-list-tile>
                             <v-list-tile-title v-text="'Редактирование'"></v-list-tile-title>
                         </v-list-tile>
                     </template>
+                    
                     <v-list-tile v-for="item in navigation" :key="item.name" :to="{name: item.route}">
-                        <v-list-tile-content v-if="!mini">
-                            <v-list-tile-title v-text="item.name"></v-list-tile-title>
-                        </v-list-tile-content>
-                        <v-list-tile-action>
-                            <v-icon v-text="item.icon"></v-icon>
-                        </v-list-tile-action>
+                        <template v-slot:activator>
+                            <v-list-tile-content v-if="!mini">
+                                <v-list-tile-title v-text="item.name"></v-list-tile-title>
+                            </v-list-tile-content>
+                            <v-list-tile-action>
+                                <v-icon v-text="item.icon"></v-icon>
+                            </v-list-tile-action>
+                        </template>
+                        <v-list-group
+                        no-action
+                        sub-group
+                        value="false">
+                            <v-list-tile v-for="subItem in item.subTabs" :key="subItem.name">
+                                <v-list-tile-content>
+                                    <v-list-tile-title v-text="subItem.name"></v-list-tile-title>
+                                </v-list-tile-content>
+                            </v-list-tile>
+                        </v-list-group>
+                        
                     </v-list-tile>
+                    
+                    
                 
                 </v-list-group>
             </v-list>
@@ -76,7 +94,13 @@ export default {
             mini: false,
             dark: false,
             navigation: [
-                {name: 'Фильмы', icon: 'movie', route: 'filmsEditing'},
+                {
+                    name: 'Фильмы', icon: 'movie', route: 'filmsEditing',
+                    subTabs: [
+                        {name: 'Жанры', icon: 'favorite', route: 'genreEditing'},
+                    ],
+                },
+                
             ],
         }
     },

@@ -1,6 +1,6 @@
 <template>
 	<div class="wrapper-FilmCard">
-		<div class="filmImage" style="background-size: contain;" :style="{backgroundImage: bgImage}" >
+		<div class="filmImage" style="background-size: contain;" :style="{backgroundImage: bgImage}">
 			<div class="limitAge">{{limitAge}}+</div>
 		</div>
 		<div class="textCont">
