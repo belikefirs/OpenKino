@@ -22,7 +22,7 @@ public interface PlaceDao extends JpaRepository<Place,Long> {
             "join place.hall as hall where " +
             "hall.id = :id and place.reservation is not null")
     List<Place> getFindbyIdHallPlacesisReservation(@Param("id") Long id);
-    @Query(value = "update Place place set place.reservation = reservation where place.hall = :id ")
-    Long getPlace(@Param("reservation")Object object, @Param("id") Long id);
+//    @Query(value = "update Place place set place.reservation = reservation where place.hall = :id ")
+//    Long getPlace(@Param("reservation")Object object, @Param("id") Long id);
 
 }
