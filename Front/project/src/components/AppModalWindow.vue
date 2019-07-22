@@ -1,7 +1,7 @@
 <template>
     <transition name="trBack">
         <div class="wrapper_module_window" v-if="show" @click.self="changeBlur">
-            <div v-if="show" class="container"
+            <div v-if="show" class="containerReg"
             :style="{'border-radius' : title ? '8px' : '0', background: title ? '#111' : '#1110'}"> 
                 <p class="title" v-if="title">{{title}}</p>
                 <div class="wrapper-content">
@@ -58,7 +58,7 @@ export default {
     align-items: top;
     background: rgba(31,31,31,0.9);
 }
-.container{
+.containerReg{
     /* z-index: 201; */
     /* background: #111; */
     margin: 100px auto 0;
