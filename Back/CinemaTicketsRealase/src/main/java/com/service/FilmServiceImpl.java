@@ -50,6 +50,11 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
+    public List<Film> findFilms(String name, Integer limitAge, Double rating, String typeFilm, String genre) {
+        return null;
+    }
+
+    @Override
     public Long updateGenre(Genre genre) {
         Genre genre1 = genreDao.findById(genre.getId()).get();
         genre1.setName(genre.getName());
