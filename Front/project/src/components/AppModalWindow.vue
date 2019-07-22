@@ -84,10 +84,10 @@ export default {
     transition: opacity .5s;
 }
 
-.trBack-enter .container, .trBack-leave-to .container{
+.trBack-enter .containerReg, .trBack-leave-to .containerReg{
     transform: translateY(-100vh);
 }
-.trBack-move .container{
+.trBack-move .containerReg{
     transition: transform 0.5s;
 }
 </style>

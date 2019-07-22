@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import backtotop from "./../assets/temp/icons/backtotop.png"
+import backtotop from "@/assets/temp/icons/backtotop.png"
 
 export default {
     data() {

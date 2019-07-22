@@ -1,10 +1,10 @@
 <template>
     <div class="LogRegi">
         <div class="nav">
-            <div :class="{toLogOur: log}" @click="log = true">
+            <div :class="{toAutoYes: !log, toAutoNo : log}" @click="log = true">
                 <p>Вход</p>
             </div>
-            <div :class="{toRegOur: !log}" @click="log = false">
+            <div :class="{toAutoYes: log, toAutoNo : !log}" @click="log = false">
                 <p>Регистрация</p>
             </div>
         </div>
@@ -113,11 +113,13 @@ export default {
     background: black;
     color: white;
 }
-.toLogOur {
+.toAutoYes {
     background: #222;
+    color: #eee;
 }
-.toRegOur {
-    background: #222;
+.toAutoNo {
+    background: #eee;
+    color: #222;
 }
 .trSwitch-left-enter{
     transform: translateX(-100%);
