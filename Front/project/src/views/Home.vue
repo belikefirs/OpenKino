@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper-home">
+    <div>
         <Now></Now>
         <Actions></Actions>
     </div>

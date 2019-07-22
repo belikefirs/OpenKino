@@ -27,6 +27,18 @@ export default new Router({
 			component: () => import('./views/About.vue')
 		},
 		{
+			path: '/admin',
+			name: 'admin',
+			//component: () => import('./views/Admin.vue')
+		},
+		{
+			path: '/admin/films_editing',
+			name: 'filmsEditing',
+			component: () => import('./views/AdminFilmsEditing.vue')
+		},
+
+
+		{
 			path: '/admin/add',
 			name: 'addFilm',
 			component: () => import('./views/AdminFilmAdd.vue')

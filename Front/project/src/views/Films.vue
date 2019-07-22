@@ -1,20 +1,22 @@
 <template>
-    <div class="wrapper-film">
+    <div>
         <FilmFilter></FilmFilter>
+        <SelectionsForYou></SelectionsForYou>
     </div>
 </template>
 
 <script>
 import FilmFilter from '@/components/FilmFilter.vue'
-
+import SelectionsForYou from '@/components/FilmsSelectionsForYou.vue'
+import WrapperCent from '@/components/AppWrapperCenter.vue'
 
 export default {
     components: {
-        FilmFilter
+        FilmFilter, SelectionsForYou, WrapperCent
     }
 }
 </script>
 
-<style scoped>
+<style lang="sass">
 
 </style>
