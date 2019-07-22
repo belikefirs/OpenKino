@@ -24,9 +24,9 @@ public interface FilmDao extends JpaRepository<Film, Long> {
             "    inner join LIMIT_AGE on FILM.ID_LIMIT_AGE = LIMIT_AGE.ID\n" +
             "    inner join RATING on FILM.ID_RATING = RATING.ID\n" +
             "    inner join TYPE_FILM on FILM.ID_TYPE_FILM = TYPE_FILM.ID\n" +
-            "WHERE (upper(FILM.NAME) LIKE upper('%:name%') OR FILM.NAME IS NULL) AND\n" +
+            " WHERE (upper(FILM.NAME) LIKE upper('%:name%') OR FILM.NAME IS NULL) AND\n" +
             "    (upper(GENRE.NAME) LIKE upper('%:genre%') OR GENRE.NAME IS NULL) AND\n" +
-            "    (upper(TYPE_FILM.NAME) LIKE upper('%typeFilm%') OR TYPE_FILM.NAME IS NULL) AND\n" +
+            "    (upper(TYPE_FILM.NAME) LIKE upper('%:typeFilm%') OR TYPE_FILM.NAME IS NULL) AND\n" +
             "    (RATING.RATING = :rating OR RATING.RATING IS NULL) AND \n" +
             "    (LIMIT_AGE.AGE = :age OR LIMIT_AGE.AGE IS NULL)", nativeQuery = true)
     List<Film> findFilmsByVars(@Param("name") String name,
