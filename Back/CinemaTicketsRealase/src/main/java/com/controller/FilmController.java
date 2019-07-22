@@ -45,7 +45,7 @@ public class FilmController {
                               @RequestParam(name = "rating") Double rating,
                               @RequestParam(name = "typeFilm") String typeFilm,
                               @RequestParam(name = "genre") String genre){
-        return filmService.findAllFilm(name,length,limitAge,rating,typeFilm,genre);
+        return null;
     }
 
     @JsonView(Views.Internal.class)
@@ -66,11 +66,6 @@ public class FilmController {
         return filmService.findAllByLimitAgeId(id);
     }
 
-    @JsonView(Views.Internal.class)
-    @GetMapping("/findAllByName")
-    public List <Film> findAllByName(@RequestParam(name = "name")String name){
-        return filmService.findFilmsByNameLike(name);
-    }
 
     ///=================================TypeFilm========================
     @JsonView(Views.Internal.class)

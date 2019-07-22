@@ -50,11 +50,6 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public List<Film> findFilms(String name, Integer limitAge, Double rating, String typeFilm, String genre) {
-        return null;
-    }
-
-    @Override
     public Long updateGenre(Genre genre) {
         Genre genre1 = genreDao.findById(genre.getId()).get();
         genre1.setName(genre.getName());
@@ -160,7 +155,7 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public List<Film> findFilmsByNameLike(String name) {
-        return filmDao.findAllByNameContainingIgnoreCase(name);
+    public List<Film> findFilmsByVars(String name, String genre, String typeFilm, Double rating, Integer age) {
+        return filmDao.findFilmsByVars(name,genre,typeFilm,rating,age);
     }
 }
