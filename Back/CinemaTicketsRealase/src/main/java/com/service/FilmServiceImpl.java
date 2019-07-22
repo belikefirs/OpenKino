@@ -133,8 +133,12 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public List<Film> findAllFilm() {
-        return filmDao.findAll();
+    public List<Film> findAllFilm(String name, Long length, Integer limitAge, Double rating, String typeFilm, String genre) {
+        if (name != null) {
+            return filmDao.findAllByNameContainingIgnoreCase(name);
+        }
+
+        return null;
     }
 
     @Override
@@ -155,5 +159,10 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public List<Film> findAllByLimitAgeId(Long id) {
         return filmDao.findAllByLimiteAgeId(id);
+    }
+
+    @Override
+    public List<Film> findFilmsByNameLike(String name) {
+        return filmDao.findAllByNameContainingIgnoreCase(name);
     }
 }
