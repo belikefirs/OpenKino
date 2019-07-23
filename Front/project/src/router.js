@@ -36,8 +36,6 @@ export default new Router({
 			name: 'filmsEditing',
 			component: () => import('./views/AdminFilmsEditing.vue')
 		},
-
-
 		{
 			path: '/admin/add',
 			name: 'addFilm',

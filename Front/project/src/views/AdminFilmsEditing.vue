@@ -207,6 +207,7 @@ export default {
                 Object.assign(this.items[this.editingIndex], this.editingItem);
             }
             this.dialog = false;
+            this.$store.dispatch('ADD_FILM', this.editingItem);
         },
         changeItem(item, index){
             Object.assign(this.editingItem, item);
