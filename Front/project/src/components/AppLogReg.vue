@@ -1,10 +1,10 @@
 <template>
-    <div class="LogReg">
+    <div class="LogRegi">
         <div class="nav">
-            <div class="toLog" :class="{active: log}" @click="log = true">
+            <div :class="{toAutoYes: !log, toAutoNo : log}" @click="log = true">
                 <p>Вход</p>
             </div>
-            <div class="toReg" :class="{active: !log}" @click="log = false">
+            <div :class="{toAutoYes: log, toAutoNo : !log}" @click="log = false">
                 <p>Регистрация</p>
             </div>
         </div>
@@ -12,7 +12,7 @@
             <form class="log inputCont" key="log" v-if="log" @submit.prevent="logIn">
                 <input type="email" placeholder="E-mail">
                 <input type="password" placeholder="Пароль">
-                <input type="submit" value="Войти">
+                <input class="button_auto" type="submit" value="Войти">
             </form>   
             <form class="reg inputCont" key="reg" v-else @submit.prevent="regIn">
                 <input type="surname" placeholder="Фамилия">
@@ -21,7 +21,7 @@
                 <input type="email" placeholder="E-mail">
                 <input type="phone" placeholder="Номер телефона">
                 <input type="password" placeholder="Пароль">
-                <input type="submit" value="Зарегистрироваться">
+                <input class="button_auto" type="submit" value="Зарегистрироваться">
             </form>
         </transition>
     </div>
@@ -66,8 +66,8 @@ export default {
 }
 </script>
 
-<style scoped>
-.LogReg{
+<style>
+.LogRegi{
     width: 500px;
     background: #00000000;
     overflow: hidden;
@@ -104,15 +104,23 @@ export default {
     font-family: 'Roboto', sans-serif;
 	font-size: 18px;
 	font-weight: 300;
+    border: 1px solid #222;
 }
 .inputCont input:focus{
     outline: 0;
 }
-.active{
-    background: #eee;
-    color: black;
+.button_auto:hover {
+    background: black;
+    color: white;
 }
-
+.toAutoYes {
+    background: #222;
+    color: #eee;
+}
+.toAutoNo {
+    background: #eee;
+    color: #222;
+}
 .trSwitch-left-enter{
     transform: translateX(-100%);
     opacity: 0;

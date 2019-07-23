@@ -21,13 +21,25 @@ public class HallController {
     public Long save(@RequestBody Hall hall){
         return hallService.saveHall(hall);
     }
+    @PostMapping("/save_place")
+    public Long save(@RequestBody Place place){
+        return hallService.savePlace(place);
+    }
     @PutMapping("/update")
     public Long update(@RequestBody Hall hall){
         return hallService.updateHall(hall);
     }
+    @PutMapping("/update_place")
+    public Long update(@RequestBody Place place){
+        return hallService.updatePlace(place);
+    }
     @DeleteMapping("delete/{id}")
     public void delete(@PathVariable Long id){
         hallService.deleteHall(id);
+    }
+    @DeleteMapping("/delete_place/{id}")
+    public void deletePlace(@PathVariable Long id){
+        hallService.deletePlace(id);
     }
     @GetMapping("/size/id:\\d+")
     public Integer getSize(@PathVariable Long id){
@@ -49,4 +61,5 @@ public class HallController {
     public Hall getHall(@PathVariable Long id){
         return hallService.findHallbyId(id);
     }
+
 }

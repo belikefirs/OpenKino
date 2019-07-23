@@ -1,9 +1,9 @@
 package com.controller;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.models.*;
 import com.service.FilmService;
 import com.view.Views;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,8 +39,13 @@ public class FilmController {
 
     @JsonView(Views.Internal.class)
     @GetMapping("")
-    public List <Film> getAll(){
-        return filmService.findAllFilm();
+    public List <Film> getAll(@RequestParam(name = "name") String name ,
+                              @RequestParam(name = "length") Long length,
+                              @RequestParam(name = "limitAge") Integer limitAge,
+                              @RequestParam(name = "rating") Double rating,
+                              @RequestParam(name = "typeFilm") String typeFilm,
+                              @RequestParam(name = "genre") String genre){
+        return null;
     }
 
     @JsonView(Views.Internal.class)

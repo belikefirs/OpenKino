@@ -1,7 +1,7 @@
 <template>
     <div>
         <FilmFilter></FilmFilter>
-        <SelectionsForYou></SelectionsForYou>
+        <SelectionsForYou style="margin: 9px 0 0 0"></SelectionsForYou>
     </div>
 </template>
 

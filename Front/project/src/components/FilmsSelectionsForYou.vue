@@ -85,6 +85,6 @@ export default {
 	&-title
 		height: 100%
 		line-height: 50px
-		background-color: rgba(red, 0.4)
+		background-color: rgba(139, 67, 247, 0.4)
 		color: white
 </style>

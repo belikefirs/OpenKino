@@ -2,18 +2,31 @@
     <WrapperCent>
         <div class="wrapper-film">
             <div class="wrapper-filmFilter">
-                <input type="text" class="search" placeholder="Поиск по жанру, названию, режисеру">
+                <input type="text" class="search" placeholder="Поиск по жанру, названию" v-model="searchFilm">
                 <input type="text" class="date" placeholder="Дата выхода">
                 <div class="rating">
                     <div class="stars">
                         <p>Рейтинг</p>
-                        <div class="star" v-for="item in ImageStar" :key="item">
-                            <img :src="item" alt="star">
+                        <div id="reviewStars-input">
+                            <input id="star-4" type="radio" name="reviewStars"/>
+                            <label title="Отлично" for="star-4"></label>
+
+                            <input id="star-3" type="radio" name="reviewStars"/>
+                            <label title="Хорошо" for="star-3"></label>
+
+                            <input id="star-2" type="radio" name="reviewStars"/>
+                            <label title="Нормально" for="star-2"></label>
+
+                            <input id="star-1" type="radio" name="reviewStars"/>
+                            <label title="Плохо" for="star-1"></label>
+
+                            <input id="star-0" type="radio" name="reviewStars"/>
+                            <label title="Очень плохо" for="star-0"></label>
                         </div>
                     </div>
                 </div>
             </div>
-            <SliderItem v-for="item in $store.state.films" :key="item.filmTitle "
+            <SliderItem v-for="item in filterFilms" :key="item.filmTitle "
                 :image="item.image"
                 :path="item.path"
                 :filmTitle="item.filmTitle"
@@ -35,6 +48,7 @@ import Star4 from "./../assets/temp/icons/Star4.png"
 import Star5 from "./../assets/temp/icons/Star5.png"
 import SliderItem from '@/components/AppFilmCard.vue'
 import Slider from '@/components/AppSlider.vue'
+
 export default {
     components: {
         WrapperCent, SliderItem, Slider
@@ -43,7 +57,22 @@ export default {
         return {
             ImageStar: [
                 Star1, Star2, Star3, Star4, Star5
-            ]
+            ],
+            searchFilm: ''
+        }
+    },
+    computed: {
+        filterFilms: function() {
+            var searchwords = this.searchFilm && this.searchFilm.toLowerCase();
+            var searcharray =  this.$store.state.films;
+
+            searcharray = this.$store.state.films.filter(function(item){
+                if(item.filmTitle.toLowerCase().indexOf(searchwords) !== -1 || item.filmType.toLowerCase().indexOf(searchwords) !== -1) {
+                    return item;
+                }
+            }
+            )
+            return searcharray;
         }
     }
 }
@@ -102,5 +131,74 @@ export default {
 } .stars p {
     color: #f36021;
     margin: 7px 22px 10px 10px;
+}
+#reviewStars-input input:checked ~ label, #reviewStars-input label, #reviewStars-input label:hover, #reviewStars-input label:hover ~ label {
+  background: url('http://positivecrash.com/wp-content/uploads/ico-s71a7fdede6.png') no-repeat;
+}
+
+#reviewStars-input {
+  
+  /*fix floating problems*/
+  overflow: hidden;
+  *zoom: 1;
+  /*end of fix floating problems*/
+  
+  position: relative;
+  float: left;
+}
+
+#reviewStars-input input {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  
+  width: 43px;
+  height: 40px;
+  
+  position: absolute;
+  top: 0;
+  z-index: 0;
+}
+
+#reviewStars-input input:checked ~ label {
+  background-position: 0 -40px;
+  height: 40px;
+  width: 43px;
+}
+
+#reviewStars-input label {
+  background-position: 0 0;
+  height: 40px;
+  width: 43px;
+  float: right;
+  cursor: pointer;
+  margin-right: 10px;
+  
+  position: relative;
+  z-index: 1;
+}
+
+#reviewStars-input label:hover, #reviewStars-input label:hover ~ label {
+  background-position: 0 -40px;
+  height: 40px;
+  width: 43px;
+}
+
+#reviewStars-input #star-0 {
+  left: 0px;
+}
+#reviewStars-input #star-1 {
+  left: 53px;
+}
+#reviewStars-input #star-2 {
+  left: 106px;
+}
+#reviewStars-input #star-3 {
+  left: 159px;
+}
+#reviewStars-input #star-4 {
+  left: 212px;
+}
+#reviewStars-input #star-5 {
+  left: 265px;
 }
 </style>
