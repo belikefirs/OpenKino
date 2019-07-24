@@ -58,6 +58,17 @@
                         clearable
                         mask="###"
                         />
+                        <input v-show="false" type="file" ref="inputUpload" @change="loadImage">
+                        <v-btn block v-model="editingItem.url" @click="btnLoadClick">
+                            <div v-if="editingItem.image">
+                                <v-icon>close</v-icon>
+                                {{tempFileName}}
+                            </div>
+                            <div v-else>
+                                <v-icon>get_app</v-icon>
+                                Загрузить изображение
+                            </div>
+                        </v-btn>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer/>
@@ -70,12 +81,15 @@
         <v-layout>
             <v-flex sm12>
                 <v-card>
-                    <v-data-table 
+                    <v-data-table
                     :headers="headers"
                     :items="items"
                     hide-actions
                     no-data-text="Нет данных">
                         <template v-slot:items="props">
+                            <td>
+                                <v-img max-height="76" :src="props.item.image"/>
+                            </td>
                             <td>{{ props.item.name }}</td>
                             <td>{{ props.item.lenght / 60 + ' мин'}}</td>
                             <td>{{ props.item.rating }}</td>
@@ -106,6 +120,7 @@ export default {
             if (!this.dialog) {
                 Object.assign(this.editingItem, this.defaultItem);
                 this.editingIndex = -1;
+                this.tempFileName = '';
             }
         },
     },
@@ -113,10 +128,17 @@ export default {
         return{
             searchBox: '',
             dialog: false,
+            tempFileName: '',
             editingIndex: -1,
             genres: [],
             filmTypes: ['2D', '3D', 'Imax'],
             headers: [
+                {
+                    text: 'Изображение',
+                    align: 'left',
+                    sortable: false,
+                    value: 'name'
+                },
                 {
                     text: 'Название',
                     align: 'left',
@@ -163,6 +185,7 @@ export default {
             items: [
                 { 
                     id: 0,
+                    image: "",
                     name: 'Человек-паук: Вдали от дома',
                     lenght: 7740,
                     rating: 7.536,
@@ -172,6 +195,7 @@ export default {
                 },
             ],
             defaultItem: {
+                image: '',
                 name: '',
                 lenght: null,
                 rating: null,
@@ -180,6 +204,7 @@ export default {
                 limitAge: null,
             },
             editingItem:{
+                image: '',
                 name: '',
                 lenght: null,
                 rating: null,
@@ -199,6 +224,7 @@ export default {
                 this.editingItem.limitAge.length == 0) return;
             if (this.editingIndex == -1)
                 this.items.push({
+                    image: this.editingItem.image,
                     name: this.editingItem.name,
                     lenght: this.editingItem.lenght,
                     rating: this.editingItem.rating,
@@ -210,6 +236,7 @@ export default {
                 Object.assign(this.items[this.editingIndex], this.editingItem);
             }
             this.dialog = false;
+            this.$store.dispatch('ADD_FILM', this.editingItem);
         },
         changeItem(item, index){
             Object.assign(this.editingItem, item);
@@ -219,6 +246,39 @@ export default {
         deleteItem(item){
             const index = this.items.indexOf(item);
             this.items.splice(index, 1);
+        },
+        btnLoadClick(){
+            if (this.editingItem.image == '') {
+                this.$refs.inputUpload.click();
+            } else {
+                this.editingItem.image = '';
+                this.tempFileName = '';
+            }
+        },
+        loadImage(e){
+            let files = e.target.files || e.dataTransfer.files;
+            if (!files.length) return;
+
+            let filteFlag = false;
+            let imageFilter = ['.jpg','.png','.gif', '.tif'];
+            for (let i = 0; i < imageFilter.length; i++) {
+                if (files[0].name.includes(imageFilter[i])) {
+                    filteFlag = true;
+                    break;
+                }
+            }
+            if (filteFlag) this.createImage(files[0]);
+        },
+        createImage(file){
+            let image = new Image();
+            let reader = new FileReader();
+            let vm = this;
+
+            reader.onload = function(e) {
+                vm.editingItem.image = e.target.result;
+            };
+            reader.readAsDataURL(file);
+            this.tempFileName = file.name;
         },
     },
     computed: {
@@ -238,7 +298,7 @@ export default {
             bind(el, binding) {
                 el.addEventListener('input', function(e){
                     binding.value.lenght = e.target.value ? e.target.value * 60 : 0;
-                    console.log(binding.value.lenght);
+                    //console.log(binding.value.lenght);
                 });
             },
 		},

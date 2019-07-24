@@ -117,4 +117,9 @@ public class KinUserServiceImpl implements KinUserService {
        KinoUser kinoUser= kinoUserDao.findByMailOrPhone(username, username);
         return kinoUser;
     }
+
+    @Override
+    public KinoUser findKinoUserByMail(String mail) {
+        return kinoUserDao.findKinoUsersByName(mail);
+    }
 }

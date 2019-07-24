@@ -22,7 +22,9 @@ export default new Vuex.Store({
 	state: {
 		halldata: [],
 		typeFilmList: [],
-
+		genreFilmList: [],
+		ratingFilmList: [],
+		limitAgeFilmList: [],
 		// Test
 		films: [
 			{ 
@@ -121,15 +123,18 @@ export default new Vuex.Store({
 		]
 	},
 	mutations: {
-		setHall (state, data) {
-			state.halldata = data
-		},
+		//Films
 		setTypeFilmList(state, data){
 			state.typeFilmList = data;
 		},
 		setGenreFilmList(state, data){
 			state.genreFilmList = data;
 		},
+		//Ather
+		setHall (state, data) {
+			state.halldata = data
+		},
+		
 		putLogin(state, data){
 			
 		},
@@ -148,6 +153,7 @@ export default new Vuex.Store({
 		},
 	},
 	actions: {
+		//FILMS
 		ADD_FILM (context, data) {
 			context.commit('addToLocalFilm', data);
 			return AXIOS.post("/Film", data);
@@ -162,6 +168,16 @@ export default new Vuex.Store({
 				context.commit('setGenreFilmList', data);
 			});
 		},
+		GET_FILMS_WITH_FILTERS(context, data){
+			let params = {};
+			Object.keys(data).forEach(key => {
+				params[key] = data[key];
+			});
+			return AXIOS.get('/Film', {
+				params
+			});
+		},
+		//AUTH
 		AUTHORIZATION_LOGIN (context, data) {
 			return AXIOS.post('/auth', data).then((response) => {
 				//context.commit('putLogin', data);

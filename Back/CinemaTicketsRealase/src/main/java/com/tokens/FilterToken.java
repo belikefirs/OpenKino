@@ -1,6 +1,9 @@
 package com.tokens;
 
 import com.configuration.JwtConfig;
+import com.dao.KinoUserDao;
+import com.models.KinoUser;
+import com.service.KinUserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +22,7 @@ import java.util.stream.Collectors;
 
 public class FilterToken extends OncePerRequestFilter {
     private final JwtConfig jwtConfig;
+    private KinUserService kinUserService;
     public FilterToken(JwtConfig jwtConfig){
         this.jwtConfig = jwtConfig;
     }
@@ -39,6 +43,7 @@ public class FilterToken extends OncePerRequestFilter {
             String username = claims.getSubject();
             List<LinkedHashMap> authoritiesMap = (List<LinkedHashMap>) claims.get("authorities");
             if (username != null) {
+                KinoUser kinoUser = kinUserService.findKinoUserByMail(username);
                 if (authoritiesMap != null) {
                     List<SimpleGrantedAuthority> authorities = authoritiesMap
                             .stream().map(val -> {

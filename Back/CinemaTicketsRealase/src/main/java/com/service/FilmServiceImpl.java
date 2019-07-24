@@ -3,7 +3,9 @@ import com.dao.*;
 import com.models.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -14,13 +16,15 @@ public class FilmServiceImpl implements FilmService {
     private GenreDao genreDao;
     private LimitAgeDao limitAgeDao;
     private TypeFilmDao typeFilmDao;
+    private ImageDao imageDao;
 
-    public FilmServiceImpl(FilmDao filmDao, TypeFilmDao typeFilmDao , RatingDao ratingDao, GenreDao genreDao, LimitAgeDao limitAgeDao) {
+    public FilmServiceImpl(FilmDao filmDao, TypeFilmDao typeFilmDao, RatingDao ratingDao, GenreDao genreDao, LimitAgeDao limitAgeDao, ImageDao imageDao) {
         this.filmDao = filmDao;
         this.typeFilmDao = typeFilmDao;
         this.ratingDao = ratingDao;
         this.genreDao = genreDao;
         this.limitAgeDao = limitAgeDao;
+        this.imageDao = imageDao;
     }
 
     @Override
@@ -157,5 +161,18 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public List<Film> findFilmsByVars(String name, String genre, String typeFilm, Double rating, Integer age) {
         return filmDao.findFilmsByVars(name,genre,typeFilm,rating,age);
+    }
+
+    @Override
+    public Long loadImage(MultipartFile file, Image image) throws IOException {
+        byte[] array = file.getBytes();
+        image.setImage_array(array);
+        image.setType(file.getContentType());
+        return imageDao.save(image).getId();
+    }
+
+    @Override
+    public Image getImage(Long id) {
+        return imageDao.findById(id).get();
     }
 }
