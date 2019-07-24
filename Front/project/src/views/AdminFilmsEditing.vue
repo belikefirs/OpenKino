@@ -7,6 +7,7 @@
                 prepend-inner-icon="search"
                 placeholder="Поиск"
                 solo
+                @change="search"
                 />
             </v-flex>
             <v-spacer/>
@@ -31,33 +32,48 @@
                         :value="defaultLanghtValue"
                         v-myFilter="editingItem"
                         />
-                        <v-text-field
+                        <v-combobox
                         v-model="editingItem.rating"
+                        item-text="rating"
+                        value="rating"
                         label="Рейтинг"
                         clearable
                         />
                         <v-combobox
-                        :items="genres"
+                        :items="$store.state.genreFilmList"
                         v-model="editingItem.genre"
+                        item-text="name"
+                        value="name"
                         label="Жанр"
                         clearable
-                        dense
-                        hide-selected
                         />
                         <v-combobox
-                        :items="filmTypes"
+                        :items="$store.state.typeFilmList"
                         v-model="editingItem.typeFilm"
+                        item-text="name"
+                        value="name"
                         label="Тип фильма"
                         clearable
-                        sort
-                        dense
-                        /><!-- multiple -->
-                        <v-text-field
+                        />
+                        <v-combobox
                         v-model="editingItem.limitAge"
+                        item-text="age"
+                        value="limitAge"
                         label="Возрастное ограничение"
                         clearable
                         mask="###"
                         />
+                        <input v-show="false" type="file" ref="inputUpload" @change="loadImage">
+                        <v-btn block v-model="editingItem.url" @click="btnLoadClick">
+                            <div v-if="editingItem.image">
+                                <v-icon>close</v-icon>
+                                {{tempFileName}}
+                            </div>
+                            <div v-else>
+                                <v-icon>get_app</v-icon>
+                                Загрузить изображение
+                            </div>
+                        </v-btn>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer/>
@@ -70,12 +86,15 @@
         <v-layout>
             <v-flex sm12>
                 <v-card>
-                    <v-data-table 
+                    <v-data-table
                     :headers="headers"
                     :items="items"
                     hide-actions
                     no-data-text="Нет данных">
                         <template v-slot:items="props">
+                            <td>
+                                <v-img max-height="76" :src="props.item.image"/>
+                            </td>
                             <td>{{ props.item.name }}</td>
                             <td>{{ props.item.lenght / 60 + ' мин'}}</td>
                             <td>{{ props.item.rating }}</td>
@@ -106,6 +125,7 @@ export default {
             if (!this.dialog) {
                 Object.assign(this.editingItem, this.defaultItem);
                 this.editingIndex = -1;
+                this.tempFileName = '';
             }
         },
     },
@@ -113,10 +133,15 @@ export default {
         return{
             searchBox: '',
             dialog: false,
+            tempFileName: '',
             editingIndex: -1,
-            genres: [],
-            filmTypes: ['2D', '3D', 'Imax'],
             headers: [
+                {
+                    text: 'Изображение',
+                    align: 'left',
+                    sortable: false,
+                    value: 'name'
+                },
                 {
                     text: 'Название',
                     align: 'left',
@@ -160,36 +185,52 @@ export default {
                     value: 'actions'
                 },
             ],
-            items: [
-                { 
-                    id: 0,
-                    name: 'Человек-паук: Вдали от дома',
-                    lenght: 7740,
-                    rating: 7.536,
-                    genre: 'фантастика, боевик, приключения',
-                    typeFilm: '2D, 3D',
-                    limitAge: 12,
-                },
-            ],
             defaultItem: {
                 name: '',
-                lenght: null,
-                rating: null,
-                genre: '',
-                typeFilm: '',
-                limitAge: null,
+                lenght: '',
+                typeFilm: {
+                    id: null,
+                    name: '',
+                },
+                genre: {
+                    id: null,
+                    name: '',
+                },
+                limitAge: {
+                    id: null,
+                    age: '',
+                },
+                rating: {
+                    id: null,
+                    rating: '',
+                }
             },
             editingItem:{
                 name: '',
-                lenght: null,
-                rating: null,
-                genre: '',
-                typeFilm: '',
-                limitAge: null,
+                lenght: '',
+                typeFilm: {
+                    id: null,
+                    name: '',
+                },
+                genre: {
+                    id: null,
+                    name: '',
+                },
+                limitAge: {
+                    id: null,
+                    age: '',
+                },
+                rating: {
+                    id: null,
+                    rating: '',
+                }
             }
         }
     },
     methods: {
+        search(){
+            this.$store.dispatch('GET_FILMS_WITH_FILTERS', {name: this.searchBox});
+        },
         confirmDialog(){
             if (this.editingItem.name.length == 0 ||
                 this.editingItem.lenght.length == 0 || 
@@ -198,21 +239,15 @@ export default {
                 this.editingItem.typeFilm.length == 0 ||
                 this.editingItem.limitAge.length == 0) return;
             if (this.editingIndex == -1)
-                this.items.push({
-                    name: this.editingItem.name,
-                    lenght: this.editingItem.lenght,
-                    rating: this.editingItem.rating,
-                    genre: this.editingItem.genre,
-                    typeFilm: this.editingItem.typeFilm,
-                    limitAge: this.editingItem.limitAge,
-                });
+                this.$store.dispatch('ADD_FILM', this.editingItem);
             else {
                 Object.assign(this.items[this.editingIndex], this.editingItem);
             }
             this.dialog = false;
-            this.$store.dispatch('ADD_FILM', this.editingItem);
+            
         },
         changeItem(item, index){
+            // this.editingItem = {...item};
             Object.assign(this.editingItem, item);
             this.editingIndex = index;
             this.dialog = true;
@@ -220,6 +255,39 @@ export default {
         deleteItem(item){
             const index = this.items.indexOf(item);
             this.items.splice(index, 1);
+        },
+        btnLoadClick(){
+            if (this.editingItem.image == '') {
+                this.$refs.inputUpload.click();
+            } else {
+                this.editingItem.image = '';
+                this.tempFileName = '';
+            }
+        },
+        loadImage(e){
+            let files = e.target.files || e.dataTransfer.files;
+            if (!files.length) return;
+
+            let filteFlag = false;
+            let imageFilter = ['.jpg','.png','.gif', '.tif'];
+            for (let i = 0; i < imageFilter.length; i++) {
+                if (files[0].name.includes(imageFilter[i])) {
+                    filteFlag = true;
+                    break;
+                }
+            }
+            if (filteFlag) this.createImage(files[0]);
+        },
+        createImage(file){
+            let image = new Image();
+            let reader = new FileReader();
+            let vm = this;
+
+            reader.onload = function(e) {
+                vm.editingItem.image = e.target.result;
+            };
+            reader.readAsDataURL(file);
+            this.tempFileName = file.name;
         },
     },
     computed: {
@@ -233,13 +301,16 @@ export default {
             return this.editingItem.lenght > 0 ? this.editingItem.lenght / 60 : ''; 
         }
     },
-
+    created(){
+        this.$store.dispatch('GET_TYPE_FILM_LIST');
+        this.$store.dispatch('GET_GENRE_FILM_LIST');
+    },
     directives:{
 		myFilter:{
             bind(el, binding) {
                 el.addEventListener('input', function(e){
                     binding.value.lenght = e.target.value ? e.target.value * 60 : 0;
-                    console.log(binding.value.lenght);
+                    //console.log(binding.value.lenght);
                 });
             },
 		},

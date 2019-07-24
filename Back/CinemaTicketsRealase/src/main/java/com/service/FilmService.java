@@ -1,5 +1,8 @@
 package com.service;
 import com.models.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.util.List;
 
 public interface FilmService {
@@ -30,4 +33,8 @@ public interface FilmService {
 
     Long updateRating(Rating rating);
     List <Rating> findAllRating();
+
+    Long loadImage(MultipartFile file, Image image) throws IOException;
+
+    Image getImage(Long id);
 }

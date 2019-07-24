@@ -17,6 +17,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 
 @EnableWebSecurity
@@ -50,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(new EncodingFilter(), ChannelProcessingFilter.class)
                 .authorizeRequests()
                 .antMatchers("/protected/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/KinoUser/all").access("hasAuthority('User')")
+//                .antMatchers("/KinoUser/all").access("hasAuthority('User')")
                 .antMatchers("/user/create").permitAll()
                 .anyRequest().permitAll()
                 .and()
@@ -72,6 +73,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new JwtConfig();
     }
 
+    @Bean(name = "multipartResolver")
+    public CommonsMultipartResolver multipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(500000);
+        return multipartResolver;
+    }
 
 
 }

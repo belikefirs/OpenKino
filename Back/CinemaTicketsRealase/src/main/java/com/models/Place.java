@@ -14,7 +14,8 @@ public class Place {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column (name="ID")
     private Long id;
-
+    @Column(name="NUMBER")
+    private Integer number;
     @Column(name = "Y")
     private Integer y;
 
@@ -29,7 +30,7 @@ public class Place {
     // @JsonManagedReference
     private Reservation reservation;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_HALL")
     @JsonBackReference
     private Hall hall;
@@ -59,6 +60,14 @@ public class Place {
 
     public void setX(Integer x) {
         this.x = x;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 
     public Double getPrice() {

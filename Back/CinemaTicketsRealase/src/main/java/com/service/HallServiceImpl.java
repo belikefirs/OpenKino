@@ -85,13 +85,19 @@ public class HallServiceImpl implements HallService {
         Hall hall = hallDao.findById(id).get();
         return hall.getWidth() * hall.getHeight();
     }
-    public Long savePlace(Place place) {
+    @Transactional
+    public Long savePlace(Place place, Long id) {
+        //placeDao.save(place).getId();
+        Hall hall = hallDao.findById(id).get();
+        place.setHall(hall);
+       // hall.getPlaces().add(place);
         return placeDao.save(place).getId();
     }
 
     @Override
     public Long updatePlace(Place place) {
         Place place1 = placeDao.findById(place.getId()).get();
+        place.setNumber(place.getNumber());
         place1.setX(place.getX());
         place1.setY(place.getY());
         place1.setPrice(place.getPrice());
@@ -106,8 +112,8 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    public Place findPlaceById(Long id) {
-        Place place = placeDao.findById(id).get();
+    public Place findPlaceByNumberFromHall(Long idHall, Integer number) {
+        Place place = placeDao.findPlaceByNumberFromHall(idHall, number);
         return place;
     }
 
