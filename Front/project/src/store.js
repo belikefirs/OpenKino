@@ -25,6 +25,7 @@ export default new Vuex.Store({
 		genreFilmList: [],
 		ratingFilmList: [],
 		limitAgeFilmList: [],
+		filmList: [],
 		// Test
 		films: [
 			{ 
@@ -130,7 +131,10 @@ export default new Vuex.Store({
 		setGenreFilmList(state, data){
 			state.genreFilmList = data;
 		},
-		//Ather
+		setFilmList(state, data){
+			state.filmList = data;
+		},
+		//Other
 		setHall (state, data) {
 			state.halldata = data
 		},
@@ -176,9 +180,12 @@ export default new Vuex.Store({
 			Object.keys(data).forEach(key => {
 				params[key] = data[key];
 			});
-			return AXIOS.get('/Film', {
-				params
+			return AXIOS.get('/Film', {params}).then(({data}) => {
+				context.commit('setFilmList', data);
 			});
+		},
+		DELETE_FILM(context, data){
+			return AXIOS.get('/Film/' + data.id);
 		},
 		//AUTH
 		AUTHORIZATION_LOGIN (context, data) {
