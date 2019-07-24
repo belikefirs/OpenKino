@@ -18,4 +18,5 @@ public interface ReservationDao extends JpaRepository<Reservation,Long> {
             "join reservation.kinoUser kinoUser where " +
             "kinoUser.mail = :email")
     Reservation getFindByEmailKinoUser(@Param("email") String email);
+
 }
