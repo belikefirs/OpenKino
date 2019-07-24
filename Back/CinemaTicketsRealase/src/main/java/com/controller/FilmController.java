@@ -46,13 +46,12 @@ public class FilmController {
 
     @JsonView(Views.Internal.class)
     @GetMapping("")
-    public List <Film> getAll(@RequestParam(name = "name") String name ,
-                              @RequestParam(name = "length") Long length,
-                              @RequestParam(name = "limitAge") Integer limitAge,
-                              @RequestParam(name = "rating") Double rating,
-                              @RequestParam(name = "typeFilm") String typeFilm,
-                              @RequestParam(name = "genre") String genre){
-        return null;
+    public List <Film> getAll(@RequestParam(name = "name",required = false) String name ,
+                              @RequestParam(name = "limitAge" ,required = false) Integer limitAge,
+                              @RequestParam(name = "rating" ,required = false) Double rating,
+                              @RequestParam(name = "typeFilm" ,required = false) String typeFilm,
+                              @RequestParam(name = "genre" ,required = false) String genre){
+        return filmService.findFilmsByVars(name,genre,typeFilm,rating,limitAge);
     }
 
     @JsonView(Views.Internal.class)

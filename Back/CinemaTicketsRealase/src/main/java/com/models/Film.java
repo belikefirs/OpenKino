@@ -42,7 +42,6 @@ public class Film {
     @JoinColumn(name = "ID_GENRE")
     private Genre genre;
 
-    @JsonView(Views.Internal.class)
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "film")
     private List<Session> sessions = new ArrayList();
 
