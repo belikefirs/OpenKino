@@ -31,9 +31,5 @@ export default {
     height: 35px;
     background: white;
     color: black;
-    text-align: center;
-    margin-right: 50px;
-    margin-top: 10px;
-    vertical-align: center;
 }
 </style>

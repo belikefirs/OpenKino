@@ -27,59 +27,59 @@ export default new Vuex.Store({
 		films: [
 			{ 
 				image: "https://images.kinomax.ru/films/4/4327/560x302/p_2ef3fc9.jpg",
-				path: "path1",
 				filmTitle: "Алладин",
 				filmStyle: "Приключения",
 				filmType: "2D",
 				limitAge: 6,
+				filmId: 1
 			},
 			{ 
 				image: "https://images.kinomax.ru/films/4/4470/560x302/p_44491c7.jpg",
-				path: "path1",
 				filmTitle: "Битва за Землю",
 				filmStyle: "Фантастика, Экшн",
 				filmType: "2D",
 				limitAge: 16,
+				filmId: 2
 			},
 			{ 
 				image: "https://images.kinomax.ru/films/4/4479/560x302/p_53834f0.jpg",
-				path: "path1",
 				filmTitle: "План побега 3",
 				filmStyle: "Экшн, Триллер",
 				filmType: "2D",
 				limitAge: 18,
+				filmId: 3
 			},
 			{ 
 				image: "https://images.kinomax.ru/films/4/4477/560x302/p_8157f91.jpg",
-				path: "path1",
 				filmTitle: "Человек-паук: Вдали от дома",
 				filmStyle: "Приключения, Экшн",
 				filmType: "2D, 3D",
 				limitAge: 12,
+				filmId: 4
 			},
 			{ 
 				image: "https://images.kinomax.ru/films/4/4456/560x302/p_b351c28.jpg",
-				path: "path1",
 				filmTitle: "История игрушек 4",
 				filmStyle: "Анимация, Приключения",
 				filmType: "2D",
 				limitAge: 6,
+				filmId: 5
 			},
 			{ 
 				image: "https://images.kinomax.ru/films/4/4474/560x302/p_9e4a973.jpg",
-				path: "path1",
 				filmTitle: "Собачья жизнь 2",
 				filmStyle: "Семейный",
 				filmType: "2D",
 				limitAge: 6,
+				filmId: 6
 			},
 			{ 
 				image: "https://images.kinomax.ru/films/4/4469/560x302/p_da43f15.jpg",
-				path: "path1",
 				filmTitle: "Проклятье Аннабель 3",
 				filmStyle: "Ужасы",
 				filmType: "2D",
 				limitAge: 18,
+				filmId: 7
 			},
 		],
 		newsFilm: [
@@ -136,6 +136,9 @@ export default new Vuex.Store({
 		putReg(state, data) {
 
 		},
+		showHall(state, data) {
+			
+		},
 		addToLocalFilm(state, data){
 			state.films.push({ 
 				image: "https://images.kinomax.ru/films/4/4327/560x302/p_2ef3fc9.jpg",
@@ -175,5 +178,10 @@ export default new Vuex.Store({
 				console.log(response);
 			});
 		},
+		GET_HALL (context) {
+			return AXIOS.get('/hall').then(({data}) => {
+				context.commit('showHall', data);
+			})
+		}
 	},
 });

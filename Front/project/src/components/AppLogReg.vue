@@ -66,7 +66,17 @@ export default {
                          this.$el.style.minHeight = '';
                 }, 1100);
             }
-        }
+        },
+        parseJwt () {
+            const token = localStorage.getItem(STORAGE_NAME_ACCESSTOKEN)
+            if (user) {
+                const base64Url = token.split('.')[1]
+                const base64 = base64Url.replace('-', '+').replace('', '/')
+                return JSON.parse(Base64.decode(base64))
+            } else {
+                return null
+            }
+        }       
     },
     computed:{
         trSwitch(){

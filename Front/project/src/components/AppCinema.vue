@@ -36,6 +36,37 @@ export default {
             selectedItems: [],
             halls: [
                 {
+                    id: 1,
+                    width: 5,
+                    height: 2,
+                    places: [
+                        {
+                            id: 4,
+                            number: null,
+                            y: null,
+                            x: null,
+                            price: null,
+                            reservation: null
+                        },
+                        {
+                            id: 7,
+                            number: null,
+                            y: null,
+                            x: null,
+                            price: null,
+                            reservation: null
+                        },
+                        {
+                            id: 8,
+                            number: 1,
+                            y: 1,
+                            x: 1,
+                            price: 328,
+                            reservation: null
+                        }
+                    ]
+                    }
+                /*{
                     id: 0,
                     width: 14,
                     height: 12,
@@ -85,11 +116,14 @@ export default {
                         {id: 40, x: 12, y: 2, type: 'Free', value: 11},
                         {id: 41, x: 13, y: 2, type: 'Free', value: 12},
                     ],
-                }
+                }*/
             ],
         }
     },
     methods:{
+        getHall() {
+            this.$store.dispatch('GET_HALL')
+        },
         selectItem(item){
             if (item.type == 'Free') {
                 if (this.selectedItems.includes(item)) this.selectedItems.splice(this.selectedItems.indexOf(item),1);

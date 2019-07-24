@@ -41,8 +41,6 @@ export default new Router({
 			name: 'genreEditing',
 			component: () => import('./views/AdminGenreEditing.vue')
 		},
-
-
 		{
 			path: '/admin/add',
 			name: 'addFilm',
@@ -53,6 +51,11 @@ export default new Router({
 			name: 'showFilm',
 			component: () => import('./views/AdminChangeFilms.vue')
 		},
+		{
+			path: '/films/FilmsInformation:Pid',
+			name: 'FilmsInformation',
+			component: () => import('./views/FilmsInformation.vue')
+		}
 		
 	],
 });

@@ -1,5 +1,5 @@
 <template>
-	<div class="wrapper-FilmCard">
+	<div class="wrapper-FilmCard" @click="$emit('click')">
 		<div class="filmImage" style="background-size: contain;" :style="{backgroundImage: bgImage}">
 			<div class="limitAge">{{limitAge}}+</div>
 		</div>
