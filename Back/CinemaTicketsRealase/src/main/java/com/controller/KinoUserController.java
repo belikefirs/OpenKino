@@ -59,4 +59,9 @@ public class KinoUserController {
         return kinUserService.findKinoUserById(id);
     }
 
+    @JsonView(KinoUser.View.Getter.class)
+    @GetMapping("")
+    public KinoUser getKinoUserByMail(@RequestParam(name = "mail", required = false) String mail) {
+        return kinUserService.findKinoUserByMail(mail);
+    }
 }

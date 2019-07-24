@@ -20,4 +20,6 @@ public interface KinUserService extends UserDetailsService {
     Long setPositionKinoUserById(Long idPosition, Long id);
     Position getPositionKinoUserById(Long id);
     Long savePosition(Position position);
+
+    KinoUser findKinoUserByMail(String mail);
 }
