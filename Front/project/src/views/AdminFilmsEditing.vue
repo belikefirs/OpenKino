@@ -7,6 +7,7 @@
                 prepend-inner-icon="search"
                 placeholder="Поиск"
                 solo
+                @change="search"
                 />
             </v-flex>
             <v-spacer/>
@@ -31,29 +32,33 @@
                         :value="defaultLanghtValue"
                         v-myFilter="editingItem"
                         />
-                        <v-text-field
+                        <v-combobox
                         v-model="editingItem.rating"
+                        item-text="rating"
+                        value="rating"
                         label="Рейтинг"
                         clearable
                         />
                         <v-combobox
-                        :items="genres"
+                        :items="$store.state.genreFilmList"
                         v-model="editingItem.genre"
+                        item-text="name"
+                        value="name"
                         label="Жанр"
                         clearable
-                        dense
-                        hide-selected
                         />
                         <v-combobox
-                        :items="filmTypes"
+                        :items="$store.state.typeFilmList"
                         v-model="editingItem.typeFilm"
+                        item-text="name"
+                        value="name"
                         label="Тип фильма"
                         clearable
-                        sort
-                        dense
-                        /><!-- multiple -->
-                        <v-text-field
+                        />
+                        <v-combobox
                         v-model="editingItem.limitAge"
+                        item-text="age"
+                        value="limitAge"
                         label="Возрастное ограничение"
                         clearable
                         mask="###"
@@ -195,26 +200,51 @@ export default {
                 },
             ],
             defaultItem: {
-                image: '',
                 name: '',
-                lenght: null,
-                rating: null,
-                genre: '',
-                typeFilm: '',
-                limitAge: null,
+                lenght: '',
+                typeFilm: {
+                    id: null,
+                    name: '',
+                },
+                genre: {
+                    id: null,
+                    name: '',
+                },
+                limitAge: {
+                    id: null,
+                    age: '',
+                },
+                rating: {
+                    id: null,
+                    rating: '',
+                }
             },
             editingItem:{
-                image: '',
                 name: '',
-                lenght: null,
-                rating: null,
-                genre: '',
-                typeFilm: '',
-                limitAge: null,
+                lenght: '',
+                typeFilm: {
+                    id: null,
+                    name: '',
+                },
+                genre: {
+                    id: null,
+                    name: '',
+                },
+                limitAge: {
+                    id: null,
+                    age: '',
+                },
+                rating: {
+                    id: null,
+                    rating: '',
+                }
             }
         }
     },
     methods: {
+        search(){
+            this.$store.dispatch('GET_FILMS_WITH_FILTERS', {name: this.searchBox});
+        },
         confirmDialog(){
             if (this.editingItem.name.length == 0 ||
                 this.editingItem.lenght.length == 0 || 
@@ -223,22 +253,15 @@ export default {
                 this.editingItem.typeFilm.length == 0 ||
                 this.editingItem.limitAge.length == 0) return;
             if (this.editingIndex == -1)
-                this.items.push({
-                    image: this.editingItem.image,
-                    name: this.editingItem.name,
-                    lenght: this.editingItem.lenght,
-                    rating: this.editingItem.rating,
-                    genre: this.editingItem.genre,
-                    typeFilm: this.editingItem.typeFilm,
-                    limitAge: this.editingItem.limitAge,
-                });
+                this.$store.dispatch('ADD_FILM', this.editingItem);
             else {
                 Object.assign(this.items[this.editingIndex], this.editingItem);
             }
             this.dialog = false;
-            this.$store.dispatch('ADD_FILM', this.editingItem);
+            
         },
         changeItem(item, index){
+            // this.editingItem = {...item};
             Object.assign(this.editingItem, item);
             this.editingIndex = index;
             this.dialog = true;
@@ -292,7 +315,10 @@ export default {
             return this.editingItem.lenght > 0 ? this.editingItem.lenght / 60 : ''; 
         }
     },
-
+    created(){
+        this.$store.dispatch('GET_TYPE_FILM_LIST');
+        this.$store.dispatch('GET_GENRE_FILM_LIST');
+    },
     directives:{
 		myFilter:{
             bind(el, binding) {
