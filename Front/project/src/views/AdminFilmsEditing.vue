@@ -88,7 +88,7 @@
                 <v-card>
                     <v-data-table
                     :headers="headers"
-                    :items="items"
+                    :items="$store.state.filmList"
                     hide-actions
                     no-data-text="Нет данных">
                         <template v-slot:items="props">
@@ -123,7 +123,7 @@ export default {
     watch: {
         'dialog' () {
             if (!this.dialog) {
-                Object.assign(this.editingItem, this.defaultItem);
+                //Object.assign(this.editingItem, this.defaultItem);
                 this.editingIndex = -1;
                 this.tempFileName = '';
             }
@@ -238,13 +238,14 @@ export default {
                 this.editingItem.genre.length == 0 || 
                 this.editingItem.typeFilm.length == 0 ||
                 this.editingItem.limitAge.length == 0) return;
-            if (this.editingIndex == -1)
-                this.$store.dispatch('ADD_FILM', this.editingItem);
-            else {
-                Object.assign(this.items[this.editingIndex], this.editingItem);
-            }
+            //try
+            if (this.editingItem.typeFilm.name == null) this.editingItem.typeFilm = {name: this.editingItem.typeFilm};
+            if (this.editingItem.genre.name == null) this.editingItem.genre = {name: this.editingItem.genre};
+            if (this.editingItem.limitAge.age == null) this.editingItem.limitAge = {age: this.editingItem.limitAge};
+            if (this.editingItem.rating.rating == null) this.editingItem.rating = {rating: this.editingItem.rating};
+            //end try
+            this.$store.dispatch('ADD_FILM', this.editingItem);
             this.dialog = false;
-            
         },
         changeItem(item, index){
             // this.editingItem = {...item};
@@ -253,8 +254,9 @@ export default {
             this.dialog = true;
         },
         deleteItem(item){
-            const index = this.items.indexOf(item);
-            this.items.splice(index, 1);
+            this.$store.dispatch('DELETE_FILM', {id: item.id}).then(() => {
+                this.$store.dispatch('GET_FILMS_WITH_FILTERS', {name: this.searchBox});
+            });
         },
         btnLoadClick(){
             if (this.editingItem.image == '') {
