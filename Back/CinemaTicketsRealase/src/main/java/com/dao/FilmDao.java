@@ -27,8 +27,8 @@ public interface FilmDao extends JpaRepository<Film, Long> {
             " WHERE (upper(FILM.NAME) LIKE CONCAT('%',upper(:name1),'%') OR FILM.NAME IS NULL) AND " +
             "    (upper(GENRE.NAME) LIKE CONCAT('%',upper(:genre),'%') OR GENRE.NAME IS NULL) AND " +
             "    (upper(TYPE_FILM.NAME) LIKE CONCAT ('%',upper(:typeFilm),'%') OR TYPE_FILM.NAME IS NULL) AND " +
-            "    (RATING.RATING = :rating OR RATING.RATING IS NULL) AND " +
-            "    (LIMIT_AGE.AGE = :age OR LIMIT_AGE.AGE IS NULL)", nativeQuery = true)
+            "    (RATING.RATING = :rating OR :rating IS NULL) AND " +
+            "    (LIMIT_AGE.AGE = :age OR :age IS NULL)", nativeQuery = true)
     List<Film> findFilmsByVars(@Param("name1") String name,
                                @Param("genre") String genre,
                                @Param("typeFilm") String typeFilm,
