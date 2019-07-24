@@ -42,8 +42,14 @@ public class Film {
     @JoinColumn(name = "ID_GENRE")
     private Genre genre;
 
+    @JsonView(Views.Internal.class)
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "film")
     private List<Session> sessions = new ArrayList();
+
+    @OneToOne
+    @JoinColumn(name = "ID_IMAGE")
+    private Image image;
+
 
     public Film (){}
 
@@ -109,5 +115,13 @@ public class Film {
 
     public void setSessions(List<Session> sessions) {
         this.sessions = sessions;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 }

@@ -4,8 +4,15 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.models.*;
 import com.service.FilmService;
 import com.view.Views;
+import org.apache.commons.io.IOUtils;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @RestController
@@ -114,4 +121,17 @@ public class FilmController {
         return filmService.updateRating(rating);
     }
 
+    @JsonView(Views.Internal.class)
+    @PostMapping("/load")
+    public Long loadImage(@RequestParam("file") MultipartFile file, Image image) throws IOException {
+        return filmService.loadImage(file, image);
+    }
+
+    @JsonView(Views.Internal.class)
+    @GetMapping("/get-image/{id}")
+    public ResponseEntity<byte[]> getImageWithMediaType(@PathVariable Long id) throws IOException {
+        Image image1 = filmService.getImage(id);
+        InputStream targetStream = new ByteArrayInputStream(image1.getImage_array());
+        return ResponseEntity.ok().header("content-type", image1.getType()).body(IOUtils.toByteArray(targetStream))  ;
+    }
 }
