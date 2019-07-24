@@ -135,8 +135,6 @@ export default {
             dialog: false,
             tempFileName: '',
             editingIndex: -1,
-            genres: [],
-            filmTypes: ['2D', '3D', 'Imax'],
             headers: [
                 {
                     text: 'Изображение',
@@ -185,18 +183,6 @@ export default {
                     align: 'right',
                     sortable: false,
                     value: 'actions'
-                },
-            ],
-            items: [
-                { 
-                    id: 0,
-                    image: "",
-                    name: 'Человек-паук: Вдали от дома',
-                    lenght: 7740,
-                    rating: 7.536,
-                    genre: 'фантастика, боевик, приключения',
-                    typeFilm: '2D, 3D',
-                    limitAge: 12,
                 },
             ],
             defaultItem: {
