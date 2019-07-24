@@ -1,0 +1,6 @@
+#FileLock
+#Mon Jul 22 10:17:02 SAMT 2019
+hostName=MSI
+id=16c185386e4c0e86208670d2a68b4600af5d1788b4e
+method=file
+server=192.168.22.176\:50402

@@ -1,16 +1,13 @@
 <template>
-	<div class="wrapper-FilmCard">
-		<div class="filmImage" style="background-size: contain;" :style="{backgroundImage: bgImage}">
-			<div class="limitAge">{{limitAge}}+</div>
+	<div class="wrapper-NewsFilm">
+		<div class="newTitle">{{newTitle}}</div>
+		<div class="filmImage" style="background-size: contain;" :style="{backgroundImage: bgImage}" >
 		</div>
 		<div class="textCont">
 			<p class="filmText">{{filmTitle}}</p>
 		</div>
 		<div class="textCont">
-			<p class="filmText">{{filmStyle}}</p>
-		</div>
-		<div class="textCont">
-			<p class="filmText">{{filmType}}</p>
+			<p class="filmTextInfo">{{filmNews}}</p>
 		</div>
 	</div>
 </template>
@@ -30,18 +27,14 @@ export default {
 			type: String,
 			required: true
 		},
-		filmStyle: {
+		filmNews: {
 			type: String,
 			required: true
 		},
-		filmType: {
+		newTitle: {
 			type: String,
-			required: true
-		},
-		limitAge: {
-			type: Number,
 			required: true,
-			default: 0
+			default: 'Новость сайта'
 		},
 		
 	},
@@ -54,36 +47,44 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.wrapper-FilmCard
+.wrapper-NewsFilm
 	margin: 15px
-	width: 218px
-	height: 451px
-	user-select: none
+	width: 400px
+	height: 420px
+	background: rgba(white, 0.4)
 	.filmImage
 		position: relative
-		width: 218px
-		height: 330px
-	.limitAge
+		width: 300px
+		height: 200px
+	.newTitle
 		position: absolute
 		top: 5px
 		right: 5px
-		width: 30px
+		width: 114px
 		height: 30px
-		font-size: 15px
+		font-size: 14px
 		color: white
 		line-height: 30px
 		text-align: center
-		background: #ff3131
-		border-radius: 5px
+		background: #F36021
+		border-radius: 0 0 0 30px
 	.textCont
 		display: flex
 		align-items: center
-		height: 40px
 		.filmText
-			display: block
 			font-family: 'Roboto', sans-serif
 			font-size: 16px
 			font-weight: 300
-			vertical-align: text-bottom
 			color: white
+			width: 320px
+			height: 100%
+			align-items: center
+		.filmTextInfo
+			width: 320px
+			height: 100%
+			font-family: 'Roboto', sans-serif
+			font-size: 12px
+			font-weight: 300
+			color: white
+			align-items: center
 </style>

@@ -10,17 +10,17 @@
         </div>
         <transition :name="trSwitch">
             <form class="log inputCont" key="log" v-if="log" @submit.prevent="logIn">
-                <input type="email" placeholder="E-mail">
-                <input type="password" placeholder="Пароль">
+                <input type="text" placeholder="E-mail" v-model="authdata.mail">
+                <input type="password" placeholder="Пароль" v-model="authdata.password">
                 <input class="button_auto" type="submit" value="Войти">
             </form>   
             <form class="reg inputCont" key="reg" v-else @submit.prevent="regIn">
-                <input type="surname" placeholder="Фамилия">
-                <input type="name" placeholder="Имя">
-                <input type="age" placeholder="Возраст">
-                <input type="email" placeholder="E-mail">
-                <input type="phone" placeholder="Номер телефона">
-                <input type="password" placeholder="Пароль">
+                <input type="surname" placeholder="Фамилия" v-model="regdata.name">
+                <input type="name" placeholder="Имя" v-model="regdata.fName">
+                <input type="age" placeholder="Возраст" v-model="regdata.age">
+                <input type="text" placeholder="E-mail" v-model="regdata.mail">
+                <input type="phone" placeholder="Номер телефона" v-model="regdata.phone">
+                <input type="password" placeholder="Пароль" v-model="regdata.password">
                 <input class="button_auto" type="submit" value="Зарегистрироваться">
             </form>
         </transition>
@@ -38,14 +38,26 @@ export default {
 	data () {
 		return {
             log: true,
+            authdata: {
+                mail: '',
+                password: ''
+            },
+            regdata: {
+                name: '',
+                fName: '',
+                age: '',
+                mail: '',
+                phone: '',
+                password: ''
+            }
 		}
     },
     methods:{
         logIn(){
-
+            this.$store.dispatch('AUTHORIZATION_LOGIN', this.authdata);
         },
         regIn(){
-
+            this.$store.dispatch('AUTHORIZATION_REG', this.regdata);
         },
         getHeight(){
             if (this.$el) {

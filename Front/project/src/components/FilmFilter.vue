@@ -4,7 +4,6 @@
             <div class="wrapper-filmFilter">
                 <input type="text" class="search" placeholder="Поиск по жанру, названию" v-model="searchFilm">
                 <input type="text" class="date" placeholder="Дата выхода">
-                <div class="rating">
                     <div class="stars">
                         <p>Рейтинг</p>
                         <div id="reviewStars-input">
@@ -24,7 +23,6 @@
                             <label title="Очень плохо" for="star-0"></label>
                         </div>
                     </div>
-                </div>
             </div>
             <SliderItem v-for="item in filterFilms" :key="item.filmTitle "
                 :image="item.image"
@@ -41,11 +39,6 @@
 
 <script>
 import WrapperCent from '@/components/AppWrapperCenter.vue'
-import Star1 from "./../assets/temp/icons/Star1.png"
-import Star2 from "./../assets/temp/icons/Star2.png"
-import Star3 from "./../assets/temp/icons/Star3.png"
-import Star4 from "./../assets/temp/icons/Star4.png"
-import Star5 from "./../assets/temp/icons/Star5.png"
 import SliderItem from '@/components/AppFilmCard.vue'
 import Slider from '@/components/AppSlider.vue'
 
@@ -55,9 +48,6 @@ export default {
     },
     data() {
         return {
-            ImageStar: [
-                Star1, Star2, Star3, Star4, Star5
-            ],
             searchFilm: ''
         }
     },
@@ -67,7 +57,7 @@ export default {
             var searcharray =  this.$store.state.films;
 
             searcharray = this.$store.state.films.filter(function(item){
-                if(item.filmTitle.toLowerCase().indexOf(searchwords) !== -1 || item.filmType.toLowerCase().indexOf(searchwords) !== -1) {
+                if(item.filmTitle.toLowerCase().indexOf(searchwords) !== -1 || item.filmType.toLowerCase().indexOf(searchwords) !== -1 || item.filmStyle.toLowerCase().indexOf(searchwords) !== -1) {
                     return item;
                 }
             }
@@ -120,11 +110,6 @@ export default {
 .date::-webkit-input-placeholder { 
     color: #f36021;
     }
-.rating {
-    width: 306px;
-    height: 38px;
-    border: 1px solid #ffffff;
-}
 .stars {
     display: flex;
     flex-direction: row;
@@ -137,12 +122,8 @@ export default {
 }
 
 #reviewStars-input {
-  
-  /*fix floating problems*/
   overflow: hidden;
   *zoom: 1;
-  /*end of fix floating problems*/
-  
   position: relative;
   float: left;
 }
@@ -150,10 +131,8 @@ export default {
 #reviewStars-input input {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   opacity: 0;
-  
   width: 43px;
   height: 40px;
-  
   position: absolute;
   top: 0;
   z-index: 0;
@@ -172,7 +151,6 @@ export default {
   float: right;
   cursor: pointer;
   margin-right: 10px;
-  
   position: relative;
   z-index: 1;
 }
