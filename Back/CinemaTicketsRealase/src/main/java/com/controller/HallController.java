@@ -45,11 +45,11 @@ public class HallController {
     public Integer getSize(@PathVariable Long id){
         return hallService.getSize(id);
     }
-    @GetMapping("/list_places/id:\\d+")
+    @GetMapping("/list_places/{id}")
     public List<Place> getPlaces(@PathVariable Long id)  {
         return hallService.getPlaces(id);
     }
-    @GetMapping("/places_reservation/id:\\d+")
+    @GetMapping("/places_reservation/{id}")
     public List<Place> getPlacesIsReservation(@PathVariable Long id)  {
         return hallService.getPlacesReservation(id);
     }
