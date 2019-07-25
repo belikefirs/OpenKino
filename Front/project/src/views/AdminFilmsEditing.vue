@@ -11,12 +11,14 @@
                 />
             </v-flex>
             <v-spacer/>
+            <v-btn sm1 color="primary" @click="addItem">Добавить</v-btn>
             <v-dialog
             v-model="dialog"
             width="500">
-                <template v-slot:activator="{ on }">
+                
+                <!-- <template v-slot:activator="{ on }">
                     <v-btn sm1 color="primary" v-on="on">Добавить</v-btn>
-                </template>
+                </template> -->
                 <v-card>
                     <v-card-title>{{dialogTitle}}</v-card-title>
                     <v-card-text>
@@ -124,14 +126,10 @@ export default {
     watch: {
         'dialog' () {
             if (!this.dialog) {
-                Object.assign(this.editingItem, this.defaultItem);
-                this.editingIndex = -1;
-                this.tempFileName = '';
                 this.$store.dispatch('GET_RATING_FILM_LIST');
                 this.$store.dispatch('GET_TYPE_FILM_LIST');
                 this.$store.dispatch('GET_GENRE_FILM_LIST');
                 this.$store.dispatch('GET_LIMIT_AGE_FILM_LIST');
-                this.$store.dispatch('GET_FILMS_WITH_FILTERS', {name: this.searchBox});
             }
         },
     },
@@ -220,6 +218,7 @@ export default {
                 this.editingItem.genre == null || this.editingItem.genre.length == 0 ||
                 this.editingItem.typeFilm == null || this.editingItem.typeFilm.length == 0 ||
                 this.editingItem.limitAge == null || this.editingItem.limitAge.length == 0) return;
+
             if (this.editingIndex == -1) {
                 if (this.editingItem.typeFilm.name == null) 
                     this.editingItem.typeFilm = {name: this.editingItem.typeFilm};
@@ -229,22 +228,29 @@ export default {
                     this.editingItem.limitAge = {age: this.editingItem.limitAge};
                 if (this.editingItem.rating.rating == null) 
                     this.editingItem.rating = {rating: this.editingItem.rating};
-                this.$store.dispatch('ADD_FILM', this.editingItem);
+                this.$store.dispatch('ADD_FILM', this.editingItem).then(() => {
+                    this.$store.dispatch('GET_FILMS_WITH_FILTERS', {name: this.searchBox});
+                });
             } else {
-                if (this.editingItem.typeFilm.name == null || this.editingItem.typeFilm.name != this.$store.state.filmList[this.editingIndex].typeFilm.name) 
+                if (this.editingItem.typeFilm.name != this.$store.state.filmList[this.editingIndex].typeFilm.name) 
                     this.editingItem.typeFilm = {name: this.editingItem.typeFilm};
-                if (this.editingItem.genre.name == null || this.editingItem.genre.name != this.$store.state.filmList[this.editingIndex].genre.name) 
+                if (this.editingItem.genre.name != this.$store.state.filmList[this.editingIndex].genre.name) 
                     this.editingItem.genre = {name: this.editingItem.genre};
-                if (this.editingItem.limitAge.age == null || this.editingItem.limitAge.age != this.$store.state.filmList[this.editingIndex].limitAge.age) 
+                if (this.editingItem.limitAge.age != this.$store.state.filmList[this.editingIndex].limitAge.age) 
                     this.editingItem.limitAge = {age: this.editingItem.limitAge};
-                if (this.editingItem.rating.rating == null || this.editingItem.rating.rating != this.$store.state.filmList[this.editingIndex].rating.rating) 
+                if (this.editingItem.rating.rating != this.$store.state.filmList[this.editingIndex].rating.rating) 
                     this.editingItem.rating = {rating: this.editingItem.rating};
-                this.$store.dispatch('CHANGE_FILM', this.editingItem);
+                this.$store.dispatch('CHANGE_FILM', this.editingItem).then(() => {
+                    this.$store.dispatch('GET_FILMS_WITH_FILTERS', {name: this.searchBox});
+                });
             }
             this.dialog = false;
         },
         addItem(){
-
+            Object.assign(this.editingItem, this.defaultItem);
+            this.editingIndex = -1;
+            this.tempFileName = '';
+            this.dialog = true;
         },
         changeItem(item, index){
             Object.assign(this.editingItem, item);
