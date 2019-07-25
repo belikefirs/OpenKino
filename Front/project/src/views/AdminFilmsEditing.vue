@@ -15,10 +15,6 @@
             <v-dialog
             v-model="dialog"
             width="500">
-                
-                <!-- <template v-slot:activator="{ on }">
-                    <v-btn sm1 color="primary" v-on="on">Добавить</v-btn>
-                </template> -->
                 <v-card>
                     <v-card-title>{{dialogTitle}}</v-card-title>
                     <v-card-text>
@@ -190,6 +186,7 @@ export default {
                 },
             ],
             defaultItem: {
+                image: '',
                 name: '',
                 lenght: '',
                 typeFilm: '',
@@ -198,6 +195,7 @@ export default {
                 rating: '',
             },
             editingItem:{
+                image: '',
                 name: '',
                 lenght: '',
                 typeFilm: '',
@@ -218,7 +216,7 @@ export default {
                 this.editingItem.genre == null || this.editingItem.genre.length == 0 ||
                 this.editingItem.typeFilm == null || this.editingItem.typeFilm.length == 0 ||
                 this.editingItem.limitAge == null || this.editingItem.limitAge.length == 0) return;
-
+            setTimeout(() => {
             if (this.editingIndex == -1) {
                 if (this.editingItem.typeFilm.name == null) 
                     this.editingItem.typeFilm = {name: this.editingItem.typeFilm};
@@ -245,6 +243,8 @@ export default {
                 });
             }
             this.dialog = false;
+            }, 100);
+            
         },
         addItem(){
             Object.assign(this.editingItem, this.defaultItem);
@@ -319,7 +319,6 @@ export default {
             bind(el, binding) {
                 el.addEventListener('input', function(e){
                     binding.value.lenght = e.target.value ? e.target.value * 60 : 0;
-                    //console.log(binding.value.lenght);
                 });
             },
 		},
