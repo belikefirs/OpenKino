@@ -144,6 +144,9 @@ export default new Vuex.Store({
 		setImageFilmList(state, data){
 			state.imageFilmList = data;
 		},
+		addImageFilm(state, data){
+			state.imageFilmList.push(data);
+		},
 		
 		//Other
 		setHall (state, data) {
@@ -209,6 +212,16 @@ export default new Vuex.Store({
 			});
 			return AXIOS.get('/Film', {params}).then(({data}) => {
 				context.commit('setFilmList', data);
+			});
+		},
+		GET_IMAGE(context, data){
+			let params = {};
+			Object.keys(data).forEach(key => {
+				params[key] = data[key];
+			});
+			return AXIOS.get('/load', {params, responseType: 'arraybuffer'}).then(({data}) =>{
+				new Buffer(data,'binary').toString('base64');
+				context.commit('addImageFilm', data);
 			});
 		},
 		//AUTH
