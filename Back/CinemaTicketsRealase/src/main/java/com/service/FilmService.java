@@ -3,6 +3,7 @@ import com.models.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.acl.LastOwnerException;
 import java.util.List;
 
 public interface FilmService {
@@ -34,7 +35,7 @@ public interface FilmService {
     Long updateRating(Rating rating);
     List <Rating> findAllRating();
 
-    Long loadImage(MultipartFile file, Image image) throws IOException;
-
+    Long loadImage(MultipartFile file, Long id) throws IOException;
     Image getImage(Long id);
+
 }
