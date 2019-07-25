@@ -98,24 +98,28 @@ public class FilmServiceImpl implements FilmService {
             Rating rating = film.getRating();
             if(film.getRating().getId() == null){
                 ratingDao.save(rating);
+                film.setRating(rating);
             }
         }
         if (film.getLimitAge()!=null) {
             LimitAge limitAge = film.getLimitAge();
             if (film.getLimitAge().getId() == null) {
                 limitAgeDao.save(limitAge);
+                film.setLimitAge(limitAge);
             }
         }
         if (film.getTypeFilm() != null) {
             TypeFilm typeFilm = film.getTypeFilm();
             if (film.getTypeFilm().getId() == null) {
                 typeFilmDao.saveAndFlush(typeFilm);
+                film.setTypeFilm(typeFilm);
             }
         }
         if (film.getGenre() != null) {
             Genre genre = film.getGenre();
             if (film.getGenre().getId() ==  null) {
                 genreDao.saveAndFlush(genre);
+                film.setGenre(genre);
             }
         }
         else {

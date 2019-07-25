@@ -9,8 +9,4 @@ import java.util.List;
 
 
 public interface CardDao extends JpaRepository<Card, Long> {
-    @Query("select card from Card as card " +
-            "join card.kinoUser as kinoUser " +
-            "where kinoUser.id = :id")
-    List<Card> findAllByKinoUserId(@Param("id") Long id);
 }
