@@ -84,16 +84,16 @@ export default {
             dark: false,
             navigation: [
                 {
-                    name: 'Управление фильмами', icon: 'movie',
+                    name: 'Управление фильмами', icon: 'camera_roll',
                     subTabs: [
                         {name: 'Фильмы', icon: 'theaters', route: 'filmsEditing'},
                         {name: 'Жанры', icon: 'favorite', route: 'genreEditing'},
                     ],
                 },
                 {
-                    name: 'Управление сеансами', icon: 'movie',
+                    name: 'Управление сеансами', icon: 'local_play',
                     subTabs: [
-                        {name: 'Сеансы', icon: 'theaters', route: 'sessionsEditing'},
+                        {name: 'Сеансы', icon: 'local_play', route: 'sessionsEditing'},
                     ],
                 },
             ],
