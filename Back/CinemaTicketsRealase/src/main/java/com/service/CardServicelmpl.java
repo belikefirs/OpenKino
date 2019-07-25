@@ -17,10 +17,10 @@ public class CardServicelmpl implements CardService{
     }
 
     @Override
-    public Long saveCard(Card card, Long kinoUserId) {
-        KinoUser kinoUser = kinoUserDao.findById(kinoUserId).get();
+    public Long saveCard(Card card, KinoUser kinoUser) {
+        KinoUser kinoUser1 = kinoUserDao.findById(kinoUser.getId()).get();
+        card.setKinoUser(kinoUser1);
         cardDao.save(card);
-        card.setKinoUser(kinoUser);
         return card.getId();
     }
 
