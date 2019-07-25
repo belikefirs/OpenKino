@@ -65,7 +65,6 @@ export default {
 		font-size: 14px
 		color: white
 		line-height: 30px
-		text-align: center
 		background: #F36021
 		border-radius: 0 0 0 30px
 	.textCont
@@ -76,15 +75,15 @@ export default {
 			font-size: 16px
 			font-weight: 300
 			color: white
-			width: 320px
+			width: 400px
 			height: 100%
-			align-items: center
+			text-align: center
 		.filmTextInfo
-			width: 320px
+			width: 400px
 			height: 100%
 			font-family: 'Roboto', sans-serif
 			font-size: 12px
 			font-weight: 300
 			color: white
-			align-items: center
+			text-align: center
 </style>

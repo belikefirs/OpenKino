@@ -52,6 +52,7 @@ export default {
 				{name: 'Новости', link: 'news'},
 				{name: 'Фильмы', link: 'films'},
 				{name: 'О нас', link: 'about'},
+				{name: 'Личный кабинет', link: 'usercabinet'}
 			]
 		}
 	},

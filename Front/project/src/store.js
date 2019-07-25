@@ -20,7 +20,7 @@ const hall = {
 
 export default new Vuex.Store({
 	state: {
-		halldata: [],
+		halldata: null,
 		typeFilmList: [],
 		genreFilmList: [],
 		ratingFilmList: [],
@@ -134,15 +134,8 @@ export default new Vuex.Store({
 		setHall (state, data) {
 			state.halldata = data
 		},
-		
-		putLogin(state, data){
-			
-		},
-		putReg(state, data) {
-
-		},
 		showHall(state, data) {
-			
+			state.halldata = data
 		},
 		addToLocalFilm(state, data){
 			state.films.push({ 
@@ -195,8 +188,8 @@ export default new Vuex.Store({
 			});
 		},
 		GET_HALL (context) {
-			return AXIOS.get('/hall').then(({data}) => {
-				context.commit('showHall', data);
+			return AXIOS.get('/hall/get/6').then(({data}) => {
+				return data
 			})
 		}
 	},

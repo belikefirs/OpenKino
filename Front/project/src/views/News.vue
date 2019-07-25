@@ -1,6 +1,6 @@
 <template>
     <div>
-        <!--<div class="wrapper-NewsFilm">
+        <div class="wrapper-NewsFilm">
             <NewsFilm v-for="item in $store.state.newsFilm" :key="item.filmTitle "
                 :image="item.image"
                 :path="item.path"
@@ -9,7 +9,7 @@
                 :newTitle="item.newTitle"
             >
         </NewsFilm>
-        </div>-->
+        </div>
         <SelectionsForYou></SelectionsForYou>
     </div>
 </template>

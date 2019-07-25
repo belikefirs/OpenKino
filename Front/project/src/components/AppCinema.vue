@@ -1,21 +1,21 @@
 <template>
-    <div class="wrapper-cinema">
+    <div class="wrapper-cinema" v-if="hall">
         <div class="place free"></div>
         <div class="screen"></div>
-        <div class="places" :style="{width : halls[0].width * 40 + 160 + 'px', height : halls[0].height * 40 + 'px'}">
-            <div class="place" v-for="item in halls[0].places" :key="item.id"
-            :class="{free : item.type == 'Free', notFree : item.type == 'NotFree', selected : selectedItems.includes(item)}"
-            :style="{top : item.y * 40 + 'px', left : 80 + item.x  * 40 + 'px'}"
+        <div class="places" :style="{width : hall.width * 40 + 160 + 'px', height : hall.height * 40 + 'px'}">
+            <div class="place" v-for="item in hall.places" :key="item.id"
+            :class="{free : item.reservation, notFree : !item.reservation, selected : selectedItems.includes(item)}"
+            :style="{top : item.y * 40 - 40 + 'px', left : 70 + item.x  * 40 + 'px'}"
             v-on:click="selectItem(item)"
             >
-                <p>{{item.value}}</p>
+                <p>{{item.number}}</p>
             </div>
-            <div class="place empty" v-for="n in halls[0].height" :key="'left' + n" style="left: 25px"
+            <div class="place empty" v-for="n in hall.height" :key="'left' + n" style="left: 25px"
             :style="{top : (n - 1) * 40 + 'px'}"
             >
                 <p>{{n}}</p>
             </div>
-            <div class="place empty" v-for="n in halls[0].height" :key="'right' + n" style="right: 25px"
+            <div class="place empty" v-for="n in hall.height" :key="'right' + n" style="right: 25px"
             :style="{top : (n - 1) * 40 + 'px'}"
             >
                 <p>{{n}}</p>
@@ -34,7 +34,8 @@ export default {
     data () {
         return {
             selectedItems: [],
-            halls: [
+            hall: null
+           /* halls: [
                 {
                     id: 1,
                     width: 5,
@@ -66,7 +67,7 @@ export default {
                         }
                     ]
                     }
-                /*{
+                {
                     id: 0,
                     width: 14,
                     height: 12,
@@ -116,8 +117,8 @@ export default {
                         {id: 40, x: 12, y: 2, type: 'Free', value: 11},
                         {id: 41, x: 13, y: 2, type: 'Free', value: 12},
                     ],
-                }*/
-            ],
+                }
+            ],*/
         }
     },
     methods:{
@@ -125,7 +126,7 @@ export default {
             this.$store.dispatch('GET_HALL')
         },
         selectItem(item){
-            if (item.type == 'Free') {
+            if (!item.reservation) {
                 if (this.selectedItems.includes(item)) this.selectedItems.splice(this.selectedItems.indexOf(item),1);
                 else this.selectedItems.push(item);
                 if (this.selectedItems.length > 5) this.selectedItems.shift();
@@ -133,7 +134,7 @@ export default {
         },
         setNotFree(){
             this.selectedItems.forEach(item => {
-                this.halls[0].places[this.halls[0].places.indexOf(item)].type = 'NotFree';
+                this.hall.places[this.hall.places.indexOf(item)].reservation = true;
             });
             this.selectedItems = [];
         }
@@ -142,8 +143,8 @@ export default {
 
     },
         mounted () {
-        this.$store.dispatch('TEXT')
-        .then(hall => {console.log('APP', hall.data)})
+        this.$store.dispatch('GET_HALL')
+        .then(hall => this.hall = hall)
         .catch()
 	}
 }

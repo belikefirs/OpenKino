@@ -2,8 +2,8 @@
     <WrapperCent>
         <div class="wrapper-Information">
             <div class="timeCinema">
-                <div class="timefirst t"><p>8:00</p></div>
-                <div class="timesecond t"><p>11:00</p></div>
+                <div class="timefirst t"><p style="margin: 5px 0 0 0">8:00</p></div>
+                <div class="timesecond t"><p style="margin: 5px 0 0 0">11:00</p></div>
             </div>
             <Cinema></Cinema>
         </div>
@@ -26,7 +26,7 @@ export default {
     display: flex;
     flex-direction: row;
 }
-.t {
+.t{
     width: 120px;
     height: 35px;
     background: white;
@@ -34,6 +34,6 @@ export default {
     text-align: center;
     margin-right: 50px;
     margin-top: 10px;
-    vertical-align: center;
 }
+
 </style>

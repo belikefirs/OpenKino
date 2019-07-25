@@ -55,6 +55,11 @@ export default new Router({
 			path: '/films/FilmsInformation:Pid',
 			name: 'FilmsInformation',
 			component: () => import('./views/FilmsInformation.vue')
+		},
+		{
+			path: '/usercabinet',
+			name: 'usercabinet',
+			component: () => import('./views/AppUserCabinet.vue')
 		}
 		
 	],
