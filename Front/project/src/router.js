@@ -27,6 +27,12 @@ export default new Router({
 			component: () => import('./views/About.vue')
 		},
 		{
+			path: '/films/FilmsInformation:Pid',
+			name: 'FilmsInformation',
+			component: () => import('./views/FilmsInformation.vue')
+		},
+		//Admin
+		{
 			path: '/admin',
 			name: 'admin',
 			//component: () => import('./views/Admin.vue')
@@ -42,9 +48,9 @@ export default new Router({
 			component: () => import('./views/AdminGenreEditing.vue')
 		},
 		{
-			path: '/admin/add',
-			name: 'addFilm',
-			component: () => import('./views/AdminFilmAdd.vue')
+			path: '/admin/sessions_editing',
+			name: 'sessionsEditing',
+			component: () => import('./views/AdminSessionsEditing.vue')
 		},
 		{
 			path: '/admin/show',

@@ -25,8 +25,7 @@
             <v-list>
                 <v-list-group
                 v-for="item in navigation" :key="item.name"
-                no-action
-                value="false">
+                no-action>
                     <template v-slot:activator>
                         <v-list-tile>
                             <v-list-tile-action>
@@ -87,11 +86,16 @@ export default {
                 {
                     name: 'Управление фильмами', icon: 'movie',
                     subTabs: [
-                        {name: 'Фильмы', icon: 'theaters', route: 'filmsEditing',},
+                        {name: 'Фильмы', icon: 'theaters', route: 'filmsEditing'},
                         {name: 'Жанры', icon: 'favorite', route: 'genreEditing'},
                     ],
                 },
-                
+                {
+                    name: 'Управление сеансами', icon: 'movie',
+                    subTabs: [
+                        {name: 'Сеансы', icon: 'theaters', route: 'sessionsEditing'},
+                    ],
+                },
             ],
         }
     },

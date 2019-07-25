@@ -1,5 +1,6 @@
 package com.configuration;
 
+import com.components.ListeningProperties;
 import org.h2.jdbcx.JdbcDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,16 +13,23 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.io.IOException;
 import java.util.HashMap;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com")
 @EnableTransactionManagement
 public class JPAConfiguration {
+    ListeningProperties listeningProperties;
     @Bean
     public DataSource dataSource(){
+        try {
+            listeningProperties = new ListeningProperties();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         JdbcDataSource jdbcDataSource = new JdbcDataSource();
-        jdbcDataSource.setURL("jdbc:h2:C:\\Users\\Борисенко\\Documents\\GitHub\\OpenKino\\OpenKino_db;AUTO_SERVER=TRUE");
+        jdbcDataSource.setURL(listeningProperties.getUrl());
         jdbcDataSource.setUser("admin");
         jdbcDataSource.setPassword("admin");
         return jdbcDataSource;

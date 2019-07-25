@@ -98,24 +98,28 @@ public class FilmServiceImpl implements FilmService {
             Rating rating = film.getRating();
             if(film.getRating().getId() == null){
                 ratingDao.save(rating);
+                film.setRating(rating);
             }
         }
         if (film.getLimitAge()!=null) {
             LimitAge limitAge = film.getLimitAge();
             if (film.getLimitAge().getId() == null) {
                 limitAgeDao.save(limitAge);
+                film.setLimitAge(limitAge);
             }
         }
         if (film.getTypeFilm() != null) {
             TypeFilm typeFilm = film.getTypeFilm();
             if (film.getTypeFilm().getId() == null) {
                 typeFilmDao.saveAndFlush(typeFilm);
+                film.setTypeFilm(typeFilm);
             }
         }
         if (film.getGenre() != null) {
             Genre genre = film.getGenre();
             if (film.getGenre().getId() ==  null) {
                 genreDao.saveAndFlush(genre);
+                film.setGenre(genre);
             }
         }
         else {
@@ -164,10 +168,15 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public Long loadImage(MultipartFile file, Image image) throws IOException {
+    public Long loadImage(MultipartFile file, Long id) throws IOException {
+        Film film = filmDao.findById(id).get();
+        Image image = new Image();
+        image.setFilm(film);
+
         byte[] array = file.getBytes();
         image.setImage_array(array);
         image.setType(file.getContentType());
+        film.setImage(image);
         return imageDao.save(image).getId();
     }
 
@@ -175,4 +184,6 @@ public class FilmServiceImpl implements FilmService {
     public Image getImage(Long id) {
         return imageDao.findById(id).get();
     }
+
+
 }

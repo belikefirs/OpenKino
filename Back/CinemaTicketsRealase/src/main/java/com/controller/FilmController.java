@@ -122,13 +122,13 @@ public class FilmController {
 
     @JsonView(Views.Internal.class)
     @PostMapping("/load")
-    public Long loadImage(@RequestParam("file") MultipartFile file, Image image) throws IOException {
-        return filmService.loadImage(file, image);
+    public Long loadImage(@RequestParam("file") MultipartFile file, @RequestParam("id") Long id) throws IOException {
+        return filmService.loadImage(file, id);
     }
 
     @JsonView(Views.Internal.class)
-    @GetMapping("/get-image/{id}")
-    public ResponseEntity<byte[]> getImageWithMediaType(@PathVariable Long id) throws IOException {
+    @GetMapping("/get-image")
+    public ResponseEntity<byte[]> getImageWithMediaType(@RequestParam("id") Long id) throws IOException {
         Image image1 = filmService.getImage(id);
         InputStream targetStream = new ByteArrayInputStream(image1.getImage_array());
         return ResponseEntity.ok().header("content-type", image1.getType()).body(IOUtils.toByteArray(targetStream))  ;

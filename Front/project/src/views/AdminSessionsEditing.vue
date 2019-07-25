@@ -63,8 +63,8 @@
                         clearable
                         />
                         <input v-show="false" type="file" ref="inputUpload" @change="loadImage">
-                        <v-btn block  @click="btnLoadClick">
-                            <div v-if="editingImage">
+                        <v-btn block v-model="editingItem.url" @click="btnLoadClick">
+                            <div v-if="editingItem.image">
                                 <v-icon>close</v-icon>
                                 {{tempFileName}}
                             </div>
@@ -120,14 +120,14 @@
 import { setTimeout } from 'timers';
 export default {
     watch: {
-        // 'dialog' () {
-        //     if (!this.dialog) {
-        //         this.$store.dispatch('GET_RATING_FILM_LIST');
-        //         this.$store.dispatch('GET_TYPE_FILM_LIST');
-        //         this.$store.dispatch('GET_GENRE_FILM_LIST');
-        //         this.$store.dispatch('GET_LIMIT_AGE_FILM_LIST');
-        //     }
-        // },
+        'dialog' () {
+            if (!this.dialog) {
+                this.$store.dispatch('GET_RATING_FILM_LIST');
+                this.$store.dispatch('GET_TYPE_FILM_LIST');
+                this.$store.dispatch('GET_GENRE_FILM_LIST');
+                this.$store.dispatch('GET_LIMIT_AGE_FILM_LIST');
+            }
+        },
     },
     data(){
         return{
@@ -186,6 +186,7 @@ export default {
                 },
             ],
             defaultItem: {
+                image: '',
                 name: '',
                 lenght: '',
                 typeFilm: '',
@@ -194,6 +195,7 @@ export default {
                 rating: '',
             },
             editingItem:{
+                image: '',
                 name: '',
                 lenght: '',
                 typeFilm: '',
@@ -201,7 +203,6 @@ export default {
                 limitAge: '',
                 rating: '',
             },
-            editingImage: '',
         }
     },
     methods: {
@@ -248,15 +249,12 @@ export default {
         addItem(){
             Object.assign(this.editingItem, this.defaultItem);
             this.editingIndex = -1;
-            this.editingImage = '';
             this.tempFileName = '';
             this.dialog = true;
         },
         changeItem(item, index){
             Object.assign(this.editingItem, item);
             this.editingIndex = index;
-            this.editingImage = '';
-            this.tempFileName = '';
             this.dialog = true;
         },
         deleteItem(item){
@@ -265,10 +263,10 @@ export default {
             });
         },
         btnLoadClick(){
-            if (this.editingImage == '') {
+            if (this.editingItem.image == '') {
                 this.$refs.inputUpload.click();
             } else {
-                this.editingImage = '';
+                this.editingItem.image = '';
                 this.tempFileName = '';
             }
         },
@@ -292,7 +290,7 @@ export default {
             let vm = this;
 
             reader.onload = function(e) {
-                vm.editingImage = e.target.result;
+                vm.editingItem.image = e.target.result;
             };
             reader.readAsDataURL(file);
             this.tempFileName = file.name;
