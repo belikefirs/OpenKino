@@ -168,10 +168,15 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public Long loadImage(MultipartFile file, Image image) throws IOException {
+    public Long loadImage(MultipartFile file, Long id) throws IOException {
+        Film film = filmDao.findById(id).get();
+        Image image = new Image();
+        image.setFilm(film);
+
         byte[] array = file.getBytes();
         image.setImage_array(array);
         image.setType(file.getContentType());
+        film.setImage(image);
         return imageDao.save(image).getId();
     }
 
@@ -179,4 +184,6 @@ public class FilmServiceImpl implements FilmService {
     public Image getImage(Long id) {
         return imageDao.findById(id).get();
     }
+
+
 }
