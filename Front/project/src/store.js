@@ -128,12 +128,19 @@ export default new Vuex.Store({
 		setTypeFilmList(state, data){
 			state.typeFilmList = data;
 		},
+		setRatingFilmList(state, data){
+			state.ratingFilmList = data;
+		},
 		setGenreFilmList(state, data){
 			state.genreFilmList = data;
+		},
+		setLimitAgeFilmList(state, data){
+			state.limitAgeFilmList = data;
 		},
 		setFilmList(state, data){
 			state.filmList = data;
 		},
+		
 		//Other
 		setHall (state, data) {
 			state.halldata = data
@@ -165,6 +172,18 @@ export default new Vuex.Store({
 			context.commit('addToLocalFilm', data);
 			return AXIOS.post("/Film", data);
 		},
+		CHANGE_FILM(context, data){
+			context.commit('addToLocalFilm', data);
+			return AXIOS.put('/Film', data);
+		},
+		DELETE_FILM(context, data){
+			return AXIOS.delete('/Film/' + data.id);
+		},
+		GET_RATING_FILM_LIST(context){
+			return AXIOS.get('/Film/rating').then(({data}) => {
+				context.commit('setRatingFilmList', data);
+			});
+		},
 		GET_TYPE_FILM_LIST (context) {
 			return AXIOS.get('/Film/type').then(({data}) => {
 				context.commit('setTypeFilmList', data);
@@ -175,6 +194,11 @@ export default new Vuex.Store({
 				context.commit('setGenreFilmList', data);
 			});
 		},
+		GET_LIMIT_AGE_FILM_LIST(context){
+			return AXIOS.get('/Film/limitAge').then(({data}) => {
+				context.commit('setLimitAgeFilmList', data);
+			});
+		},
 		GET_FILMS_WITH_FILTERS(context, data){
 			let params = {};
 			Object.keys(data).forEach(key => {
@@ -183,9 +207,6 @@ export default new Vuex.Store({
 			return AXIOS.get('/Film', {params}).then(({data}) => {
 				context.commit('setFilmList', data);
 			});
-		},
-		DELETE_FILM(context, data){
-			return AXIOS.get('/Film/' + data.id);
 		},
 		//AUTH
 		AUTHORIZATION_LOGIN (context, data) {
