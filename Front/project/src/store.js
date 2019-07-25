@@ -26,6 +26,7 @@ export default new Vuex.Store({
 		ratingFilmList: [],
 		limitAgeFilmList: [],
 		filmList: [],
+		imageFilmList: [],
 		// Test
 		films: [
 			{ 
@@ -140,12 +141,14 @@ export default new Vuex.Store({
 		setFilmList(state, data){
 			state.filmList = data;
 		},
+		setImageFilmList(state, data){
+			state.imageFilmList = data;
+		},
 		
 		//Other
 		setHall (state, data) {
 			state.halldata = data
 		},
-		
 		putLogin(state, data){
 			
 		},
