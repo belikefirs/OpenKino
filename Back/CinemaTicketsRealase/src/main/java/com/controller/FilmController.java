@@ -151,9 +151,10 @@ public class FilmController {
     public Long updateFilm(@RequestBody Image image){
         return filmService.updateImage(image);
     }
+
     @JsonView(Views.Internal.class)
-    @PutMapping("/load/update")
-    public Long loadImageUpdate(@RequestParam("file") MultipartFile file, @RequestParam("id") Long id) throws IOException {
+    @PostMapping("/load/update")
+    public Long loadImageUpd(@RequestParam("file") MultipartFile file, @RequestParam("id") Long id) throws IOException {
         return filmService.loadImageUpdate(file, id);
     }
 }
