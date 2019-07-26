@@ -42,7 +42,6 @@ public class FilmServiceImpl implements FilmService {
     public Long updateFilmById(Film film) {
         updateGRLT(film);
         Film film1 = filmDao.findById(film.getId()).get();
-        film1.setGenre(film.getGenre());
         film1.setName(film.getName());
         film1.setLenght(film.getLenght());
         return filmDao.save(film1).getId();
