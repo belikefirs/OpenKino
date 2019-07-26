@@ -23,9 +23,15 @@ import java.util.stream.Collectors;
 public class FilterToken extends OncePerRequestFilter {
     private final JwtConfig jwtConfig;
     private KinUserService kinUserService;
-    public FilterToken(JwtConfig jwtConfig){
+
+
+    public FilterToken(JwtConfig jwtConfig, KinUserService kinUserService) {
         this.jwtConfig = jwtConfig;
+        this.kinUserService = kinUserService;
+
     }
+
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
@@ -53,7 +59,7 @@ public class FilterToken extends OncePerRequestFilter {
                             ).collect(Collectors.toList());
                     ;
                     UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                            username, null, authorities
+                            kinoUser , null, authorities
                     );
                     SecurityContextHolder.getContext().setAuthentication(auth);
 

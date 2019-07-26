@@ -2,6 +2,7 @@ package com.configuration;
 
 import com.filter.BasicAuthenticationVUFilter;
 import com.filter.EncodingFilter;
+import com.models.KinoUser;
 import com.service.KinUserService;
 import com.service.KinUserServiceImpl;
 import com.tokens.FilterToken;
@@ -46,12 +47,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         final BasicAuthenticationVUFilter authenticationVUFilter = new BasicAuthenticationVUFilter(authenticationManagerBean(), jwtConfig());
         http
                 .csrf().disable()
-                .addFilterBefore(new FilterToken(jwtConfig()), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new FilterToken(jwtConfig(),kinUserService), UsernamePasswordAuthenticationFilter.class)
                 .addFilter(authenticationVUFilter)
                 .addFilterBefore(new EncodingFilter(), ChannelProcessingFilter.class)
                 .authorizeRequests()
                 .antMatchers("/protected/**").access("hasRole('ROLE_ADMIN')")
-//                .antMatchers("/KinoUser/all").access("hasAuthority('User')")
+    //          .antMatchers("/KinoUser/all").access("hasAuthority('User')")
                 .antMatchers("/user/create").permitAll()
                 .anyRequest().permitAll()
                 .and()
