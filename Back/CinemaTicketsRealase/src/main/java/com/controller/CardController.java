@@ -6,6 +6,8 @@ import com.service.CardService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/card")
 public class CardController {
@@ -23,6 +25,10 @@ public class CardController {
     @DeleteMapping("/{id}")
     public void deleteCard(@PathVariable Long id){
         cardService.deleteCardById(id);
+    }
+    @GetMapping("/allByKInoUser/{id}")
+    public List<Card> findCardsByIdKinoUser(@PathVariable Long id){
+       return cardService.findCardsByIdKinoUser(id);
     }
 
     @PutMapping("/add/{id},{money}")
