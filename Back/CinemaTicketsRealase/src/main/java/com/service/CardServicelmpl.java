@@ -39,4 +39,9 @@ public class CardServicelmpl implements CardService{
     public Long setCardKinoUserById(Long id, Long idCard) {
         return null;
     }
+
+    @Override
+    public Long addBalance(Card card) {
+        return null;
+    }
 }

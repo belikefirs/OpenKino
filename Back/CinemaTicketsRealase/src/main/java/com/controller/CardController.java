@@ -4,10 +4,7 @@ import com.models.Card;
 import com.models.KinoUser;
 import com.service.CardService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/card")
@@ -21,6 +18,11 @@ public class CardController {
     @PostMapping("")
     Long saveCard(@RequestBody Card card, @AuthenticationPrincipal KinoUser kinoUser){
         return cardService.saveCard(card,kinoUser);
+    }
+
+    @PutMapping("/add")
+    Long addCard(@RequestBody Card card){
+        return cardService.addBalance(card);
     }
 
 }

@@ -39,13 +39,12 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public Long updateFilmById(Film film) {
+    public Film updateFilmById(Film film) {
         updateGRLT(film);
         Film film1 = filmDao.findById(film.getId()).get();
-        film1.setGenre(film.getGenre());
         film1.setName(film.getName());
         film1.setLenght(film.getLenght());
-        return filmDao.save(film1).getId();
+        return filmDao.save(film1);
     }
 
     @Override
@@ -100,6 +99,7 @@ public class FilmServiceImpl implements FilmService {
                 ratingDao.save(rating);
                 film.setRating(rating);
             }
+            filmDao.save(film);
         }
         if (film.getLimitAge()!=null) {
             LimitAge limitAge = film.getLimitAge();
@@ -107,6 +107,7 @@ public class FilmServiceImpl implements FilmService {
                 limitAgeDao.save(limitAge);
                 film.setLimitAge(limitAge);
             }
+            filmDao.save(film);
         }
         if (film.getTypeFilm() != null) {
             TypeFilm typeFilm = film.getTypeFilm();
@@ -114,6 +115,7 @@ public class FilmServiceImpl implements FilmService {
                 typeFilmDao.saveAndFlush(typeFilm);
                 film.setTypeFilm(typeFilm);
             }
+            filmDao.save(film);
         }
         if (film.getGenre() != null) {
             Genre genre = film.getGenre();
@@ -121,10 +123,13 @@ public class FilmServiceImpl implements FilmService {
                 genreDao.saveAndFlush(genre);
                 film.setGenre(genre);
             }
+            filmDao.save(film);
         }
         else {
-            filmDao.save(film).getId();
+            filmDao.save(film);
         }
+
+
     }
 
     @Override
