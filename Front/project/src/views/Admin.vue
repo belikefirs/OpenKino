@@ -77,7 +77,7 @@ export default {
     },
     data () {
         return {
-            drawer: true,
+            drawer: false,
             dark: false,
             title: '',
             navigation: [

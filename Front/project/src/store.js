@@ -141,7 +141,7 @@ export default new Vuex.Store({
 			state.filmList = data;
 		},
 		addImageFilm(state, data){
-			state.filmList
+			state.filmList.find(item => item.id == data.id).image = data.image;
 		},
 		//Other
 		setHall (state, data) {
@@ -163,12 +163,13 @@ export default new Vuex.Store({
 	},
 	actions: {
 		//FILMS
-		ADD_FILM (context, data) {
-			context.commit('addToLocalFilm', data);
-			return AXIOS.post("/Film", data).then(({data}) => {
+		ADD_FILM (context, filmData) {
+			context.commit('addToLocalFilm', filmData.film);
+			return AXIOS.post("/Film", filmData.film).then(({data}) => {
 				const formData = new FormData();
-				formData.append('file', data.image);
-				AXIOS.post('Film/load', {data: formData, params: data.id});
+				formData.append('file', filmData.image);
+				formData.append('id', data);
+				AXIOS.post('Film/load', formData);
 			});
 		},
 		CHANGE_FILM(context, data){
@@ -204,18 +205,19 @@ export default new Vuex.Store({
 				params[key] = data[key];
 			});
 			return AXIOS.get('/Film', {params}).then(({data}) => {
-				context.commit('setFilmList', data);
+				context.commit('setFilmList', data.map(item => {return {...item, image: null}}));
+				data.forEach(film => {
+					context.dispatch('GET_IMAGE', film.id);
+				});
 			});
 		},
-		GET_IMAGE(context, data){
-			let params = {};
-			Object.keys(data).forEach(key => {
-				params[key] = data[key];
-			});
-			return AXIOS.get('/load', {params, responseType: 'arraybuffer'}).then(({data}) =>{
-				new Buffer(data,'binary').toString('base64');
-				context.commit('addImageFilm', data);
-			});
+		GET_IMAGE(context, filmId){
+			context.commit('addImageFilm', {id: filmId ,image: `Film/get-image?id=${filmId}`});
+			// return AXIOS.get('Film/get-image', {params: {id: filmId}}).then(({data, headers}) =>{
+			// 	// let img = new Blob([JSON.stringify(data)]).toString();
+				
+			// 	// context.commit('addImageFilm', {id: filmId ,image: `data:image/jpeg;base64,${img.substring(1)}`});
+			// });
 		},
 		//AUTH
 		AUTHORIZATION_LOGIN (context, data) {
@@ -233,7 +235,7 @@ export default new Vuex.Store({
 		},
 		GET_HALL (context) {
 			return AXIOS.get('/hall/get/6').then(({data}) => {
-				return data
+				return data;
 			})
 		}
 	},

@@ -92,7 +92,7 @@
                     no-data-text="Нет данных">
                         <template v-slot:items="props">
                             <td>
-                                <v-img max-height="76" :src="props.item.image"/>
+                                <v-img v-if="props.item.image" max-height="76" :src="props.item.image"/>
                             </td>
                             <td>{{ props.item.name }}</td>
                             <td>{{ props.item.lenght / 60 + ' мин'}}</td>
@@ -225,7 +225,7 @@ export default {
                     this.editingItem.limitAge = {age: this.editingItem.limitAge};
                 if (this.editingItem.rating.rating == null) 
                     this.editingItem.rating = {rating: this.editingItem.rating};
-                this.$store.dispatch('ADD_FILM', this.editingItem).then(() => {
+                this.$store.dispatch('ADD_FILM', {film: this.editingItem, image: this.editingImage}).then(() => {
                     this.$store.dispatch('GET_FILMS_WITH_FILTERS', {name: this.searchBox});
                 });
             } else {
@@ -284,7 +284,9 @@ export default {
                     break;
                 }
             }
-            if (filteFlag) this.createImage(files[0]);
+            //if (filteFlag) this.createImage(files[0]);
+            this.editingImage = files[0];
+            this.tempFileName = files[0].name;
         },
         createImage(file){
             let image = new Image();
