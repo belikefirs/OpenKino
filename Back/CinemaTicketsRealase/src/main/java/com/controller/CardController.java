@@ -1,8 +1,10 @@
 package com.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.models.Card;
 import com.models.KinoUser;
 import com.service.CardService;
+import com.view.Views;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +28,7 @@ public class CardController {
     public void deleteCard(@PathVariable Long id){
         cardService.deleteCardById(id);
     }
+    @JsonView(Views.Internal.class)
     @GetMapping("/allByKInoUser/{id}")
     public List<Card> findCardsByIdKinoUser(@PathVariable Long id){
        return cardService.findCardsByIdKinoUser(id);
