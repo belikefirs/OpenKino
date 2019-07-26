@@ -140,7 +140,9 @@ export default new Vuex.Store({
 		setFilmList(state, data){
 			state.filmList = data;
 		},
-		
+		addImageFilm(state, data){
+			state.filmList
+		},
 		//Other
 		setHall (state, data) {
 			state.halldata = data
@@ -163,10 +165,10 @@ export default new Vuex.Store({
 		//FILMS
 		ADD_FILM (context, data) {
 			context.commit('addToLocalFilm', data);
-			return AXIOS.post("/Film", data).then(() => {
-				//const formData = new FormData();
-				//formData.append('file', data.image);
-				//AXIOS.post('',formData);
+			return AXIOS.post("/Film", data).then(({data}) => {
+				const formData = new FormData();
+				formData.append('file', data.image);
+				AXIOS.post('Film/load', {data: formData, params: data.id});
 			});
 		},
 		CHANGE_FILM(context, data){
