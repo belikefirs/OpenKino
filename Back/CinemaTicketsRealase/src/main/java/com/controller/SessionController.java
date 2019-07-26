@@ -23,6 +23,7 @@ public class SessionController {
     public List<Session> getSessionAll(){
         return sessionService.findSessionAll();
     }
+
    /* @PutMapping("/update")
     public Long updateKinoUser(@RequestBody Session kinoUser) {
         return sessionService.updateSession(kinoUser);

@@ -36,7 +36,9 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public void deleteFilmById(Long id) {
-        deleteImage(id);
+        Film film = filmDao.findById(id).get();
+        Long id_image = film.getImage().getId();
+        deleteImage(id_image);
         filmDao.deleteById(id);
     }
 

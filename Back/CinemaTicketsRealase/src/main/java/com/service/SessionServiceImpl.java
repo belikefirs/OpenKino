@@ -46,7 +46,6 @@ public class SessionServiceImpl implements SessionService {
         Session session1 = sessionDao.findById(session.getId()).get();
         session1.setName(session.getName());
         session1.setStart(session.getStart());
-        session1.setEnd(session.getEnd());
         session.setFilm(session.getFilm());
         session1.setHall(session.getHall());
         return sessionDao.save(session1).getId();

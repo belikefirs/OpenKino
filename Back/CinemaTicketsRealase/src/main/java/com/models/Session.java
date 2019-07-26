@@ -21,9 +21,6 @@ public class Session {
     @Column(name = "START")
     private Date start;
 
-    @Column(name = "END")
-    private Date end;
-
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_FILM")
@@ -53,22 +50,13 @@ public class Session {
         this.name = name;
     }
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm", locale = "ru_")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm", locale = "ru_", timezone = "Europe/Samara")
     public Date getStart() {
         return start;
     }
 
     public void setStart(Date start) {
         this.start = start;
-    }
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm", locale = "ru_")
-    public Date getEnd() {
-        return end;
-    }
-
-    public void setEnd(Date end) {
-        this.end = end;
     }
 
     public Film getFilm() {
