@@ -6,6 +6,7 @@ import com.view.Views;
 import javax.persistence.*;
 import java.util.List;
 
+
 @Entity
 @Table(name = "GENRE")
 public class Genre {

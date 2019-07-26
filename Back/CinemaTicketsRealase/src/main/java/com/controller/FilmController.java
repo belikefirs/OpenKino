@@ -30,7 +30,7 @@ public class FilmController {
     }
 
     @PutMapping("")
-    public Film updateFilm(@RequestBody Film film){
+    public Long updateFilm(@RequestBody Film film){
         return filmService.updateFilmById(film);
     }
 

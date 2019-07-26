@@ -10,7 +10,7 @@ public interface FilmService {
 
     Long saveFilm(Film film);//
     void deleteFilmById(Long id);//
-    Film updateFilmById(Film film);
+    Long updateFilmById(Film film);
     Film findFilmById(Long id);//
     List <Film> findFilmsByVars(String name,
                                 String genre,
