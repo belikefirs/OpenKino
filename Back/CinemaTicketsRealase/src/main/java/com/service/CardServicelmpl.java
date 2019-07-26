@@ -5,6 +5,9 @@ import com.models.Card;
 import com.models.KinoUser;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
 @Service
 @Transactional
 public class CardServicelmpl implements CardService{
@@ -30,13 +33,14 @@ public class CardServicelmpl implements CardService{
     }
 
     @Override
-    public Card findCardById(Long id) {
-        return cardDao.findById(id).get();
-
+    public List<Card> findCardsByIdKinoUser(Long id) {
+        return cardDao.findAllByKinoUserId(id);
     }
 
     @Override
-    public Long setCardKinoUserById(Long id, Long idCard) {
-        return null;
+    public Long addBalance(Long id, Double money) {
+        Card card = cardDao.findById(id).get();
+        card.setBalance(card.getBalance()+money);
+        return cardDao.save(card).getId();
     }
 }

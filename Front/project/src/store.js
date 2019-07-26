@@ -26,7 +26,6 @@ export default new Vuex.Store({
 		ratingFilmList: [],
 		limitAgeFilmList: [],
 		filmList: [],
-		imageFilmList: [],
 		// Test
 		films: [
 			{ 
@@ -141,13 +140,9 @@ export default new Vuex.Store({
 		setFilmList(state, data){
 			state.filmList = data;
 		},
-		setImageFilmList(state, data){
-			state.imageFilmList = data;
-		},
 		addImageFilm(state, data){
-			state.imageFilmList.push(data);
+			state.filmList
 		},
-		
 		//Other
 		setHall (state, data) {
 			state.halldata = data
@@ -170,7 +165,11 @@ export default new Vuex.Store({
 		//FILMS
 		ADD_FILM (context, data) {
 			context.commit('addToLocalFilm', data);
-			return AXIOS.post("/Film", data);
+			return AXIOS.post("/Film", data).then(({data}) => {
+				const formData = new FormData();
+				formData.append('file', data.image);
+				AXIOS.post('Film/load', {data: formData, params: data.id});
+			});
 		},
 		CHANGE_FILM(context, data){
 			context.commit('addToLocalFilm', data);

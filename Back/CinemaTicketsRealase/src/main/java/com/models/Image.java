@@ -18,7 +18,7 @@ public class Image {
     private String type;
 
     @JsonView(Views.Internal.class)
-    @Column(name = "Image_array", columnDefinition = "BINARY(500000)")
+    @Column(name = "Image_array", columnDefinition = "BINARY(5000000)")
     private byte[] image_array;
 
     @JsonView(Views.Internal.class)

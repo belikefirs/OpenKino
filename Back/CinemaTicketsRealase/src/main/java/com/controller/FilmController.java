@@ -3,6 +3,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.models.*;
 import com.service.FilmService;
+import com.service.FilmServiceImpl;
 import com.view.Views;
 import org.apache.commons.io.IOUtils;
 import org.springframework.http.MediaType;
@@ -19,6 +20,7 @@ import java.util.List;
 @RequestMapping("/Film")
 public class FilmController {
     private final FilmService filmService;
+
 
     public FilmController(FilmService filmService) {
         this.filmService = filmService;
@@ -129,8 +131,31 @@ public class FilmController {
     @JsonView(Views.Internal.class)
     @GetMapping("/get-image")
     public ResponseEntity<byte[]> getImageWithMediaType(@RequestParam("id") Long id) throws IOException {
-        Image image1 = filmService.getImage(id);
+        Film film = filmService.findFilmById(id);
+        Image image1 = filmService.getImage( film.getImage().getId());
         InputStream targetStream = new ByteArrayInputStream(image1.getImage_array());
         return ResponseEntity.ok().header("content-type", image1.getType()).body(IOUtils.toByteArray(targetStream))  ;
+    }
+
+    @DeleteMapping("/image/{id}")
+    public void deleteImageById(@PathVariable Long id){
+        filmService.deleteImage(id);
+    }
+
+    @JsonView(Views.Internal.class)
+    @GetMapping("/image/all")
+    public List<Image> getAllImage(){
+        return filmService.getAllImage();
+    }
+
+    @PutMapping("image/update")
+    public Long updateFilm(@RequestBody Image image){
+        return filmService.updateImage(image);
+    }
+
+    @JsonView(Views.Internal.class)
+    @PostMapping("/load/update")
+    public Long loadImageUpd(@RequestParam("file") MultipartFile file, @RequestParam("id") Long id) throws IOException {
+        return filmService.loadImageUpdate(file, id);
     }
 }

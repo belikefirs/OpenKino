@@ -1,6 +1,7 @@
 package com.service;
 import com.dao.*;
 import com.models.*;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,6 +36,9 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public void deleteFilmById(Long id) {
+        Film film = filmDao.findById(id).get();
+        Long id_image = film.getImage().getId();
+        deleteImage(id_image);
         filmDao.deleteById(id);
     }
 
@@ -42,7 +46,6 @@ public class FilmServiceImpl implements FilmService {
     public Long updateFilmById(Film film) {
         updateGRLT(film);
         Film film1 = filmDao.findById(film.getId()).get();
-        film1.setGenre(film.getGenre());
         film1.setName(film.getName());
         film1.setLenght(film.getLenght());
         return filmDao.save(film1).getId();
@@ -100,6 +103,7 @@ public class FilmServiceImpl implements FilmService {
                 ratingDao.save(rating);
                 film.setRating(rating);
             }
+            filmDao.save(film);
         }
         if (film.getLimitAge()!=null) {
             LimitAge limitAge = film.getLimitAge();
@@ -107,24 +111,29 @@ public class FilmServiceImpl implements FilmService {
                 limitAgeDao.save(limitAge);
                 film.setLimitAge(limitAge);
             }
+            filmDao.save(film);
         }
         if (film.getTypeFilm() != null) {
             TypeFilm typeFilm = film.getTypeFilm();
             if (film.getTypeFilm().getId() == null) {
-                typeFilmDao.saveAndFlush(typeFilm);
+                typeFilmDao.save(typeFilm);
                 film.setTypeFilm(typeFilm);
             }
+            filmDao.save(film);
         }
         if (film.getGenre() != null) {
             Genre genre = film.getGenre();
             if (film.getGenre().getId() ==  null) {
-                genreDao.saveAndFlush(genre);
+                genreDao.save(genre);
                 film.setGenre(genre);
             }
+            filmDao.save(film);
         }
         else {
-            filmDao.save(film).getId();
+            filmDao.save(film);
         }
+
+
     }
 
     @Override
@@ -179,11 +188,41 @@ public class FilmServiceImpl implements FilmService {
         film.setImage(image);
         return imageDao.save(image).getId();
     }
+    @Override
+    public Long loadImageUpdate(MultipartFile file, Long id) throws IOException {
+        Image image = imageDao.findById(id).get();
 
+        byte[] array = file.getBytes();
+        image.setImage_array(array);
+        image.setType(file.getContentType());
+
+        return imageDao.save(image).getId();
+    }
     @Override
     public Image getImage(Long id) {
         return imageDao.findById(id).get();
     }
 
+    @Override
+    public void deleteImage(Long id) {
+        Image image = imageDao.findById(id).get();
+        Long id_kino = image.getFilm().getId();
+        Film film = filmDao.findById(id_kino).get();
+        film.setImage(null);
+        filmDao.save(film);
+         imageDao.deleteById(id);
+    }
 
+    @Override
+    public List<Image> getAllImage() {
+       return imageDao.findAll();
+    }
+
+    @Override
+    public Long updateImage(Image image) {
+        Image image1 = imageDao.findById(image.getId()).get();
+        image1.setImage_array(image.getImage_array());
+        image1.setType(image.getType());
+        return imageDao.save(image1).getId();
+    }
 }

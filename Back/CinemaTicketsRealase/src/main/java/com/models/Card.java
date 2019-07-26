@@ -1,16 +1,19 @@
 package com.models;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.view.Views;
+
 import javax.persistence.*;
 
 
 @Entity
 @Table(name = "CARD")
 public class Card {
-
+    @JsonView(Views.Internal.class)
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+    @JsonView(Views.Internal.class)
     @Column (name = "BALANCE")
     private Double balance;
 

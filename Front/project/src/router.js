@@ -6,6 +6,28 @@ Vue.use(Router);
 
 export default new Router({
 	routes: [
+		//Admin
+		{
+			path: '/admin',
+			name: 'admin',
+			//component: () => import('./views/Admin.vue')
+		},
+		{
+			path: '/admin/films_editing',
+			name: 'filmsEditing',
+			component: () => import('./views/AdminFilmsEditing.vue')
+		},
+		{
+			path: '/admin/genre_editing',
+			name: 'genreEditing',
+			component: () => import('./views/AdminGenreEditing.vue')
+		},
+		{
+			path: '/admin/sessions_editing',
+			name: 'sessionsEditing',
+			component: () => import('./views/AdminSessionsEditing.vue')
+		},
+		//Other
 		{
 			path: '/',
 			name: 'home',
@@ -30,32 +52,6 @@ export default new Router({
 			path: '/films/FilmsInformation:Pid',
 			name: 'FilmsInformation',
 			component: () => import('./views/FilmsInformation.vue')
-		},
-		//Admin
-		{
-			path: '/admin',
-			name: 'admin',
-			//component: () => import('./views/Admin.vue')
-		},
-		{
-			path: '/admin/films_editing',
-			name: 'filmsEditing',
-			component: () => import('./views/AdminFilmsEditing.vue')
-		},
-		{
-			path: '/admin/genre_editing',
-			name: 'genreEditing',
-			component: () => import('./views/AdminGenreEditing.vue')
-		},
-		{
-			path: '/admin/sessions_editing',
-			name: 'sessionsEditing',
-			component: () => import('./views/AdminSessionsEditing.vue')
-		},
-		{
-			path: '/admin/show',
-			name: 'showFilm',
-			component: () => import('./views/AdminChangeFilms.vue')
 		},
 		{
 			path: '/films/FilmsInformation:Pid',
