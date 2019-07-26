@@ -224,8 +224,8 @@ export default new Vuex.Store({
 			return AXIOS.post('/auth', data).then((response) => {
 				//context.commit('putLogin', data);
 				console.log(response);
-				var str = request.headers.authorization;
-				sessionStorage.setItem('token', str.substring(7));
+				var str = response.headers.authorization;
+				localStorage.setItem('token', str.substring(7));
 			});
 		},
 		AUTHORIZATION_REG (context, data) {
@@ -236,6 +236,19 @@ export default new Vuex.Store({
 		GET_HALL (context) {
 			return AXIOS.get('/hall/get/6').then(({data}) => {
 				return data;
+			})
+		},
+		BALANCE_UP (context, data) {
+			const authHeader = localStorage.getItem('token')
+			return AXIOS.post('/card', data, { headers: {
+				Authorization: 'Bearer ' + authHeader
+			}}).then((response) => {
+
+			})
+		},
+		GET_LIST_CARDS (context, data) {
+			return AXIOS.get('/card/allByKInoUser', data).then((response) => {
+					
 			})
 		}
 	},
