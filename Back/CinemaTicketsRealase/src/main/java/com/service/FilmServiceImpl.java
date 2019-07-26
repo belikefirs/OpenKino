@@ -1,6 +1,7 @@
 package com.service;
 import com.dao.*;
 import com.models.*;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,6 +36,7 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public void deleteFilmById(Long id) {
+        deleteImage(id);
         filmDao.deleteById(id);
     }
 
@@ -184,11 +186,41 @@ public class FilmServiceImpl implements FilmService {
         film.setImage(image);
         return imageDao.save(image).getId();
     }
+    @Override
+    public Long loadImageUpdate(MultipartFile file, Long id) throws IOException {
+        Image image = imageDao.findById(id).get();
 
+        byte[] array = file.getBytes();
+        image.setImage_array(array);
+        image.setType(file.getContentType());
+
+        return imageDao.save(image).getId();
+    }
     @Override
     public Image getImage(Long id) {
         return imageDao.findById(id).get();
     }
 
+    @Override
+    public void deleteImage(Long id) {
+        Image image = imageDao.findById(id).get();
+        Long id_kino = image.getFilm().getId();
+        Film film = filmDao.findById(id_kino).get();
+        film.setImage(null);
+        filmDao.save(film);
+         imageDao.deleteById(id);
+    }
 
+    @Override
+    public List<Image> getAllImage() {
+       return imageDao.findAll();
+    }
+
+    @Override
+    public Long updateImage(Image image) {
+        Image image1 = imageDao.findById(image.getId()).get();
+        image1.setImage_array(image.getImage_array());
+        image1.setType(image.getType());
+        return imageDao.save(image1).getId();
+    }
 }
