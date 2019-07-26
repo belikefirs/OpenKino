@@ -230,13 +230,13 @@ export default {
                 });
             } else {
                 if (this.editingItem.typeFilm.name != this.$store.state.filmList[this.editingIndex].typeFilm.name) 
-                    this.editingItem.typeFilm = {name: this.editingItem.typeFilm};
+                    this.editingItem.typeFilm = {name: this.editingItem.typeFilm.name};
                 if (this.editingItem.genre.name != this.$store.state.filmList[this.editingIndex].genre.name) 
-                    this.editingItem.genre = {name: this.editingItem.genre};
+                    this.editingItem.genre = {name: this.editingItem.genre.name};
                 if (this.editingItem.limitAge.age != this.$store.state.filmList[this.editingIndex].limitAge.age) 
-                    this.editingItem.limitAge = {age: this.editingItem.limitAge};
+                    this.editingItem.limitAge = {age: this.editingItem.limitAge.age};
                 if (this.editingItem.rating.rating != this.$store.state.filmList[this.editingIndex].rating.rating) 
-                    this.editingItem.rating = {rating: this.editingItem.rating};
+                    this.editingItem.rating = {rating: this.editingItem.rating.rating};
                 this.$store.dispatch('CHANGE_FILM', this.editingItem).then(() => {
                     this.$store.dispatch('GET_FILMS_WITH_FILTERS', {name: this.searchBox});
                 });

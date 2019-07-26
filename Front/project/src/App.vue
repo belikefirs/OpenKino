@@ -53,10 +53,13 @@ export default {
 		}
 	},
 
-	mounted(){
+	created(){
 		this.isAdminPage = this.$route.path.indexOf('admin') > 1;
 	},
 
+	mounted(){
+		this.isAdminPage = this.$route.path.indexOf('admin') > 1;
+	},
 	watch:{
 		$route(route){
 			this.isAdminPage = route.path.indexOf('admin') > -1;
@@ -73,7 +76,7 @@ export default {
 			this.offsetTop = scroll;
 		},
 	},
-
+	
 	computed: {
 
 	},
