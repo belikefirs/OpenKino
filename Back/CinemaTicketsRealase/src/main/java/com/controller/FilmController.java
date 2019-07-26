@@ -131,7 +131,8 @@ public class FilmController {
     @JsonView(Views.Internal.class)
     @GetMapping("/get-image")
     public ResponseEntity<byte[]> getImageWithMediaType(@RequestParam("id") Long id) throws IOException {
-        Image image1 = filmService.getImage(id);
+        Film film = filmService.findFilmById(id);
+        Image image1 = filmService.getImage( film.getImage().getId());
         InputStream targetStream = new ByteArrayInputStream(image1.getImage_array());
         return ResponseEntity.ok().header("content-type", image1.getType()).body(IOUtils.toByteArray(targetStream))  ;
     }
