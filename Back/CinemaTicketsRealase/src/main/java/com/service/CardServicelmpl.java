@@ -41,7 +41,9 @@ public class CardServicelmpl implements CardService{
     }
 
     @Override
-    public Long addBalance(Card card) {
-        return null;
+    public Long addBalance(Long id, Double money) {
+        Card card = cardDao.findById(id).get();
+        card.setBalance(card.getBalance()+money);
+        return cardDao.save(card).getId();
     }
 }

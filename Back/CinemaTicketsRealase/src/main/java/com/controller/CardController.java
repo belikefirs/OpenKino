@@ -20,9 +20,14 @@ public class CardController {
         return cardService.saveCard(card,kinoUser);
     }
 
-    @PutMapping("/add")
-    Long addCard(@RequestBody Card card){
-        return cardService.addBalance(card);
+    @DeleteMapping("/{id}")
+    public void deleteCard(@PathVariable Long id){
+        cardService.deleteCardById(id);
+    }
+
+    @PutMapping("/add/{id},{money}")
+    Long addMoneyInCard(@PathVariable Long id,@PathVariable Double money){
+        return cardService.addBalance(id,money);
     }
 
 }
