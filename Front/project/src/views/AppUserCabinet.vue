@@ -1,31 +1,18 @@
 <template>
     <WrapperCent>
-        <div class="Title">
-            <p class="title_Name">{{Title}}</p>
-            <p class="balanceYour">Ваш баланс: {{Balance}}</p>
-        </div>
-        <div class="wrapper-User">
-            <div class="block">
-            <form @submit.prevent="balance_Donate">
-                <label for="card" class="Textlabel">Введите номер карты: </label>
-                <input type="text" class="usercab Card" placeholder="Номер карты" v-model="dataBalance.id">
-                <label for="balance" class="Textlabel">Сумма пополнения: </label>
-                <input type="text" class="usercab Balance" placeholder="Сумма пополнения" v-model="dataBalance.balance">
-                <button class="buttonSave">Пополнить</button>
-                <hr class="VerticalLine">
-            </form>
-            </div>
-            <div class="block">
-                <form>
-                    <p class="Textlabel">Редактирование профиля</p>
-                    <input type="text" placeholder="Фамилия" class="usercab">
-                    <input type="text" placeholder="Имя" class="usercab">
-                    <input type="text" placeholder="Отчество" class="usercab">
-                    <input type="text" placeholder="Город" class="usercab">
-                    <input type="text" placeholder="Номер телефона" class="usercab">
-                    <button class="buttonSave">Сохранить изменения</button>
-                </form>
-            </div>
+        <div class="wrapper_User">
+            <div class="item1 item"><p>Ваши карты</p></div>
+            <div class="item2 item">
+                <p>Пополнить</p>
+                <p class="YourBalance">Ваш баланс: {{Balance}}</p>
+                </div>
+            <div class="item3 item"><p>Избранное</p></div>
+            <div class="item4 item"><p>Настройки</p></div>
+            <div class="item5 item"><p>Покупки</p></div>
+            <div class="item6 item"><p>VIP</p></div>
+            <div class="item7 item"><p>Добавить карту</p></div>
+            <div class="item8 item"><p>Помощь</p></div>
+            <div class="item9 item"><p>Выход</p></div>
         </div>
     </WrapperCent>
 </template>
@@ -38,11 +25,11 @@ export default {
     },
     data() {
         return {
-            Title: 'Иван Иванов',
+            Title: 'Глеб Игоревич',
             Balance: 0,
-            dataBalance: {
-                id: '',
-                balance: ''
+            dataCard: {
+                id: 0,
+                balance: 0
             }
         }
     },
@@ -55,74 +42,42 @@ export default {
 </script>
 
 <style>
-.wrapper-User {
+.wrapper_User {
+    background: rgba(34, 34, 34, 0.8);
     width: 100%;
     height: 700px;
-    display: flex;
-    background: rgba(255,255,255,0.6);
+    display: grid;
     overflow: hidden;
-}
-
-.Title {
-    background: rgba(48, 47, 47, 0.9);
-    position: relative;
-    text-align: center;
-    border-radius: 0 0 10px 10px;
-}
-.Textlabel {
+    color: white;
+    font-weight: 500;
     font-size: 28px;
-    color: #222;
-    display: block;
+    grid-template: repeat(3, 1fr) / repeat(5, 1fr);
+    grid-gap: 20px 10px;
+    text-align: center;
+    margin: 10px 0 10px 0;
 }
-.usercab {
-    width: 600px;
-    height: 50px;
-    border: 1px solid #222;
-    background: white;
-    padding: 2px 0 2px 15px;
-    outline: none;
-    margin-bottom: 20px;
+.item1 {
+    grid-column: 1/5;
 }
-.buttonBalance:hover {
-    color: #222;
-    background: white;
+.item3 {
+    grid-column: 1/4;
 }
-.block {
-    width: 50%;
-    margin: 0 0 0 5px;
-    position: relative;
+.item4 {
+    grid-column: 4/6;
 }
-.VerticalLine {
-    position: absolute;
-    right: 30px;
-    top: 0;
-    height: 100%;
-    width: 2px;
-    color: black;
+.item {
+    background: rgba(65, 65, 65, 0.7);
 }
-.buttonSave {
-    width: 320px;
-    height: 50px;
-    color: #222;
-    background: white;
-    border: 1px solid #222;
-    font-size: 24px;
+.item p {
+    margin-top: 90px;
+}
+.item:hover {
+    font-weight: 700;
     letter-spacing: 1px;
-    display: block;
-    border-radius: 0 0 5px 5px;
 }
-.buttonSave:hover {
-    font-weight: 900;
-    letter-spacing: 2px;
-}
-.balanceYour {
-    position: absolute;
-    top: 30px;
-    right: 55px;
-    color: white;
-}
-.title_Name {
-    color: white;
-    font-size: 44px;
+.YourBalance {
+    font-size: 16px;
+    text-align: start;
+    margin-left: 30px;
 }
 </style>
