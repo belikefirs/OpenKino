@@ -31,7 +31,7 @@
                         v-myFilter="editingItem"
                         />
                         <v-combobox
-                        :items="$store.state.ratingFilmList"
+                        :items="$store.state.Films.ratingFilmList"
                         v-model="editingItem.rating"
                         item-text="rating"
                         value="rating"
@@ -39,7 +39,7 @@
                         clearable
                         />
                         <v-combobox
-                        :items="$store.state.genreFilmList"
+                        :items="$store.state.Films.genreFilmList"
                         v-model="editingItem.genre"
                         item-text="name"
                         value="name"
@@ -47,7 +47,7 @@
                         clearable
                         />
                         <v-combobox
-                        :items="$store.state.typeFilmList"
+                        :items="$store.state.Films.typeFilmList"
                         v-model="editingItem.typeFilm"
                         item-text="name"
                         value="name"
@@ -55,7 +55,7 @@
                         clearable
                         />
                         <v-combobox
-                        :items="$store.state.limitAgeFilmList"
+                        :items="$store.state.Films.limitAgeFilmList"
                         v-model="editingItem.limitAge"
                         item-text="age"
                         value="limitAge"
@@ -87,7 +87,7 @@
                 <v-card>
                     <v-data-table
                     :headers="headers"
-                    :items="$store.state.filmList"
+                    :items="$store.state.Films.filmList"
                     hide-actions
                     no-data-text="Нет данных">
                         <template v-slot:items="props">
@@ -225,20 +225,20 @@ export default {
                     this.editingItem.limitAge = {age: this.editingItem.limitAge};
                 if (this.editingItem.rating.rating == null) 
                     this.editingItem.rating = {rating: this.editingItem.rating};
-                this.$store.dispatch('ADD_FILM', {film: this.editingItem, image: this.editingImage}).then(() => {
-                    this.$store.dispatch('GET_FILMS_WITH_FILTERS', {name: this.searchBox});
+                this.$store.dispatch('Films/ADD_FILM', {film: this.editingItem, image: this.editingImage}).then(() => {
+                    this.$store.dispatch('Films/GET_FILMS_WITH_FILTERS', {name: this.searchBox});
                 });
             } else {
-                if (this.editingItem.typeFilm.name != this.$store.state.filmList[this.editingIndex].typeFilm.name) 
+                if (this.editingItem.typeFilm.name != this.$store.state.Films.filmList[this.editingIndex].typeFilm.name) 
                     this.editingItem.typeFilm = {name: this.editingItem.typeFilm.name};
-                if (this.editingItem.genre.name != this.$store.state.filmList[this.editingIndex].genre.name) 
+                if (this.editingItem.genre.name != this.$store.state.Films.filmList[this.editingIndex].genre.name) 
                     this.editingItem.genre = {name: this.editingItem.genre.name};
-                if (this.editingItem.limitAge.age != this.$store.state.filmList[this.editingIndex].limitAge.age) 
+                if (this.editingItem.limitAge.age != this.$store.state.Films.filmList[this.editingIndex].limitAge.age) 
                     this.editingItem.limitAge = {age: this.editingItem.limitAge.age};
-                if (this.editingItem.rating.rating != this.$store.state.filmList[this.editingIndex].rating.rating) 
+                if (this.editingItem.rating.rating != this.$store.state.Films.filmList[this.editingIndex].rating.rating) 
                     this.editingItem.rating = {rating: this.editingItem.rating.rating};
-                this.$store.dispatch('CHANGE_FILM', this.editingItem).then(() => {
-                    this.$store.dispatch('GET_FILMS_WITH_FILTERS', {name: this.searchBox});
+                this.$store.dispatch('Films/CHANGE_FILM', this.editingItem).then(() => {
+                    this.$store.dispatch('Films/GET_FILMS_WITH_FILTERS', {name: this.searchBox});
                 });
             }
             this.dialog = false;
@@ -260,8 +260,8 @@ export default {
             this.dialog = true;
         },
         deleteItem(item){
-            this.$store.dispatch('DELETE_FILM', {id: item.id}).then(() => {
-                this.$store.dispatch('GET_FILMS_WITH_FILTERS', {name: this.searchBox});
+            this.$store.dispatch('Films/DELETE_FILM', {id: item.id}).then(() => {
+                this.$store.dispatch('Films/GET_FILMS_WITH_FILTERS', {name: this.searchBox});
             });
         },
         btnLoadClick(){
@@ -312,11 +312,11 @@ export default {
         }
     },
     created(){
-        this.$store.dispatch('GET_FILMS_WITH_FILTERS', {name: this.searchBox});
-        this.$store.dispatch('GET_RATING_FILM_LIST');
-        this.$store.dispatch('GET_TYPE_FILM_LIST');
-        this.$store.dispatch('GET_GENRE_FILM_LIST');
-        this.$store.dispatch('GET_LIMIT_AGE_FILM_LIST');
+        this.$store.dispatch('Films/GET_FILMS_WITH_FILTERS', {name: this.searchBox});
+        this.$store.dispatch('Films/GET_RATING_FILM_LIST');
+        this.$store.dispatch('Films/GET_TYPE_FILM_LIST');
+        this.$store.dispatch('Films/GET_GENRE_FILM_LIST');
+        this.$store.dispatch('Films/GET_LIMIT_AGE_FILM_LIST');
     },
     directives:{
 		myFilter:{
