@@ -1,14 +1,14 @@
 <template>
     <div>
         <div class="wrapper-NewsFilm">
-            <NewsFilm v-for="item in $store.state.newsFilm" :key="item.filmTitle "
+            <!--<NewsFilm v-for="item in $store.state.newsFilm" :key="item.filmTitle "
                 :image="item.image"
                 :path="item.path"
                 :filmTitle="item.filmTitle"
                 :filmNews="item.filmNews"
                 :newTitle="item.newTitle"
             >
-        </NewsFilm>
+        </NewsFilm>-->
         </div>
         <SelectionsForYou></SelectionsForYou>
     </div>

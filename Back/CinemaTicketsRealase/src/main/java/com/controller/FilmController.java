@@ -40,6 +40,7 @@ public class FilmController {
     public void deleteFilmById(@PathVariable Long id){
     filmService.deleteFilmById(id);
     }
+
     @JsonView(Views.Internal.class)
     @GetMapping("/{id}")
     public Film get(@PathVariable Long id){
@@ -54,24 +55,6 @@ public class FilmController {
                               @RequestParam(name = "typeFilm" ,required = false) String typeFilm,
                               @RequestParam(name = "genre" ,required = false) String genre){
         return filmService.findFilmsByVars(name,genre,typeFilm,rating,limitAge);
-    }
-
-    @JsonView(Views.Internal.class)
-    @GetMapping("/findAllByRatingId/{id}")
-    public List <Film> findAllByRatingId(@PathVariable Long id){
-        return filmService.findAllByRatingId(id);
-    }
-
-    @JsonView(Views.Internal.class)
-    @GetMapping("/findAllByGenreId/{id}")
-    public List <Film> findAllByGenreId(@PathVariable Long id){
-        return filmService.findAllByGenreId(id);
-    }
-
-    @JsonView(Views.Internal.class)
-    @GetMapping("/findAllByLimitAgeId/{id}")
-    public List <Film> findAllByLimitAgeId(@PathVariable Long id){
-        return filmService.findAllByLimitAgeId(id);
     }
 
 

@@ -150,29 +150,9 @@ public class FilmServiceImpl implements FilmService {
     }
 
 
-
-    @Override
-    public List<Film> findAllByRatingId(Long id) {
-        return filmDao.findAllByRatingId(id);
-    }
-
-    @Override
-    public List<Film> findAllByGenreId(Long id) {
-        return filmDao.findAllByGenreId(id);
-    }
-
-    @Override
-    public List<Film> findAllByTypeFIlmId(Long id) {
-        return filmDao.findAllByTypeFilmId(id);
-    }
-
-    @Override
-    public List<Film> findAllByLimitAgeId(Long id) {
-        return filmDao.findAllByLimiteAgeId(id);
-    }
-
     @Override
     public List<Film> findFilmsByVars(String name, String genre, String typeFilm, Double rating, Integer age) {
+        if (name == null && genre == null && typeFilm == null && rating == null && age == null){return null;}
         return filmDao.findFilmsByVars(name,genre,typeFilm,rating,age);
     }
 

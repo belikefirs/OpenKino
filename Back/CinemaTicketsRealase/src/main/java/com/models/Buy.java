@@ -1,6 +1,8 @@
 package com.models;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -12,8 +14,9 @@ public class Buy {
     @GeneratedValue
     private Long id;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm", locale = "ru_RU")
     @Column( name = "DATE")
-    private Date date;
+    private Date date = new Date();
 
     @Column(name = "PRICE")
     private Double price;
