@@ -11,7 +11,7 @@ import SelectionsForYou from '@/components/FilmsSelectionsForYou.vue'
 import WrapperCent from '@/components/AppWrapperCenter.vue'
 
 export default {
-    components: {
+	components: {
         FilmFilter, SelectionsForYou, WrapperCent
     }
 }
