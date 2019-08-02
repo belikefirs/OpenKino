@@ -1,14 +1,6 @@
 import AXIOS from 'axios';
 
-const state = {
-
-}
-
-const mutation = {
-    
-}
-
-const action = {
+const actions = {
     BALANCE_UP (context, data) {
         const authHeader = localStorage.getItem('token')
         return AXIOS.post('/card', data, { headers: {
@@ -26,5 +18,5 @@ const action = {
 
 export default {
     namespaced: true,
-    state, mutations, actions
+    actions
 }

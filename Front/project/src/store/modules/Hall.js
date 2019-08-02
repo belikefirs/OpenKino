@@ -4,13 +4,13 @@ const state = {
     halldata: null
 }
 
-const mutation = {
+const mutations = {
     showHall(state, data) {
         state.halldata = data
     },
 }
 
-const action = {
+const actions = {
     GET_HALL (context) {
         return AXIOS.get('/hall/get/6').then(({data}) => {
             return data;

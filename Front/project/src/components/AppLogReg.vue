@@ -54,10 +54,10 @@ export default {
     },
     methods:{
         logIn(){
-            this.$store.dispatch('AUTHORIZATION_LOGIN', this.authdata);
+            this.$store.dispatch('Authorization/AUTHORIZATION_LOGIN', this.authdata);
         },
         regIn(){
-            this.$store.dispatch('AUTHORIZATION_REG', this.regdata);
+            this.$store.dispatch('Authorization/AUTHORIZATION_REG', this.regdata);
         },
         getHeight(){
             if (this.$el) {

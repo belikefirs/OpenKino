@@ -1,14 +1,6 @@
 import AXIOS from 'axios';
 
-const state = {
-
-}
-
-const mutation = {
-    
-}
-
-const action = {
+const actions = {
     AUTHORIZATION_LOGIN (context, data) {
         return AXIOS.post('/auth', data).then((response) => {
             //context.commit('putLogin', data);
@@ -26,5 +18,5 @@ const action = {
 
 export default {
     namespaced: true,
-    state, mutations, actions
+    actions
 }
