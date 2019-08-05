@@ -1,7 +1,9 @@
 package com.controller;
 
 import com.models.Buy;
+import com.models.KinoUser;
 import com.service.BuyService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,6 +19,11 @@ public class BuyController {
     @PostMapping("")
     Long saveBuy(@RequestBody Buy buy){
         return buyService.saveBuy(buy);
+    }
+
+    @PostMapping("/save")
+    Long saveBuyByKinoUser(@RequestBody Buy buy, @AuthenticationPrincipal KinoUser kinoUser){
+        return buyService.saveBuyByKinoUser(buy,kinoUser);
     }
 
     @GetMapping("/id/{id}")

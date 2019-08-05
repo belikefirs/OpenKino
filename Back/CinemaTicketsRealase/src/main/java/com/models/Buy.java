@@ -2,8 +2,11 @@ package com.models;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.view.Views;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -12,18 +15,22 @@ import java.util.List;
 public class Buy {
     @Id
     @GeneratedValue
+    @JsonView(Views.Internal.class)
     private Long id;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm", locale = "ru_RU")
+    @JsonView(Views.Internal.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", locale = "ru_RU")
     @Column( name = "DATE")
-    private Date date = new Date();
+    private LocalDateTime localDateTime = LocalDateTime.now();
 
+    @JsonView(Views.Internal.class)
     @Column(name = "PRICE")
     private Double price;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "buy")
     private List<Reservation> reservations;
 
+    @JsonView(Views.Internal.class)
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_CARD")
     private Card card;
@@ -38,12 +45,12 @@ public class Buy {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
     }
 
     public Double getPrice() {
