@@ -1,7 +1,7 @@
 import AXIOS from 'axios';
 
 const actions = {
-    BALANCE_UP (context, data) {
+    ADD_CARD (context, data) {
         const authHeader = localStorage.getItem('token')
         return AXIOS.post('/card', data, { headers: {
             Authorization: 'Bearer ' + authHeader
@@ -10,10 +10,15 @@ const actions = {
         })
     },
     GET_LIST_CARDS (context, data) {
-        return AXIOS.get('/card/allByKInoUser', data).then((response) => {
-                
+        return AXIOS.get('/card/allByKinoUser/2').then(({data}) => {
+            return data;
         })
+    },
+    DONATE_CART (context, data) {
+        return AXIOS.put('/card/add' + data.id + data.money);
+        
     }
+
 }
 
 export default {

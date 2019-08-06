@@ -1,11 +1,16 @@
 <template>
     <WrapperCent>
         <div class="wrapper_User">
-            <div class="item1 item"><p>Ваши карты</p></div>
-            <div class="item2 item">
+            <router-link to="/usercabinet/yourcards" class="item1 item"><div><p>Ваши карты</p></div></router-link>
+            <div class="item2 item" @click="flagBalance = true">
                 <p>Пополнить</p>
                 <p class="YourBalance">Ваш баланс: {{Balance}}</p>
-                </div>
+            </div>
+            <Modal :show="flagBalance" @showBlur="flagBalance = false">
+                <template v-slot:content>
+                    <Donate></Donate>
+                </template>
+            </Modal>
             <div class="item3 item"><p>Избранное</p></div>
             <div class="item4 item"><p>Настройки</p></div>
             <div class="item5 item"><p>Покупки</p></div>
@@ -19,24 +24,17 @@
 
 <script>
 import WrapperCent from '@/components/AppWrapperCenter.vue'
+import Modal from '@/components/AppModalWindow.vue'
+import Donate from '@/components/UserDonateBalance.vue'
 export default {
-    components: {
-        WrapperCent
-    },
     data() {
         return {
-            Title: 'Глеб Игоревич',
             Balance: 0,
-            dataCard: {
-                id: 0,
-                balance: 0
-            }
+            flagBalance: false
         }
     },
-    methods: {
-        balance_Donate() {
-            this.$store.dispatch('BALANCE_UP', this.dataBalance);
-        }
+    components: {
+        WrapperCent, Modal, Donate
     }
 }
 </script>
@@ -67,6 +65,8 @@ export default {
 }
 .item {
     background: rgba(65, 65, 65, 0.7);
+    color:white;
+    text-decoration: none;
 }
 .item p {
     margin-top: 90px;

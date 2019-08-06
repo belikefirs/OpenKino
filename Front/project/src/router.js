@@ -62,6 +62,11 @@ export default new Router({
 			path: '/usercabinet',
 			name: 'usercabinet',
 			component: () => import('./views/AppUserCabinet.vue')
+		},
+		{
+			path: '/usercabinet/yourcards',
+			name: 'yourcards',
+			component: () => import('./views/UserCabinetCarts.vue')
 		}
 		
 	],

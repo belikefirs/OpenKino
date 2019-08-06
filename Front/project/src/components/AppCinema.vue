@@ -35,95 +35,11 @@ export default {
         return {
             selectedItems: [],
             hall: null
-           /* halls: [
-                {
-                    id: 1,
-                    width: 5,
-                    height: 2,
-                    places: [
-                        {
-                            id: 4,
-                            number: null,
-                            y: null,
-                            x: null,
-                            price: null,
-                            reservation: null
-                        },
-                        {
-                            id: 7,
-                            number: null,
-                            y: null,
-                            x: null,
-                            price: null,
-                            reservation: null
-                        },
-                        {
-                            id: 8,
-                            number: 1,
-                            y: 1,
-                            x: 1,
-                            price: 328,
-                            reservation: null
-                        }
-                    ]
-                    }
-                {
-                    id: 0,
-                    width: 14,
-                    height: 12,
-                    places: [
-                        {id: 0, x: 0, y: 0, type: 'Free', value: 1},
-                        {id: 1, x: 1, y: 0, type: 'Free', value: 2},
-                        {id: 2, x: 2, y: 0, type: 'Free', value: 3},
-                        {id: 3, x: 3, y: 0, type: 'Free', value: 4},
-                        {id: 4, x: 4, y: 0, type: 'NotFree', value: 5},
-                        {id: 5, x: 5, y: 0, type: 'NotFree', value: 6},
-                        // {id: 6, x: 6, y: 0, type: 'Free', value: 7},
-                        // {id: 7, x: 7, y: 0, type: 'Free', value: 8},
-                        {id: 8, x: 8, y: 0, type: 'NotFree', value: 7},
-                        {id: 9, x: 9, y: 0, type: 'NotFree', value: 8},
-                        {id: 10, x: 10, y: 0, type: 'Free', value: 9},
-                        {id: 11, x: 11, y: 0, type: 'Free', value: 10},
-                        {id: 12, x: 12, y: 0, type: 'Free', value: 11},
-                        {id: 13, x: 13, y: 0, type: 'Free', value: 12},
-
-                        {id: 14, x: 0, y: 1, type: 'Free', value: 1},
-                        {id: 15, x: 1, y: 1, type: 'Free', value: 2},
-                        {id: 16, x: 2, y: 1, type: 'Free', value: 3},
-                        {id: 17, x: 3, y: 1, type: 'Free', value: 4},
-                        {id: 18, x: 4, y: 1, type: 'NotFree', value: 5},
-                        {id: 19, x: 5, y: 1, type: 'NotFree', value: 6},
-                        // {id: 20, x: 6, y: 1, type: 'Free', value: 7},
-                        // {id: 21, x: 7, y: 1, type: 'Free', value: 8},
-                        {id: 22, x: 8, y: 1, type: 'Free', value: 7},
-                        {id: 23, x: 9, y: 1, type: 'Free', value: 8},
-                        {id: 24, x: 10, y: 1, type: 'Free', value: 9},
-                        {id: 25, x: 11, y: 1, type: 'Free', value: 10},
-                        {id: 26, x: 12, y: 1, type: 'Free', value: 11},
-                        {id: 27, x: 13, y: 1, type: 'Free', value: 12},
-
-                        {id: 28, x: 0, y: 2, type: 'Free', value: 1},
-                        {id: 29, x: 1, y: 2, type: 'Free', value: 2},
-                        {id: 30, x: 2, y: 2, type: 'Free', value: 3},
-                        {id: 31, x: 3, y: 2, type: 'Free', value: 4},
-                        {id: 32, x: 4, y: 2, type: 'Free', value: 5},
-                        {id: 33, x: 5, y: 2, type: 'Free', value: 6},
-                        // {id: 34, x: 6, y: 2, type: 'Free', value: 7},
-                        // {id: 35, x: 7, y: 2, type: 'Free', value: 8},
-                        {id: 36, x: 8, y: 2, type: 'Free', value: 7},
-                        {id: 37, x: 9, y: 2, type: 'Free', value: 8},
-                        {id: 38, x: 10, y: 2, type: 'Free', value: 9},
-                        {id: 39, x: 11, y: 2, type: 'Free', value: 10},
-                        {id: 40, x: 12, y: 2, type: 'Free', value: 11},
-                        {id: 41, x: 13, y: 2, type: 'Free', value: 12},
-                    ],
-                }
-            ],*/
         }
     },
     methods:{
         getHall() {
-            this.$store.dispatch('GET_HALL')
+            this.$store.dispatch('Hall/GET_HALL')
         },
         selectItem(item){
             if (!item.reservation) {
@@ -142,11 +58,11 @@ export default {
     computed:{
 
     },
-        mounted () {
-        this.$store.dispatch('GET_HALL')
-        .then(hall => this.hall = hall)
-        .catch()
-	}
+    mounted () {
+    this.$store.dispatch('Hall/GET_HALL')
+    .then(hall => this.hall = hall)
+    .catch()
+}
 }
 </script>
 
