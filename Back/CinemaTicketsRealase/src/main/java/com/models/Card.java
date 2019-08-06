@@ -1,9 +1,11 @@
 package com.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.view.Views;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -18,8 +20,12 @@ public class Card {
     private Double balance;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "ID_CARD")
+    @JoinColumn(name = "ID_KINOUSER")
     private KinoUser kinoUser;
+
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "card")
+    private List<Buy> buys;
 
     public Card(){}
 
