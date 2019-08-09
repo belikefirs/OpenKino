@@ -1,6 +1,8 @@
 package com.models;
 
+import com.enums.RStatus;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,15 +16,16 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column (name="ID")
     private Long id;
-
     @Column (name = "START")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
     private Date start;
-
     @Column (name = "END")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
     private Date end;
-
+    @Column(name = "STATUS")
+    private RStatus status;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "ID_USERKINO")
+    @JoinColumn(name = "ID_KINOUSER")
     private KinoUser kinoUser;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
@@ -31,11 +34,9 @@ public class Reservation {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "reservation")
     private List<Place> places;
-
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_BUY")
     private Buy buy;
-
 
     public Reservation(){}
 

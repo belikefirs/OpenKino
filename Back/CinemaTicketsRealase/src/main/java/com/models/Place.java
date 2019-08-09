@@ -1,5 +1,6 @@
 package com.models;
 
+import com.enums.RStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -24,18 +25,18 @@ public class Place {
 
     @Column (name = "PRICE")
     private Double price;
-
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_RESERVATION")
     // @JsonManagedReference
     private Reservation reservation;
-
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "ID_BUY")
+    // @JsonManagedReference
+    private Buy buy;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_HALL")
     @JsonBackReference
     private Hall hall;
-
-
     public Place(){}
 
     public Long getId() {
@@ -93,4 +94,14 @@ public class Place {
     public void setHall(Hall hall) {
         this.hall = hall;
     }
+
+    public Buy getBuy() {
+        return buy;
+    }
+
+    public void setBuy(Buy buy) {
+        this.buy = buy;
+    }
+
+
 }

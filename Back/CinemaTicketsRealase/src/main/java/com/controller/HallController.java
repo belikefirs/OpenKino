@@ -24,10 +24,12 @@ public class HallController {
     public Long save(@RequestBody Hall hall){
         return hallService.saveHall(hall);
     }
-    @PostMapping("/save_place/{id}")
-    public Long save(@RequestBody Place place, @PathVariable Long id){
+    @PostMapping("/save_place")
+    public Long save(@RequestBody Place place, @RequestParam(name = "idHall") Long idHall,
+                     @RequestParam(name = "idReservation")Long idReservation,
+                     @RequestParam(name = "idBuy")Long idBuy){
 
-        return hallService.savePlace(place, id);
+        return hallService.savePlace(place, idHall, idReservation, idBuy);
     }
     @PutMapping("/update")
     public Long update(@RequestBody Hall hall){
@@ -57,7 +59,7 @@ public class HallController {
     public List<Place> getPlacesIsReservation(@PathVariable Long id)  {
         return hallService.getPlacesReservation(id);
     }
-    @GetMapping("/places_not_reservation/id:\\d+")
+    @GetMapping("/places_not_reservation/{id}")
     public List<Place> getPlacesIsNotReservation(@PathVariable Long id)  {
         return hallService.getPlacesNotReservation(id);
     }
@@ -71,7 +73,9 @@ public class HallController {
         return hallService.findPlaceByNumberFromHall(id, number);
     }
     @GetMapping("/saveall")
-    public Hall saveAll(){
+    public Hall saveAll(@RequestParam(name = "idHall") Long idHall,
+                        @RequestParam(name = "idReservation")Long idReservation,
+                        @RequestParam(name = "idBuy")Long idBuy){
         Hall hall = new Hall();
         hall.setHeight(height);
         hall.setWidth(width);
@@ -87,7 +91,7 @@ public class HallController {
                     place.setPrice(PRICE);
                     place.setNumber(i);
                     places.add(place);
-                    hallService.savePlace(place, hall.getId());
+                    hallService.savePlace(place, hall.getId(), idReservation, idBuy);
                 }
             }
         }

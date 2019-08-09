@@ -11,7 +11,7 @@ public interface HallService {
      Long updateHall(Hall hall);
      void deleteHall(Long id);
     Integer getSize(Long id);
-    Long savePlace(Place place, Long id);
+    Long savePlace(Place place, Long id, Long idR, Long idB);
     Long updatePlace(Place place);
     void deletePlace(Long id);
     Place  findPlaceByNumberFromHall(Long idHall, Integer number);

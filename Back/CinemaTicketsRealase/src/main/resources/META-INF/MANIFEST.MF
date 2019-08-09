@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Class-Path: java -classpath OpenKino.jar com.Main
+Main-Class: com.Main
+

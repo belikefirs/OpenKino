@@ -12,5 +12,6 @@ public interface SessionService {
     Long updateSession(Session session);
   //  Session findSessionById(Long id);
     List<Session> findSessionAll();
+    Long saveAllSession(Session session, Long idFilm, Long idHall);
 
 }

@@ -1,13 +1,12 @@
 package com.service;
 
-import com.dao.DiscountDao;
-import com.dao.KinoUserDao;
-import com.dao.PlaceDao;
-import com.dao.ReservationDao;
-import com.models.Discount;
-import com.models.Reservation;
+import com.dao.*;
+import com.models.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
 @Service
 @Transactional
 public class ReservationServiceImpl implements ReservationService {
@@ -15,12 +14,14 @@ public class ReservationServiceImpl implements ReservationService {
     private PlaceDao placeDao;
     private KinoUserDao kinoUserDao;
     private DiscountDao discountDao;
+    private BuyDao buyDao;
     public ReservationServiceImpl(ReservationDao reservationDao, PlaceDao placeDao,
-                                  KinoUserDao kinoUserDao, DiscountDao discountDao){
+                                  KinoUserDao kinoUserDao, DiscountDao discountDao, BuyDao buyDao){
         this.reservationDao = reservationDao;
         this.placeDao = placeDao;
         this.kinoUserDao = kinoUserDao;
         this.discountDao = discountDao;
+        this.buyDao = buyDao;
     }
     @Override
     public Long saveReservation(Reservation reservation) {
@@ -53,5 +54,22 @@ public class ReservationServiceImpl implements ReservationService {
         reservation1.setPlaces(reservation.getPlaces());
         return reservationDao.save(reservation1).getId();
     }
+
+    @Override
+    public Long saveAllReservation(Reservation reservation, Long idKinU, Long idBuy, Long idDis) {
+        KinoUser kinoUser = kinoUserDao.findById(idKinU).get();
+        Buy buy = buyDao.findById(idBuy).get();
+        Discount discount = discountDao.findById(idDis).get();
+        reservation.setKinoUser(kinoUser);
+        reservation.setBuy(buy);
+        reservation.setDiscount(discount);
+        return reservationDao.save(reservation).getId();
+    }
+
+    @Override
+    public List<Place> getPlacesWithReservationId(Long id) {
+        return placeDao.getFindbyIdReservaion(id);
+    }
+
 
 }

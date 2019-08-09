@@ -2,11 +2,8 @@ package com.models;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonView;
-import com.view.Views;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -15,22 +12,19 @@ import java.util.List;
 public class Buy {
     @Id
     @GeneratedValue
-    @JsonView(Views.Internal.class)
     private Long id;
 
-    @JsonView(Views.Internal.class)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", locale = "ru_RU")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm", locale = "ru_RU")
     @Column( name = "DATE")
-    private LocalDateTime localDateTime = LocalDateTime.now();
+    private Date date = new Date();
 
-    @JsonView(Views.Internal.class)
     @Column(name = "PRICE")
     private Double price;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "buy")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "buy")
     private List<Reservation> reservations;
-
-    @JsonView(Views.Internal.class)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "buy")
+    private List<Place> places;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_CARD")
     private Card card;
@@ -45,12 +39,12 @@ public class Buy {
         this.id = id;
     }
 
-    public LocalDateTime getLocalDateTime() {
-        return localDateTime;
+    public Date getDate() {
+        return date;
     }
 
-    public void setLocalDateTime(LocalDateTime localDateTime) {
-        this.localDateTime = localDateTime;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Double getPrice() {
@@ -75,5 +69,13 @@ public class Buy {
 
     public void setCard(Card card) {
         this.card = card;
+    }
+
+    public List<Place> getPlaces() {
+        return places;
+    }
+
+    public void setPlaces(List<Place> places) {
+        this.places = places;
     }
 }

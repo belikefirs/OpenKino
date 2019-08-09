@@ -16,7 +16,8 @@ public class Main {
     private static int PORT = 8089;
     public static void main(String[] args) throws Exception {
         String appBase = ".";
-        Tomcat tomcat = new Tomcat();
+        Tomcat tomcat;
+        tomcat = new Tomcat();
         tomcat.setBaseDir(createTempDir());
         tomcat.setPort(PORT);
         tomcat.getHost().setAppBase(appBase);

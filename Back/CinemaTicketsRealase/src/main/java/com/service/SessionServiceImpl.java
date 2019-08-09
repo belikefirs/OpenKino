@@ -37,6 +37,15 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
+    public Long saveAllSession(Session session, Long idFilm, Long idHall) {
+        Film film = filmDao.findById(idFilm).get();
+        Hall hall = hallDao.findById(idHall).get();
+        session.setFilm(film);
+        session.setHall(hall);
+        return sessionDao.save(session).getId();
+    }
+
+    @Override
     public void deleteSession(Long id)  {
         sessionDao.deleteById(id);
     }
@@ -50,4 +59,5 @@ public class SessionServiceImpl implements SessionService {
         session1.setHall(session.getHall());
         return sessionDao.save(session1).getId();
     }
+
 }

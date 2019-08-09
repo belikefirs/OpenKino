@@ -1,21 +1,30 @@
 package com.service;
 
+import com.dao.BuyDao;
 import com.dao.HallDao;
 import com.dao.PlaceDao;
+import com.dao.ReservationDao;
+import com.models.Buy;
 import com.models.Hall;
 import com.models.Place;
+import com.models.Reservation;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
 @Service
 public class HallServiceImpl implements HallService {
     private HallDao hallDao;
     private PlaceDao placeDao;
-
-    public HallServiceImpl(HallDao hallDao, PlaceDao placeDao){
+    private ReservationDao reservationDao;
+    private BuyDao buyDao;
+    public HallServiceImpl(HallDao hallDao, PlaceDao placeDao,
+                           ReservationDao reservationDao, BuyDao buyDao){
         this.hallDao = hallDao;
         this.placeDao = placeDao;
+        this.reservationDao = reservationDao;
+        this.buyDao = buyDao;
     }
     @Override
     @Transactional
@@ -85,11 +94,16 @@ public class HallServiceImpl implements HallService {
         Hall hall = hallDao.findById(id).get();
         return hall.getWidth() * hall.getHeight();
     }
+    @Override
     @Transactional
-    public Long savePlace(Place place, Long id) {
+    public Long savePlace(Place place, Long id, Long idR, Long idB) {
         //placeDao.save(place).getId();
         Hall hall = hallDao.findById(id).get();
+        Reservation reservation = reservationDao.findById(idR).get();
+        Buy buy = buyDao.findById(idB).get();
         place.setHall(hall);
+        place.setReservation(reservation);
+        place.setBuy(buy);
        // hall.getPlaces().add(place);
         return placeDao.save(place).getId();
     }
