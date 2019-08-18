@@ -29,10 +29,12 @@ public class Film {
     @ManyToOne
     @JoinColumn(name = "ID_LIMIT_AGE")
     private LimitAge limitAge;
+
     @JsonView(Views.Internal.class)
     @ManyToOne
     @JoinColumn(name = "ID_RATING")
     private Rating rating;
+
     @JsonView(Views.Internal.class)
     @ManyToOne
     @JoinColumn(name = "ID_TYPE_FILM")
@@ -42,9 +44,15 @@ public class Film {
     @JoinColumn(name = "ID_GENRE")
     private Genre genre;
 
+    @JsonView(Views.Internal.class)
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "film")
     private List<Session> sessions = new ArrayList();
 
+    @JsonView(Views.Internal.class)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "film")
+    private List<RatingFilmByUser> ratingFilmByUsers;
+
+    @JsonView(Views.Internal.class)
     @OneToOne
     @JoinColumn(name = "ID_IMAGE")
     private Image image;

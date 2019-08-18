@@ -17,9 +17,7 @@ public interface KinUserService extends UserDetailsService {
     Long action_true(KinoUser kinoUser);
     Long action_false(KinoUser kinoUser);
 
-    Long setPositionKinoUserById(Long idPosition, Long id);
-    Position getPositionKinoUserById(Long id);
-    Long savePosition(Position position);
-
     KinoUser findKinoUserByMail(String mail);
 }
+
+

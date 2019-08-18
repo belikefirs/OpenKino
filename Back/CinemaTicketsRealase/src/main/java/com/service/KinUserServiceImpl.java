@@ -21,7 +21,11 @@ public class KinUserServiceImpl implements KinUserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
-    public KinUserServiceImpl(KinoUserDao kinoUserDao, CardDao cardDao, PositionDao positionDao, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public KinUserServiceImpl(
+            KinoUserDao kinoUserDao,
+            CardDao cardDao,
+            PositionDao positionDao,
+            BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.kinoUserDao = kinoUserDao;
         this.cardDao = cardDao;
         this.positionDao = positionDao;
@@ -30,18 +34,13 @@ public class KinUserServiceImpl implements KinUserService {
 
     @Override
     public Long saveKinoUser(KinoUser kinoUser) {
-       /* if (kinoUser.getPosition() != null) {
-            Position position = kinoUser.getPosition();
-            if(kinoUser.getPosition().getId() == null){
-                positionDao.save(position);
-            }
-        }*/
-
         Position position = new Position();
         position.setName("User");
         positionDao.save(position);
         kinoUser.setPosition(position);
+
         kinoUser.setPassword(bCryptPasswordEncoder.encode(kinoUser.getPassword()));
+
         return kinoUserDao.save(kinoUser).getId();
     }
 
@@ -74,28 +73,9 @@ public class KinUserServiceImpl implements KinUserService {
     }
 
     @Override
-    public Long savePosition(Position position) {
-        return positionDao.save(position).getId();
-    }
-
-    @Override
-    public Long setPositionKinoUserById(Long idPosition, Long id) {
-        Position position = positionDao.findById(idPosition).get();
-        KinoUser kinoUser = kinoUserDao.findById(id).get();
-        kinoUser.setPosition(position);
-        return updateKinoUser(kinoUser);
-    }
-
-    @Override
     public List<KinoUser> findKinoUserAll() {
         return kinoUserDao.findAll();
     }
-
-    @Override
-    public Position getPositionKinoUserById(Long id) {
-        return kinoUserDao.findById(id).get().getPosition();
-    }
-
 
 
     @Override

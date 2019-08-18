@@ -1,5 +1,4 @@
 package com.models;
-
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -10,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -18,7 +18,6 @@ import java.util.List;
 @Table(name = "KINOUSER")
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class KinoUser implements UserDetails {
-
     public static class View {
         public static class Setter extends Getter {
         }
@@ -49,6 +48,7 @@ public class KinoUser implements UserDetails {
     @Column(name = "AGE")
     private Integer age;
 
+
     @JsonView(View.Getter.class)
     @Column(name = "PHONE", unique = true)
     private String phone;
@@ -56,7 +56,7 @@ public class KinoUser implements UserDetails {
     @JsonView(View.Getter.class)
     @Column(name = "MAIL", unique = true)
     private String mail;
-
+//, unique = true
     @JsonView(View.Getter.class)
     @Column(name = "STATUS")
     private Boolean action;
@@ -64,6 +64,10 @@ public class KinoUser implements UserDetails {
     @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "kinoUser")
     private List<Card> cards;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "kinoUser")
+    private List<RatingFilmByUser> ratingFilmByUsers;
 
     @JsonIgnore
     @ManyToOne
@@ -184,5 +188,13 @@ public class KinoUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public List<RatingFilmByUser> getRatingFilmByUsers() {
+        return ratingFilmByUsers;
+    }
+
+    public void setRatingFilmByUsers(List<RatingFilmByUser> ratingFilmByUsers) {
+        this.ratingFilmByUsers = ratingFilmByUsers;
     }
 }

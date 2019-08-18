@@ -1,7 +1,6 @@
 package com.service;
 import com.dao.*;
 import com.models.*;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,14 +17,18 @@ public class FilmServiceImpl implements FilmService {
     private LimitAgeDao limitAgeDao;
     private TypeFilmDao typeFilmDao;
     private ImageDao imageDao;
+    private KinoUserDao kinoUserDao;
+    private RatingFilmByUserDao ratingFilmByUserDao;
 
-    public FilmServiceImpl(FilmDao filmDao, TypeFilmDao typeFilmDao, RatingDao ratingDao, GenreDao genreDao, LimitAgeDao limitAgeDao, ImageDao imageDao) {
+    public FilmServiceImpl(FilmDao filmDao, TypeFilmDao typeFilmDao, RatingDao ratingDao, GenreDao genreDao, LimitAgeDao limitAgeDao, ImageDao imageDao, RatingFilmByUserDao ratingFilmByUserDao, KinoUserDao kinoUserDao) {
         this.filmDao = filmDao;
         this.typeFilmDao = typeFilmDao;
         this.ratingDao = ratingDao;
         this.genreDao = genreDao;
         this.limitAgeDao = limitAgeDao;
         this.imageDao = imageDao;
+        this.kinoUserDao = kinoUserDao;
+        this.ratingFilmByUserDao = ratingFilmByUserDao;
     }
 
     @Override
@@ -145,12 +148,6 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public List<Rating> findAllRating() {
-        return ratingDao.findAll();
-    }
-
-
-    @Override
     public List<Film> findFilmsByVars(String name, String genre, String typeFilm, Double rating, Integer age) {
         if (name == null && genre == null && typeFilm == null && rating == null && age == null){return null;}
         return filmDao.findFilmsByVars(name,genre,typeFilm,rating,age);
@@ -168,6 +165,13 @@ public class FilmServiceImpl implements FilmService {
         film.setImage(image);
         return imageDao.save(image).getId();
     }
+
+    @Override
+    public Image getImage(Long id) {
+        return imageDao.findById(id).get();
+    }
+
+
     @Override
     public Long loadImageUpdate(MultipartFile file, Long id) throws IOException {
         Image image = imageDao.findById(id).get();
@@ -178,10 +182,7 @@ public class FilmServiceImpl implements FilmService {
 
         return imageDao.save(image).getId();
     }
-    @Override
-    public Image getImage(Long id) {
-        return imageDao.findById(id).get();
-    }
+
 
     @Override
     public void deleteImage(Long id) {
@@ -204,5 +205,47 @@ public class FilmServiceImpl implements FilmService {
         image1.setImage_array(image.getImage_array());
         image1.setType(image.getType());
         return imageDao.save(image1).getId();
+    }
+
+    @Override
+    public Long addRating(Long id_film, Long id_user, Double rating) {
+        Film film = filmDao.findById(id_film).get();
+        Rating ratingOld = film.getRating();
+        RatingFilmByUser ratingFilmByUser = ratingFilmByUserDao.findRating(id_film, id_user);
+        if (ratingFilmByUser != null) {
+            ratingOld.setSumRating(ratingOld.getSumRating()-ratingFilmByUser.getRatingByUser());
+            ratingOld.setColUser(ratingOld.getColUser()-1);
+        } else {
+            ratingFilmByUser = new RatingFilmByUser();
+            if (ratingOld.getColUser()==null) {
+                ratingOld.setColUser((long) 0);
+            }
+            if (ratingOld.getSumRating()==null) {
+                ratingOld.setSumRating((double) 0);
+            }
+        }
+
+        ratingFilmByUser.setFilm(filmDao.findById(id_film).get());
+        ratingFilmByUser.setKinoUser(kinoUserDao.findById(id_user).get());
+        ratingFilmByUser.setRatingByUser(rating);
+
+//
+
+        if (rating > 10) {
+            rating = 10.0;
+        } else if (rating < 0) {
+            rating = 0.0;
+        }
+        ratingOld.setSumRating(ratingOld.getSumRating() + rating);
+        ratingOld.setColUser(ratingOld.getColUser()+1);
+        ratingOld.setRating( ((double)Math.round(ratingOld.getSumRating()/ratingOld.getColUser() * 10) / 10));
+        ratingDao.save(ratingOld);
+        return ratingFilmByUserDao.save(ratingFilmByUser).getId();
+    }
+
+    @Override
+    public Double findFilmRating(Long id_film) {
+        Film film=filmDao.findById(id_film).get();
+       return film.getRating().getRating();
     }
 }

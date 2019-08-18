@@ -18,6 +18,12 @@ public class KinoUserController {
     private KinUserService kinUserService;
 
     @JsonView(KinoUser.View.Setter.class)
+    @PostMapping("/save")
+    public Long saveKinoUser(@RequestBody KinoUser kinoUser) {
+        return kinUserService.saveKinoUser(kinoUser);
+    }
+
+    @JsonView(KinoUser.View.Setter.class)
     @PutMapping("/update")
     public Long updateKinoUser(@RequestBody KinoUser kinoUser) {
         return kinUserService.updateKinoUser(kinoUser);
@@ -35,11 +41,6 @@ public class KinoUserController {
         return kinUserService.action_true(kinoUser);
     }
 
-    @JsonView(KinoUser.View.Setter.class)
-    @PostMapping("/save")
-    public Long saveKinoUser(@RequestBody KinoUser kinoUser) {
-        return kinUserService.saveKinoUser(kinoUser);
-    }
 
     @JsonView(KinoUser.View.Getter.class)
     @DeleteMapping("/delete/{id}")
@@ -64,4 +65,5 @@ public class KinoUserController {
     public KinoUser getKinoUserByMail(@RequestParam(name = "mail", required = false) String mail) {
         return kinUserService.findKinoUserByMail(mail);
     }
+
 }

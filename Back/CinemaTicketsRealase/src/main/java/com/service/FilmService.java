@@ -30,7 +30,7 @@ public interface FilmService {
     List <LimitAge> findAllLimitAge();
 
     Long updateRating(Rating rating);
-    List <Rating> findAllRating();
+   Double findFilmRating(Long id_film);
 
     Long loadImage(MultipartFile file, Long id) throws IOException;
     Long loadImageUpdate(MultipartFile file, Long id) throws IOException;
@@ -40,4 +40,5 @@ public interface FilmService {
     List<Image> getAllImage();
 
     Long updateImage(Image image);
+    Long addRating(Long id_film, Long id_user, Double rating);
 }

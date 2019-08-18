@@ -26,7 +26,7 @@ public class FilmController {
         this.filmService = filmService;
     }
     ///=================================Film========================
-    @PostMapping("")
+    @PostMapping("/save")
     public Long saveFilm(@RequestBody Film film){
         return filmService.saveFilm(film);
     }
@@ -93,17 +93,7 @@ public class FilmController {
         return filmService.updateLimitAge(limitAge);
     }
 
-    ///=================================Rating========================
-    @JsonView(Views.Internal.class)
-    @GetMapping("/rating")
-    public List <Rating> getRating(){
-        return filmService.findAllRating();
-    }
 
-    @PutMapping("/rating")
-    public Long updateRating(@RequestBody Rating rating){
-        return filmService.updateRating(rating);
-    }
 
     @JsonView(Views.Internal.class)
     @PostMapping("/load")
@@ -141,4 +131,17 @@ public class FilmController {
     public Long loadImageUpd(@RequestParam("file") MultipartFile file, @RequestParam("id") Long id) throws IOException {
         return filmService.loadImageUpdate(file, id);
     }
+
+    ///=================================Rating========================
+    @JsonView(Views.Internal.class)
+    @GetMapping("/rating_{id_film}")
+    public Double getRatingFilm(@PathVariable Long id_film){
+        return filmService.findFilmRating(id_film);
+    }
+
+    @PostMapping("/rating/{id_film},{id_user},{rating:.+}")
+    public void addRating(@PathVariable Long id_film, @PathVariable Long id_user, @PathVariable Double rating){
+        filmService.addRating(id_film, id_user, rating);
+    }
+
 }
