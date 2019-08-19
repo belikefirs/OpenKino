@@ -9,6 +9,7 @@ import com.models.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,15 +26,9 @@ public class SessionServiceImpl implements SessionService {
         this.sessionDao = sessionDao;
     }
 
-
     @Override
-    public Long saveSession(Session session) {
-        return sessionDao.save(session).getId();
-    }
-
-    @Override
-    public List<Session> findSessionAll() {
-        return sessionDao.findAll();
+    public List<Session> findSessionByFilm(Long id_film) {
+        return sessionDao.findAllByFilm_Id(id_film);
     }
 
     @Override
@@ -45,6 +40,7 @@ public class SessionServiceImpl implements SessionService {
         return sessionDao.save(session).getId();
     }
 
+
     @Override
     public void deleteSession(Long id)  {
         sessionDao.deleteById(id);
@@ -53,11 +49,19 @@ public class SessionServiceImpl implements SessionService {
     @Override
     public Long updateSession(Session session) {
         Session session1 = sessionDao.findById(session.getId()).get();
-        session1.setName(session.getName());
+//        session1.setName(session.getName());
         session1.setStart(session.getStart());
         session.setFilm(session.getFilm());
         session1.setHall(session.getHall());
         return sessionDao.save(session1).getId();
     }
 
+    @Override
+    public Long saveSession(Long id_film, Long id_hall, Date time) {
+    Session session = new Session();
+    session.setFilm(filmDao.findById(id_film).get());
+    session.setHall(hallDao.findById(id_hall).get());
+    session.setStart(time);
+    return sessionDao.save(session).getId();
+    }
 }

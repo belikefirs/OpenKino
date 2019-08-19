@@ -3,8 +3,11 @@ package com.controller;
 import com.models.Session;
 import com.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.*;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -14,14 +17,14 @@ public class SessionController {
     @Autowired
     private SessionService sessionService;
 
-    @PostMapping("/save")
-    public Long saveSession(@RequestBody Session session) {
-        return sessionService.saveSession(session);
+    @PostMapping("/save/{id_film},{id_hall},{time}")
+    public Long saveSession(@PathVariable  Long id_film, @PathVariable  Long id_hall,@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd@HH:mm")Date time) {
+        return sessionService.saveSession(id_film,id_hall,time);
     }
 
-    @GetMapping("/get")
-    public List<Session> getSessionAll(){
-        return sessionService.findSessionAll();
+    @GetMapping("/{id_film}")
+    public List<Session> getSessionAll(@PathVariable  Long id_film){
+        return sessionService.findSessionByFilm(id_film);
     }
 
    /* @PutMapping("/update")

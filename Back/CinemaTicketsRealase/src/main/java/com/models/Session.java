@@ -15,8 +15,8 @@ public class Session {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name = "Name")
-    private String name;
+//    @Column(name = "Name")
+//    private String name;
 
     @Column(name = "START")
     private Date start;
@@ -42,13 +42,13 @@ public class Session {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm", locale = "ru_", timezone = "Europe/Samara")
     public Date getStart() {
