@@ -60,7 +60,7 @@
                                 <v-img max-height="76" :src="props.item.image"/>
                             </td>
                             <td>{{ props.item.name }}</td>
-                            <td>{{ props.item.lenght / 60 + ' мин'}}</td>
+                            <td>{{ props.item.lenght / 60 + ' мин' }}</td>
                             <td>{{ props.item.rating.rating }}</td>
                             <td>{{ props.item.genre.name }}</td>
                             <td class="text-xs-right">
@@ -241,11 +241,11 @@ export default {
         }
     },
     created(){
-        // this.$store.dispatch('GET_FILMS_WITH_FILTERS', {name: this.searchBox});
-        // this.$store.dispatch('GET_RATING_FILM_LIST');
-        // this.$store.dispatch('GET_TYPE_FILM_LIST');
-        // this.$store.dispatch('GET_GENRE_FILM_LIST');
-        // this.$store.dispatch('GET_LIMIT_AGE_FILM_LIST');
+        this.$store.dispatch('GET_FILMS_WITH_FILTERS', {name: this.searchBox});
+        this.$store.dispatch('GET_RATING_FILM_LIST');
+        this.$store.dispatch('GET_TYPE_FILM_LIST');
+        this.$store.dispatch('GET_GENRE_FILM_LIST');
+        this.$store.dispatch('GET_LIMIT_AGE_FILM_LIST');
     },
     directives:{
 		myFilter:{

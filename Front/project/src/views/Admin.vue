@@ -85,7 +85,7 @@ export default {
                     name: 'Управление фильмами', icon: 'camera_roll',
                     subTabs: [
                         {name: 'Фильмы', icon: 'theaters', route: 'filmsEditing'},
-                        {name: 'Жанры', icon: 'favorite', route: 'genreEditing'},
+                        // {name: 'Жанры', icon: 'favorite', route: 'genreEditing'},
                     ],
                 },
                 {
