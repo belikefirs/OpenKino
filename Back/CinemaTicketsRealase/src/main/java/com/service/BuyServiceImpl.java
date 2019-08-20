@@ -9,6 +9,8 @@ import com.models.KinoUser;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @Transactional
 public class BuyServiceImpl implements BuyService {
@@ -24,7 +26,15 @@ public class BuyServiceImpl implements BuyService {
 
     @Override
     public Long saveBuy(Buy buy) {
-       return buyDao.save(buy).getId();
+        if (buy.getCard().getBalance()-buy.getPrice() >= 0) {
+            Card card = buy.getCard();
+            card.setBalance(buy.getCard().getBalance()-buy.getPrice());
+            buy.setCard(card);
+            return buyDao.save(buy).getId();
+        }
+        else {
+            return null;
+        }
     }
 
     @Override
@@ -35,8 +45,27 @@ public class BuyServiceImpl implements BuyService {
     @Override
     public Long saveBuyByKinoUser(Buy buy, KinoUser kinoUser) {
         KinoUser kinoUser1 = kinoUserDao.findById(kinoUser.getId()).get();
-        Card card = buy.getCard();
-        card.setKinoUser(kinoUser1);
-        return buyDao.save(buy).getId();
+        if ( cardDao.findById(buy.getCard().getId()).equals(Optional.ofNullable(null))){
+            Card card = buy.getCard();
+            if (buy.getCard().getBalance()-buy.getPrice() >= 0) {
+                card.setBalance(card.getBalance()-buy.getPrice());
+                card.setKinoUser(kinoUser1);
+                return buyDao.save(buy).getId();
+            }
+            else {
+                return null;
+            }
+        }
+        else {
+            Card card = cardDao.findById(buy.getCard().getId()).get();
+            if (card.getBalance()-buy.getPrice() >= 0){
+                card.setBalance(card.getBalance()-buy.getPrice());
+                buy.setCard(card);
+                return buyDao.save(buy).getId();
+            }
+            else {
+                return null;
+            }
+        }
     }
 }
