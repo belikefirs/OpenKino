@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -17,9 +18,9 @@ public class SessionController {
     @Autowired
     private SessionService sessionService;
 
-    @PostMapping("/save/{id_film},{id_hall},{time}")
-    public Long saveSession(@PathVariable  Long id_film, @PathVariable  Long id_hall,@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd@HH:mm")Date time) {
-        return sessionService.saveSession(id_film,id_hall,time);
+    @PostMapping("/save")
+    public Long saveSession(@RequestBody Session session) {
+        return sessionService.saveSession(session);
     }
 
     @GetMapping("/{id_film}")
@@ -27,13 +28,18 @@ public class SessionController {
         return sessionService.findSessionByFilm(id_film);
     }
 
-   /* @PutMapping("/update")
-    public Long updateKinoUser(@RequestBody Session kinoUser) {
-        return sessionService.updateSession(kinoUser);
+    @PutMapping("/update")
+    public Long updateKinoUser(@RequestBody Session session) {
+        return sessionService.updateSession(session);
     }
 
     @DeleteMapping("/delete/{id}")
     public void deleteKinoUser(@PathVariable Long id) {
-        sessionService.deleteById(id);
-    }*/
+        sessionService.deleteSession(id);
+    }
+
+    @PostMapping("/add")
+    public  void addDate(){
+        sessionService.addSession();
+    }
 }

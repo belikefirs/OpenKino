@@ -9,6 +9,8 @@ import com.models.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Date;
 import java.util.List;
 
@@ -49,19 +51,21 @@ public class SessionServiceImpl implements SessionService {
     @Override
     public Long updateSession(Session session) {
         Session session1 = sessionDao.findById(session.getId()).get();
-//        session1.setName(session.getName());
         session1.setStart(session.getStart());
-        session.setFilm(session.getFilm());
+        session1.setFilm(session.getFilm());
         session1.setHall(session.getHall());
         return sessionDao.save(session1).getId();
     }
 
     @Override
-    public Long saveSession(Long id_film, Long id_hall, Date time) {
-    Session session = new Session();
-    session.setFilm(filmDao.findById(id_film).get());
-    session.setHall(hallDao.findById(id_hall).get());
-    session.setStart(time);
+    public Long saveSession(Session session) {
     return sessionDao.save(session).getId();
+    }
+
+    @Override
+    public void addSession() {
+        Session session = new Session();
+        session.setStart(LocalDateTime.of(1994, Month.APRIL, 15, 11, 30));
+        sessionDao.save(session);
     }
 }
