@@ -1,19 +1,17 @@
 package com.models;
 
 import com.configuration.SecurityConfig;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.view.Views;
 
 import javax.persistence.*;
 
-
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "Session")
@@ -27,13 +25,13 @@ public class Session {
     @Column(name = "START")
     private LocalDateTime start;
 
-@JsonIgnore
-    @ManyToOne
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_FILM")
     private Film film;
 
-@JsonIgnore
-    @ManyToOne
+//@JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_HALL")
     //// @JsonManagedReference
     private Hall hall;
@@ -68,6 +66,7 @@ public class Session {
         this.start = start;
     }
 
+    //@JsonIgnore
     public Film getFilm() {
         return film;
     }
