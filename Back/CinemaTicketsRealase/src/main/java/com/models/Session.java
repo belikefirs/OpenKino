@@ -1,13 +1,17 @@
 package com.models;
 
+import com.configuration.SecurityConfig;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.view.Views;
 
 import javax.persistence.*;
 
-
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Session")
@@ -15,19 +19,19 @@ public class Session {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-//    @Column(name = "Name")
-//    private String name;
 
+@JsonSerialize(using = SecurityConfig.LocalDateTimeSerializer.class)
+@JsonDeserialize(using = SecurityConfig.LocalDateTimeDeserializer.class)
     @Column(name = "START")
-    private Date start;
+    private LocalDateTime start;
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_FILM")
-    // // @JsonManagedReference
     private Film film;
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+
+//@JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_HALL")
     //// @JsonManagedReference
     private Hall hall;
@@ -50,15 +54,19 @@ public class Session {
 //        this.name = name;
 //    }
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm", locale = "ru_", timezone = "Europe/Samara")
-    public Date getStart() {
+
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    public LocalDateTime getStart() {
         return start;
     }
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 
-    public void setStart(Date start) {
+    public void setStart(LocalDateTime start) {
         this.start = start;
     }
 
+    //@JsonIgnore
     public Film getFilm() {
         return film;
     }

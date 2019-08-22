@@ -18,61 +18,26 @@
                 <v-card>
                     <v-card-title>{{dialogTitle}}</v-card-title>
                     <v-card-text>
+                        <v-combobox
+                        v-model="editingItem.film"
+                        label="Фильм"
+                        clearable
+                        />
+                        <v-combobox
+                        v-model="editingItem.hall"
+                        label="Зал"
+                        clearable
+                        />
                         <v-text-field
-                        v-model="editingItem.name"
-                        label="Название"
+                        v-model="editingItem.beginTime"
+                        label="Время начала"
                         clearable
                         />
                         <v-text-field
-                        label="Длительность"
-                        clearable
-                        suffix="мин"
-                        :value="defaultLanghtValue"
-                        v-myFilter="editingItem"
-                        />
-                        <v-combobox
-                        :items="$store.state.ratingFilmList"
-                        v-model="editingItem.rating"
-                        item-text="rating"
-                        value="rating"
-                        label="Рейтинг"
+                        v-model="editingItem.endTime"
+                        label="Время окончания"
                         clearable
                         />
-                        <v-combobox
-                        :items="$store.state.genreFilmList"
-                        v-model="editingItem.genre"
-                        item-text="name"
-                        value="name"
-                        label="Жанр"
-                        clearable
-                        />
-                        <v-combobox
-                        :items="$store.state.typeFilmList"
-                        v-model="editingItem.typeFilm"
-                        item-text="name"
-                        value="name"
-                        label="Тип фильма"
-                        clearable
-                        />
-                        <v-combobox
-                        :items="$store.state.limitAgeFilmList"
-                        v-model="editingItem.limitAge"
-                        item-text="age"
-                        value="limitAge"
-                        label="Возрастное ограничение"
-                        clearable
-                        />
-                        <input v-show="false" type="file" ref="inputUpload" @change="loadImage">
-                        <v-btn block v-model="editingItem.url" @click="btnLoadClick">
-                            <div v-if="editingItem.image">
-                                <v-icon>close</v-icon>
-                                {{tempFileName}}
-                            </div>
-                            <div v-else>
-                                <v-icon>get_app</v-icon>
-                                Загрузить изображение
-                            </div>
-                        </v-btn>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer/>
@@ -95,11 +60,9 @@
                                 <v-img max-height="76" :src="props.item.image"/>
                             </td>
                             <td>{{ props.item.name }}</td>
-                            <td>{{ props.item.lenght / 60 + ' мин'}}</td>
+                            <td>{{ props.item.lenght / 60 + ' мин' }}</td>
                             <td>{{ props.item.rating.rating }}</td>
                             <td>{{ props.item.genre.name }}</td>
-                            <td>{{ props.item.typeFilm.name }}</td>
-                            <td>{{ props.item.limitAge.age + '+' }}</td>
                             <td class="text-xs-right">
                                 <v-btn flat icon color="amber" @click="changeItem(props.item, props.index)">
                                     <v-icon>edit</v-icon>
@@ -137,71 +100,41 @@ export default {
             editingIndex: -1,
             headers: [
                 {
-                    text: 'Изображение',
-                    align: 'left',
+                    text: 'Фильм',
+                    align: 'center',
                     sortable: false,
                     value: 'name'
                 },
                 {
-                    text: 'Название',
-                    align: 'left',
+                    text: 'Зал',
+                    align: 'center',
                     sortable: false,
                     value: 'name'
                 },
                 {
-                    text: 'Длительность',
-                    align: 'left',
+                    text: 'Время начала',
+                    align: 'center',
                     sortable: false,
                     value: 'lenght'
                 },
                 {
-                    text: 'Рейтинг',
-                    align: 'left',
+                    text: 'Время окончания',
+                    align: 'center',
                     sortable: false,
                     value: 'rating'
                 },
-                {
-                    text: 'Жанр',
-                    align: 'left',
-                    sortable: false,
-                    value: 'genre'
-                },
-                {
-                    text: 'Тип фильма',
-                    align: 'left',
-                    sortable: false,
-                    value: 'typeFilm'
-                },
-                {
-                    text: 'Возрастное ограничение',
-                    align: 'left',
-                    sortable: false,
-                    value: 'limitAge'
-                },
-                {
-                    text: 'Действия',
-                    align: 'right',
-                    sortable: false,
-                    value: 'actions'
-                },
             ],
             defaultItem: {
-                image: '',
-                name: '',
-                lenght: '',
-                typeFilm: '',
-                genre: '',
-                limitAge: '',
-                rating: '',
+                film: '',
+                hall: '',
+                beginTime: '',
+                endTime: '',
             },
             editingItem:{
-                image: '',
-                name: '',
-                lenght: '',
-                typeFilm: '',
-                genre: '',
-                limitAge: '',
-                rating: '',
+                film: '',
+                hall: '',
+                beginTime: '',
+                endTime: '',
             },
         }
     },

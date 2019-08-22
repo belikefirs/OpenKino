@@ -23,11 +23,13 @@ public class Hall {
     @Column(name = "Height")
     private Integer height;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "hall")
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "hall")
     @JsonManagedReference
     private List<Place> places = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "hall")
+
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "hall")
     @JsonIgnore
     private List<Session> sessions = new ArrayList<>();
 
