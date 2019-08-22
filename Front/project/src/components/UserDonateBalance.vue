@@ -1,8 +1,8 @@
 <template>
     <div class="wrapper_dona" @click="$emit('click')">
-        <form @submit.prevent="donate_card">
-            <input type="text" class="usercab" placeholder="Номер карты" v-model="donatecard.id_card">
-            <input type="text" class="usercab" placeholder="Сумма пополнения" v-model="donatecard.donate_sum">
+        <form @submit.prevent="donate_card()">
+            <input type="text" class="usercab" placeholder="Номер карты" v-model="id">
+            <input type="text" class="usercab" placeholder="Сумма пополнения" v-model="money">
             <button class="buttonSave" style="margin: 0 0 0 67px">Пополнить</button>
         </form>
     </div>
@@ -15,12 +15,14 @@ export default {
             donatecard: {
                 id_card: '',
                 donate_sum: ''
-            }
+            },
+            id: '',
+            money: ''
         }
     },
     methods: {
-        donate_card(item) {
-            this.$store.dispatch('CabinetUser/DONATE_CARD', {id: item.id}, {money: item.money});
+        donate_card() {
+            this.$store.dispatch('CabinetUser/DONATE_CARD', {id: this.id, money: this.money});
         }
     }
 }

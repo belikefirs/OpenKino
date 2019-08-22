@@ -54,7 +54,9 @@ export default {
     },
     methods:{
         logIn(){
-            this.$store.dispatch('Authorization/AUTHORIZATION_LOGIN', this.authdata);
+            this.$store.dispatch('Authorization/AUTHORIZATION_LOGIN', this.authdata).then(() => {
+                this.$router.push('/usercabinet');
+            })
         },
         regIn(){
             this.$store.dispatch('Authorization/AUTHORIZATION_REG', this.regdata);

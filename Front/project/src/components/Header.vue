@@ -9,7 +9,7 @@
 			<AppButton style="margin: 0 10px" :url="{name: 'admin'}">Еще</AppButton>
 			<div v-if="signInState == 0" class="signIn" @click="changeBlur">
 				<div class="signIn-logo"></div>
-				<p class="text" style="margin:0 0 0 0">Войти</p>
+				<p class="text" style="margin:0 0 0 0">Вход</p>
 			</div>
 			<div v-else class="signIn">
 				<p class="text" style="font-size: 18px">{{userName}}</p>

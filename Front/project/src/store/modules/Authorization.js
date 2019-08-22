@@ -1,5 +1,10 @@
 import AXIOS from 'axios';
 
+const state = {
+    flagAuth: false,
+    Title: 'Максимка'
+}
+
 const actions = {
     AUTHORIZATION_LOGIN (context, data) {
         return AXIOS.post('/auth', data).then((response) => {
@@ -18,5 +23,5 @@ const actions = {
 
 export default {
     namespaced: true,
-    actions
+    actions, state
 }

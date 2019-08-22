@@ -28,7 +28,7 @@ export default new Vuex.Store({
 		Films, CabinetUser, Authorization, Hall,
 	},
 	state: {
-
+		Title: 'Максим',
 		// Test
 		films: [
 			{ 

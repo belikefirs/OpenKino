@@ -3,23 +3,23 @@
         <div class="wrapper-User">
             <div class="block">
             <form @submit.prevent="add_cards">
-                <label for="card" class="Textlabel">Введите номер карты: </label>
+                <label for="card" class="textLabel">Введите номер карты: </label>
                 <input type="text" class="usercab Card" placeholder="Номер карты" v-model="dataBalance.id">
-                <label for="balance" class="Textlabel">Баланс карты: </label>
+                <label for="balance" class="textLabel">Баланс карты: </label>
                 <input type="text" class="usercab Balance" placeholder="Сумма пополнения" v-model="dataBalance.balance">
-                <button class="buttonSave">Создать</button>
+                <button class="buttonSave" style="margin-bottom: 150px">Создать</button>
                 <hr class="VerticalLine">
             </form>
             </div>
             <div class="block">
                 <form>
-                    <p class="Textlabel">Список карта</p>
+                    <p class="textLabel">Список карта</p>
                     <ul>
-                        <li v-for="(item, index) in listCards" :key="index.id">
-                           Номер: {{item.id}} 
-                           Баланс: {{item.balance}}
+                        <li v-for="(item, index) in listCards" :key="index.id" class="cardsUser">
+                           Номер карты: {{item.id}} <br>
+                           Баланс карты: {{item.balance}}
+                           <button @click="delete_card(item)" class="btnDelete">Удалить</button>
                         </li>
-
                     </ul>
                 </form>
             </div>
@@ -35,17 +35,25 @@ export default {
     },
     data() {
         return {
-            Balance: 0,
             listCards: null,
             dataBalance: {
                 id: '',
                 balance: ''
-            }
+            },
+            id: '',
+            money: ''
         }
     },
     methods: {
-        add_cards(item) {
-            this.$store.dispatch('CabinetUser/ADD_CARD', this.dataBalance);
+        add_cards() {
+            this.$store.dispatch('CabinetUser/ADD_CARD', this.dataBalance).then(() => {
+                this.$store.dispatch('CabinetUser/GET_LIST_CARDS').then(listCards => this.listCards = listCards);
+            });
+        },
+        delete_card(item) {
+            this.$store.dispatch('CabinetUser/DELETE_CARD', {id: item.id}).then(() => {
+                this.$store.dispatch('CabinetUser/GET_LIST_CARDS').then(listCards => this.listCards = listCards);
+            });
         }
     },
     mounted() {
@@ -59,12 +67,12 @@ export default {
 <style>
 .wrapper-User {
     width: 100%;
-    height: 500px;
+    height: 100%;
     display: flex;
     background: rgba(255,255,255,0.6);
     overflow: hidden;
 }
-.Textlabel {
+.textLabel {
     font-size: 28px;
     color: #222;
     display: block;
@@ -111,20 +119,30 @@ export default {
     font-weight: 900;
     letter-spacing: 2px;
 }
-.balanceYour {
-    position: absolute;
-    top: 30px;
-    right: 55px;
-    color: white;
-}
-.title_Name {
-    color: white;
-    font-size: 44px;
-}
-ul li {
+.cardsUser {
     list-style: none;
     font-size: 24px;
     color: black;
     margin: 0 20px 5px -30px;
+    background: rgb(196, 76, 170, 0.5);
+    padding: 10px 20px 10px 15px;
+    border-radius: 5px;
+    font-weight: 400;
+    position: relative;
+}
+.btnDelete {
+    width: 120px;
+    height: 30px;
+    border: 1px solid black;
+    background: rgba(238, 238, 241, 0.514);
+    font-size: 20px;
+    font-weight: 400;
+    margin-right: 10px;
+    position: absolute;
+    right: 0;
+    margin-bottom: 5px;
+}
+.btnDelete:hover{
+    font-weight: 500;
 }
 </style>
