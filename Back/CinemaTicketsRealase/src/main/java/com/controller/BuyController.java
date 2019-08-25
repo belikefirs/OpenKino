@@ -30,4 +30,9 @@ public class BuyController {
     Buy findById(@PathVariable Long id){
         return buyService.findBuyById(id);
     }
+
+    @DeleteMapping("/{id}")
+    void deleteById(@PathVariable Long id){
+       buyService.deleteBuyById(id);
+    }
 }
