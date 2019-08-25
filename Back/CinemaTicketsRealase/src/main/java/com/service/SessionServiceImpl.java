@@ -6,6 +6,7 @@ import com.dao.SessionDao;
 import com.models.Film;
 import com.models.Hall;
 import com.models.Session;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,8 +30,12 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public List<Session> findSessionByFilm(Long id_film) {
-        return sessionDao.findAllByFilm_Id(id_film);
+    public List<Session> findSessionByFilm(Long id_film){
+    List<Session> sessions = sessionDao.findAllByFilm_Id(id_film);
+        for (Session e: sessions) {
+            Hibernate.initialize(e.getHall().getPlaces());
+        }
+        return sessions;
     }
 
     @Override
@@ -59,6 +64,8 @@ public class SessionServiceImpl implements SessionService {
 
     @Override
     public Long saveSession(Session session) {
+//        Hall hall = hallDao.findById(session.getHall().getId()).get();
+//        Hibernate.initialize(hall.getClass());
     return sessionDao.save(session).getId();
     }
 

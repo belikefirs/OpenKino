@@ -29,7 +29,7 @@ export default new Vuex.Store({
 		Films, CabinetUser, Authorization, Hall, Sessions,
 	},
 	state: {
-
+		Title: 'Максим',
 		// Test
 		films: [
 			{ 

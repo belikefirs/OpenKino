@@ -1,11 +1,16 @@
 <template>
     <WrapperCent>
         <div class="wrapper_User">
-            <router-link to="/usercabinet/yourcards" class="item1 item"><div><p>Ваши карты</p></div></router-link>
-            <div class="item2 item" @click="flagBalance = true">
-                <p>Пополнить</p>
-                <p class="YourBalance">Ваш баланс: {{Balance}}</p>
-            </div>
+            <router-link to="/usercabinet/yourcards" class="item1 item">
+                <div>
+                    <p>Ваши карты</p>
+                </div>
+            </router-link>
+            <router-link to="#" class="item2 item">
+                <div @click="flagBalance = true">
+                    <p>Пополнить</p>
+                </div>
+            </router-link>
             <Modal :show="flagBalance" @showBlur="flagBalance = false">
                 <template v-slot:content>
                     <Donate></Donate>
@@ -27,14 +32,13 @@ import WrapperCent from '@/components/AppWrapperCenter.vue'
 import Modal from '@/components/AppModalWindow.vue'
 import Donate from '@/components/UserDonateBalance.vue'
 export default {
-    data() {
-        return {
-            Balance: 0,
-            flagBalance: false
-        }
-    },
     components: {
         WrapperCent, Modal, Donate
+    },
+    data() {
+        return {
+            flagBalance: false
+        }
     }
 }
 </script>
@@ -50,7 +54,7 @@ export default {
     font-weight: 500;
     font-size: 28px;
     grid-template: repeat(3, 1fr) / repeat(5, 1fr);
-    grid-gap: 20px 10px;
+    grid-gap: 10px 10px;
     text-align: center;
     margin: 10px 0 10px 0;
 }

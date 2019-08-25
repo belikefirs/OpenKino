@@ -10,13 +10,16 @@ const actions = {
         })
     },
     GET_LIST_CARDS (context, data) {
-        return AXIOS.get('/card/allByKinoUser/2').then(({data}) => {
+        return AXIOS.get('/card/allByKinoUser/4').then(({data}) => {
             return data;
         })
     },
-    DONATE_CART (context, data) {
-        return AXIOS.put('/card/add' + data.id + data.money);
+    DONATE_CARD (context, data) {
+        return AXIOS.put('/card/add/' + data.id + ',' + data.money);
         
+    },
+    DELETE_CARD (context, data) {
+        return AXIOS.delete('/card/' + data.id);
     }
 
 }

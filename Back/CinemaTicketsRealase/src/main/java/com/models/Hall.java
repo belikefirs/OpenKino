@@ -24,12 +24,12 @@ public class Hall {
     private Integer height;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "hall")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "hall")
     @JsonManagedReference
     private List<Place> places = new ArrayList<>();
 
 
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "hall")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "hall")
     @JsonIgnore
     private List<Session> sessions = new ArrayList<>();
 
