@@ -7,6 +7,7 @@ import Films from './modules/Films.js'
 import CabinetUser from './modules/CabinetUser.js'
 import Hall from './modules/Hall.js'
 import Authorization from './modules/Authorization.js'
+import Sessions from './modules/Sessions.js'
 
 Vue.use(Vuex);
 
@@ -25,7 +26,7 @@ const hall = {
 
 export default new Vuex.Store({
 	modules: {
-		Films, CabinetUser, Authorization, Hall,
+		Films, CabinetUser, Authorization, Hall, Sessions,
 	},
 	state: {
 		Title: 'Вход',

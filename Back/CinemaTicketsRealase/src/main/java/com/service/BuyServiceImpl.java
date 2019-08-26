@@ -68,4 +68,9 @@ public class BuyServiceImpl implements BuyService {
             }
         }
     }
+
+    @Override
+    public void deleteBuyById(Long id) {
+        buyDao.deleteById(id);
+    }
 }

@@ -56,6 +56,11 @@ public class FilmController {
                               @RequestParam(name = "genre" ,required = false) String genre){
         return filmService.findFilmsByVars(name,genre,typeFilm,rating,limitAge);
     }
+    @JsonView(Views.Internal.class)
+    @GetMapping("/all")
+    public List <Film> getAllFilms(){
+        return filmService.getAllFilms();
+    }
 
 
     ///=================================TypeFilm========================

@@ -24,14 +24,15 @@ public class Session {
 @JsonDeserialize(using = SecurityConfig.LocalDateTimeDeserializer.class)
     @Column(name = "START")
     private LocalDateTime start;
-
+//@JsonIgnore
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_FILM")
     private Film film;
 
-//@JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
+    //@JsonIgnore
+
+    @ManyToOne
     @JoinColumn(name = "ID_HALL")
     //// @JsonManagedReference
     private Hall hall;
