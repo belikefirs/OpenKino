@@ -47,19 +47,20 @@ export default {
     methods: {
         add_cards() {
             this.$store.dispatch('CabinetUser/ADD_CARD', this.dataBalance).then(() => {
-                this.$store.dispatch('CabinetUser/GET_LIST_CARDS').then(listCards => this.listCards = listCards);
+                this.$store.dispatch('CabinetUser/GET_LIST_CARDS', {id: this.$store.state.Title.id})
+                .then(listCards => this.listCards = listCards);
+                console.log(this.listCards)
             });
         },
         delete_card(item) {
             this.$store.dispatch('CabinetUser/DELETE_CARD', {id: item.id}).then(() => {
-                this.$store.dispatch('CabinetUser/GET_LIST_CARDS').then(listCards => this.listCards = listCards);
+                this.$store.dispatch('CabinetUser/GET_LIST_CARDS', {id: this.$store.state.Title.id}).then(listCards => this.listCards = listCards);
             });
         }
     },
     mounted() {
-        this.$store.dispatch('CabinetUser/GET_LIST_CARDS')
+        this.$store.dispatch('CabinetUser/GET_LIST_CARDS', {id: this.$store.state.Title.id})
         .then(listCards => this.listCards = listCards)
-        .catch(error => console.log(error));
     }
 }
 </script>

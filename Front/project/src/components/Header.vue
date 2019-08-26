@@ -9,7 +9,8 @@
 			<AppButton style="margin: 0 10px" :url="{name: 'admin'}">Еще</AppButton>
 			<div v-if="signInState == 0" class="signIn" @click="changeBlur">
 				<div class="signIn-logo"></div>
-				<p class="text" style="margin:0 0 0 0">Вход</p>
+				<p class="text" style="margin:0 0 0 0" v-if="this.$store.state.flagEnter">{{this.$store.state.Title.fName}}</p>
+				<p class="text" style="margin:0 0 0 0" v-else>{{this.titleEnter}}</p>
 			</div>
 			<div v-else class="signIn">
 				<p class="text" style="font-size: 18px">{{userName}}</p>
@@ -48,6 +49,7 @@ export default {
 			minHeight: 80,
 			currentHeight: 200,
 			bgOpacity: 0.4,
+			titleEnter: 'Вход',
 			links: [
 				{name: 'Новости', link: 'news'},
 				{name: 'Фильмы', link: 'films'},

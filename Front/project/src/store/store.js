@@ -29,7 +29,8 @@ export default new Vuex.Store({
 		Films, CabinetUser, Authorization, Hall, Sessions,
 	},
 	state: {
-		Title: 'Максим',
+		Title: 'Вход',
+		flagEnter: false,
 		// Test
 		films: [
 			{ 

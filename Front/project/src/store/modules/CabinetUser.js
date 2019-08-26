@@ -10,7 +10,7 @@ const actions = {
         })
     },
     GET_LIST_CARDS (context, data) {
-        return AXIOS.get('/card/allByKinoUser/4').then(({data}) => {
+        return AXIOS.get('/card/allByKinoUser/' + data.id).then(({data}) => {
             return data;
         })
     },
