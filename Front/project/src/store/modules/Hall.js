@@ -16,6 +16,11 @@ const actions = {
             return data;
         })
     },
+    CREATE_HALLS(context, data) {
+        return AXIOS.get('/hall/saveall').then(({data}) => {
+            return data;
+        })
+    }
 }
 
 export default {

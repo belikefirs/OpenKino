@@ -2,7 +2,7 @@ import AXIOS from 'axios';
 
 const state = {
     flagAuth: false,
-    Title: 'Максимка'
+    Title: ''
 }
 
 const actions = {
@@ -19,6 +19,11 @@ const actions = {
             console.log(response);
         });
     },
+    GET_NAME_USER (content, data) {
+        return AXIOS.get(`/KinoUser/?mail=${data.mail}`).then(({data}) => {
+            return data;
+        })
+    }
 }
 
 export default {

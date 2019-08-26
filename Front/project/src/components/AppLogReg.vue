@@ -38,6 +38,7 @@ export default {
 	data () {
 		return {
             log: true,
+            nameUser: '',
             authdata: {
                 mail: '',
                 password: ''
@@ -49,13 +50,17 @@ export default {
                 mail: '',
                 phone: '',
                 password: ''
-            }
+            },
+            nameUser: null
 		}
     },
     methods:{
         logIn(){
             this.$store.dispatch('Authorization/AUTHORIZATION_LOGIN', this.authdata).then(() => {
-                this.$router.push('/usercabinet');
+                //this.$router.push('/usercabinet');
+                this.$store.dispatch('Authorization/GET_NAME_USER', {mail: this.authdata.mail})
+                .then(nameUser => this.$store.state.Title = nameUser)
+                .then(this.$store.state.flagEnter = true)
             })
         },
         regIn(){
