@@ -18,10 +18,11 @@
                 <v-card>
                     <v-card-title>{{dialogTitle}}</v-card-title>
                     <v-card-text>
-                        <v-combobox
+                        <v-select
                         v-model="editingItem.film"
                         label="Фильм"
                         clearable
+                        no-data-text="Нет данных"
                         />
                         <v-combobox
                         v-model="editingItem.hall"
