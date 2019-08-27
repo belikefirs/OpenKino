@@ -1,18 +1,28 @@
+<!-- slots: item, leftBtn, rightBtn -->
+
 <template>
     <div class="uSlider">
         <slot name="title"></slot>
         <transition-group class="uSlider-itemHolder" :name="sliderClass" tag="div" mode="out-in">
             <div class="uSlider-itemHolder-item"
             v-for="item in items" :key="item.id">
-                <slot :item="item"></slot>
+                <slot name="item" :item="item"></slot>
             </div>
         </transition-group>
         
         <div class="leftBtnHolder">
-            <div class="btn" @click="leftClick"></div>
+            <div class="btn" @click="leftClick">
+                <slot name="leftBtn">
+                    <div class="temBtn"></div>
+                </slot>
+            </div> 
         </div>
         <div class="rightBtnHolder">
-            <div class="btn" @click="rightClick"></div>
+           <div class="btn" @click="rightClick">
+               <slot name="rightBtn">
+                    <div class="temBtn"></div>
+                </slot>
+           </div>
         </div>
     </div>
 </template>
@@ -67,12 +77,12 @@ export default {
     transition: transform 0.5s
 
 .uSlider
-    padding: 10px
-    background: repeating-linear-gradient(45deg, #444, #444 10px, #222 10px, #222 20px)
+    // padding: 10px
+    // background: repeating-linear-gradient(45deg, #444, #444 10px, #222 10px, #222 20px)
     position: relative
     overflow: hidden
     &-itemHolder
-        margin: 40px
+        // margin: 40px
         display: flex
         flex-direction: row
         justify-content: center
@@ -83,25 +93,27 @@ export default {
         top: 0
         width: 80px
         height: 100%
+        display: flex
+        justify-content: center
+        align-items: center
         .btn
-            position: absolute
-            top: calc(50% - 50px)
-            width: 35px
-            height: 100px
-            border: 1px solid #aaa
-            border-radius: 4px
-            background: #222
-            overflow: hidden
-            &::before
-                content: ''
-                position: absolute
-                top: calc(50% - 15px)
-                width: 30px
-                height: 30px
+            .temBtn
+                width: 35px
+                height: 100px
+                border: 1px solid #aaa
+                border-radius: 4px
+                background: #222
+                overflow: hidden
+                &::before
+                    content: ''
+                    position: absolute
+                    top: calc(50% - 15px)
+                    width: 30px
+                    height: 30px
     .leftBtnHolder
         left: 0
         background: linear-gradient(90deg, #0008, #0000)
-        .btn
+        .temBtn
             left: 10px
             &::before
                 left: calc(50% - 15px)
@@ -110,7 +122,7 @@ export default {
     .rightBtnHolder
         right: 0
         background: linear-gradient(-90deg, #0008, #0000)
-        .btn
+        .temBtn
             right: 10px
             &::before
                 right: calc(50% - 15px)

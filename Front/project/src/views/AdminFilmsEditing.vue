@@ -206,7 +206,7 @@ export default {
     },
     methods: {
         search(){
-            this.$store.dispatch('GET_FILMS_WITH_FILTERS', {name: this.searchBox});
+            this.$store.dispatch('Films/GET_FILMS_WITH_FILTERS', {name: this.searchBox});
         },
         confirmDialog(){
             if (this.editingItem.name == null || this.editingItem.namelength == 0 ||

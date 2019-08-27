@@ -183,6 +183,10 @@ public class FilmServiceImpl implements FilmService {
         return imageDao.save(image).getId();
     }
 
+    @Override
+    public List<Film> getAllFilms() {
+        return filmDao.findAll();
+    }
 
     @Override
     public void deleteImage(Long id) {

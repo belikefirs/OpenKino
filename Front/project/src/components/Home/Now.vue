@@ -3,14 +3,14 @@
 		<WrapperCent class="wrapper-now-title">Сейчас в кино</WrapperCent>
 		<!-- <Slider :pData="sliderArray"></Slider> -->
 		<uSlider :items="sliderArray">
-            <template v-slot:default="slotItem">
+            <template v-slot:item="props">
 				<FilmCard
-				:image="slotItem.item.image"
-				:path="slotItem.item.path"
-				:filmTitle="slotItem.item.filmTitle"
-				:filmStyle="slotItem.item.filmStyle"
-				:filmType="slotItem.item.filmType"
-				:limitAge="slotItem.item.limitAge"
+				:image="props.item.image"
+				:path="props.item.path"
+				:filmTitle="props.item.filmTitle"
+				:filmStyle="props.item.filmStyle"
+				:filmType="props.item.filmType"
+				:limitAge="props.item.limitAge"
 				/>
             </template>
 		</uSlider>

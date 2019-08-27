@@ -19,6 +19,7 @@ public interface FilmService {
                                 Double rating,
                                 Integer age);
     void updateGRLT(Film film);
+    List<Film> getAllFilms();
 
     Long updateGenre(Genre genre);
     List<Genre> findAllGenre();

@@ -18,10 +18,11 @@
                 <v-card>
                     <v-card-title>{{dialogTitle}}</v-card-title>
                     <v-card-text>
-                        <v-combobox
+                        <v-select
                         v-model="editingItem.film"
                         label="Фильм"
                         clearable
+                        no-data-text="Нет данных"
                         />
                         <v-combobox
                         v-model="editingItem.hall"
@@ -59,10 +60,11 @@
                             <td>
                                 <v-img max-height="76" :src="props.item.image"/>
                             </td>
-                            <td>{{ props.item.name }}</td>
+                            <td>{{ props.item.film }}</td>
+                            <!-- <td>{{ props.item.name }}</td>
                             <td>{{ props.item.lenght / 60 + ' мин' }}</td>
                             <td>{{ props.item.rating.rating }}</td>
-                            <td>{{ props.item.genre.name }}</td>
+                            <td>{{ props.item.genre.name }}</td> -->
                             <td class="text-xs-right">
                                 <v-btn flat icon color="amber" @click="changeItem(props.item, props.index)">
                                     <v-icon>edit</v-icon>
