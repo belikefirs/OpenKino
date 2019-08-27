@@ -1,10 +1,15 @@
 package com.service;
 
 import com.dao.*;
+import com.enums.Pstatus;
+import com.enums.RStatus;
 import com.models.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 @Service
@@ -15,17 +20,20 @@ public class ReservationServiceImpl implements ReservationService {
     private KinoUserDao kinoUserDao;
     private DiscountDao discountDao;
     private BuyDao buyDao;
+    private SessionDao sessionDao;
     public ReservationServiceImpl(ReservationDao reservationDao, PlaceDao placeDao,
-                                  KinoUserDao kinoUserDao, DiscountDao discountDao, BuyDao buyDao){
+                                  KinoUserDao kinoUserDao, DiscountDao discountDao, BuyDao buyDao, SessionDao sessionDao){
         this.reservationDao = reservationDao;
         this.placeDao = placeDao;
         this.kinoUserDao = kinoUserDao;
         this.discountDao = discountDao;
         this.buyDao = buyDao;
+        this.sessionDao = sessionDao;
     }
     @Override
     public Long saveReservation(Reservation reservation) {
         return reservationDao.save(reservation).getId();
+
     }
 
     @Override
@@ -44,7 +52,7 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public Long updateReservation(Reservation reservation, Long id) {
+    public Long updateReservation(Reservation reservation, Long id, int Status) {
         Reservation reservation1 = reservationDao.findById(id).get();
         reservation1.setKinoUser(reservation.getKinoUser());
         reservation1.setDiscount(reservation.getDiscount());
@@ -52,18 +60,42 @@ public class ReservationServiceImpl implements ReservationService {
         reservation1.setStart(reservation.getStart());
         reservation1.setEnd(reservation.getEnd());
         reservation1.setPlaces(reservation.getPlaces());
+        if(Status == 0){
+            reservation1.setStatus(RStatus.IsAlive);
+        } else if(Status == 1){
+            reservation1.setStatus(RStatus.IsNotAlive);
+        } else if(Status == 2){
+            reservation1.setStatus(RStatus.isBuy);
+        }
         return reservationDao.save(reservation1).getId();
     }
 
     @Override
-    public Long saveAllReservation(Reservation reservation, Long idKinU, Long idBuy, Long idDis) {
+    public Long saveAllReservation( Long idKinU, Long idDis, Long idSess,
+                                   List<Place> placeIsReservation) {
         KinoUser kinoUser = kinoUserDao.findById(idKinU).get();
-        Buy buy = buyDao.findById(idBuy).get();
         Discount discount = discountDao.findById(idDis).get();
+        Reservation reservation = new Reservation();
+        reservation.setStart(LocalDateTime.now(ZoneId.of("UTC+4")));
+        reservation.setEnd(sessionDao.getBeginSession(idSess).minusHours(1));
         reservation.setKinoUser(kinoUser);
-        reservation.setBuy(buy);
         reservation.setDiscount(discount);
-        return reservationDao.save(reservation).getId();
+        BigDecimal resultPrice = new BigDecimal("0");
+        Long id = reservationDao.save(reservation).getId();
+        Reservation r = reservationDao.findById(id).get();
+        for(int i = 0; i < placeIsReservation.size(); i++){
+            placeIsReservation.get(i).setStatus(Pstatus.IsReservation);
+            placeIsReservation.get(i).setReservation(r);
+            resultPrice.add(placeIsReservation.get(i).getPrice());
+
+        }
+        if(r.getDiscount()!= null){
+            resultPrice.multiply(r.getDiscount().getPercent());
+        }
+        r.setPlaces(placeIsReservation);
+        r.setPrice(resultPrice);
+        return reservationDao.save(r).getId();
+
     }
 
     @Override
@@ -71,5 +103,21 @@ public class ReservationServiceImpl implements ReservationService {
         return placeDao.getFindbyIdReservaion(id);
     }
 
+    @Override
+    public List<Reservation> getFindByIdKinoUser(Long idKinU) {
+        return reservationDao.getFindByIdKinoUser(idKinU);
+    }
 
+    @Override
+    public Long changeStatusReservation(Long id, Integer status) {
+        Reservation reservation = reservationDao.findById(id).get();
+        if(status == 0){
+            reservation.setStatus(RStatus.IsNotAlive);
+        } else if(status == 1){
+            reservation.setStatus(RStatus.IsAlive);
+        } else if(status == 2){
+            reservation.setStatus(RStatus.isBuy);
+        }
+        return reservationDao.save(reservation).getId() ;
+    }
 }

@@ -1,9 +1,7 @@
 package com.service;
 
-import com.dao.BuyDao;
-import com.dao.HallDao;
-import com.dao.PlaceDao;
-import com.dao.ReservationDao;
+import com.dao.*;
+import com.enums.Pstatus;
 import com.models.Buy;
 import com.models.Hall;
 import com.models.Place;
@@ -11,6 +9,9 @@ import com.models.Reservation;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,12 +20,15 @@ public class HallServiceImpl implements HallService {
     private PlaceDao placeDao;
     private ReservationDao reservationDao;
     private BuyDao buyDao;
+    private SessionDao sessionDao;
     public HallServiceImpl(HallDao hallDao, PlaceDao placeDao,
-                           ReservationDao reservationDao, BuyDao buyDao){
+                           ReservationDao reservationDao, BuyDao buyDao,
+                           SessionDao sessionDao){
         this.hallDao = hallDao;
         this.placeDao = placeDao;
         this.reservationDao = reservationDao;
         this.buyDao = buyDao;
+        this.sessionDao = sessionDao;
     }
     @Override
     @Transactional
@@ -34,8 +38,60 @@ public class HallServiceImpl implements HallService {
 
     @Override
     @Transactional
+    public Long save(Integer number, Integer width, Integer height) {
+        Hall hall = new Hall();
+        hall.setNumber(number);
+        hall.setWidth(width);
+        hall.setHeight(height);
+        return hallDao.save(hall).getId();
+    }
+    @Override
+    @Transactional
+    public List<Place> createdPlaces(Integer width, Integer height, BigDecimal price, Long idHall){
+        List<Place> places = new ArrayList<Place>();
+        for(int i = 1; i < height; i++){
+            for(int j = 1; j < width; j++){
+                Place place = new Place();
+                place.setHall(hallDao.findById(idHall).get());
+                place.setY(i);
+                place.setX(j);
+                place.setPrice(price);
+                place.setStatus(Pstatus.IsFree);
+                placeDao.save(place);
+                places.add(place);
+            }
+        }
+        return places;
+    }
+
+    @Override
+    @Transactional
+   public Hall saveListPlaces(Long id, List<Place> places){
+        Hall hall = hallDao.findById(id).get();
+        hall.setPlaces(places);
+        return hall;
+    }
+
+    @Override
+    public Hall saveAndCreatedListSession(Long id) {
+        Hall hall = hallDao.findById(id).get();
+        hall.setSessions(sessionDao.getAllSession(hall.getId()));
+        hallDao.save(hall);
+        return hall;
+    }
+
+    @Override
+    @Transactional
     public Hall findHallbyId(Long id) {
         Hall hall = hallDao.findById(id).get();
+        hall.getPlaces().size();
+        return hall;
+    }
+
+    @Override
+    @Transactional
+    public Hall findHallbyNumber(Integer number) {
+        Hall hall = hallDao.getNumberHall(number);
         hall.getPlaces().size();
         return hall;
     }
@@ -60,7 +116,7 @@ public class HallServiceImpl implements HallService {
     @Transactional
     public List<Place> getPlaces(Long id) {
         Hall hall = hallDao.findById(id).get();
-        List<Place> places = placeDao.getFindbyIdHall(hall.getId());
+        List<Place> places = placeDao.getFindHallWithlacesById(hall.getId());
         return places;
     }
 
@@ -96,37 +152,44 @@ public class HallServiceImpl implements HallService {
     }
     @Override
     @Transactional
-    public Long savePlace(Place place, Long id, Long idR, Long idB) {
+    public Long savePlace(Place place, Long id) {
         //placeDao.save(place).getId();
         Hall hall = hallDao.findById(id).get();
-        Reservation reservation = reservationDao.findById(idR).get();
-        Buy buy = buyDao.findById(idB).get();
         place.setHall(hall);
-        place.setReservation(reservation);
-        place.setBuy(buy);
-       // hall.getPlaces().add(place);
+        place.setStatus(Pstatus.IsFree);
         return placeDao.save(place).getId();
     }
 
     @Override
-    public Long updatePlace(Place place) {
-        Place place1 = placeDao.findById(place.getId()).get();
-        place.setNumber(place.getNumber());
-        place1.setX(place.getX());
-        place1.setY(place.getY());
-        place1.setPrice(place.getPrice());
-        place1.setHall(place.getHall());
-        place1.setReservation(place.getReservation());
-        return place1.getId();
+    @Transactional
+    public Long updatePlace(Long id, BigDecimal price, Integer status) {
+        Place place = placeDao.findById(id).get();
+        place.setPrice(price);
+        if(status == 1){
+            place.setStatus(Pstatus.IsFree);
+        }
+        if(status == 2){
+            place.setStatus(Pstatus.IsBuy);
+        }
+        if(status == 3){
+            place.setStatus(Pstatus.IsReservation);
+        }
+        if(status == 0){
+            place.setStatus(Pstatus.IsBroken);
+        }
+        placeDao.save(place);
+        return place.getId();
     }
 
     @Override
+    @Transactional
     public void deletePlace(Long id) {
         placeDao.deleteById(id);
     }
 
     @Override
-    public Place findPlaceByNumberFromHall(Long idHall, Integer number) {
+    @Transactional
+    public Place findPlaceByNumberFromHall(Long idHall, Long number) {
         Place place = placeDao.findPlaceByNumberFromHall(idHall, number);
         return place;
     }

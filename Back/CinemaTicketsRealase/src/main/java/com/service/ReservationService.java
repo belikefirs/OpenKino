@@ -11,8 +11,10 @@ public interface ReservationService {
     void deleteReservationById(Long id);
     Long saveDiscount(Discount discount);
     void deleteDiscountById(Long id);
-    Long updateReservation(Reservation reservation, Long id);
-    Long saveAllReservation(Reservation reservationl, Long idKinU, Long idBuy, Long idDis);
+    Long updateReservation(Reservation reservation, Long id, int Status);
+    Long saveAllReservation(Long idKinU, Long idDis, Long idSess,
+                            List<Place> placesIsReservation);
     List<Place>  getPlacesWithReservationId(Long id);
-
+    List<Reservation> getFindByIdKinoUser(Long idKinU);
+    Long changeStatusReservation(Long id, Integer status);
 }
