@@ -6,6 +6,7 @@ import com.models.Buy;
 import com.models.Hall;
 import com.models.Place;
 import com.models.Reservation;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -194,4 +195,13 @@ public class HallServiceImpl implements HallService {
         return place;
     }
 
+    @Override
+    @Transactional
+    public List<Hall> getAllHall() {
+        List<Hall> halls = hallDao.findAll();
+        for (Hall e: halls) {
+            Hibernate.initialize(e.getPlaces());
+        }
+        return halls;
+    }
 }

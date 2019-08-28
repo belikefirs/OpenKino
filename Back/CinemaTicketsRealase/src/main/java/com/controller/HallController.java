@@ -67,5 +67,8 @@ public class HallController {
         return hallService.saveListPlaces(id, hallService.createdPlaces(width, height, price, id));
     }
 
-
+    @GetMapping("/all")
+    public List<Hall> getAllHall(){
+        return hallService.getAllHall();
+    }
 }

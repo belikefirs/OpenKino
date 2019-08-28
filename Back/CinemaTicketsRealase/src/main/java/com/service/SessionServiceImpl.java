@@ -64,8 +64,8 @@ public class SessionServiceImpl implements SessionService {
 
     @Override
     public Long saveSession(Session session) {
-//        Hall hall = hallDao.findById(session.getHall().getId()).get();
-//        Hibernate.initialize(hall.getClass());
+    Film film = filmDao.findById(session.getFilm().getId()).get();
+    session.setEnd(session.getStart().plusMinutes(film.getLenght()));
     return sessionDao.save(session).getId();
     }
 
@@ -74,5 +74,14 @@ public class SessionServiceImpl implements SessionService {
         Session session = new Session();
         session.setStart(LocalDateTime.of(1994, Month.APRIL, 15, 11, 30));
         sessionDao.save(session);
+    }
+
+    @Override
+    public List<Session> findSessionAll() {
+        List<Session> sessions = sessionDao.findAll();
+        for (Session e: sessions) {
+            Hibernate.initialize(e.getHall().getPlaces());
+        }
+        return sessions;
     }
 }

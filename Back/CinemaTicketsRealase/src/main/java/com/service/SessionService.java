@@ -16,4 +16,5 @@ public interface SessionService {
     List<Session> findSessionByFilm(Long id_film);
     Long saveAllSession(Session session, Long idFilm, Long idHall);
 void addSession();
+    List<Session> findSessionAll();
 }

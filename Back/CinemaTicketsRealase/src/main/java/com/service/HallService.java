@@ -27,5 +27,5 @@ public interface HallService {
     Place getPlace(Long idHall, Long idPlaces);
     List<Place> getPlacesNotReservation(Long id);
      List<Place> getPlacesReservation(Long id);
-
+List<Hall>  getAllHall();
 }
