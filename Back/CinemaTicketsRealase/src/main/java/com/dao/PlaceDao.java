@@ -13,10 +13,10 @@ public interface PlaceDao extends JpaRepository<Place,Long> {
     @Query(value = "select place from Place as place " +
             "join place.hall as hall where " +
             "hall.id = :id")
-    List<Place> getFindbyIdHall(@Param("id") Long id);
+    List<Place> getFindHallWithlacesById(@Param("id") Long id);
     @Query(value = "select place from Place as place " +
             "join place.hall as hall where " +
-            "hall.id = :id and place.reservation is null")
+            "hall.id = :id")
     List<Place> getFindbyIdHallPlacesnotReservation(@Param("id") Long id);
     @Query(value = "select place from Place as place " +
             "join place.hall as hall where " +
@@ -24,8 +24,8 @@ public interface PlaceDao extends JpaRepository<Place,Long> {
     List<Place> getFindbyIdHallPlacesisReservation(@Param("id") Long id);
     @Query(value = "select place from Place as place " +
             "join place.hall as hall where " +
-            "hall.id = :idH and place.number = :idP")
-    Place findPlaceByNumberFromHall(@Param("idH") Long idH, @Param("idP") Integer idP);
+            "hall.id = :idH and place.id = :idP")
+    Place findPlaceByNumberFromHall(@Param("idH") Long idH, @Param("idP") Long idP);
 
     @Query(value = "select place from Place as place " +
             "join place.hall as hall join place.reservation as reservation" +

@@ -1,11 +1,13 @@
 package com.models;
 
+import com.enums.Pstatus;
 import com.enums.RStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "PLACE")
@@ -15,16 +17,14 @@ public class Place {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column (name="ID")
     private Long id;
-    @Column(name="NUMBER")
-    private Integer number;
     @Column(name = "Y")
     private Integer y;
-
     @Column (name = "X")
     private Integer x;
-
     @Column (name = "PRICE")
-    private Double price;
+    private BigDecimal price;
+    @Column(name = "STATUS")
+    private Pstatus status;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_RESERVATION")
     // @JsonManagedReference
@@ -63,19 +63,11 @@ public class Place {
         this.x = x;
     }
 
-    public Integer getNumber() {
-        return number;
-    }
-
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
-
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -102,6 +94,10 @@ public class Place {
     public void setBuy(Buy buy) {
         this.buy = buy;
     }
-
-
+    public Pstatus getStatus() {
+        return status;
+    }
+    public void setStatus(Pstatus status) {
+        this.status = status;
+    }
 }

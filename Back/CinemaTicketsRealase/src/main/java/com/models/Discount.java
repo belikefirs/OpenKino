@@ -3,6 +3,7 @@ package com.models;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -18,7 +19,7 @@ public class Discount {
     private String name;
 
     @Column(name = "PERCENT")
-    private Double percent;
+    private BigDecimal percent;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "discount")
     private List<Reservation> reservations;
@@ -42,11 +43,11 @@ public class Discount {
         this.name = name;
     }
 
-    public Double getPercent() {
+    public BigDecimal getPercent() {
         return percent;
     }
 
-    public void setPercent(Double percent) {
+    public void setPercent(BigDecimal percent) {
         this.percent = percent;
     }
 

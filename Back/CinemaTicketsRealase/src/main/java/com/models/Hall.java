@@ -16,13 +16,12 @@ public class Hall {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+    @Column(name = "NUMBER")
+    private Integer number;
     @Column(name = "Width")
     private Integer width;
-
     @Column(name = "Height")
     private Integer height;
-
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "hall")
     @JsonManagedReference
@@ -38,6 +37,14 @@ public class Hall {
 
     public Long getId() {
         return id;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 
     public Integer getWidth() {
