@@ -71,4 +71,8 @@ public class HallController {
     public List<Hall> getAllHall(){
         return hallService.getAllHall();
     }
+    @GetMapping("/getPlaces/{id}")
+    public List<Place> getPlaces(@PathVariable Long id){
+        return hallService.getPlaces(id);
+    }
 }
