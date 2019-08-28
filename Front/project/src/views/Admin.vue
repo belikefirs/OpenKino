@@ -53,6 +53,9 @@
             <v-toolbar-title class="text-xs-center" style="font-size: 16px">
                 Панель администратора / {{title}}
             </v-toolbar-title>
+            <v-spacer/>
+            <v-btn flat :to="{name: 'home'}">На главную</v-btn>
+            
         </v-toolbar>
         <!-- content -->
         <v-content>
@@ -69,11 +72,10 @@
 
 <script>
 import 'vuetify/dist/vuetify.min.css';
-import AdminPanel from '@/components/AppAdminPanel.vue'
 
 export default {
     components:{
-        AdminPanel,
+        
     },
     data () {
         return {

@@ -32,7 +32,7 @@ const mutations = {
 const actions = {
     ADD_FILM (context, filmData) {
         context.commit('addToLocalFilm', filmData.film);
-        return AXIOS.post("/Film", filmData.film).then(({data}) => {
+        return AXIOS.post("/Film/save", filmData.film).then(({data}) => {
             const formData = new FormData();
             formData.append('file', filmData.image);
             formData.append('id', data);
@@ -74,17 +74,17 @@ const actions = {
         return AXIOS.get('/Film', {params}).then(({data}) => {
             context.commit('setFilmList', data.map(item => {return {...item, image: null}}));
             data.forEach(film => {
-                context.dispatch('GET_IMAGE', film.id);
+                // context.dispatch('GET_IMAGE', film.id);
             });
         });
     },
     GET_IMAGE(context, filmId){
         context.commit('addImageFilm', {id: filmId ,image: `Film/get-image?id=${filmId}`});
-        // return AXIOS.get('Film/get-image', {params: {id: filmId}}).then(({data, headers}) =>{
-        // 	// let img = new Blob([JSON.stringify(data)]).toString();
+        return AXIOS.get('Film/get-image', {params: {id: filmId}}).then(({data, headers}) =>{
+        	let img = new Blob([JSON.stringify(data)]).toString();
             
-        // 	// context.commit('addImageFilm', {id: filmId ,image: `data:image/jpeg;base64,${img.substring(1)}`});
-        // });
+        	context.commit('addImageFilm', {id: filmId ,image: `data:image/jpeg;base64,${img.substring(1)}`});
+        });
     },
 }
 
