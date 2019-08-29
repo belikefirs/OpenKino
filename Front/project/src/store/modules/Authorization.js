@@ -2,7 +2,6 @@ import AXIOS from 'axios';
 
 const state = {
     flagAuth: false,
-    Title: ''
 }
 
 const actions = {

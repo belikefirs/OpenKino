@@ -5,9 +5,14 @@ const state = {
     hallList: [],
 }
 
+const getters = {
+    HALLS: state => {
+    return state.halls;
+    }
+}
 const mutations = {
-    showHall(state, data) {
-        state.halldata = data
+    SET_LIST_HALLS: (state, data) => {
+        state.halls = data
     },
     setAllHalls(state, data){
         state.hallList = data;
@@ -34,5 +39,5 @@ const actions = {
 
 export default {
     namespaced: true,
-    state, mutations, actions
+    state, mutations, actions, getters
 }

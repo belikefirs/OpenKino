@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper-cinema" v-if="hall">
+    <!-- <div class="wrapper-cinema" v-if="hall">
         <div class="place free"></div>
         <div class="screen"></div>
         <div class="places" :style="{width : hall.width * 40 + 160 + 'px', height : hall.height * 40 + 'px'}">
@@ -22,7 +22,13 @@
             </div>
         </div>
         <AppButton style="margin: 0 0 0 30px" class="toBookButton" v-on:click.native="setNotFree()">Забронировать билет</AppButton>
-    </div>    
+    </div> -->
+    <div>
+        <p>ffdsdf</p>
+        <div v-for="item in listHalls" :key="item.id">
+            <label>{{item.number}}</label>
+        </div>
+    </div>  
 </template>
 
 <script>
@@ -55,14 +61,18 @@ export default {
             this.selectedItems = [];
         }
     },
-    computed:{
-
-    },
     mounted () {
-    this.$store.dispatch('Hall/GET_HALL')
-    .then(hall => this.hall = hall)
-    .catch()
-}
+    // this.$store.dispatch('Hall/GET_HALL')
+    // .then(hall => this.hall = hall)
+    // .catch()
+    this.$store.dispatch('Hall/GET_LIST_HALLS')
+    },
+    computed:{
+        listHalls() {
+            return this.$store.getters.HALLS;
+        }
+    },
+
 }
 </script>
 
