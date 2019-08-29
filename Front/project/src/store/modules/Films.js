@@ -31,7 +31,6 @@ const mutations = {
 
 const actions = {
     ADD_FILM (context, filmData) {
-        context.commit('addToLocalFilm', filmData.film);
         return AXIOS.post("/Film/save", filmData.film).then(({data}) => {
             const formData = new FormData();
             formData.append('file', filmData.image);
@@ -40,7 +39,6 @@ const actions = {
         });
     },
     CHANGE_FILM(context, data){
-        context.commit('addToLocalFilm', data);
         return AXIOS.put('/Film', data);
     },
     DELETE_FILM(context, data){
@@ -74,15 +72,14 @@ const actions = {
         return AXIOS.get('/Film', {params}).then(({data}) => {
             context.commit('setFilmList', data.map(item => {return {...item, image: null}}));
             data.forEach(film => {
-                // context.dispatch('GET_IMAGE', film.id);
+                context.dispatch('GET_IMAGE', film.id);
             });
         });
     },
     GET_IMAGE(context, filmId){
-        context.commit('addImageFilm', {id: filmId ,image: `Film/get-image?id=${filmId}`});
         return AXIOS.get('Film/get-image', {params: {id: filmId}}).then(({data, headers}) =>{
-        	let img = new Blob([JSON.stringify(data)]).toString();
-            
+            let img = new Blob([JSON.stringify(data)]).toString();
+            console.log(img);
         	context.commit('addImageFilm', {id: filmId ,image: `data:image/jpeg;base64,${img.substring(1)}`});
         });
     },

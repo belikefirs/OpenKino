@@ -14,7 +14,7 @@
                 label="Поиск по фильму"
                 no-data-text="Нет данных"
                 solo
-                v-model="modalSearch"
+                v-model="modelSearch"
                 @input="search"
                 >
                     <template v-slot:item="props">
@@ -39,7 +39,7 @@
                         :items="$store.state.Films.filmList"
                         label="Фильм"
                         no-data-text="Нет данных"
-                        v-model="modalFilm"
+                        v-model="modelFilm"
                         >
                             <template v-slot:item="props">
                                 {{props.item.name}}
@@ -48,16 +48,26 @@
                                 {{props.item.name}}
                             </template>
                         </v-select>
-                        <v-combobox
-                        v-model="editingItem.hall"
+
+                        <v-select
+                        :items="$store.state.Hall.hallList"
                         label="Зал"
-                        clearable
-                        />
+                        no-data-text="Нет данных"
+                        v-model="modelHall"
+                        >
+                            <template v-slot:item="props">
+                                {{props.item.number}}
+                            </template>
+                            <template v-slot:selection="props">
+                                {{props.item.number}}
+                            </template>
+                        </v-select>
+
                         <v-text-field
-                        v-model="editingItem.beginTime"
                         label="Время начала"
                         mask="time"
                         clearable
+                        v-model="editingItem.start"
                         />
                     </v-card-text>
                     <v-card-actions>
@@ -79,7 +89,7 @@
                         <template v-slot:items="props">
                             <td>{{ searchFilmName }}</td>
                             <td>{{ props.item.hall.id }}</td>
-                            <td>{{ props.item.start + ' мин' }}</td>
+                            <td>{{ props.item.start.substring(props.item.start.length - 5) }}</td>
                             <td class="text-xs-right">
                                 <v-btn flat icon color="amber" @click="changeItem(props.item, props.index)">
                                     <v-icon>edit</v-icon>
@@ -132,14 +142,14 @@ export default {
                 },
             ],
             defaultItem: {
-                filmId: '',
-                hall: '',
-                beginTime: '',
+                start: null,
+                hall:{ id: null },
+                film:{ id: null },
             },
             editingItem:{
-                filmId: '',
-                hall: '',
-                beginTime: '',
+                start: null,
+                hall:{ id: null },
+                film:{ id: null },
             },
         }
     },
@@ -148,37 +158,14 @@ export default {
             if (this.searchId) this.$store.dispatch('Sessions/GET_SESSION_LIST', { id: this.searchId });
         },
         confirmDialog(){
-            if (this.editingItem.name == null || this.editingItem.namelength == 0 ||
-                this.editingItem.lenght == null || this.editingItem.lenght.length == 0 || 
-                this.editingItem.rating == null || this.editingItem.rating.length == 0 || 
-                this.editingItem.genre == null || this.editingItem.genre.length == 0 ||
-                this.editingItem.typeFilm == null || this.editingItem.typeFilm.length == 0 ||
-                this.editingItem.limitAge == null || this.editingItem.limitAge.length == 0) return;
+            if (!this.editingItem.start || this.editingItem.start.length < 4 ||
+                !this.editingItem.hall.id || this.editingItem.hall.id.length == 0 ||
+                !this.editingItem.film.id || this.editingItem.film.id.length == 0) return;
             setTimeout(() => {
             if (this.editingIndex == -1) {
-                if (this.editingItem.typeFilm.name == null) 
-                    this.editingItem.typeFilm = {name: this.editingItem.typeFilm};
-                if (this.editingItem.genre.name == null) 
-                    this.editingItem.genre = {name: this.editingItem.genre};
-                if (this.editingItem.limitAge.age == null) 
-                    this.editingItem.limitAge = {age: this.editingItem.limitAge};
-                if (this.editingItem.rating.rating == null) 
-                    this.editingItem.rating = {rating: this.editingItem.rating};
-                this.$store.dispatch('Films/ADD_FILM', this.editingItem).then(() => {
-                    this.$store.dispatch('Films/GET_FILMS_WITH_FILTERS', {name: this.searchBox});
-                });
+                this.$store.dispatch('Sessions/ADD_SESSION', this.editingItem).then(() => this.search());
             } else {
-                if (this.editingItem.typeFilm.name != this.$store.state.filmList[this.editingIndex].typeFilm.name) 
-                    this.editingItem.typeFilm = {name: this.editingItem.typeFilm};
-                if (this.editingItem.genre.name != this.$store.state.filmList[this.editingIndex].genre.name) 
-                    this.editingItem.genre = {name: this.editingItem.genre};
-                if (this.editingItem.limitAge.age != this.$store.state.filmList[this.editingIndex].limitAge.age) 
-                    this.editingItem.limitAge = {age: this.editingItem.limitAge};
-                if (this.editingItem.rating.rating != this.$store.state.filmList[this.editingIndex].rating.rating) 
-                    this.editingItem.rating = {rating: this.editingItem.rating};
-                this.$store.dispatch('Films/CHANGE_FILM', this.editingItem).then(() => {
-                    this.$store.dispatch('Films/GET_FILMS_WITH_FILTERS', {name: this.searchBox});
-                });
+                //code to change here
             }
             this.dialog = false;
             }, 100);
@@ -196,9 +183,7 @@ export default {
             this.dialog = true;
         },
         deleteItem(item){
-            this.$store.dispatch('Films/DELETE_FILM', {id: item.id}).then(() => {
-                this.$store.dispatch('Films/GET_FILMS_WITH_FILTERS', {name: this.searchBox});
-            });
+            this.$store.dispatch('Sessions/DELETE_SESSION', {id: item.id}).then(() => this.search());
         },
     },
     computed: {
@@ -209,22 +194,29 @@ export default {
             return this.editingIndex >= 0 ? 'Изменить' : 'Добавить';
         },
 
-        modalFilm: {
-            get() {},
-            set: function (obj) {
-                this.editingItem.filmId = obj.id;
-            },
-        },
-        modalSearch: {
+        modelSearch: {
             get() {},
             set: function(obj){
                 this.searchId = obj.id;
                 this.searchFilmName = obj.name;
             }
-        }
+        },
+        modelFilm: {
+            get() {},
+            set: function (obj) {
+                this.editingItem.film.id = obj.id;
+            },
+        },
+        modelHall: {
+            get() {},
+            set: function(obj) {
+                this.editingItem.hall.id = obj.id;
+            }
+        },
     },
     created(){
         this.$store.dispatch('Films/GET_FILMS_WITH_FILTERS', {name: ''});
+        this.$store.dispatch('Hall/GET_ALL_HALLS');
     },
 }
 </script>

@@ -12,17 +12,20 @@ const mutations = {
 
 const actions = {
     ADD_SESSION (context, data) {
+		data.start = "2019-08-25T" + data.start.substring(0, 2) + ":" + data.start.substring(2);
+		// console.log(data.start);
         return AXIOS.post("/session/save", data);
     },
     GET_SESSION_LIST (context, data) {
         return AXIOS.get('/session/' + data.id).then(({data}) => {
+
             context.commit('setSessionList', data);
         });
     },
     // CHANGE_SESSION(data){
     //     return AXIOS.put('/session', data);
     // },
-    DELETE_SESSION(){
+    DELETE_SESSION(context, data){
         return AXIOS.delete('/session/delete/' + data.id);
     },
 }

@@ -1,13 +1,17 @@
 import AXIOS from 'axios';
 
 const state = {
-    halldata: null
+    halldata: null,
+    hallList: [],
 }
 
 const mutations = {
     showHall(state, data) {
         state.halldata = data
     },
+    setAllHalls(state, data){
+        state.hallList = data;
+    }
 }
 
 const actions = {
@@ -20,7 +24,12 @@ const actions = {
         return AXIOS.get('/hall/saveall').then(({data}) => {
             return data;
         })
-    }
+    },
+    GET_ALL_HALLS(context){
+        return AXIOS.get('/hall/all').then(({data}) => {
+            context.commit('setAllHalls', data);
+        });
+    },
 }
 
 export default {
