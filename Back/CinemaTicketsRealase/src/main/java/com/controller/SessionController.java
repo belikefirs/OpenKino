@@ -27,6 +27,10 @@ public class SessionController {
     public List<Session> getSessionAll(@PathVariable  Long id_film){
         return sessionService.findSessionByFilm(id_film);
     }
+    @GetMapping("/all")
+    public List<Session> SessionAll(){
+        return sessionService.findSessionAll();
+    }
 
     @PutMapping("/update")
     public Long updateKinoUser(@RequestBody Session session) {
@@ -38,8 +42,4 @@ public class SessionController {
         sessionService.deleteSession(id);
     }
 
-    @PostMapping("/add")
-    public  void addDate(){
-        sessionService.addSession();
-    }
 }

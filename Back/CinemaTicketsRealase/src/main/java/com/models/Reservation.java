@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -17,21 +19,21 @@ public class Reservation {
     @Column (name="ID")
     private Long id;
     @Column (name = "START")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
-    private Date start;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss")
+    private LocalDateTime start;
     @Column (name = "END")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
-    private Date end;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss")
+    private LocalDateTime end;
     @Column(name = "STATUS")
     private RStatus status;
+    @Column(name = "PRICE")
+    private BigDecimal price;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_KINOUSER")
     private KinoUser kinoUser;
-
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_DISCOUNT")
     private Discount discount;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "reservation")
     private List<Place> places;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
@@ -48,20 +50,36 @@ public class Reservation {
         this.id = id;
     }
 
-    public Date getStart() {
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public LocalDateTime getStart() {
         return start;
     }
 
-    public void setStart(Date start) {
+    public void setStart(LocalDateTime start) {
         this.start = start;
     }
 
-    public Date getEnd() {
+    public LocalDateTime getEnd() {
         return end;
     }
 
-    public void setEnd(Date end) {
+    public void setEnd(LocalDateTime end) {
         this.end = end;
+    }
+
+    public RStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(RStatus status) {
+        this.status = status;
     }
 
     public KinoUser getKinoUser() {

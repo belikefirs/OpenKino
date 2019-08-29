@@ -206,10 +206,10 @@ export default {
     },
     methods: {
         search(){
-            this.$store.dispatch('GET_FILMS_WITH_FILTERS', {name: this.searchBox});
+            this.$store.dispatch('Films/GET_FILMS_WITH_FILTERS', {name: this.searchBox});
         },
         confirmDialog(){
-            if (this.editingItem.name == null || this.editingItem.namelength == 0 ||
+            if (this.editingItem.name == null || this.editingItem.name.length == 0 ||
                 this.editingItem.lenght == null || this.editingItem.lenght.length == 0 || 
                 this.editingItem.rating == null || this.editingItem.rating.length == 0 || 
                 this.editingItem.genre == null || this.editingItem.genre.length == 0 ||
@@ -284,7 +284,7 @@ export default {
                     break;
                 }
             }
-            //if (filteFlag) this.createImage(files[0]);
+            if (filteFlag) this.createImage(files[0]);
             this.editingImage = files[0];
             this.tempFileName = files[0].name;
         },
@@ -313,7 +313,7 @@ export default {
     },
     created(){
         this.$store.dispatch('Films/GET_FILMS_WITH_FILTERS', {name: this.searchBox});
-        this.$store.dispatch('Films/GET_RATING_FILM_LIST');
+        // this.$store.dispatch('Films/GET_RATING_FILM_LIST');
         this.$store.dispatch('Films/GET_TYPE_FILM_LIST');
         this.$store.dispatch('Films/GET_GENRE_FILM_LIST');
         this.$store.dispatch('Films/GET_LIMIT_AGE_FILM_LIST');

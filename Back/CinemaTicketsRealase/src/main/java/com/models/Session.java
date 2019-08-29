@@ -24,9 +24,14 @@ public class Session {
 @JsonDeserialize(using = SecurityConfig.LocalDateTimeDeserializer.class)
     @Column(name = "START")
     private LocalDateTime start;
+
+    @JsonSerialize(using = SecurityConfig.LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = SecurityConfig.LocalDateTimeDeserializer.class)
+    @Column(name = "END")
+    private LocalDateTime end;
 //@JsonIgnore
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToOne(fetch = FetchType.EAGER)
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne
     @JoinColumn(name = "ID_FILM")
     private Film film;
 
@@ -82,5 +87,13 @@ public class Session {
 
     public void setHall(Hall hall) {
         this.hall = hall;
+    }
+
+    public LocalDateTime getEnd() {
+        return end;
+    }
+
+    public void setEnd(LocalDateTime end) {
+        this.end = end;
     }
 }

@@ -11,8 +11,9 @@ private ReservationDao reservationDao;
 public AutoDeleteReservation(ReservationDao reservationDao){
     this.reservationDao = reservationDao;
 }
-//@Async
-public void autoDelete(Long id) {
-    reservationDao.deleteById(id);
+//@Scheduled(fixedDelay = 3000)
+public void autoDelete() {
+
+    //reservationDao.deleteById(id);
 }
 }
