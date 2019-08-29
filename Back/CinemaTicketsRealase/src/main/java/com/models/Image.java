@@ -17,11 +17,10 @@ public class Image {
     @JsonView(Views.Internal.class)
     private String type;
 
-    @JsonView(Views.Internal.class)
+    //@JsonView(Views.Internal.class)
     @Column(name = "Image_array", columnDefinition = "BINARY(5000000)")
     private byte[] image_array;
 
-    @JsonView(Views.Internal.class)
     @OneToOne
     private Film film;
 
