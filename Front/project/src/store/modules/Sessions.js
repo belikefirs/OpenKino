@@ -17,14 +17,17 @@ const actions = {
         return AXIOS.post("/session/save", data);
     },
     GET_SESSION_LIST (context, data) {
-        return AXIOS.get('/session/' + data.id).then(({data}) => {
-
+		let id = data.id;
+        return AXIOS.get('/session/' + id).then(({data}) => {
+			data.forEach(item => {
+				item.film = {id: id};
+			});
             context.commit('setSessionList', data);
         });
     },
-    // CHANGE_SESSION(data){
-    //     return AXIOS.put('/session', data);
-    // },
+    CHANGE_SESSION(context, data){
+        return AXIOS.put('/session/update', data);
+    },
     DELETE_SESSION(context, data){
         return AXIOS.delete('/session/delete/' + data.id);
     },

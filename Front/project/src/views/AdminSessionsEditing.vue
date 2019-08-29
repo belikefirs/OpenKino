@@ -165,7 +165,7 @@ export default {
             if (this.editingIndex == -1) {
                 this.$store.dispatch('Sessions/ADD_SESSION', this.editingItem).then(() => this.search());
             } else {
-                //code to change here
+                this.$store.dispatch('Sessions/CHANGE_SESSION', this.editingItem).then(() => this.search());
             }
             this.dialog = false;
             }, 100);
@@ -179,6 +179,8 @@ export default {
         },
         changeItem(item, index){
             Object.assign(this.editingItem, item);
+            console.log(item);
+            // this.editingItem.id = item
             this.editingIndex = index;
             this.dialog = true;
         },
