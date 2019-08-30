@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.view.Views;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -25,10 +26,12 @@ public class Buy {
 
     @JsonView(Views.Internal.class)
     @Column(name = "PRICE")
-    private Double price;
+    private BigDecimal price;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "buy")
-    private List<Reservation> reservations;
+    @JsonView(Views.Internal.class)
+    @OneToOne
+    @JoinColumn(name = "ID_RESERVATION")
+    private Reservation reservation;
 
     @JsonView(Views.Internal.class)
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
@@ -53,20 +56,20 @@ public class Buy {
         this.localDateTime = localDateTime;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public List<Reservation> getReservations() {
-        return reservations;
+    public Reservation getReservation() {
+        return reservation;
     }
 
-    public void setReservations(List<Reservation> reservations) {
-        this.reservations = reservations;
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
     }
 
     public Card getCard() {

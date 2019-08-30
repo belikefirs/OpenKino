@@ -36,8 +36,7 @@ public class Reservation {
     private Discount discount;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "reservation")
     private List<Place> places;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "ID_BUY")
+    @OneToOne
     private Buy buy;
 
     public Reservation(){}

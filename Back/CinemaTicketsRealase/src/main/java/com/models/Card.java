@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.view.Views;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -17,7 +18,7 @@ public class Card {
     private Long id;
     @JsonView(Views.Internal.class)
     @Column (name = "BALANCE")
-    private Double balance;
+    private BigDecimal balance;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_CARD")
@@ -37,12 +38,20 @@ public class Card {
         this.id = id;
     }
 
-    public Double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(Double balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
+    }
+
+    public List<Buy> getBuys() {
+        return buys;
+    }
+
+    public void setBuys(List<Buy> buys) {
+        this.buys = buys;
     }
 
     public KinoUser getKinoUser() {
