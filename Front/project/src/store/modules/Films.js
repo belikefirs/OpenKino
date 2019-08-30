@@ -77,9 +77,9 @@ const actions = {
         });
     },
     GET_IMAGE(context, filmId){
-        return AXIOS.get('Film/get-image', {params: {id: filmId} }).then(({data}) =>{
-            let img = new Blob([JSON.stringify(data)]).toString();
-        	context.commit('addImageFilm', {id: filmId ,image: `data:image/jpeg;base64,${img.substring(1)}`});
+        return AXIOS.get('Film/get-image', { params: {id: filmId}, responseType: 'arraybuffer' }).then((response) => {
+            let img = new Buffer(response.data, 'binary').toString('base64');
+            context.commit('addImageFilm', {id: filmId, image: 'data:image/jpg;base64,' + img});
         });
     },
 }

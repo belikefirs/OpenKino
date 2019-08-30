@@ -92,7 +92,7 @@
                     no-data-text="Нет данных">
                         <template v-slot:items="props">
                             <td>
-                                <v-img v-if="props.item.image" max-height="76" :src="props.item.image"/>
+                                <v-img v-if="props.item.image" max-height="76" contain :src="props.item.image"/>
                             </td>
                             <td>{{ props.item.name }}</td>
                             <td>{{ props.item.lenght / 60 + ' мин'}}</td>
@@ -313,7 +313,7 @@ export default {
     },
     created(){
         this.$store.dispatch('Films/GET_FILMS_WITH_FILTERS', {name: this.searchBox});
-        this.$store.dispatch('Films/GET_RATING_FILM_LIST');
+        // this.$store.dispatch('Films/GET_RATING_FILM_LIST');
         this.$store.dispatch('Films/GET_TYPE_FILM_LIST');
         this.$store.dispatch('Films/GET_GENRE_FILM_LIST');
         this.$store.dispatch('Films/GET_LIMIT_AGE_FILM_LIST');
