@@ -6,6 +6,7 @@ import com.models.KinoUser;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -38,9 +39,9 @@ public class CardServicelmpl implements CardService{
     }
 
     @Override
-    public Long addBalance(Long id, Double money) {
+    public Long addBalance(Long id, BigDecimal money) {
         Card card = cardDao.findById(id).get();
-        card.setBalance(card.getBalance()+money);
+        card.setBalance(card.getBalance().add(money));
         return cardDao.save(card).getId();
     }
 }
