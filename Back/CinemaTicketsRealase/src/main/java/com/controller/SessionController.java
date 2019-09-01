@@ -19,8 +19,9 @@ public class SessionController {
     private SessionService sessionService;
 
     @PostMapping("/save")
-    public Long saveSession(@RequestBody Session session) {
-        return sessionService.saveSession(session);
+    public Long saveSession(@RequestBody Session session, @RequestParam(name = "idFilm")Long idFilm,
+                            @RequestParam(name = "idHall") Long idHall) {
+        return sessionService.saveAllSession(session, idFilm, idHall);
     }
 
     @GetMapping("/{id_film}")

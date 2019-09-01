@@ -28,6 +28,7 @@ public class Place {
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_RESERVATION")
     // @JsonManagedReference
+    @JsonBackReference
     private Reservation reservation;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_BUY")
