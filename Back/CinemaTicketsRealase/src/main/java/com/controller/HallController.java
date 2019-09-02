@@ -75,4 +75,9 @@ public class HallController {
     public List<Place> getPlaces(@PathVariable Long id){
         return hallService.getPlaces(id);
     }
+    @PutMapping("/changeStatus")
+    public Long changeStatusReservation(@PathVariable(name = "id")Long id,
+                                        @PathVariable(name = "status")Integer status){
+        return hallService.changeStatus(id, status);
+    }
 }
