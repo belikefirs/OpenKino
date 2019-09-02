@@ -54,11 +54,6 @@ export default new Router({
 			component: () => import('./views/FilmsInformation.vue')
 		},
 		{
-			path: '/films/FilmsInformation:Pid',
-			name: 'FilmsInformation',
-			component: () => import('./views/FilmsInformation.vue')
-		},
-		{
 			path: '/usercabinet',
 			name: 'usercabinet',
 			component: () => import('./views/AppUserCabinet.vue')
@@ -67,7 +62,16 @@ export default new Router({
 			path: '/usercabinet/yourcards',
 			name: 'yourcards',
 			component: () => import('./views/UserCabinetCarts.vue')
-		}
-		
+		},
+		{
+			path: '/usercabinet/generatehalls',
+			name: 'generatehalls',
+			component: () => import('./views/UserCabinetGenerate.vue')
+		},
+		{
+			path: '/films/FilmSession:Sid',
+			name: 'FilmSession',
+			component: () => import('./views/FilmSession.vue')
+		},
 	],
 });

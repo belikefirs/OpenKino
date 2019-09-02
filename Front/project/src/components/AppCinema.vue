@@ -1,5 +1,5 @@
 <template>
-    <!-- <div class="wrapper-cinema" v-if="hall">
+    <div class="wrapper-cinema" v-if="hall">
         <div class="place free"></div>
         <div class="screen"></div>
         <div class="places" :style="{width : hall.width * 40 + 160 + 'px', height : hall.height * 40 + 'px'}">
@@ -8,27 +8,21 @@
             :style="{top : item.y * 40 - 40 + 'px', left : 70 + item.x  * 40 + 'px'}"
             v-on:click="selectItem(item)"
             >
-                <p>{{item.number}}</p>
+                <p>{{item.id}}</p>
             </div>
             <div class="place empty" v-for="n in hall.height" :key="'left' + n" style="left: 25px"
             :style="{top : (n - 1) * 40 + 'px'}"
             >
                 <p>{{n}}</p>
             </div>
-            <div class="place empty" v-for="n in hall.height" :key="'right' + n" style="right: 25px"
+            <!-- <div class="place empty" v-for="n in hall.height" :key="'right' + n" style="right: 25px"
             :style="{top : (n - 1) * 40 + 'px'}"
             >
                 <p>{{n}}</p>
-            </div>
+            </div> -->
         </div>
         <AppButton style="margin: 0 0 0 30px" class="toBookButton" v-on:click.native="setNotFree()">Забронировать билет</AppButton>
-    </div> -->
-    <div>
-        <p>ffdsdf</p>
-        <div v-for="item in listHalls" :key="item.id">
-            <label>{{item.number}}</label>
-        </div>
-    </div>  
+    </div>
 </template>
 
 <script>
@@ -45,7 +39,7 @@ export default {
     },
     methods:{
         getHall() {
-            this.$store.dispatch('Hall/GET_HALL')
+            this.$store.dispatch('Hall/GET_PLACES')
         },
         selectItem(item){
             if (!item.reservation) {
@@ -61,17 +55,11 @@ export default {
             this.selectedItems = [];
         }
     },
-    mounted () {
-    // this.$store.dispatch('Hall/GET_HALL')
-    // .then(hall => this.hall = hall)
-    // .catch()
-    this.$store.dispatch('Hall/GET_LIST_HALLS')
-    },
-    computed:{
-        listHalls() {
-            return this.$store.getters.HALLS;
-        }
-    },
+        mounted () {
+            this.$store.dispatch('Hall/GET_PLACES')
+            .then(hall => this.hall = hall)
+            .catch()
+        },
 
 }
 </script>
