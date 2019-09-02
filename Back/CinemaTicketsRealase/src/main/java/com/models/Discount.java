@@ -1,6 +1,7 @@
 package com.models;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -22,6 +23,7 @@ public class Discount {
     private BigDecimal percent;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "discount")
+    @JsonIgnore
     private List<Reservation> reservations;
 
 

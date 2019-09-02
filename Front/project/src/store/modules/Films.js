@@ -33,8 +33,8 @@ const actions = {
     ADD_FILM (context, filmData) {
         return AXIOS.post("/Film/save", filmData.film).then(({data}) => {
             const formData = new FormData();
-            formData.append('file', filmData.image);
             formData.append('id', data);
+            formData.append('file', filmData.image);
             AXIOS.post('Film/load', formData);
         });
     },
@@ -77,10 +77,9 @@ const actions = {
         });
     },
     GET_IMAGE(context, filmId){
-        return AXIOS.get('Film/get-image', {params: {id: filmId}}).then(({data, headers}) =>{
-            let img = new Blob([JSON.stringify(data)]).toString();
-            console.log(img);
-        	context.commit('addImageFilm', {id: filmId ,image: `data:image/jpeg;base64,${img.substring(1)}`});
+        return AXIOS.get('Film/get-image', { params: {id: filmId}, responseType: 'arraybuffer' }).then((response) => {
+            let img = new Buffer(response.data, 'binary').toString('base64');
+            context.commit('addImageFilm', {id: filmId, image: 'data:image/jpg;base64,' + img});
         });
     },
 }

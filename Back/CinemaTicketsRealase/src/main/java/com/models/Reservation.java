@@ -3,6 +3,7 @@ package com.models;
 import com.enums.RStatus;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -35,9 +36,9 @@ public class Reservation {
     @JoinColumn(name = "ID_DISCOUNT")
     private Discount discount;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "reservation")
+    @JsonManagedReference
     private List<Place> places;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "ID_BUY")
+    @OneToOne
     private Buy buy;
 
     public Reservation(){}

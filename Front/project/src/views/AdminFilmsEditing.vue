@@ -92,7 +92,7 @@
                     no-data-text="Нет данных">
                         <template v-slot:items="props">
                             <td>
-                                <v-img v-if="props.item.image" max-height="76" :src="props.item.image"/>
+                                <v-img v-if="props.item.image" max-height="76" contain :src="props.item.image"/>
                             </td>
                             <td>{{ props.item.name }}</td>
                             <td>{{ props.item.lenght / 60 + ' мин'}}</td>
@@ -284,7 +284,7 @@ export default {
                     break;
                 }
             }
-            if (filteFlag) this.createImage(files[0]);
+            // if (filteFlag) this.createImage(files[0]);
             this.editingImage = files[0];
             this.tempFileName = files[0].name;
         },

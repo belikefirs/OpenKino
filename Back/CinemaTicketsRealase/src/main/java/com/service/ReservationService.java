@@ -12,9 +12,12 @@ public interface ReservationService {
     Long saveDiscount(Discount discount);
     void deleteDiscountById(Long id);
     Long updateReservation(Reservation reservation, Long id, int Status);
-    Long saveAllReservation(Long idKinU, Long idDis, Long idSess,
-                            List<Place> placesIsReservation);
+    Long saveAllReservation(Long idKinU, Long idDis, Long idSess,Long idHall,
+                            List<Place> placeIsReservation);
     List<Place>  getPlacesWithReservationId(Long id);
     List<Reservation> getFindByIdKinoUser(Long idKinU);
     Long changeStatusReservation(Long id, Integer status);
+    List<Place> getPlacesForReservation(List<Place> places, Long idPlace);
+    List<Place> deletePlaceFromList(List<Place> places, Long idPlace);
+    public Reservation getFindById(Long id);
 }

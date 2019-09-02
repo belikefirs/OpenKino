@@ -17,12 +17,12 @@ public class BuyController {
     }
 
     @PostMapping("")
-    Long saveBuy(@RequestBody Buy buy){
+    Long saveBuy(@RequestBody Buy buy) {
         return buyService.saveBuy(buy);
     }
 
     @PostMapping("/save")
-    Long saveBuyByKinoUser(@RequestBody Buy buy, @AuthenticationPrincipal KinoUser kinoUser){
+    Long saveBuyByKinoUser(@RequestBody Buy buy, @AuthenticationPrincipal KinoUser kinoUser) {
         return buyService.saveBuyByKinoUser(buy,kinoUser);
     }
 

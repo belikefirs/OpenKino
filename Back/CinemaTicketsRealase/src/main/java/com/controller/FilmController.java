@@ -6,6 +6,7 @@ import com.service.FilmService;
 import com.service.FilmServiceImpl;
 import com.view.Views;
 import org.apache.commons.io.IOUtils;
+import org.hibernate.Hibernate;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -126,7 +127,7 @@ public class FilmController {
         return filmService.getAllImage();
     }
 
-    @PutMapping("image/update")
+    @PutMapping("/image/update")
     public Long updateFilm(@RequestBody Image image){
         return filmService.updateImage(image);
     }
@@ -148,5 +149,6 @@ public class FilmController {
     public void addRating(@PathVariable Long id_film, @PathVariable Long id_user, @PathVariable Double rating){
         filmService.addRating(id_film, id_user, rating);
     }
+
 
 }

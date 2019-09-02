@@ -10,11 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Transactional
 public class ReservationServiceImpl implements ReservationService {
+    private List<Place> placesIsReservation;
     private ReservationDao reservationDao;
     private PlaceDao placeDao;
     private KinoUserDao kinoUserDao;
@@ -35,6 +37,7 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationDao.save(reservation).getId();
 
     }
+
 
     @Override
     public void deleteReservationById(Long id) {
@@ -71,8 +74,9 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public Long saveAllReservation( Long idKinU, Long idDis, Long idSess,
+    public Long saveAllReservation( Long idKinU, Long idDis, Long idSess, Long idHall,
                                    List<Place> placeIsReservation) {
+
         KinoUser kinoUser = kinoUserDao.findById(idKinU).get();
         Discount discount = discountDao.findById(idDis).get();
         Reservation reservation = new Reservation();
@@ -86,8 +90,8 @@ public class ReservationServiceImpl implements ReservationService {
         for(int i = 0; i < placeIsReservation.size(); i++){
             placeIsReservation.get(i).setStatus(Pstatus.IsReservation);
             placeIsReservation.get(i).setReservation(r);
+            placeDao.save(placeIsReservation.get(i));
             resultPrice.add(placeIsReservation.get(i).getPrice());
-
         }
         if(r.getDiscount()!= null){
             resultPrice.multiply(r.getDiscount().getPercent());
@@ -95,7 +99,6 @@ public class ReservationServiceImpl implements ReservationService {
         r.setPlaces(placeIsReservation);
         r.setPrice(resultPrice);
         return reservationDao.save(r).getId();
-
     }
 
     @Override
@@ -109,6 +112,12 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    public Reservation getFindById(Long id) {
+        Reservation reservation = reservationDao.findById(id).get();
+        reservation.getPlaces().size();
+        return reservation;
+    }
+    @Override
     public Long changeStatusReservation(Long id, Integer status) {
         Reservation reservation = reservationDao.findById(id).get();
         if(status == 0){
@@ -119,5 +128,17 @@ public class ReservationServiceImpl implements ReservationService {
             reservation.setStatus(RStatus.isBuy);
         }
         return reservationDao.save(reservation).getId() ;
+    }
+
+    @Override
+    public List<Place> getPlacesForReservation(List<Place> places, Long idPlace) {
+        places.add(placeDao.findById(idPlace).get());
+        return places;
+    }
+
+    @Override
+    public List<Place> deletePlaceFromList(List<Place> places, Long idPlace) {
+        places.remove(placeDao.findById(idPlace).get());
+        return places;
     }
 }
