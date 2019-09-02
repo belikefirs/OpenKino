@@ -1,5 +1,6 @@
 package com.service;
 
+import com.components.SpecialReservation;
 import com.dao.*;
 import com.enums.Pstatus;
 import com.enums.RStatus;
@@ -74,19 +75,21 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public Long saveAllReservation( Long idKinU, Long idDis, Long idSess, Long idHall,
-                                   List<Place> placeIsReservation) {
-
-        KinoUser kinoUser = kinoUserDao.findById(idKinU).get();
-        Discount discount = discountDao.findById(idDis).get();
+    public Long saveAllReservation(SpecialReservation Sreservation) {
+        KinoUser kinoUser = kinoUserDao.findById(Sreservation.getIdKinU()).get();
+        Discount discount = discountDao.findById(Sreservation.getIdDis()).get();
         Reservation reservation = new Reservation();
         reservation.setStart(LocalDateTime.now(ZoneId.of("UTC+4")));
-        reservation.setEnd(sessionDao.getBeginSession(idSess).minusHours(1));
+        reservation.setEnd(sessionDao.getBeginSession(Sreservation.getIdSess()).minusHours(1));
         reservation.setKinoUser(kinoUser);
         reservation.setDiscount(discount);
         BigDecimal resultPrice = new BigDecimal("0");
         Long id = reservationDao.save(reservation).getId();
         Reservation r = reservationDao.findById(id).get();
+        List<Place> placeIsReservation = new ArrayList<Place>();
+        for(int i = 0; i < Sreservation.getPlaces().size(); i++){
+            placeIsReservation.add(placeDao.findById(Sreservation.getPlaces().get(i)).get());
+        }
         for(int i = 0; i < placeIsReservation.size(); i++){
             placeIsReservation.get(i).setStatus(Pstatus.IsReservation);
             placeIsReservation.get(i).setReservation(r);

@@ -163,6 +163,26 @@ public class HallServiceImpl implements HallService {
 
     @Override
     @Transactional
+    public Long changeStatus(Long id, int status) {
+        Place place = placeDao.findById(id).get();
+        if(status == 1){
+            place.setStatus(Pstatus.IsFree);
+        }
+        if(status == 2){
+            place.setStatus(Pstatus.IsBuy);
+        }
+        if(status == 3){
+            place.setStatus(Pstatus.IsReservation);
+        }
+        if(status == 0){
+            place.setStatus(Pstatus.IsBroken);
+        }
+        placeDao.save(place);
+        return place.getId();
+    }
+
+    @Override
+    @Transactional
     public Long updatePlace(Long id, BigDecimal price, Integer status) {
         Place place = placeDao.findById(id).get();
         place.setPrice(price);

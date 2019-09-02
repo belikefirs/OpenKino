@@ -17,6 +17,7 @@ public interface HallService {
      Hall findHallbyId(Long id);
     Hall findHallbyNumber(Integer number);
      Long updateHall(Hall hall);
+     Long changeStatus(Long id, int status);
      void deleteHall(Long id);
     Integer getSize(Long id);
     Long savePlace(Place place, Long id);
@@ -27,5 +28,6 @@ public interface HallService {
     Place getPlace(Long idHall, Long idPlaces);
     List<Place> getPlacesNotReservation(Long id);
      List<Place> getPlacesReservation(Long id);
+
 List<Hall>  getAllHall();
 }

@@ -44,12 +44,12 @@ public class Film {
     @JoinColumn(name = "ID_GENRE")
     private Genre genre;
 
-
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "film")
-    private List<Session> sessions = new ArrayList();
+   private List<Session> sessions = new ArrayList();
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "film")
+   @OneToMany(fetch = FetchType.LAZY, mappedBy = "film")
     private List<RatingFilmByUser> ratingFilmByUsers;
 
     @JsonView(Views.Internal.class)

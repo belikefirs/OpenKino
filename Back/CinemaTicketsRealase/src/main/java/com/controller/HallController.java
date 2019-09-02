@@ -50,9 +50,6 @@ public class HallController {
     public void deletePlace(@PathVariable Long id){
         hallService.deletePlace(id);
     }
-    public Hall getHall(@PathVariable Long id){
-        return hallService.findHallbyId(id);
-    }
     @GetMapping("/get_place_from_hall")
     public Place get(@RequestParam(name = "idHall") Long id,
                      @RequestParam(name = "idPlace") Long number){
@@ -71,8 +68,26 @@ public class HallController {
     public List<Hall> getAllHall(){
         return hallService.getAllHall();
     }
+    @GetMapping("/get/{id}")
+    public Hall getHall(@PathVariable Long id){
+        return hallService.findHallbyId(id);
+    }
     @GetMapping("/getPlaces/{id}")
     public List<Place> getPlaces(@PathVariable Long id){
         return hallService.getPlaces(id);
+    }
+    @PutMapping("/changeStatus")
+    public Long changeStatusReservation(@RequestParam(name = "id")Long id,
+                                        @RequestParam(name = "status")Integer status){
+        return hallService.changeStatus(id, status);
+    }
+
+    @GetMapping("/placeNotReser/{id}")
+    public List<Place> getPlacesNotReser(@PathVariable Long id){
+        return hallService.getPlacesNotReservation(id);
+    }
+    @GetMapping("/placeReser/{id}")
+    public List<Place> getPlacesReser(@PathVariable Long id){
+        return hallService.getPlacesReservation(id);
     }
 }
