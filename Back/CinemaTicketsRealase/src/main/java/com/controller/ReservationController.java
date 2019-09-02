@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.components.SpecialReservation;
 import com.models.Discount;
 import com.models.Place;
 import com.models.Reservation;
@@ -39,15 +40,8 @@ public class ReservationController {
     }
     @PostMapping("/saveall")
     public Long saveall(
-                        @RequestParam(name = "idKinU")Long idKinU,
-                        @RequestParam(name = "idDis")Long idDis,
-                        @RequestParam(name = "idSess")Long idSess,
-                        @RequestParam(name = "idHall")Long idHall   /*,
-                     @RequestBody Long[] places)*/ ){
-        List<Long> placesIsReservation = new ArrayList<Long>();
-      //  Collections.addAll(placesIsReservation, places);
-        return reservationService.saveAllReservation(idKinU, idDis, idSess, idHall,
-                places);
+            @RequestBody SpecialReservation Sreservation){
+        return reservationService.saveAllReservation(Sreservation);
     }
     @PutMapping("/update/{id}")
     public Long update(@RequestParam(name = "id") Long id, @RequestParam(name = "status") int status, @RequestBody Reservation reservation){
