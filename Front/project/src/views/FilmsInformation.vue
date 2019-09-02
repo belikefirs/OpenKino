@@ -14,11 +14,6 @@ export default {
     components: {
         WrapperCent, Cinema, Modal
     },
-    methods: {
-        get_halls() {
-            this.$store.dispatch('Hall/CREATE_HALLS')
-        }
-    }
 }
 </script>
 

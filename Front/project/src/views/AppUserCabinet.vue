@@ -21,7 +21,7 @@
             <div class="item5 item"><p>Покупки</p></div>
             <div class="item6 item"><p>VIP</p></div>
             <div class="item7 item"><p>Добавить карту</p></div>
-            <div class="item8 item"><p>Помощь</p></div>
+            <router-link to="/usercabinet/generatehalls" class="item8 item"><div><p>Помощь</p></div></router-link>
             <div class="item9 item"><p>Выход</p></div>
         </div>
     </WrapperCent>

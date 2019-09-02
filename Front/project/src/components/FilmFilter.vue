@@ -2,36 +2,25 @@
     <WrapperCent>
         <div class="wrapper-film">
             <div class="wrapper-filmFilter">
-                <input type="text" class="search" placeholder="Поиск по жанру, названию" v-model="searchFilm">
-                <input type="text" class="date" placeholder="Дата выхода">
-                    <div class="stars">
-                        <p>Рейтинг</p>
-                        <div id="reviewStars-input">
-                            <input id="star-4" type="radio" name="reviewStars"/>
-                            <label title="Отлично" for="star-4"></label>
-
-                            <input id="star-3" type="radio" name="reviewStars"/>
-                            <label title="Хорошо" for="star-3"></label>
-
-                            <input id="star-2" type="radio" name="reviewStars"/>
-                            <label title="Нормально" for="star-2"></label>
-
-                            <input id="star-1" type="radio" name="reviewStars"/>
-                            <label title="Плохо" for="star-1"></label>
-
-                            <input id="star-0" type="radio" name="reviewStars"/>
-                            <label title="Очень плохо" for="star-0"></label>
-                        </div>
-                    </div>
+                <input type="text" class="search" placeholder="Поиск по жанру, названию" v-model="searchFilm" @click="search()">
             </div>
-            <SliderItem v-for="item in filterFilms" :key="item.filmTitle "
-                :image="item.image"
-                :path="item.path"
-                :filmTitle="item.filmTitle"
-                :filmStyle="item.filmStyle"
-                :filmType="item.filmType"
-                :limitAge="item.limitAge"
-                @click="showInformation(item.filmId), flagCinema = true"
+            <!-- <ul>
+                <li class="listFilms" v-for="(item, index) in listFilms" :key="index.id">
+                    <div>{{item.name}}</div>
+                    <div>{{item.lenght / 60 + 'мин'}}</div>
+                    <div>{{item.typeFilm.name}}</div>
+                    <div>{{item.genre.name}}</div>
+                    <div class="sessions" v-for="(session, index2) in listSession" :key="index2.id" v-if="">
+                        <span @click="showInformation(session.id), flagCinema = true">{{session.start}}</span>
+                    </div>
+                </li>
+            </ul> -->
+
+            <SliderItem v-for="(item, index) in listFilms" :key="index.id"
+                :filmTitle="item.name"
+                :filmStyle="item.typeFilm.name"
+                :filmType="item.genre.name"
+                @click="showInformation(item.id)"
             >
             </SliderItem>
         </div>
@@ -48,16 +37,24 @@ export default {
     },
     data() {
         return {
+            listFilms: null,
             searchFilm: '',
-            flagCinema: false
+            flagCinema: false,
         }
     },
     methods: {
-      showInformation(fId) {
-        this.$router.push({name: 'FilmsInformation', params:{Pid:fId}});
+      showInformation(sId) {
+        this.$router.push({name: 'FilmSession', params:{Sid:sId}});
+      },
+      search() {
+        this.$store.dispatch('Films/GET_FILMS_WITH_FILTERS', {name: this.searchFilm})
       }
     },
-    computed: {
+    mounted() {
+      this.$store.dispatch('PageFilms/GET_FILMS_SEARCH')
+      .then(listFilms => this.listFilms = listFilms)
+    },
+    /*computed: {
         filterFilms: function() {
             var searchwords = this.searchFilm && this.searchFilm.toLowerCase();
             var searcharray =  this.$store.state.films;
@@ -72,7 +69,7 @@ export default {
             )
             return searcharray;
         }
-    }
+    }*/
 }
 </script>
 
@@ -90,7 +87,7 @@ export default {
 }
 .search {
     background: #fff;
-    width: 590px;
+    width: 1440px;
     height: 40px;
     color: #f36021;
     font-family: Roboto;
@@ -118,73 +115,15 @@ export default {
 .date::-webkit-input-placeholder { 
     color: #f36021;
     }
-.stars {
-    display: flex;
-    flex-direction: row;
-} .stars p {
-    color: #f36021;
-    margin: 7px 22px 10px 10px;
+.listFilms {
+    height: 150px;
+    width: 100%;
+    list-style-type: none;
 }
-#reviewStars-input input:checked ~ label, #reviewStars-input label, #reviewStars-input label:hover, #reviewStars-input label:hover ~ label {
-  background: url('http://positivecrash.com/wp-content/uploads/ico-s71a7fdede6.png') no-repeat;
-}
-
-#reviewStars-input {
-  overflow: hidden;
-  *zoom: 1;
-  position: relative;
-  float: left;
+.listFilms div {
+    margin-right: 30px;
+    font-size: 24px;
+    display: inline;
 }
 
-#reviewStars-input input {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-  opacity: 0;
-  width: 43px;
-  height: 40px;
-  position: absolute;
-  top: 0;
-  z-index: 0;
-}
-
-#reviewStars-input input:checked ~ label {
-  background-position: 0 -40px;
-  height: 40px;
-  width: 43px;
-}
-
-#reviewStars-input label {
-  background-position: 0 0;
-  height: 40px;
-  width: 43px;
-  float: right;
-  cursor: pointer;
-  margin-right: 10px;
-  position: relative;
-  z-index: 1;
-}
-
-#reviewStars-input label:hover, #reviewStars-input label:hover ~ label {
-  background-position: 0 -40px;
-  height: 40px;
-  width: 43px;
-}
-
-#reviewStars-input #star-0 {
-  left: 0px;
-}
-#reviewStars-input #star-1 {
-  left: 53px;
-}
-#reviewStars-input #star-2 {
-  left: 106px;
-}
-#reviewStars-input #star-3 {
-  left: 159px;
-}
-#reviewStars-input #star-4 {
-  left: 212px;
-}
-#reviewStars-input #star-5 {
-  left: 265px;
-}
 </style>
