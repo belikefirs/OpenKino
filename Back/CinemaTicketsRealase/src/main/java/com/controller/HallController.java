@@ -80,4 +80,12 @@ public class HallController {
                                         @PathVariable(name = "status")Integer status){
         return hallService.changeStatus(id, status);
     }
+    @GetMapping("/placeNotReser/{id}")
+    public List<Place> getPlacesNotReser(@PathVariable Long id){
+        return hallService.getPlacesNotReservation(id);
+    }
+    @GetMapping("/placeReser/{id}")
+    public List<Place> getPlacesReser(@PathVariable Long id){
+        return hallService.getPlacesReservation(id);
+    }
 }
