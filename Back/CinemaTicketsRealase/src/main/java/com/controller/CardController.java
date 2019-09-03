@@ -5,8 +5,6 @@ import com.models.Card;
 import com.models.KinoUser;
 import com.service.CardService;
 import com.view.Views;
-import org.h2.message.DbException;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +22,7 @@ public class CardController {
 
 
     @PostMapping("")
-    Long saveCard(@RequestBody Card card, @AuthenticationPrincipal KinoUser kinoUser){
+    public Long saveCard(@RequestBody Card card, @AuthenticationPrincipal KinoUser kinoUser){
         return cardService.saveCard(card,kinoUser);
     }
 
@@ -40,8 +38,9 @@ public class CardController {
 
 
     @PutMapping("/add/{id},{money}")
-    Long addMoneyInCard(@PathVariable Long id,@PathVariable BigDecimal money){
+    public Long addMoneyInCard(@PathVariable Long id,@PathVariable BigDecimal money){
         return cardService.addBalance(id,money);
     }
+
 
 }
