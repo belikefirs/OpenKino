@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class SpecialReservation {
     Long idKinU;
-    Long idDis;
     Long idSess;
     Long idHall;
     ArrayList<Long> places;
@@ -15,14 +14,6 @@ public class SpecialReservation {
 
     public void setIdKinU(Long idKinU) {
         this.idKinU = idKinU;
-    }
-
-    public Long getIdDis() {
-        return idDis;
-    }
-
-    public void setIdDis(Long idDis) {
-        this.idDis = idDis;
     }
 
     public Long getIdSess() {

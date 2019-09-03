@@ -32,9 +32,6 @@ public class Reservation {
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_KINOUSER")
     private KinoUser kinoUser;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "ID_DISCOUNT")
-    private Discount discount;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "reservation")
     @JsonManagedReference
     private List<Place> places;
@@ -89,14 +86,6 @@ public class Reservation {
 
     public void setKinoUser(KinoUser kinoUser) {
         this.kinoUser = kinoUser;
-    }
-
-    public Discount getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Discount discount) {
-        this.discount = discount;
     }
 
     public List<Place> getPlaces() {

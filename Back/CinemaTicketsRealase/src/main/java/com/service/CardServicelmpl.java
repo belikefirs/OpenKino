@@ -1,4 +1,6 @@
 package com.service;
+import com.components.Desiariseble;
+import com.components.SpecialCard;
 import com.dao.CardDao;
 import com.dao.KinoUserDao;
 import com.models.Card;
@@ -6,6 +8,7 @@ import com.models.KinoUser;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -26,6 +29,25 @@ public class CardServicelmpl implements CardService{
         card.setKinoUser(kinoUser1);
         cardDao.save(card);
         return card.getId();
+    }
+
+    @Override
+    public Long saveall(SpecialCard Scard) {
+        Desiariseble desirialiseble = new Desiariseble(Scard);
+        try {
+            desirialiseble.whenSerializingAndDeserializing_ThenObjectIsTheSame();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        SpecialCard specialCard = desirialiseble.getSpecialCard1();
+        Card card = new Card();
+        KinoUser kinoUser = kinoUserDao.findById(specialCard.getIdKinUser()).get();
+        card.setBalance(specialCard.getBalance());
+        card.setKinoUser(kinoUser);
+        card.setBuys(specialCard.getBuyList());
+        return cardDao.save(card).getId();
     }
 
     @Override

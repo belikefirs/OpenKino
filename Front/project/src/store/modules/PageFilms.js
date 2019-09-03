@@ -24,7 +24,9 @@ const actions = {
         })
     },
     RESERVATION (context, data) {
-        return AXIOS.put('')
+        return AXIOS.put(`/hall/changeStatus?id=${46}&status=${3}`).then(({data}) => {
+            return data;
+        })
     }
 }
 
@@ -180,4 +182,48 @@ export default {
 //     ], 
 //     "buy": null 
 //     }
+
+// JSON Places
+// { 
+//     "id": 33, 
+//     "number": 3, 
+//     "width": 15, 
+//     "height": 10, 
+//     "places": [ 
+//     { 
+//     "id": 34, 
+//     "y": 1, 
+//     "x": 1, 
+//     "price": 300.00, 
+//     "status": "IsFree", 
+//     "reservation": null, 
+//     "buy": null 
+//     }, 
+//     { 
+//     "id": 35, 
+//     "y": 1, 
+//     "x": 2, 
+//     "price": 300.00, 
+//     "status": "IsFree", 
+//     "reservation": null, 
+//     "buy": null 
+//     }, 
+//     { 
+//     "id": 36, 
+//     "y": 1, 
+//     "x": 3, 
+//     "price": 300.00, 
+//     "status": "IsFree", 
+//     "reservation": null, 
+//     "buy": null 
+//     }, 
+//     { 
+//     "id": 37, 
+//     "y": 1, 
+//     "x": 4, 
+//     "price": 300.00, 
+//     "status": "IsFree", 
+//     "reservation": null, 
+//     "buy": null 
+//     },
     
