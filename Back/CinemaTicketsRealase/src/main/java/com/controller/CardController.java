@@ -5,9 +5,11 @@ import com.models.Card;
 import com.models.KinoUser;
 import com.service.CardService;
 import com.view.Views;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class CardController {
     }
 
 
-    @PostMapping("")
+    @PostMapping(value = "", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public Long saveCard(@RequestBody Card card, @AuthenticationPrincipal KinoUser kinoUser){
         return cardService.saveCard(card,kinoUser);
     }
