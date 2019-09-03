@@ -6,7 +6,7 @@
                 <label for="card" class="textLabel">Введите номер карты: </label>
                 <input type="text" class="usercab Card" placeholder="Номер карты" v-model="dataBalance.id">
                 <label for="balance" class="textLabel">Баланс карты: </label>
-                <input type="text" class="usercab Balance" placeholder="Сумма пополнения" v-model="dataBalance.balance">
+                <input type="text" class="usercab Balance" placeholder="Сумма пополнения" v-model.number="dataBalance.balance">
                 <button class="buttonSave" style="margin-bottom: 150px">Создать</button>
                 <hr class="VerticalLine">
             </form>

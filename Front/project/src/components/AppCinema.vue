@@ -3,23 +3,18 @@
         <div class="place free"></div>
         <div class="screen"></div>
         <div class="places" :style="{width : hall.width * 40 + 160 + 'px', height : hall.height * 40 + 'px'}">
-            <div class="place" v-for="item in hall.places" :key="item.id"
+            <div class="place" v-for="(item, index) in hall.places" :key="item.id"
             :class="{free : item.reservation, notFree : !item.reservation, selected : selectedItems.includes(item)}"
             :style="{top : item.y * 40 - 40 + 'px', left : 70 + item.x  * 40 + 'px'}"
             v-on:click="selectItem(item)"
             >
-                <p>{{item.id}}</p>
+                <p>{{index + 1}}</p>
             </div>
             <div class="place empty" v-for="n in hall.height" :key="'left' + n" style="left: 25px"
             :style="{top : (n - 1) * 40 + 'px'}"
             >
                 <p>{{n}}</p>
             </div>
-            <!-- <div class="place empty" v-for="n in hall.height" :key="'right' + n" style="right: 25px"
-            :style="{top : (n - 1) * 40 + 'px'}"
-            >
-                <p>{{n}}</p>
-            </div> -->
         </div>
         <AppButton style="margin: 0 0 0 30px" class="toBookButton" v-on:click.native="setNotFree()">Забронировать билет</AppButton>
     </div>
@@ -38,8 +33,8 @@ export default {
         }
     },
     methods:{
-        getHall() {
-            this.$store.dispatch('Hall/GET_PLACES')
+        setReservation() {
+            
         },
         selectItem(item){
             if (!item.reservation) {
@@ -58,7 +53,9 @@ export default {
         mounted () {
             this.$store.dispatch('Hall/GET_PLACES')
             .then(hall => this.hall = hall)
-            .catch()
+            .then(() => {
+                this.$store.dispatch('PageFilms/RESERVATION')
+            })
         },
 
 }

@@ -5,13 +5,16 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.view.Views;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
 
 @Entity
 @Table(name = "CARD")
-public class Card {
+public class Card implements Serializable {
+    private static final long serialVersionUID = 1L;
+
 
     @JsonView(Views.Internal.class)
     @Id
