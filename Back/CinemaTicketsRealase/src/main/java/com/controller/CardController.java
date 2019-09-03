@@ -23,7 +23,7 @@ public class CardController {
     }
 
 
-    @PostMapping(value = "", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping("")
     public Long saveCard(@RequestBody Card card, @AuthenticationPrincipal KinoUser kinoUser){
         return cardService.saveCard(card,kinoUser);
     }
