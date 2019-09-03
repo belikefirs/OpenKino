@@ -2,6 +2,7 @@ package com.models;
 
 import com.configuration.SecurityConfig;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -30,8 +31,9 @@ public class Session {
     @Column(name = "END")
     private LocalDateTime end;
 //@JsonIgnore
-  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+ // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "ID_FILM")
     private Film film;
 
@@ -40,6 +42,7 @@ public class Session {
     @ManyToOne
     @JoinColumn(name = "ID_HALL")
     //// @JsonManagedReference
+    @JsonBackReference
     private Hall hall;
 
     public Session(){}

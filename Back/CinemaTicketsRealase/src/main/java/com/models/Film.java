@@ -1,10 +1,7 @@
 package com.models;
 
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import com.view.Views;
 
 import javax.persistence.*;
@@ -44,8 +41,9 @@ public class Film {
     @JoinColumn(name = "ID_GENRE")
     private Genre genre;
 
-    @JsonIgnore
+   // @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "film")
+    @JsonManagedReference
    private List<Session> sessions = new ArrayList();
 
 
