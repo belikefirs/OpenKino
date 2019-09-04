@@ -22,11 +22,6 @@ public class Discount {
     @Column(name = "PERCENT")
     private BigDecimal percent;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "discount")
-    @JsonIgnore
-    private List<Reservation> reservations;
-
-
     public Discount (){}
 
     public Long getId() {
@@ -53,11 +48,4 @@ public class Discount {
         this.percent = percent;
     }
 
-    public List<Reservation> getReservations() {
-        return reservations;
-    }
-
-    public void setReservations(List<Reservation> reservations) {
-        this.reservations = reservations;
-    }
 }

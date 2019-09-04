@@ -59,7 +59,6 @@ public class ReservationServiceImpl implements ReservationService {
     public Long updateReservation(Reservation reservation, Long id, int Status) {
         Reservation reservation1 = reservationDao.findById(id).get();
         reservation1.setKinoUser(reservation.getKinoUser());
-        reservation1.setDiscount(reservation.getDiscount());
         reservation1.setBuy(reservation.getBuy());
         reservation1.setStart(reservation.getStart());
         reservation1.setEnd(reservation.getEnd());
@@ -77,12 +76,10 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public Long saveAllReservation(SpecialReservation Sreservation) {
         KinoUser kinoUser = kinoUserDao.findById(Sreservation.getIdKinU()).get();
-        Discount discount = discountDao.findById(Sreservation.getIdDis()).get();
         Reservation reservation = new Reservation();
         reservation.setStart(LocalDateTime.now(ZoneId.of("UTC+4")));
         reservation.setEnd(sessionDao.getBeginSession(Sreservation.getIdSess()).minusHours(1));
         reservation.setKinoUser(kinoUser);
-        reservation.setDiscount(discount);
         BigDecimal resultPrice = new BigDecimal("0");
         Long id = reservationDao.save(reservation).getId();
         Reservation r = reservationDao.findById(id).get();
@@ -95,9 +92,6 @@ public class ReservationServiceImpl implements ReservationService {
             placeIsReservation.get(i).setReservation(r);
             placeDao.save(placeIsReservation.get(i));
             resultPrice.add(placeIsReservation.get(i).getPrice());
-        }
-        if(r.getDiscount()!= null){
-            resultPrice.multiply(r.getDiscount().getPercent());
         }
         r.setPlaces(placeIsReservation);
         r.setPrice(resultPrice);

@@ -26,12 +26,9 @@ public class Hall {
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "hall")
     @JsonManagedReference
     private List<Place> places = new ArrayList<>();
-
-
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "hall")
     @JsonIgnore
     private List<Session> sessions = new ArrayList<>();
-
     public Hall(){}
 
 

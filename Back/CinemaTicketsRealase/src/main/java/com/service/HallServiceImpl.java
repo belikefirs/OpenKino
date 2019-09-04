@@ -220,7 +220,8 @@ public class HallServiceImpl implements HallService {
     public List<Hall> getAllHall() {
         List<Hall> halls = hallDao.findAll();
         for (Hall e: halls) {
-            Hibernate.initialize(e.getPlaces());
+           e.getPlaces().size();
+           e.getSessions().size();
         }
         return halls;
     }
