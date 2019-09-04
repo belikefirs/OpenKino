@@ -20,6 +20,7 @@
                 :filmTitle="item.name"
                 :filmStyle="item.typeFilm.name"
                 :filmType="item.genre.name"
+                :limitAge="item.limitAge.age"
                 @click="showInformation(item.id)"
             >
             </SliderItem>
@@ -30,7 +31,6 @@
 <script>
 import WrapperCent from '@/components/AppWrapperCenter.vue'
 import SliderItem from '@/components/AppFilmCard.vue'
-
 export default {
     components: {
         WrapperCent, SliderItem
@@ -40,6 +40,7 @@ export default {
             listFilms: null,
             searchFilm: '',
             flagCinema: false,
+            idFilm: null
         }
     },
     methods: {
@@ -54,6 +55,7 @@ export default {
       this.$store.dispatch('PageFilms/GET_FILMS_SEARCH')
       .then(listFilms => this.listFilms = listFilms)
     },
+
     /*computed: {
         filterFilms: function() {
             var searchwords = this.searchFilm && this.searchFilm.toLowerCase();

@@ -20,27 +20,27 @@ export default {
 	props:{
 		image: {
 			type: String,
-			required: true
+			required: false
 		},
 		path: {
 			type: String,
-			required: true
+			required: false
 		},
 		filmTitle: {
 			type: String,
-			required: true
+			required: false
 		},
 		filmStyle: {
 			type: String,
-			required: true
+			required: false
 		},
 		filmType: {
 			type: String,
-			required: true
+			required: false
 		},
 		limitAge: {
 			type: Number,
-			required: true,
+			required: false,
 			default: 0
 		},
 		

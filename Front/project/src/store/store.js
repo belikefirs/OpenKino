@@ -31,6 +31,7 @@ export default new Vuex.Store({
 	},
 	state: {
 		Title: 'Вход',
+		
 		flagEnter: false,
 		// Test
 		films: [
