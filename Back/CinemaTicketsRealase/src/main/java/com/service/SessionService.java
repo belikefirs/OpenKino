@@ -1,5 +1,6 @@
 package com.service;
 
+import com.components.SaveAllSession;
 import com.models.Film;
 import com.models.Session;
 
@@ -17,4 +18,6 @@ public interface SessionService {
     Long saveAllSession(Session session, Long idFilm, Long idHall);
 void addSession();
     List<Session> findSessionAll();
+    Long saveSessionVer2_0(SaveAllSession saveAllSession);
+    Session getSession(Long id);
 }

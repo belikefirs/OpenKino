@@ -43,11 +43,12 @@ public class Film {
 
    // @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "film")
-    @JsonManagedReference
+    @JsonIgnore
    private List<Session> sessions = new ArrayList();
 
 
    @OneToMany(fetch = FetchType.LAZY, mappedBy = "film")
+   @JsonIgnore
     private List<RatingFilmByUser> ratingFilmByUsers;
 
     @JsonView(Views.Internal.class)

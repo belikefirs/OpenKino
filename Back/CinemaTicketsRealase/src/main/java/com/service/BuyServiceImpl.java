@@ -23,7 +23,7 @@ public class BuyServiceImpl implements BuyService {
     private BuyDao buyDao;
     private CardDao cardDao;
     private KinoUserDao kinoUserDao;
-  //  final static Logger logger = Logger.getLogger(BuyServiceImpl.class);
+    final static Logger logger = Logger.getLogger(BuyServiceImpl.class);
 
     public BuyServiceImpl(BuyDao buyDao, CardDao cardDao, KinoUserDao kinoUserDao) {
         this.buyDao = buyDao;
@@ -39,7 +39,7 @@ public class BuyServiceImpl implements BuyService {
             Card card = buy.getCard();
             card.setBalance(result);
             buy.setCard(card);
-    //        logger.info("Save Card ,by card :" + card.getId());
+            logger.info("Save Card ,by card :" + card.getId());
             return buyDao.save(buy).getId();
         }
         else return null;

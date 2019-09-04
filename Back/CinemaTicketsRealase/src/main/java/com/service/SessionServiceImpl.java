@@ -1,5 +1,6 @@
 package com.service;
 
+import com.components.SaveAllSession;
 import com.dao.FilmDao;
 import com.dao.HallDao;
 import com.dao.SessionDao;
@@ -80,8 +81,28 @@ public class SessionServiceImpl implements SessionService {
     public List<Session> findSessionAll() {
         List<Session> sessions = sessionDao.findAll();
         for (Session e: sessions) {
-            Hibernate.initialize(e.getHall().getPlaces());
+            e.getHall().getSessions().size();
+            e.getHall().getPlaces().size();
+            e.getFilm().getId();
         }
         return sessions;
+    }
+
+    @Override
+    public Long saveSessionVer2_0(SaveAllSession saveAllSession) {
+        Film film = filmDao.findById(saveAllSession.getIdFilm()).get();
+        Hall hall = hallDao.findById(saveAllSession.getIdHall()).get();
+        Session session = saveAllSession.getSession();
+        session.setFilm(film);
+        session.setHall(hall);
+        return sessionDao.save(session).getId();
+    }
+
+    @Override
+    public Session getSession(Long id) {
+        Session session = sessionDao.findById(id).get();
+        session.getHall().getPlaces().size();
+        session.getFilm().getId();
+        return session;
     }
 }
