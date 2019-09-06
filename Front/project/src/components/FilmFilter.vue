@@ -45,7 +45,7 @@ export default {
     },
     methods: {
       showInformation(sId) {
-        this.$router.push({name: 'FilmSession', params:{Sid:sId}});
+        this.$router.push({name: 'FilmsInformation', params:{Sid:sId}});
       },
       search() {
         this.$store.dispatch('Films/GET_FILMS_WITH_FILTERS', {name: this.searchFilm})

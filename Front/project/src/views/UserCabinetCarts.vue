@@ -12,8 +12,8 @@
             </form>
             </div>
             <div class="block">
-                <form>
-                    <p class="textLabel">Список карта</p>
+                <form @submit.prevent="">
+                    <p class="textLabel">Список ваших карт:</p>
                     <ul>
                         <li v-for="(item, index) in listCards" :key="index.id" class="cardsUser">
                            Номер карты: {{item.id}} <br>
@@ -123,9 +123,9 @@ export default {
 .cardsUser {
     list-style: none;
     font-size: 24px;
-    color: black;
+    color: white;
     margin: 0 20px 5px -30px;
-    background: rgb(196, 76, 170, 0.5);
+    background: rgba(22, 22, 22, 0.7);
     padding: 10px 20px 10px 15px;
     border-radius: 5px;
     font-weight: 400;
@@ -135,13 +135,14 @@ export default {
     width: 120px;
     height: 30px;
     border: 1px solid black;
-    background: rgba(238, 238, 241, 0.514);
+    background: rgba(255, 255, 255, 0.9);
     font-size: 20px;
     font-weight: 400;
     margin-right: 10px;
     position: absolute;
     right: 0;
     margin-bottom: 5px;
+    color: black;
 }
 .btnDelete:hover{
     font-weight: 500;

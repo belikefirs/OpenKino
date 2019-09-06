@@ -31,7 +31,7 @@ const actions = {
         });
     },
     GET_PLACES (context, data) {
-        return AXIOS.get('/hall/get/33').then(({data}) => {
+        return AXIOS.get('/hall/get/1').then(({data}) => {
             return data;
         })
     },
