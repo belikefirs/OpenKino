@@ -204,14 +204,6 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public Long updateImage(Image image) {
-        Image image1 = imageDao.findById(image.getId()).get();
-        image1.setImage_array(image.getImage_array());
-        image1.setType(image.getType());
-        return imageDao.save(image1).getId();
-    }
-
-    @Override
     public Long addRating(Long id_film, Long id_user, Double rating) {
         Film film = filmDao.findById(id_film).get();
         Rating ratingOld = film.getRating();
@@ -233,13 +225,11 @@ public class FilmServiceImpl implements FilmService {
         ratingFilmByUser.setKinoUser(kinoUserDao.findById(id_user).get());
         ratingFilmByUser.setRatingByUser(rating);
 
-//
-
-        if (rating > 10) {
-            rating = 10.0;
-        } else if (rating < 0) {
-            rating = 0.0;
-        }
+//        if (rating > 10) {
+//            rating = 10.0;
+//        } else if (rating < 0) {
+//            rating = 0.0;
+//        }
         ratingOld.setSumRating(ratingOld.getSumRating() + rating);
         ratingOld.setColUser(ratingOld.getColUser()+1);
         ratingOld.setRating( ((double)Math.round(ratingOld.getSumRating()/ratingOld.getColUser() * 10) / 10));

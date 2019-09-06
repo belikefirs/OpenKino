@@ -4,12 +4,19 @@ import com.components.SaveAllSession;
 import com.configuration.SecurityConfig;
 
 import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.view.Views;
 
 import javax.persistence.*;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,29 +26,28 @@ public class Session {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-@JsonSerialize(using = SecurityConfig.LocalDateTimeSerializer.class)
-@JsonDeserialize(using = SecurityConfig.LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @Column(name = "START")
-@JsonView(SaveAllSession.View.Save.class)
+    @JsonView(SaveAllSession.View.Save.class)
     private LocalDateTime start;
 
-    @JsonSerialize(using = SecurityConfig.LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = SecurityConfig.LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonView(SaveAllSession.View.Save.class)
     @Column(name = "END")
     private LocalDateTime end;
-//@JsonIgnore
- // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+
     @ManyToOne
     @JoinColumn(name = "ID_FILM")
     private Film film;
-    //@JsonIgnore
 
     @ManyToOne
     @JoinColumn(name = "ID_HALL")
     private Hall hall;
 
-    public Session(){}
+    public Session() {
+    }
 
     public Long getId() {
         return id;
@@ -51,27 +57,31 @@ public class Session {
         this.id = id;
     }
 
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
+    public class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
+        @Override
+        public void serialize(LocalDateTime arg0, JsonGenerator arg1, SerializerProvider arg2) throws IOException {
+            arg1.writeString(arg0.toString());
+        }
+    }
 
-
+    public class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
+        @Override
+        public LocalDateTime deserialize(JsonParser arg0, DeserializationContext arg1) throws IOException {
+            return LocalDateTime.parse(arg0.getText());
+        }
+    }
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     public LocalDateTime getStart() {
         return start;
     }
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 
     public void setStart(LocalDateTime start) {
         this.start = start;
     }
 
-    //@JsonIgnore
     public Film getFilm() {
         return film;
     }

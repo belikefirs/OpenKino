@@ -102,13 +102,13 @@ public class FilmController {
 
 
     @JsonView(Views.Internal.class)
-    @PostMapping("/load")
+    @PostMapping("/image/upload")
     public Long loadImage(@RequestParam("file") MultipartFile file, @RequestParam("id") Long id) throws IOException {
         return filmService.loadImage(file, id);
     }
 
     @JsonView(Views.Internal.class)
-    @GetMapping("/get-image")
+    @GetMapping("/image/get")
     public ResponseEntity<byte[]> getImageWithMediaType(@RequestParam("id") Long id) throws IOException {
         Film film = filmService.findFilmById(id);
         Image image1 = filmService.getImage( film.getImage().getId());
@@ -116,24 +116,19 @@ public class FilmController {
         return ResponseEntity.ok().header("content-type", image1.getType()).body(IOUtils.toByteArray(targetStream))  ;
     }
 
-    @DeleteMapping("/image/{id}")
+    @DeleteMapping("/image/delete/{id}")
     public void deleteImageById(@PathVariable Long id){
         filmService.deleteImage(id);
     }
 
     @JsonView(Views.Internal.class)
-    @GetMapping("/image/all")
+    @GetMapping("/image/getAll")
     public List<Image> getAllImage(){
         return filmService.getAllImage();
     }
 
-    @PutMapping("/image/update")
-    public Long updateFilm(@RequestBody Image image){
-        return filmService.updateImage(image);
-    }
-
     @JsonView(Views.Internal.class)
-    @PostMapping("/load/update")
+    @PostMapping("/image/update")
     public Long loadImageUpd(@RequestParam("file") MultipartFile file, @RequestParam("id") Long id) throws IOException {
         return filmService.loadImageUpdate(file, id);
     }

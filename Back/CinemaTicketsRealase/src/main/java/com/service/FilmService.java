@@ -40,6 +40,5 @@ public interface FilmService {
     void deleteImage(Long id);
     List<Image> getAllImage();
 
-    Long updateImage(Image image);
     Long addRating(Long id_film, Long id_user, Double rating);
 }

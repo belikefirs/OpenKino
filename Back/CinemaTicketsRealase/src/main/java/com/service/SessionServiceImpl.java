@@ -81,11 +81,15 @@ public class SessionServiceImpl implements SessionService {
     public List<Session> findSessionAll() {
         List<Session> sessions = sessionDao.findAll();
         for (Session e: sessions) {
-            e.getHall().getSessions().size();
-            e.getHall().getPlaces().size();
-            e.getFilm().getId();
+            initLazySessionFields(e);
         }
         return sessions;
+    }
+
+    public void initLazySessionFields(Session e) {
+        e.getHall().getSessions().size();
+        e.getHall().getPlaces().size();
+        e.getFilm().getId();
     }
 
     @Override
