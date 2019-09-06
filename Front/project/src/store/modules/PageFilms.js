@@ -24,7 +24,7 @@ const actions = {
         })
     },
     RESERVATION (context, data) {
-        return AXIOS.put(`/hall/changeStatus?id=${46}&status=${3}`).then(({data}) => {
+        return AXIOS.put(`/hall/changeStatus?id=${data.id}&status=${3}`).then(({data}) => {
             return data;
         })
     }
