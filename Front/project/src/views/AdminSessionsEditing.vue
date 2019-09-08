@@ -192,8 +192,8 @@ export default {
             this.editingItem.id = item.id;
             this.editingItem.idFilm = this.searchId;
             this.editingItem.idHall = item.hall.id;
-            this.editingItem.start = item.start.substring(props.item.start.length - 5);
-            this.editingItem.end = item.end.substring(props.item.start.length - 5);
+            this.editingItem.start = item.start.substring(item.start.length - 5);
+            this.editingItem.end = item.end.substring(item.start.length - 5);
 
             console.log(item);
             // this.editingItem.id = item
@@ -220,13 +220,17 @@ export default {
             }
         },
         modelFilm: {
-            get() {},
+            get: function(){
+                return this.editingItem.idFilm;
+            },
             set: function (obj) {
                 this.editingItem.idFilm = obj.id;
             },
         },
         modelHall: {
-            get() {},
+            get: function(){
+                return this.editingItem.idHall;
+            },
             set: function(obj) {
                 this.editingItem.idHall = obj.id;
             }
