@@ -2,6 +2,8 @@ package com.service;
 
 import com.dao.*;
 import com.enums.Pstatus;
+import com.masks.HallMask;
+import com.masks.PlaceMask;
 import com.models.Buy;
 import com.models.Hall;
 import com.models.Place;
@@ -39,14 +41,58 @@ public class HallServiceImpl implements HallService {
 
     @Override
     @Transactional
-    public Long save(Integer number, Integer width, Integer height) {
+    public Long save(HallMask hallMask) {
         Hall hall = new Hall();
-        hall.setNumber(number);
-        hall.setWidth(width);
-        hall.setHeight(height);
-        return hallDao.save(hall).getId();
+        hall.setNumber(hallMask.getNumber());
+        hall.setWidth(hallMask.getWidth());
+        hall.setHeight(hallMask.getHeight());
+        Long id = hallDao.save(hall).getId();
+        List<Place> places = new ArrayList<Place>();
+        for(int i = 1; i < hallMask.getWidth(); i++){
+            for(int j = 1; j < hallMask.getHeight(); j++){
+                Place place = new Place();
+                place.setHall(hallDao.findById(id).get());
+                place.setY(i);
+                place.setX(j);
+                place.setPrice(hallMask.getPrice());
+                place.setStatus(Pstatus.IsFree);
+                placeDao.save(place);
+                places.add(place);
+            }
+        }
+        hallDao.findById(id).get().setPlaces(places);
+        return id;
     }
     @Override
+    @Transactional
+    public Long saveAll(Integer number, Integer width, Integer height, BigDecimal price) {
+        Hall hall = new Hall();
+        hall.setNumber(number);
+        hall.setWidth(number);
+        hall.setHeight(number);
+        Long id = hallDao.save(hall).getId();
+        List<Place> places = new ArrayList<Place>();
+        for(int i = 1; i < width; i++){
+            for(int j = 1; j < height; j++){
+                Place place = new Place();
+                place.setHall(hallDao.findById(id).get());
+                place.setY(i);
+                place.setX(j);
+                place.setPrice(price);
+                place.setStatus(Pstatus.IsFree);
+                placeDao.save(place);
+                places.add(place);
+            }
+        }
+        hallDao.findById(id).get().setPlaces(places);
+        return id;
+    }
+
+    @Override
+    public List<Place> getIsReservation(Long id) {
+        return placeDao.getFindbyIdReservaion(id);
+    }
+    /*@Override
     @Transactional
     public List<Place> createdPlaces(Integer width, Integer height, BigDecimal price, Long idHall){
         List<Place> places = new ArrayList<Place>();
@@ -71,7 +117,7 @@ public class HallServiceImpl implements HallService {
         Hall hall = hallDao.findById(id).get();
         hall.setPlaces(places);
         return hall;
-    }
+    }*/
 
     @Override
     public Hall saveAndCreatedListSession(Long id) {
@@ -153,12 +199,11 @@ public class HallServiceImpl implements HallService {
     }
     @Override
     @Transactional
-    public Long savePlace(Place place, Long id) {
-        //placeDao.save(place).getId();
-        Hall hall = hallDao.findById(id).get();
-        place.setHall(hall);
-        place.setStatus(Pstatus.IsFree);
-        return placeDao.save(place).getId();
+    public Long savePlace(PlaceMask placeMask) {
+        Hall hall = hallDao.findById(placeMask.getIdH()).get();
+        placeMask.getPlace().setHall(hall);
+        placeMask.getPlace().setStatus(Pstatus.IsFree);
+        return placeDao.save(placeMask.getPlace()).getId();
     }
 
     @Override

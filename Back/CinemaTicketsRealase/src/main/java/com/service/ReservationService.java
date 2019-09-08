@@ -1,7 +1,9 @@
 package com.service;
 
-import com.components.SpecialReservation;
+import com.masks.ReservationMask;
+import com.masks.ReservationMask;
 import com.models.Discount;
+import com.models.KinoUser;
 import com.models.Place;
 import com.models.Reservation;
 
@@ -13,7 +15,7 @@ public interface ReservationService {
     Long saveDiscount(Discount discount);
     void deleteDiscountById(Long id);
     Long updateReservation(Reservation reservation, Long id, int Status);
-    Long saveAllReservation(SpecialReservation Sreservation);
+    Long saveAllReservation(ReservationMask reservationMask, KinoUser kinoUser);
     List<Place>  getPlacesWithReservationId(Long id);
     List<Reservation> getFindByIdKinoUser(Long idKinU);
     Long changeStatusReservation(Long id, Integer status);

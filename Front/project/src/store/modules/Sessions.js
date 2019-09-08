@@ -13,6 +13,7 @@ const mutations = {
 const actions = {
     ADD_SESSION (context, data) {
 		data.start = "2019-08-25T" + data.start.substring(0, 2) + ":" + data.start.substring(2);
+		data.end = "2019-08-25T" + data.end.substring(0, 2) + ":" + data.end.substring(2);
 		// console.log(data.start);
         return AXIOS.post("/session/save", data);
     },

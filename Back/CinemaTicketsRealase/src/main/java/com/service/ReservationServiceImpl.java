@@ -1,6 +1,6 @@
 package com.service;
 
-import com.components.SpecialReservation;
+import com.masks.ReservationMask;
 import com.dao.*;
 import com.enums.Pstatus;
 import com.enums.RStatus;
@@ -58,9 +58,8 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public Long updateReservation(Reservation reservation, Long id, int Status) {
         Reservation reservation1 = reservationDao.findById(id).get();
-        reservation1.setKinoUser(reservation.getKinoUser());
         reservation1.setBuy(reservation.getBuy());
-        reservation1.setStart(reservation.getStart());
+        reservation1.setStart(LocalDateTime.now());
         reservation1.setEnd(reservation.getEnd());
         reservation1.setPlaces(reservation.getPlaces());
         if(Status == 0){
@@ -74,26 +73,22 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public Long saveAllReservation(SpecialReservation Sreservation) {
-        KinoUser kinoUser = kinoUserDao.findById(Sreservation.getIdKinU()).get();
+    public Long saveAllReservation(ReservationMask reservationMask, KinoUser kinoUser) {
+        KinoUser kinoUser1 = kinoUserDao.findById(kinoUser.getId()).get();
         Reservation reservation = new Reservation();
         reservation.setStart(LocalDateTime.now(ZoneId.of("UTC+4")));
-        reservation.setEnd(sessionDao.getBeginSession(Sreservation.getIdSess()).minusHours(1));
-        reservation.setKinoUser(kinoUser);
+        reservation.setEnd(sessionDao.getBeginSession(reservationMask.getIdSess()).minusHours(1));
+        reservation.setKinoUser(kinoUser1);
         BigDecimal resultPrice = new BigDecimal("0");
         Long id = reservationDao.save(reservation).getId();
         Reservation r = reservationDao.findById(id).get();
-        List<Place> placeIsReservation = new ArrayList<Place>();
-        for(int i = 0; i < Sreservation.getPlaces().size(); i++){
-            placeIsReservation.add(placeDao.findById(Sreservation.getPlaces().get(i)).get());
+        for(int i = 0; i < reservationMask.getPlaces().size(); i++){
+            reservationMask.getPlaces().get(i).setStatus(Pstatus.IsReservation);
+            reservationMask.getPlaces().get(i).setReservation(r);
+            placeDao.save(reservationMask.getPlaces().get(i));
+            resultPrice.add(reservationMask.getPlaces().get(i).getPrice());
         }
-        for(int i = 0; i < placeIsReservation.size(); i++){
-            placeIsReservation.get(i).setStatus(Pstatus.IsReservation);
-            placeIsReservation.get(i).setReservation(r);
-            placeDao.save(placeIsReservation.get(i));
-            resultPrice.add(placeIsReservation.get(i).getPrice());
-        }
-        r.setPlaces(placeIsReservation);
+        r.setPlaces(reservationMask.getPlaces());
         r.setPrice(resultPrice);
         return reservationDao.save(r).getId();
     }

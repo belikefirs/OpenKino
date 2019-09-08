@@ -1,4 +1,4 @@
-package com.components;
+package com.masks;
 
 import com.models.Buy;
 
@@ -6,12 +6,13 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class SpecialCard<Buy> implements Serializable {
+public class CardMask implements Serializable {
     private static final long serialVersionUID = 1L;
+
     BigDecimal balance;
     Long idKinUser;
     List<Buy> buyList;
-
+    public CardMask(){}
 
     public BigDecimal getBalance() {
         return balance;

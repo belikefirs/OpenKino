@@ -5,6 +5,8 @@ import com.enums.RStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.masks.PlaceMask;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -12,34 +14,34 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "PLACE")
 public class Place {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column (name="ID")
     private Long id;
     @Column(name = "Y")
+    @JsonView(PlaceMask.View.Save.class)
     private Integer y;
     @Column (name = "X")
+    @JsonView(PlaceMask.View.Save.class)
     private Integer x;
     @Column (name = "PRICE")
+    @JsonView(PlaceMask.View.Save.class)
     private BigDecimal price;
     @Column(name = "STATUS")
     private Pstatus status;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_RESERVATION")
-    // @JsonManagedReference
     @JsonBackReference
     private Reservation reservation;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_BUY")
-    // @JsonManagedReference
     private Buy buy;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_HALL")
+
     @JsonBackReference
     private Hall hall;
     public Place(){}
-
     public Long getId() {
         return id;
     }

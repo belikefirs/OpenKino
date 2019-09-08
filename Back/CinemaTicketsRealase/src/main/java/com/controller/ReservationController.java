@@ -1,16 +1,16 @@
 package com.controller;
 
-import com.components.SpecialReservation;
+import com.masks.ReservationMask;
+import com.masks.ReservationMask;
 import com.models.Discount;
+import com.models.KinoUser;
 import com.models.Place;
 import com.models.Reservation;
 import com.service.ReservationService;
-import javafx.print.Collation;
-import org.springframework.security.core.parameters.P;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -22,28 +22,21 @@ public class ReservationController {
         this.reservationService = reservationService;
         places = new ArrayList<Place>();
     }
-    @PostMapping("/save")
-    public Long save(@RequestBody Reservation reservation){
-        return reservationService.saveReservation(reservation);
-    }
+
     @PostMapping("/discount")
     public Long save(@RequestBody Discount discount){
         return reservationService.saveDiscount(discount);
-    }
-    @PostMapping("/setList/{id}")
-    List<Place> savePlaces(@PathVariable Long id){
-        return reservationService.getPlacesForReservation(places, id);
     }
     @DeleteMapping ("/deleteList/{id}")
     List<Place> deletePLace(@PathVariable Long id){
         return reservationService.deletePlaceFromList(places, id);
     }
-    @PostMapping("/saveall")
+    @PostMapping("")
     public Long saveall(
-            @RequestBody SpecialReservation Sreservation){
-        return reservationService.saveAllReservation(Sreservation);
+            @RequestBody ReservationMask reservationMask, @AuthenticationPrincipal KinoUser kinoUser){
+        return reservationService.saveAllReservation(reservationMask, kinoUser);
     }
-    @PutMapping("/update/{id}")
+    @PutMapping("update/{id}")
     public Long update(@RequestParam(name = "id") Long id, @RequestParam(name = "status") int status, @RequestBody Reservation reservation){
         return reservationService.updateReservation(reservation, id, status);
     }

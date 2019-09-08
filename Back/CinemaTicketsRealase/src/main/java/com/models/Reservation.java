@@ -4,6 +4,7 @@ import com.enums.RStatus;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -15,27 +16,36 @@ import java.util.List;
 @Table(name = "RESERVATION")
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Reservation {
+    public static class View{
+        public static class Save{}
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column (name="ID")
     private Long id;
-    @Column (name = "START")
+    @Column (name = "START", nullable = false)
+    @JsonView(Reservation.View.Save.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss")
     private LocalDateTime start;
-    @Column (name = "END")
+    @Column (name = "END", nullable = false)
+    @JsonView(Reservation.View.Save.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss")
     private LocalDateTime end;
-    @Column(name = "STATUS")
+    @Column(name = "STATUS", nullable = false)
+    @JsonView(Reservation.View.Save.class)
     private RStatus status;
-    @Column(name = "PRICE")
+    @Column(name = "PRICE", nullable = false)
+    @JsonView(Reservation.View.Save.class)
     private BigDecimal price;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JsonView(Reservation.View.Save.class)
     @JoinColumn(name = "ID_KINOUSER")
     private KinoUser kinoUser;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "reservation")
     @JsonManagedReference
     private List<Place> places;
     @OneToOne
+    @JsonView(Reservation.View.Save.class)
     private Buy buy;
 
     public Reservation(){}

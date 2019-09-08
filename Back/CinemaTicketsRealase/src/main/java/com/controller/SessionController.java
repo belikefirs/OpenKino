@@ -1,17 +1,11 @@
 package com.controller;
 
-import com.components.SaveAllSession;
+import com.masks.SessionMask;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.models.Session;
 import com.service.SessionService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.*;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -40,7 +34,7 @@ public class SessionController {
     }
 
     @PutMapping("/update")
-    public Long updateKinoUser(@RequestBody Session session) {
+    public Long updateKinoUser(@RequestBody SessionMask session) {
         return sessionService.updateSession(session);
     }
 
@@ -50,12 +44,12 @@ public class SessionController {
     }
 
     @PostMapping(value = "/saveAll")
-    public Long saveSessionVer2_0(    @JsonView(SaveAllSession.View.Save.class) @RequestBody SaveAllSession saveAllSession){
-        saveAllSession.initSession();
-        return sessionService.saveSessionVer2_0(saveAllSession);
+    public Long saveSessionVer2_0(    @JsonView(SessionMask.View.Save.class) @RequestBody SessionMask sessionMask){
+        sessionMask.initSession();
+        return sessionService.saveSessionVer2_0(sessionMask);
     }
     @GetMapping("/get/{id}")
-    public Session getSession(@PathVariable Long id){
+    public @ResponseBody Session getSession(@PathVariable Long id){
         return  sessionService.getSession(id);
     }
 }

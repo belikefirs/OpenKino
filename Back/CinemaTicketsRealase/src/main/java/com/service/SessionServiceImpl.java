@@ -1,6 +1,6 @@
 package com.service;
 
-import com.components.SaveAllSession;
+import com.masks.SessionMask;
 import com.dao.FilmDao;
 import com.dao.HallDao;
 import com.dao.SessionDao;
@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -55,11 +54,12 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public Long updateSession(Session session) {
-        Session session1 = sessionDao.findById(session.getId()).get();
-        session1.setStart(session.getStart());
-        session1.setFilm(session.getFilm());
-        session1.setHall(session.getHall());
+    public Long updateSession(SessionMask sessionMask) {
+        Session session1 = sessionDao.findById(sessionMask.getId()).get();
+        session1.setStart(sessionMask.getStart());
+        session1.setFilm(filmDao.findById(sessionMask.getIdFilm()).get());
+        session1.setHall(hallDao.findById(sessionMask.getIdHall()).get());
+        session1.setEnd(sessionMask.getEnd());
         return sessionDao.save(session1).getId();
     }
 
@@ -93,10 +93,10 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public Long saveSessionVer2_0(SaveAllSession saveAllSession) {
-        Film film = filmDao.findById(saveAllSession.getIdFilm()).get();
-        Hall hall = hallDao.findById(saveAllSession.getIdHall()).get();
-        Session session = saveAllSession.getSession();
+    public Long saveSessionVer2_0(SessionMask sessionMask) {
+        Film film = filmDao.findById(sessionMask.getIdFilm()).get();
+        Hall hall = hallDao.findById(sessionMask.getIdHall()).get();
+        Session session = sessionMask.getSession();
         session.setFilm(film);
         session.setHall(hall);
         return sessionDao.save(session).getId();
@@ -107,6 +107,7 @@ public class SessionServiceImpl implements SessionService {
         Session session = sessionDao.findById(id).get();
         session.getHall().getPlaces().size();
         session.getFilm().getId();
+
         return session;
     }
 }
