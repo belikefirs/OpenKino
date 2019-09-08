@@ -36,7 +36,7 @@ public class ReservationController {
             @RequestBody ReservationMask reservationMask, @AuthenticationPrincipal KinoUser kinoUser){
         return reservationService.saveAllReservation(reservationMask, kinoUser);
     }
-    @PutMapping("/{id}")
+    @PutMapping("update/{id}")
     public Long update(@RequestParam(name = "id") Long id, @RequestParam(name = "status") int status, @RequestBody Reservation reservation){
         return reservationService.updateReservation(reservation, id, status);
     }
