@@ -35,7 +35,7 @@ const actions = {
             const formData = new FormData();
             formData.append('id', data);
             formData.append('file', filmData.image);
-            AXIOS.post('Film/load', formData);
+            AXIOS.post('Film/image/upload', formData);
         });
     },
     CHANGE_FILM(context, data){
@@ -77,7 +77,7 @@ const actions = {
         });
     },
     GET_IMAGE(context, filmId){
-        return AXIOS.get('Film/get-image', { params: {id: filmId}, responseType: 'arraybuffer' }).then((response) => {
+        return AXIOS.get('Film/image/get', { params: {id: filmId}, responseType: 'arraybuffer' }).then((response) => {
             let img = new Buffer(response.data, 'binary').toString('base64');
             context.commit('addImageFilm', {id: filmId, image: 'data:image/jpg;base64,' + img});
         });
