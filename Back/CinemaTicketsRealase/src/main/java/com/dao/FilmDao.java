@@ -10,11 +10,11 @@ import java.util.List;
 public interface FilmDao extends JpaRepository<Film, Long> {
     @Query("select f from Film f join f.rating r where r.id = :id")
     List<Film> findAllByRatingId(@Param("id") Long id);
-    @Query(value = "SELECT * FROM FILM WHERE ID_GENRE = :id",nativeQuery = true)
+    @Query("select f from Film f join f.genre g where g.id = :id")
     List<Film> findAllByGenreId(@Param("id") Long id);
-    @Query(value = "SELECT * FROM FILM WHERE ID_LIMIT_AGE = :id",nativeQuery = true)
+    @Query("select f from Film f join f.limitAge l where l.id = :id")
     List<Film> findAllByLimiteAgeId(@Param("id") Long id);
-    @Query(value = "SELECT * FROM FILM WHERE ID_TYPEFILM = :id",nativeQuery = true)
+    @Query("select f from Film f join f.typeFilm t where t.id = :id")
     List<Film> findAllByTypeFilmId(@Param("id") Long id);
     List<Film> findAllByNameContainingIgnoreCase(String name);
 
