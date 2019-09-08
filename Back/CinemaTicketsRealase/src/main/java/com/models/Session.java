@@ -1,8 +1,9 @@
 package com.models;
 
 import com.components.SaveAllSession;
-import com.configuration.SecurityConfig;
 
+
+import com.configuration.SecurityConfig;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -26,18 +27,19 @@ public class Session {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = SecurityConfig.LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = SecurityConfig.LocalDateTimeDeserializer.class)
     @Column(name = "START")
     @JsonView(SaveAllSession.View.Save.class)
     private LocalDateTime start;
 
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = SecurityConfig.LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = SecurityConfig.LocalDateTimeDeserializer.class)
     @JsonView(SaveAllSession.View.Save.class)
     @Column(name = "END")
     private LocalDateTime end;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "ID_FILM")
     private Film film;
@@ -57,19 +59,7 @@ public class Session {
         this.id = id;
     }
 
-    public class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
-        @Override
-        public void serialize(LocalDateTime arg0, JsonGenerator arg1, SerializerProvider arg2) throws IOException {
-            arg1.writeString(arg0.toString());
-        }
-    }
 
-    public class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
-        @Override
-        public LocalDateTime deserialize(JsonParser arg0, DeserializationContext arg1) throws IOException {
-            return LocalDateTime.parse(arg0.getText());
-        }
-    }
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     public LocalDateTime getStart() {
