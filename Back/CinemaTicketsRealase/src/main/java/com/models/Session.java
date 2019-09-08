@@ -1,6 +1,6 @@
 package com.models;
 
-import com.components.SaveAllSession;
+
 
 
 import com.configuration.SecurityConfig;
@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.masks.SessionMask;
 import com.view.Views;
 
 import javax.persistence.*;
@@ -30,16 +31,16 @@ public class Session {
     @JsonSerialize(using = SecurityConfig.LocalDateTimeSerializer.class)
     @JsonDeserialize(using = SecurityConfig.LocalDateTimeDeserializer.class)
     @Column(name = "START")
-    @JsonView(SaveAllSession.View.Save.class)
+    @JsonView(SessionMask.View.Save.class)
     private LocalDateTime start;
 
     @JsonSerialize(using = SecurityConfig.LocalDateTimeSerializer.class)
     @JsonDeserialize(using = SecurityConfig.LocalDateTimeDeserializer.class)
-    @JsonView(SaveAllSession.View.Save.class)
+    @JsonView(SessionMask.View.Save.class)
     @Column(name = "END")
     private LocalDateTime end;
 
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name = "ID_FILM")
     private Film film;

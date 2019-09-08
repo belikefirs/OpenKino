@@ -4,6 +4,8 @@ package com.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
+import org.springframework.stereotype.Indexed;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,17 +14,22 @@ import java.util.List;
 @Entity
 @Table(name = "HALL")
 public class Hall {
-
+    public static class View{
+        public static class Save{}
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(name = "NUMBER")
+    @JsonView(Hall.View.Save.class)
     private Integer number;
     @Column(name = "Width")
+    @JsonView(Hall.View.Save.class)
     private Integer width;
     @Column(name = "Height")
+    @JsonView(Hall.View.Save.class)
     private Integer height;
-    @JsonIgnore
+
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "hall")
     @JsonManagedReference
     private List<Place> places = new ArrayList<>();
@@ -30,8 +37,6 @@ public class Hall {
     @JsonIgnore
     private List<Session> sessions = new ArrayList<>();
     public Hall(){}
-
-
     public Long getId() {
         return id;
     }
@@ -79,4 +84,5 @@ public class Hall {
     public void setSessions(List<Session> sessions) {
         this.sessions = sessions;
     }
+
 }

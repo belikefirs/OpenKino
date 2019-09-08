@@ -1,5 +1,7 @@
 package com.controller;
 
+import com.masks.HallMask;
+import com.masks.PlaceMask;
 import com.models.Hall;
 import com.models.Place;
 import com.service.HallService;
@@ -13,9 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/hall")
 public class HallController {
-    public final static int width = 10;
-    public final static int height = 10;
-    public final static Double PRICE = 328.0;
 
     public HallService hallService;
     public HallController(HallService hallService){
@@ -25,12 +24,10 @@ public class HallController {
     public Long save(@RequestBody Hall hall){
         return hallService.saveHall(hall);
     }
-    @PostMapping("/save_place")
-    public Long save(@RequestBody Place place, @RequestParam(name = "idHall") Long idHall,
-                     @RequestParam(name = "idReservation")Long idReservation,
-                     @RequestParam(name = "idBuy")Long idBuy){
+    @PostMapping("/place")
+    public Long save(@RequestBody PlaceMask placeMask){
 
-        return hallService.savePlace(place, idHall);
+        return hallService.savePlace(placeMask);
     }
     @PutMapping("/update")
     public Long update(@RequestBody Hall hall){
@@ -42,41 +39,37 @@ public class HallController {
                        @RequestParam(name = "status")Integer status){
         return hallService.updatePlace(id, price, status);
     }
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("{id}")
     public void delete(@PathVariable Long id){
         hallService.deleteHall(id);
     }
-    @DeleteMapping("/delete_place/{id}")
+    @DeleteMapping("/place/{id}")
     public void deletePlace(@PathVariable Long id){
         hallService.deletePlace(id);
     }
-    @GetMapping("/get_place_from_hall")
+    @GetMapping("/place")
     public Place get(@RequestParam(name = "idHall") Long id,
                      @RequestParam(name = "idPlace") Long number){
         return hallService.findPlaceByNumberFromHall(id, number);
     }
-    @PostMapping("/saveall")
-    public Hall saveAll(@RequestParam(name = "number")Integer number,
-                        @RequestParam(name = "width")Integer width,
-                        @RequestParam(name = "height")Integer height,
-                        @RequestParam(name = "price")BigDecimal price){
-        Long id = hallService.save(number,width, height);
-        return hallService.saveListPlaces(id, hallService.createdPlaces(width, height, price, id));
+    @PostMapping("")
+    public Long saveAll(@RequestBody HallMask hallMask){
+        return hallService.save(hallMask);
     }
 
     @GetMapping("/all")
     public List<Hall> getAllHall(){
         return hallService.getAllHall();
     }
-    @GetMapping("/get/{id}")
+    @GetMapping("{id}")
     public Hall getHall(@PathVariable Long id){
         return hallService.findHallbyId(id);
     }
-    @GetMapping("/getPlaces/{id}")
+    @GetMapping("/places/{id}")
     public List<Place> getPlaces(@PathVariable Long id){
         return hallService.getPlaces(id);
     }
-    @PutMapping("/changeStatus")
+    @PutMapping("/status")
     public Long changeStatusReservation(@RequestParam(name = "id")Long id,
                                         @RequestParam(name = "status")Integer status){
         return hallService.changeStatus(id, status);

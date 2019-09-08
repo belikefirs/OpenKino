@@ -1,11 +1,8 @@
 package com.service;
 
-import com.components.SaveAllSession;
-import com.models.Film;
+import com.masks.SessionMask;
 import com.models.Session;
 
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 public interface SessionService {
@@ -18,6 +15,6 @@ public interface SessionService {
     Long saveAllSession(Session session, Long idFilm, Long idHall);
 void addSession();
     List<Session> findSessionAll();
-    Long saveSessionVer2_0(SaveAllSession saveAllSession);
+    Long saveSessionVer2_0(SessionMask sessionMask);
     Session getSession(Long id);
 }

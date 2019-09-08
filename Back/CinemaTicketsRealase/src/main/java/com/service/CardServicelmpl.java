@@ -1,10 +1,11 @@
 package com.service;
 import com.components.Desiariseble;
-import com.components.SpecialCard;
+import com.masks.CardMask;
 import com.dao.CardDao;
 import com.dao.KinoUserDao;
 import com.models.Card;
 import com.models.KinoUser;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,21 +33,12 @@ public class CardServicelmpl implements CardService{
     }
 
     @Override
-    public Long saveall(SpecialCard Scard) {
-        Desiariseble desirialiseble = new Desiariseble(Scard);
-        try {
-            desirialiseble.whenSerializingAndDeserializing_ThenObjectIsTheSame();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        SpecialCard specialCard = desirialiseble.getSpecialCard1();
+    public Long saveall(CardMask cardMask) {
         Card card = new Card();
-        KinoUser kinoUser = kinoUserDao.findById(specialCard.getIdKinUser()).get();
-        card.setBalance(specialCard.getBalance());
+        KinoUser kinoUser = kinoUserDao.findById(cardMask.getIdKinUser()).get();
+        card.setBalance(cardMask.getBalance());
         card.setKinoUser(kinoUser);
-        card.setBuys(specialCard.getBuyList());
+        card.setBuys(cardMask.getBuyList());
         return cardDao.save(card).getId();
     }
 

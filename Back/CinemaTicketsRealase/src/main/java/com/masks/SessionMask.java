@@ -1,39 +1,36 @@
-package com.components;
+package com.masks;
 
 import com.configuration.SecurityConfig;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.models.Session;
 
-import javax.persistence.Column;
 import java.time.LocalDateTime;
-import java.util.Map;
 
 @JsonAutoDetect
-public class SaveAllSession {
+public class SessionMask {
 
     @JsonIgnore
     private Session session;
 
     @JsonSerialize(using = SecurityConfig.LocalDateTimeSerializer.class)
     @JsonDeserialize(using = SecurityConfig.LocalDateTimeDeserializer.class)
-    @JsonView(SaveAllSession.View.Save.class)
+    @JsonView(SessionMask.View.Save.class)
     private LocalDateTime start;
 
     @JsonSerialize(using = SecurityConfig.LocalDateTimeSerializer.class)
     @JsonDeserialize(using = SecurityConfig.LocalDateTimeDeserializer.class)
-    @JsonView(SaveAllSession.View.Save.class)
+    @JsonView(SessionMask.View.Save.class)
     private LocalDateTime end;
 
     @JsonView(View.Save.class)
     private Long idHall;
     @JsonView(View.Save.class)
     private Long idFilm;
-    public SaveAllSession(){}
+    public SessionMask(){}
     public Session getSession() {
         return session;
     }
@@ -84,4 +81,5 @@ public class SaveAllSession {
     public void setIdFilm(Long idFilm) {
         this.idFilm = idFilm;
     }
+
 }
