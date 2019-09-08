@@ -54,8 +54,8 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public Long updateSession(SessionMask sessionMask, Long id) {
-        Session session1 = sessionDao.findById(id).get();
+    public Long updateSession(SessionMask sessionMask) {
+        Session session1 = sessionDao.findById(sessionMask.getId()).get();
         session1.setStart(sessionMask.getStart());
         session1.setFilm(filmDao.findById(sessionMask.getIdFilm()).get());
         session1.setHall(hallDao.findById(sessionMask.getIdHall()).get());

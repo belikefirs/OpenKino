@@ -15,7 +15,8 @@ public class SessionMask {
 
     @JsonIgnore
     private Session session;
-
+    @JsonView(SessionMask.View.Save.class)
+    private Long id;
     @JsonSerialize(using = SecurityConfig.LocalDateTimeSerializer.class)
     @JsonDeserialize(using = SecurityConfig.LocalDateTimeDeserializer.class)
     @JsonView(SessionMask.View.Save.class)
@@ -36,7 +37,11 @@ public class SessionMask {
     }
 
     public void initSession () {
+
         this.session = new Session();
+        if(id != null){
+            this.session.setId(id);
+        }
         this.session.setEnd(this.end);
         this.session.setStart(this.start);
     }
@@ -45,6 +50,13 @@ public class SessionMask {
         public static class Save {}
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public LocalDateTime getStart() {
         return start;

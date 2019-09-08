@@ -33,9 +33,9 @@ public class SessionController {
         return sessionService.findSessionAll();
     }
 
-    @PutMapping("/update/{id}")
-    public Long updateKinoUser(@RequestBody SessionMask session, @PathVariable Long id) {
-        return sessionService.updateSession(session, id);
+    @PutMapping("/update")
+    public Long updateKinoUser(@RequestBody SessionMask session) {
+        return sessionService.updateSession(session);
     }
 
     @DeleteMapping("/delete/{id}")
