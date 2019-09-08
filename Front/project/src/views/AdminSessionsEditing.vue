@@ -192,8 +192,8 @@ export default {
             this.editingItem.id = item.id;
             this.editingItem.idFilm = this.searchId;
             this.editingItem.idHall = item.hall.id;
-            this.editingItem.start = item.start;
-            this.editingItem.end = item.end;
+            this.editingItem.start = item.start.substring(props.item.start.length - 5);
+            this.editingItem.end = item.end.substring(props.item.start.length - 5);
 
             console.log(item);
             // this.editingItem.id = item
