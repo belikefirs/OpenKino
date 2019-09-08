@@ -2,13 +2,6 @@
     <v-container>
         <v-layout>
             <v-flex sm6>
-                <!-- <v-text-field
-                v-model="searchBox"
-                prepend-inner-icon="search"
-                placeholder="Поиск"
-                solo
-                @change="search"
-                /> -->
                 <v-select 
                 :items="$store.state.Films.filmList"
                 label="Поиск по фильму"
@@ -69,6 +62,13 @@
                         clearable
                         v-model="editingItem.start"
                         />
+
+                        <v-text-field
+                        label="Время окончания"
+                        mask="time"
+                        clearable
+                        v-model="editingItem.end"
+                        />
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer/>
@@ -88,8 +88,9 @@
                     no-data-text="Нет данных">
                         <template v-slot:items="props">
                             <td>{{ searchFilmName }}</td>
-                            <td>{{ props.item.hall.id }}</td>
+                            <td>{{ props.item.idHall }}</td>
                             <td>{{ props.item.start.substring(props.item.start.length - 5) }}</td>
+                            <td>{{ props.item.end.substring(props.item.start.length - 5) }}</td>
                             <td class="text-xs-right">
                                 <v-btn flat icon color="amber" @click="changeItem(props.item, props.index)">
                                     <v-icon>edit</v-icon>
@@ -135,6 +136,12 @@ export default {
                     value: 'timeBegin'
                 },
                 {
+                    text: 'Время окончания',
+                    align: 'left',
+                    sortable: false,
+                    value: 'timeEnd'
+                },
+                {
                     text: 'Действия',
                     align: 'right',
                     sortable: false,
@@ -143,13 +150,15 @@ export default {
             ],
             defaultItem: {
                 start: null,
-                hall:{ id: null },
-                film:{ id: null },
+                end: null,
+                idHall: null,
+                idFilm: null,
             },
             editingItem:{
                 start: null,
-                hall:{ id: null },
-                film:{ id: null },
+                end: null,
+                idHall: null,
+                idFilm: null,
             },
         }
     },
@@ -159,8 +168,9 @@ export default {
         },
         confirmDialog(){
             if (!this.editingItem.start || this.editingItem.start.length < 4 ||
-                !this.editingItem.hall.id || this.editingItem.hall.id.length == 0 ||
-                !this.editingItem.film.id || this.editingItem.film.id.length == 0) return;
+                !this.editingItem.end || this.editingItem.end.length < 4 ||
+                !this.editingItem.idHall || this.editingItem.idHall.length == 0 ||
+                !this.editingItem.idFilm || this.editingItem.idFilm.length == 0) return;
             setTimeout(() => {
             if (this.editingIndex == -1) {
                 this.$store.dispatch('Sessions/ADD_SESSION', this.editingItem).then(() => this.search());
@@ -206,13 +216,13 @@ export default {
         modelFilm: {
             get() {},
             set: function (obj) {
-                this.editingItem.film.id = obj.id;
+                this.editingItem.idFilm = obj.id;
             },
         },
         modelHall: {
             get() {},
             set: function(obj) {
-                this.editingItem.hall.id = obj.id;
+                this.editingItem.idHall = obj.id;
             }
         },
     },

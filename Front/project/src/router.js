@@ -18,11 +18,6 @@ export default new Router({
 			component: () => import('./views/AdminFilmsEditing.vue')
 		},
 		{
-			path: '/admin/genre_editing',
-			name: 'genreEditing',
-			component: () => import('./views/AdminGenreEditing.vue')
-		},
-		{
 			path: '/admin/sessions_editing',
 			name: 'sessionsEditing',
 			component: () => import('./views/AdminSessionsEditing.vue')
