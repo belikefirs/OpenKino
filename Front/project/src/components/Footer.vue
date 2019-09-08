@@ -5,10 +5,10 @@
 				<div class="title">
 					<p>Мы находимся</p>
 				</div>
-				<div class="map_our">
+				<div class="map-our">
 					<Map></Map>
 				</div>
-				<div class="our_info">
+				<div class="our-info">
 					<p><u>О нас</u><br><br>
 					У нас Вы найдете море интересных фильмов, мы<br>
 					показываем новинки, ретро и у нас даже есть возможность
@@ -19,8 +19,8 @@
 				<div class="title">
 					<p>Карта сайта</p>
 				</div>
-				<div class="map_links">
-					<AppButton style="margin: 0 10px 10px 0;" v-for="(item, key) in Foot_links" :key="key" :url="{name: item.link}">{{item.name}}</AppButton>
+				<div class="map-links">
+					<AppButton style="margin: 0 10px 10px 0;" v-for="(item, key) in footLinks" :key="key" :url="{name: item.link}">{{item.name}}</AppButton>
 				</div>
 			</div>
 			<div class="block">
@@ -61,7 +61,7 @@ export default {
 				{name: 'Новости', link: '#'},
 				{name: 'Фильмы', link: '#'},
 			],
-			Foot_links: [
+			footLinks: [
 				{name: 'Фильмы', link: '#'},
 				{name: 'Новости', link: '#'},
 				{name: 'Вакансии', link: '#'},
@@ -99,15 +99,15 @@ export default {
 	.block
 		width: 25%
 		padding: 10px		
-		.map_our
+		.map-our
 			border-radius: 20px
 			iframe
 				width: 87%
-		.map_links
+		.map-links
 			display: flex
 			flex-direction: row
 			flex-wrap: wrap
-		.our_info
+		.our-info
 			color: white
 			height: 100%
 			font-size: 12px

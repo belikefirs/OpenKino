@@ -1,6 +1,6 @@
 <template>
     <WrapperCent>
-        <div class="wrapper_User">
+        <div class="wrapper-user">
             <router-link to="/usercabinet/yourcards" class="item1 item">
                 <div>
                     <p>Ваши карты</p>
@@ -18,10 +18,10 @@
             </Modal>
             <div class="item3 item"><p>Избранное</p></div>
             <div class="item4 item"><p>Настройки</p></div>
-            <div class="item5 item"><p>Покупки</p></div>
+            <router-link to="/usercabinet/buy" class="item5 item"><div><p>Покупки</p></div></router-link>
             <div class="item6 item"><p>VIP</p></div>
             <div class="item7 item"><p>Добавить карту</p></div>
-            <router-link to="/usercabinet/generatehalls" class="item8 item"><div><p>Помощь</p></div></router-link>
+            <router-link to="#" class="item8 item"><div><p>Помощь</p></div></router-link>
             <div class="item9 item"><p>Выход</p></div>
         </div>
     </WrapperCent>
@@ -44,7 +44,7 @@ export default {
 </script>
 
 <style>
-.wrapper_User {
+.wrapper-user {
     background: rgba(34, 34, 34, 0.8);
     width: 100%;
     height: 700px;

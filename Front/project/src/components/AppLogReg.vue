@@ -1,15 +1,15 @@
 <template>
-    <div class="LogRegi">
+    <div class="logRegi">
         <div class="nav">
-            <div :class="{toAutoYes: !log, toAutoNo : log}" @click="log = true">
+            <div :class="{toAutoYes: !isLogForm, toAutoNo : isLogForm}" @click="isLogForm = true">
                 <p>Вход</p>
             </div>
-            <div :class="{toAutoYes: log, toAutoNo : !log}" @click="log = false">
+            <div :class="{toAutoYes: isLogForm, toAutoNo : !isLogForm}" @click="isLogForm = false">
                 <p>Регистрация</p>
             </div>
         </div>
         <transition :name="trSwitch">
-            <form class="log inputCont" key="log" v-if="log" @submit.prevent="logIn">
+            <form class="log inputCont" key="log" v-if="isLogForm" @submit.prevent="logIn">
                 <input type="text" placeholder="E-mail" v-model="authdata.mail">
                 <input type="password" placeholder="Пароль" v-model="authdata.password">
                 <input class="button_auto" type="submit" value="Войти">
@@ -37,7 +37,7 @@ export default {
 	},
 	data () {
 		return {
-            log: true,
+            isLogForm: true,
             nameUser: '',
             authdata: {
                 mail: '',
@@ -96,7 +96,7 @@ export default {
 </script>
 
 <style>
-.LogRegi{
+.logRegi{
     width: 500px;
     background: #00000000;
     overflow: hidden;

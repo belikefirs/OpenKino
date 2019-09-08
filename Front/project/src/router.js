@@ -59,9 +59,9 @@ export default new Router({
 			component: () => import('./views/UserCabinetCarts.vue')
 		},
 		{
-			path: '/usercabinet/generatehalls',
-			name: 'generatehalls',
-			component: () => import('./views/UserCabinetGenerate.vue')
+			path: '/usercabinet/buy',
+			name: 'buy',
+			component: () => import('./views/UserCabinetBuy.vue')
 		},
 		{
 			path: '/films/FilmSession:Sid',
