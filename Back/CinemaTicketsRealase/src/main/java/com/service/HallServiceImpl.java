@@ -63,6 +63,35 @@ public class HallServiceImpl implements HallService {
         hallDao.findById(id).get().setPlaces(places);
         return id;
     }
+    @Override
+    @Transactional
+    public Long saveAll(Integer number, Integer width, Integer height, BigDecimal price) {
+        Hall hall = new Hall();
+        hall.setNumber(number);
+        hall.setWidth(number);
+        hall.setHeight(number);
+        Long id = hallDao.save(hall).getId();
+        List<Place> places = new ArrayList<Place>();
+        for(int i = 1; i < width; i++){
+            for(int j = 1; j < height; j++){
+                Place place = new Place();
+                place.setHall(hallDao.findById(id).get());
+                place.setY(i);
+                place.setX(j);
+                place.setPrice(price);
+                place.setStatus(Pstatus.IsFree);
+                placeDao.save(place);
+                places.add(place);
+            }
+        }
+        hallDao.findById(id).get().setPlaces(places);
+        return id;
+    }
+
+    @Override
+    public List<Place> getIsReservation(Long id) {
+        return placeDao.getFindbyIdReservaion(id);
+    }
     /*@Override
     @Transactional
     public List<Place> createdPlaces(Integer width, Integer height, BigDecimal price, Long idHall){

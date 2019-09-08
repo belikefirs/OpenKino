@@ -56,7 +56,17 @@ public class HallController {
     public Long saveAll(@RequestBody HallMask hallMask){
         return hallService.save(hallMask);
     }
-
+    @PostMapping("/saveall")
+    public Long saveAllF(@RequestParam(name = "number")Integer num,
+                         @RequestParam(name = "width")Integer width,
+                         @RequestParam(name = "height")Integer height,
+                         @RequestParam(name = "price")BigDecimal price){
+        return hallService.saveAll(num, width, height, price);
+    }
+    @GetMapping("/getPlacesIsReser/{id}")
+    public List <Place> getPlacesReserV2(@PathVariable Long id){
+        return hallService.getIsReservation(id);
+    }
     @GetMapping("/all")
     public List<Hall> getAllHall(){
         return hallService.getAllHall();
@@ -69,7 +79,7 @@ public class HallController {
     public List<Place> getPlaces(@PathVariable Long id){
         return hallService.getPlaces(id);
     }
-    @PutMapping("/status")
+    @PutMapping("/changeStatus")
     public Long changeStatusReservation(@RequestParam(name = "id")Long id,
                                         @RequestParam(name = "status")Integer status){
         return hallService.changeStatus(id, status);

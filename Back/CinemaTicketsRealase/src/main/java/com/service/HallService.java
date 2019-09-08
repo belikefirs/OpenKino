@@ -13,6 +13,8 @@ import java.util.List;
 public interface HallService {
     Long saveHall(Hall hall);
     Long save(HallMask mask);
+    Long saveAll(Integer number, Integer width, Integer height, BigDecimal price);
+    List<Place> getIsReservation(Long id);
   //  List<Place> createdPlaces(Integer width, Integer height, BigDecimal price, Long idHall);
    // Hall saveListPlaces(Long id, List<Place> places);
     Hall saveAndCreatedListSession(Long id);

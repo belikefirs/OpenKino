@@ -36,5 +36,6 @@ public interface PlaceDao extends JpaRepository<Place,Long> {
             "reservation.id = :id")
     List<Place> getFindbyIdReservaion(@Param("id") Long id);
     @Query(value = "select p from Place as p join p.hall as h where p.id = :idP and h.id = :idH")
-    Place getPlaceFromHall(@Param("idP")Long idP, @Param("idH")Long idH);
+    List<Place> getPlaceFromHall(@Param("idP")Long idP, @Param("idH")Long idH);
+
 }
