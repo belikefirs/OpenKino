@@ -88,7 +88,7 @@
                     no-data-text="Нет данных">
                         <template v-slot:items="props">
                             <td>{{ searchFilmName }}</td>
-                            <td>{{ props.item.idHall }}</td>
+                            <td>{{ props.item.hall.id }}</td>
                             <td>{{ props.item.start.substring(props.item.start.length - 5) }}</td>
                             <td>{{ props.item.end.substring(props.item.start.length - 5) }}</td>
                             <td class="text-xs-right">
@@ -172,12 +172,12 @@ export default {
                 !this.editingItem.idHall || this.editingItem.idHall.length == 0 ||
                 !this.editingItem.idFilm || this.editingItem.idFilm.length == 0) return;
             setTimeout(() => {
-            if (this.editingIndex == -1) {
-                this.$store.dispatch('Sessions/ADD_SESSION', this.editingItem).then(() => this.search());
-            } else {
-                this.$store.dispatch('Sessions/CHANGE_SESSION', this.editingItem).then(() => this.search());
-            }
-            this.dialog = false;
+                if (this.editingIndex == -1) {
+                    this.$store.dispatch('Sessions/ADD_SESSION', this.editingItem).then(() => this.search());
+                } else {
+                    this.$store.dispatch('Sessions/CHANGE_SESSION', this.editingItem).then(() => this.search());
+                }
+                this.dialog = false;
             }, 100);
             
         },
@@ -188,7 +188,13 @@ export default {
             this.dialog = true;
         },
         changeItem(item, index){
-            Object.assign(this.editingItem, item);
+            // Object.assign(this.editingItem, item);
+            this.editingItem.id = item.id;
+            this.editingItem.idFilm = this.searchId;
+            this.editingItem.idHall = item.hall.id;
+            this.editingItem.start = item.start;
+            this.editingItem.end = item.end;
+
             console.log(item);
             // this.editingItem.id = item
             this.editingIndex = index;
@@ -227,6 +233,7 @@ export default {
         },
     },
     created(){
+        this.$store.dispatch('Sessions/CLEAR_LOCAL_SESSIONS');
         this.$store.dispatch('Films/GET_FILMS_WITH_FILTERS', {name: ''});
         this.$store.dispatch('Hall/GET_ALL_HALLS');
     },

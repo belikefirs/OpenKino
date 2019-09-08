@@ -7,7 +7,10 @@ const state = {
 const mutations = {
     setSessionList(state, data){
         state.sessionList = data;
-    },
+	},
+	clearSessions(state, data){
+		state.sessionList = [];
+	},
 }
 
 const actions = {
@@ -15,7 +18,7 @@ const actions = {
 		data.start = "2019-08-25T" + data.start.substring(0, 2) + ":" + data.start.substring(2);
 		data.end = "2019-08-25T" + data.end.substring(0, 2) + ":" + data.end.substring(2);
 		// console.log(data.start);
-        return AXIOS.post("/session/save", data);
+        return AXIOS.post("/session/saveAll", data);
     },
     GET_SESSION_LIST (context, data) {
 		let id = data.id;
@@ -31,7 +34,10 @@ const actions = {
     },
     DELETE_SESSION(context, data){
         return AXIOS.delete('/session/delete/' + data.id);
-    },
+	},
+	CLEAR_LOCAL_SESSIONS(context, data){
+		context.commit('clearSessions');
+	}
 }
 
 export default {
