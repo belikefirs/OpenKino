@@ -1,21 +1,9 @@
 <template>
     <WrapperCent>
         <div class="wrapper-film">
-            <div class="wrapper-filmFilter">
+            <div class="wrapper-film-filter">
                 <input type="text" class="search" placeholder="Поиск по жанру, названию" v-model="searchFilm" @click="search()">
             </div>
-            <!-- <ul>
-                <li class="listFilms" v-for="(item, index) in listFilms" :key="index.id">
-                    <div>{{item.name}}</div>
-                    <div>{{item.lenght / 60 + 'мин'}}</div>
-                    <div>{{item.typeFilm.name}}</div>
-                    <div>{{item.genre.name}}</div>
-                    <div class="sessions" v-for="(session, index2) in listSession" :key="index2.id" v-if="">
-                        <span @click="showInformation(session.id), flagCinema = true">{{session.start}}</span>
-                    </div>
-                </li>
-            </ul> -->
-
             <SliderItem v-for="(item, index) in listFilms" :key="index.id"
                 :filmTitle="item.name"
                 :filmStyle="item.typeFilm.name"
@@ -78,11 +66,10 @@ export default {
 <style>
 .wrapper-film {
     width: 100%;
-    height: 100%;
     display: flex;
     flex-wrap: wrap;
 }
-.wrapper-filmFilter {
+.wrapper-film-filter {
     display: flex;
     flex-direction: row;
     margin-top: 10px;
@@ -102,30 +89,5 @@ export default {
 .search::-webkit-input-placeholder { 
     color: #f36021;
     }
-.date {
-    border: 1px solid #f36021;
-    background: #fff;
-    width: 180px;
-    height: 40px;
-    color: #f36021;
-    font-family: Roboto;
-    font-size: 14px;
-    font-weight: 300;
-    margin-right: 23px;
-    padding: 5px 5px 5px 25px;
-}
-.date::-webkit-input-placeholder { 
-    color: #f36021;
-    }
-.listFilms {
-    height: 150px;
-    width: 100%;
-    list-style-type: none;
-}
-.listFilms div {
-    margin-right: 30px;
-    font-size: 24px;
-    display: inline;
-}
 
 </style>

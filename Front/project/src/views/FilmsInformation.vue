@@ -1,6 +1,6 @@
 <template>
     <WrapperCent>
-        <div class="wrapper-Information">
+        <div class="wrapper-information">
             <Cinema></Cinema>
         </div>
     </WrapperCent>

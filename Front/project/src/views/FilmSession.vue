@@ -1,10 +1,10 @@
 <template>
     <WrapperCent>
         <div class="wrapper-SessionFilm">
-            <div class="block1">
+            <div class="block-image">
 
             </div>
-            <div class="block2">
+            <div class="block-text">
                 <p class="descriptionFilm">Пока Мстители и их союзники продолжают защищать мир от различных опасностей, с которыми не смог бы справиться один супергерой,
                      новая угроза возникает из космоса: Танос. Межгалактический тиран преследует цель собрать все шесть Камней Бесконечности — 
                      артефакты невероятной силы, с помощью которых можно менять реальность по своему желанию. Всё, с чем Мстители сталкивались ранее, 
@@ -46,10 +46,10 @@ export default {
     display: flex;
     width: 100%;
 }
-.block1 {
+.block-image {
     width: 30%;
 }
-.block2 {
+.block-inf {
     width: 70%;
 }
 .listSession {

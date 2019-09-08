@@ -51,7 +51,9 @@ export default {
     setReservation() {
         // this.$store.dispatch("PageFilms/RESERVATION" + {id: })
         
-        this.$store.dispatch("PageFilms/RESERVATION", {id: this.selectedItem.id});
+        this.$store.dispatch("PageFilms/RESERVATION", {id: this.selectedItem.id}).then(() => {
+          this.$store.dispatch("Hall/GET_PLACES").then(hall => (this.hall = hall))
+        })
     },
     selectItem(item) {
     //   if (item.status=='IsReservation') {

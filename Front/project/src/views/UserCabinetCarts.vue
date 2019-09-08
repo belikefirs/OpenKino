@@ -1,6 +1,6 @@
 <template>
     <WrapperCent>
-        <div class="wrapper-User">
+        <div class="wrapper-users">
             <div class="block">
             <form @submit.prevent="add_cards">
                 <label for="card" class="textLabel">Введите номер карты: </label>
@@ -8,7 +8,7 @@
                 <label for="balance" class="textLabel">Баланс карты: </label>
                 <input type="text" class="usercab Balance" placeholder="Сумма пополнения" v-model.number="dataBalance.balance">
                 <button class="buttonSave" style="margin-bottom: 150px">Создать</button>
-                <hr class="VerticalLine">
+                <hr class="verticalLine">
             </form>
             </div>
             <div class="block">
@@ -49,7 +49,6 @@ export default {
             this.$store.dispatch('CabinetUser/ADD_CARD', this.dataBalance).then(() => {
                 this.$store.dispatch('CabinetUser/GET_LIST_CARDS', {id: this.$store.state.Title.id})
                 .then(listCards => this.listCards = listCards);
-                console.log(this.listCards)
             });
         },
         delete_card(item) {
@@ -66,7 +65,7 @@ export default {
 </script>
 
 <style>
-.wrapper-User {
+.wrapper-users {
     width: 100%;
     height: 100%;
     display: flex;
@@ -96,7 +95,7 @@ export default {
     margin: 0 0 0 5px;
     position: relative;
 }
-.VerticalLine {
+.verticalLine {
     position: absolute;
     right: 30px;
     top: 0;

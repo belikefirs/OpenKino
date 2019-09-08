@@ -1,5 +1,5 @@
 <template>
-	<div class="wrapper-FilmCard" @click="$emit('click')">
+	<div class="wrapper-filmCard" @click="$emit('click')">
 		<div class="filmImage" style="background-size: contain;" :style="{backgroundImage: bgImage}">
 			<div class="limitAge">{{limitAge}}+</div>
 		</div>
@@ -20,7 +20,8 @@ export default {
 	props:{
 		image: {
 			type: String,
-			required: false
+			required: false,
+			default: "https://images.kinomax.ru/films/4/4479/560x302/p_53834f0.jpg"
 		},
 		path: {
 			type: String,
@@ -54,7 +55,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.wrapper-FilmCard
+.wrapper-filmCard
 	margin: 15px
 	width: 218px
 	height: 451px
