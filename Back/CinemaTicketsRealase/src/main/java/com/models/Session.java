@@ -40,7 +40,7 @@ public class Session {
     @Column(name = "END")
     private LocalDateTime end;
 
-
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne
     @JoinColumn(name = "ID_FILM")
     private Film film;
