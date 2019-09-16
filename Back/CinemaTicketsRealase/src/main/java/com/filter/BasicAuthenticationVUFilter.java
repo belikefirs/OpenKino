@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.models.KinoUser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.apache.log4j.Logger;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,7 +25,7 @@ import java.util.Date;
 public class BasicAuthenticationVUFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authManager;
     private final JwtConfig jwtConfig;
-
+    private static final Logger logger = Logger.getLogger(BasicAuthenticationVUFilter.class);
     public BasicAuthenticationVUFilter(AuthenticationManager authManager, JwtConfig jwtConfig) {
         this.authManager = authManager;
         this.jwtConfig = jwtConfig;
@@ -44,6 +45,7 @@ public class BasicAuthenticationVUFilter extends UsernamePasswordAuthenticationF
             return authManager.authenticate(authToken);
         } catch (IOException e) {
             SecurityContextHolder.clearContext();
+            logger.warn(e.getMessage());
             throw new RuntimeException(e);
         }
     }

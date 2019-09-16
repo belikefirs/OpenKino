@@ -1,15 +1,12 @@
 package com.service;
-import com.components.Desiariseble;
 import com.masks.CardMask;
 import com.dao.CardDao;
 import com.dao.KinoUserDao;
 import com.models.Card;
 import com.models.KinoUser;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -25,22 +22,16 @@ public class CardServicelmpl implements CardService{
     }
 
     @Override
-    public Long saveCard(Card card, KinoUser kinoUser) {
+    public Long saveCard(CardMask cardMask, KinoUser kinoUser) {
+        Card card = new Card();
         KinoUser kinoUser1 = kinoUserDao.findById(kinoUser.getId()).get();
         card.setKinoUser(kinoUser1);
+        card.setBalance(cardMask.getBalance());
+        card.setId(cardMask.getId());
         cardDao.save(card);
         return card.getId();
     }
 
-    @Override
-    public Long saveall(CardMask cardMask) {
-        Card card = new Card();
-        KinoUser kinoUser = kinoUserDao.findById(cardMask.getIdKinUser()).get();
-        card.setBalance(cardMask.getBalance());
-        card.setKinoUser(kinoUser);
-        card.setBuys(cardMask.getBuyList());
-        return cardDao.save(card).getId();
-    }
 
     @Override
     public void deleteCardById(Long id) {

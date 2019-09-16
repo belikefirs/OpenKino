@@ -1,15 +1,13 @@
 package com.controller;
 
-import com.fasterxml.jackson.annotation.JsonView;
+import com.masks.CardMask;
+import org.codehaus.jackson.map.annotate.JsonView;
 import com.models.Card;
 import com.models.KinoUser;
 import com.service.CardService;
 import com.view.Views;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import java.awt.*;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -24,7 +22,7 @@ public class CardController {
 
 
     @PostMapping("")
-    public Long saveCard(@RequestBody Card card, @AuthenticationPrincipal KinoUser kinoUser){
+    public Long saveCard(@RequestBody CardMask card, @AuthenticationPrincipal KinoUser kinoUser){
         return cardService.saveCard(card,kinoUser);
     }
 
@@ -38,11 +36,9 @@ public class CardController {
         return cardService.findCardsByIdKinoUser(id);
     }
 
-
     @PutMapping("/add/{id},{money}")
     public Long addMoneyInCard(@PathVariable Long id,@PathVariable BigDecimal money){
         return cardService.addBalance(id,money);
     }
-
 
 }
