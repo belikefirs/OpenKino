@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.*;
 import com.view.Views;
 
 import javax.persistence.*;
-import javax.swing.text.View;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +54,18 @@ public class Film {
     @OneToOne
     @JoinColumn(name = "ID_IMAGE")
     private Image image;
+
+    @JsonView(Views.Internal.class)
+    @Column(name = "Description")
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
 
     public Film (){}

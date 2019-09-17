@@ -3,6 +3,7 @@ package com.service;
 import com.masks.SessionMask;
 import com.models.Session;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface SessionService {
@@ -15,6 +16,6 @@ public interface SessionService {
     Long saveAllSession(Session session, Long idFilm, Long idHall);
 void addSession();
     List<Session> findSessionAll();
-    Long saveSessionVer2_0(SessionMask sessionMask);
+    Long saveSessionVer2_0(SessionMask sessionMask, BigDecimal price);
     Session getSession(Long id);
 }

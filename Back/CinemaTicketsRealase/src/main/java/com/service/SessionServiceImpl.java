@@ -11,6 +11,7 @@ import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
@@ -22,17 +23,19 @@ public class SessionServiceImpl implements SessionService {
     private FilmDao filmDao;
     private HallDao hallDao;
     private SessionDao sessionDao;
+private HallService hallService;
 
-    public SessionServiceImpl(FilmDao filmDao, HallDao hallDao, SessionDao sessionDao) {
+    public SessionServiceImpl(FilmDao filmDao, HallDao hallDao, SessionDao sessionDao, HallService hallService) {
         this.filmDao = filmDao;
         this.hallDao = hallDao;
         this.sessionDao = sessionDao;
+        this.hallService = hallService;
     }
 
     @Override
-    public List<Session> findSessionByFilm(Long id_film){
-    List<Session> sessions = sessionDao.findAllByFilm_Id(id_film);
-        for (Session e: sessions) {
+    public List<Session> findSessionByFilm(Long id_film) {
+        List<Session> sessions = sessionDao.findAllByFilm_Id(id_film);
+        for (Session e : sessions) {
             Hibernate.initialize(e.getHall().getPlaces());
         }
         return sessions;
@@ -49,7 +52,7 @@ public class SessionServiceImpl implements SessionService {
 
 
     @Override
-    public void deleteSession(Long id)  {
+    public void deleteSession(Long id) {
         sessionDao.deleteById(id);
     }
 
@@ -57,17 +60,17 @@ public class SessionServiceImpl implements SessionService {
     public Long updateSession(SessionMask sessionMask) {
         Session session1 = sessionDao.findById(sessionMask.getId()).get();
         session1.setStart(sessionMask.getStart());
-        session1.setFilm(filmDao.findById(sessionMask.getIdFilm()).get());
-        session1.setHall(hallDao.findById(sessionMask.getIdHall()).get());
+        session1.setFilm(filmDao.findById(sessionMask.getId()).get());
+        session1.setHall(hallDao.findById(sessionMask.getId()).get());
         session1.setEnd(sessionMask.getEnd());
         return sessionDao.save(session1).getId();
     }
 
     @Override
     public Long saveSession(Session session) {
-    Film film = filmDao.findById(session.getFilm().getId()).get();
-    session.setEnd(session.getStart().plusMinutes(film.getLenght()));
-    return sessionDao.save(session).getId();
+        Film film = filmDao.findById(session.getFilm().getId()).get();
+        session.setEnd(session.getStart().plusMinutes(film.getLenght()));
+        return sessionDao.save(session).getId();
     }
 
     @Override
@@ -80,7 +83,7 @@ public class SessionServiceImpl implements SessionService {
     @Override
     public List<Session> findSessionAll() {
         List<Session> sessions = sessionDao.findAll();
-        for (Session e: sessions) {
+        for (Session e : sessions) {
             initLazySessionFields(e);
         }
         return sessions;
@@ -93,9 +96,10 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public Long saveSessionVer2_0(SessionMask sessionMask) {
-        Film film = filmDao.findById(sessionMask.getIdFilm()).get();
-        Hall hall = hallDao.findById(sessionMask.getIdHall()).get();
+    public Long saveSessionVer2_0(SessionMask sessionMask, BigDecimal price) {
+        Film film = filmDao.findById(sessionMask.getFilm()).get();
+        Integer[] arr = sessionMask.getHall();
+        Hall hall =hallService.saveAll(arr[2],arr[1],arr[0], price);
         Session session = sessionMask.getSession();
         session.setFilm(film);
         session.setHall(hall);

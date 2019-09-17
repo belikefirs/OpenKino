@@ -43,9 +43,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception{
-//        auth.inMemoryAuthentication().withUser("user").password(bCryptPasswordEncoder().encode("user")).roles("USER");
-//        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
-//        auth.inMemoryAuthentication().withUser("superadmin").password("superadmin").roles("SUPERADMIN");
         auth.userDetailsService(kinUserService);
     }
     @Override
@@ -53,20 +50,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         final BasicAuthenticationVUFilter authenticationVUFilter = new BasicAuthenticationVUFilter(authenticationManagerBean(), jwtConfig());
         http
                 .csrf().disable()
-                .addFilterBefore(new FilterToken(jwtConfig(),kinUserService), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new FilterToken(jwtConfig(), kinUserService), UsernamePasswordAuthenticationFilter.class)
                 .addFilter(authenticationVUFilter)
                 .addFilterBefore(new EncodingFilter(), ChannelProcessingFilter.class)
                 .authorizeRequests()
-                .antMatchers("/protected/**").access("hasRole('ROLE_ADMIN')")
-    //          .antMatchers("/KinoUser/all").access("hasAuthority('User')")
-                .antMatchers("/Film").permitAll()
+//                .antMatchers(HttpMethod.POST, "Film/image/**", "Film/save", "hall/**", "session/**", "reser/discount", "reser/setList/*").access("hasRole('ROLE_ADMIN')")
+//                .antMatchers(HttpMethod.DELETE, "Film/**", "KinoUser/**", "buy/*", "hall/**", "session/**", "reser/deleteList/*").access("hasRole('ROLE_ADMIN')")
+//                .antMatchers(HttpMethod.PUT, "Film/**", "KinoUser/block", "KinoUser/active", "hall/upd**", "session/**").access("hasRole('ROLE_ADMIN')")
+//                .antMatchers(HttpMethod.PUT, "reser/**").permitAll()
+//                .antMatchers("buy/save").access("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+//                .antMatchers(HttpMethod.GET, "KinoUser/*", "KinoUser/all").access("hasRole('ROLE_ADMIN')")
+//                .antMatchers(HttpMethod.GET, "Film/**", "KinoUser/?**", "buy/**", "card/**",
+//                        "hall/**", "session/**", "reser/**").permitAll()
+//                .antMatchers("Film/rating/**", "KinoUser/save", "KinoUser/update", "buy", "card**", "hall/changeStatus**", "reser/delete/*", "reser/sav**").permitAll()
+                .antMatchers("/**").permitAll()
+
                 .anyRequest().permitAll()
+
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .formLogin().disable()
-       ;
-
+                ;
     }
     public class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
         @Override

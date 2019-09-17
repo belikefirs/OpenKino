@@ -65,15 +65,15 @@ public class HallServiceImpl implements HallService {
     }
     @Override
     @Transactional
-    public Long saveAll(Integer number, Integer width, Integer height, BigDecimal price) {
+    public Hall saveAll(Integer number, Integer width, Integer height, BigDecimal price) {
         Hall hall = new Hall();
         hall.setNumber(number);
-        hall.setWidth(number);
-        hall.setHeight(number);
+        hall.setWidth(width);
+        hall.setHeight(height);
         Long id = hallDao.save(hall).getId();
         List<Place> places = new ArrayList<Place>();
-        for(int i = 1; i < width; i++){
-            for(int j = 1; j < height; j++){
+        for(int i = 1; i < width+1; i++){
+            for(int j = 1; j < height+1; j++){
                 Place place = new Place();
                 place.setHall(hallDao.findById(id).get());
                 place.setY(i);
@@ -85,7 +85,7 @@ public class HallServiceImpl implements HallService {
             }
         }
         hallDao.findById(id).get().setPlaces(places);
-        return id;
+        return hall;
     }
 
     @Override
