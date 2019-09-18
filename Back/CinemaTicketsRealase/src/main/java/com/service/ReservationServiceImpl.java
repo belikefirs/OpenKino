@@ -11,9 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Transactional
@@ -84,16 +82,26 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setStart(LocalDateTime.now(ZoneId.of("UTC+4")));
         reservation.setEnd(sessionDao.getBeginSession(reservationMask.getIdSess()).minusHours(1));
         reservation.setKinoUser(kinoUser1);
+        reservation.setStatus(RStatus.IsAlive);
         BigDecimal resultPrice = new BigDecimal("0");
+        reservation.setPrice(resultPrice);
         Long id = reservationDao.save(reservation).getId();
         Reservation r = reservationDao.findById(id).get();
+        ArrayList list = new ArrayList();
         for (int i = 0; i < reservationMask.getPlaces().size(); i++) {
-            reservationMask.getPlaces().get(i).setStatus(Pstatus.IsReservation);
-            reservationMask.getPlaces().get(i).setReservation(r);
-            placeDao.save(reservationMask.getPlaces().get(i));
-            resultPrice.add(reservationMask.getPlaces().get(i).getPrice());
+            list.add(reservationMask.getPlaces().get(i));
+            Place place = placeDao.findById(reservationMask.getPlaces().get(i)).get();
+           place.setStatus(Pstatus.IsReservation);
+            place.setReservation(r);
+            placeDao.save(place);
+            resultPrice = resultPrice.add(place.getPrice());
         }
-        r.setPlaces(reservationMask.getPlaces());
+        List<Place> placeList =  new ArrayList<Place>();
+        for (Long e: reservationMask.getPlaces()
+             ) {
+            placeList.add(placeDao.findById(e).get());
+        }
+        r.setPlaces(placeList);
         r.setPrice(resultPrice);
         return reservationDao.save(r).getId();
     }
