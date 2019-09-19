@@ -1,14 +1,12 @@
 package com.controller;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.models.*;
+import com.service.CommentService;
 import com.service.FilmService;
-import com.service.FilmServiceImpl;
 import com.view.Views;
 import org.apache.commons.io.IOUtils;
-import org.hibernate.Hibernate;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,10 +19,11 @@ import java.util.List;
 @RequestMapping("/Film")
 public class FilmController {
     private final FilmService filmService;
+private final CommentService commentService;
 
-
-    public FilmController(FilmService filmService) {
+    public FilmController(FilmService filmService, CommentService commentService) {
         this.filmService = filmService;
+        this.commentService = commentService;
     }
     ///=================================Film========================
     @PostMapping("/save")
@@ -145,5 +144,20 @@ public class FilmController {
         filmService.addRating(id_film, id_user, rating);
     }
 
-
+@PostMapping("/comment/add/{id_film}")
+    public void addComment(@AuthenticationPrincipal KinoUser kinoUser, @RequestBody Comment comment, @PathVariable(name = "id_film") Long id_film){
+        commentService.addComment(kinoUser, comment, id_film);
+}
+@GetMapping("/comment/getAll/{id_film}")
+    public List<Comment> getComments(@PathVariable(name = "id_film") Long id_film) {
+        return commentService.getComments(id_film);
+}
+@DeleteMapping("/comment/delete/{id_comment}")
+    public void deleteComment(@PathVariable(name = "id_comment") Long id_comment){
+        commentService.deleteComment(id_comment);
+}
+@PutMapping("/comment/update")
+    public Long updateComment(@RequestBody Comment comment){
+        return commentService.updateComment(comment);
+}
 }
