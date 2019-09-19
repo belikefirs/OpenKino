@@ -155,16 +155,16 @@ public class ReservationServiceImpl implements ReservationService {
         for (Reservation e : listReser) {
             ArrayList listEachReser = new ArrayList();
             List<Place> listPlace = placeDao.getFindbyIdReservaion(e.getId());
+            Hall hall =listPlace.get(0).getHall();
+            Session session = sessionDao.findSessionByHall_Id(hall.getId());
+            listEachReser.add(e.getPrice());
+            listEachReser.add(listPlace.get(0).getHall().getNumber());
+            listEachReser.add(session.getStart());
+            listEachReser.add(session.getFilm().getName());
             for (Place ee : listPlace) {
                 ArrayList listInfo = new ArrayList();
-                listInfo.add(ee.getPrice());
                 listInfo.add(ee.getX());
                 listInfo.add(ee.getY());
-                Hall hall = ee.getHall();
-                listInfo.add(hall.getNumber());
-                Session session = sessionDao.findSessionByHall_Id(hall.getId());
-                listInfo.add(session.getStart());
-                listInfo.add(session.getFilm().getName());
                 listEachReser.add(listInfo);
             }
             list.add(listEachReser);

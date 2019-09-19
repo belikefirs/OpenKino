@@ -18,6 +18,11 @@ public class Film {
     @JsonView(Views.Internal.class)
     @Column(name = "Name")
     private String name;
+
+    @JsonView(Views.Internal.class)
+    @Column(name = "Description")
+    private String description;
+
     @JsonView(Views.Internal.class)
     @Column(name = "Lenght")
     private Long lenght;
@@ -55,9 +60,7 @@ public class Film {
     @JoinColumn(name = "ID_IMAGE")
     private Image image;
 
-    @JsonView(Views.Internal.class)
-    @Column(name = "Description")
-    private String description;
+
 
     public String getDescription() {
         return description;
