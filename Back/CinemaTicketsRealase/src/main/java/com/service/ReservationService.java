@@ -24,5 +24,5 @@ public interface ReservationService {
     List<Place> getPlacesForReservation(List<Place> places, Long idPlace);
     List<Place> deletePlaceFromList(List<Place> places, Long idPlace);
     public Reservation getFindById(Long id);
-    ArrayList getInfoFromReser(KinoUser kinoUser);
+    ArrayList getInfoFromReser(KinoUser kinoUser, Long enum_value);
 }

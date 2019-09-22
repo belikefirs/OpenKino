@@ -63,8 +63,8 @@ public class ReservationController {
         return reservationService.changeStatusReservation(id, status);
     }
 
-    @GetMapping("/listRes")//Auth
-    public ArrayList getInfoFromReser(@AuthenticationPrincipal KinoUser kinoUser){
-        return reservationService.getInfoFromReser(kinoUser);
+    @GetMapping("/listRes/{enum_status}")//Auth
+    public ArrayList getInfoFromReser(@AuthenticationPrincipal KinoUser kinoUser, @PathVariable(name = "enum_status") Long enum_value){
+        return reservationService.getInfoFromReser(kinoUser, enum_value);
     }
 }

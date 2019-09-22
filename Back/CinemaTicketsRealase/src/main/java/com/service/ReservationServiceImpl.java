@@ -152,26 +152,27 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public ArrayList getInfoFromReser(KinoUser kinoUser) {
+    public ArrayList getInfoFromReser(KinoUser kinoUser, Long enum_value) {
         List<Reservation> listReser = reservationDao.getFindByIdKinoUser(kinoUser.getId());
         ArrayList list = new ArrayList();
         for (Reservation e : listReser) {
-            ArrayList listEachReser = new ArrayList();
-            List<Place> listPlace = placeDao.getFindbyIdReservaion(e.getId());
-            Hall hall =listPlace.get(0).getHall();
-            Session session = sessionDao.findSessionByHall_Id(hall.getId());
-            listEachReser.add(e.getPrice());
-            listEachReser.add(listPlace.get(0).getHall().getNumber());
-            listEachReser.add(session.getStart());
-            listEachReser.add(session.getFilm().getName());
-            for (Place ee : listPlace) {
-                ArrayList listInfo = new ArrayList();
-                listInfo.add(ee.getX());
-                listInfo.add(ee.getY());
-                listEachReser.add(listInfo);
+            if (e.getStatus().ordinal() == enum_value) {
+                ArrayList listEachReser = new ArrayList();
+                List<Place> listPlace = placeDao.getFindbyIdReservaion(e.getId());
+                Hall hall = listPlace.get(0).getHall();
+                Session session = sessionDao.findSessionByHall_Id(hall.getId());
+                listEachReser.add(e.getPrice());
+                listEachReser.add(listPlace.get(0).getHall().getNumber());
+                listEachReser.add(session.getStart());
+                listEachReser.add(session.getFilm().getName());
+                for (Place ee : listPlace) {
+                    ArrayList listInfo = new ArrayList();
+                    listInfo.add(ee.getX());
+                    listInfo.add(ee.getY());
+                    listEachReser.add(listInfo);
+                }
+                list.add(listEachReser);
             }
-            list.add(listEachReser);
-
         }
 
         return list;
