@@ -36,6 +36,18 @@ public class Comment {
     @JoinColumn(name = "ID_Film")
     private Film film;
 
+    @JsonView(Views.Internal.class)
+    @OneToOne
+    @JoinColumn(name = "ID_RatingFilmByUser")
+    private RatingFilmByUser ratingFilmByUser;
+
+    public RatingFilmByUser getRatingFilmByUser() {
+        return ratingFilmByUser;
+    }
+
+    public void setRatingFilmByUser(RatingFilmByUser ratingFilmByUser) {
+        this.ratingFilmByUser = ratingFilmByUser;
+    }
 
     public Long getId() {
         return id;

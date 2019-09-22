@@ -139,9 +139,9 @@ private final CommentService commentService;
         return filmService.findFilmRating(id_film);
     }
 
-    @PostMapping("/rating/{id_film},{id_user},{rating:.+}")
-    public void addRating(@PathVariable Long id_film, @PathVariable Long id_user, @PathVariable Double rating){
-        filmService.addRating(id_film, id_user, rating);
+    @PostMapping("/rating/{id_film},{rating:.+}")
+    public void addRating(@PathVariable Long id_film, @AuthenticationPrincipal KinoUser kinoUser, @PathVariable Double rating){
+        filmService.addRating(id_film, kinoUser, rating);
     }
 
 @PostMapping("/comment/add/{id_film}")

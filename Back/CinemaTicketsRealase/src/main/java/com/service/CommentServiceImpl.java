@@ -2,6 +2,7 @@ package com.service;
 
 import com.dao.CommentDao;
 import com.dao.FilmDao;
+import com.dao.RatingFilmByUserDao;
 import com.models.Comment;
 import com.models.KinoUser;
 import org.springframework.stereotype.Service;
@@ -17,10 +18,12 @@ public class CommentServiceImpl implements CommentService {
 
     private FilmDao filmDao;
     private CommentDao commentDao;
+    private RatingFilmByUserDao ratingFilmByUserDao;
 
-    public CommentServiceImpl(FilmDao filmDao, CommentDao commentDao) {
+    public CommentServiceImpl(FilmDao filmDao, CommentDao commentDao, RatingFilmByUserDao ratingFilmByUserDao) {
         this.filmDao = filmDao;
         this.commentDao = commentDao;
+        this.ratingFilmByUserDao = ratingFilmByUserDao;
     }
 
     @Override
@@ -28,7 +31,13 @@ public class CommentServiceImpl implements CommentService {
         comment.setDate(LocalDateTime.now(ZoneId.of("UTC+4")));
         comment.setFilm(filmDao.findById(id_film).get());
         comment.setKinoUser(kinoUser);
-        return commentDao.save(comment).getId();
+     //   try{
+        comment.setRatingFilmByUser(ratingFilmByUserDao.findRating(id_film, kinoUser.getId()));//}
+      //  catch (NullPointerException e ){}
+      // finally {
+            return commentDao.save(comment).getId();
+        //}
+
     }
 
     @Override

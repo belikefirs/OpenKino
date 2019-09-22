@@ -9,6 +9,6 @@ import java.util.List;
 public interface CardService {
     Long saveCard(CardMask card, KinoUser kinoUser);
     void deleteCardById(Long id);
-    List <Card> findCardsByIdKinoUser(Long id);
+    List <Card> findCardsByIdKinoUser(KinoUser kinoUser);
     Long addBalance(Long id, BigDecimal money);
 }

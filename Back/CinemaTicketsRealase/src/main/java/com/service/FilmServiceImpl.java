@@ -204,10 +204,10 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public Long addRating(Long id_film, Long id_user, Double rating) {
+    public Long addRating(Long id_film, KinoUser kinoUser, Double rating) {
         Film film = filmDao.findById(id_film).get();
         Rating ratingOld = film.getRating();
-        RatingFilmByUser ratingFilmByUser = ratingFilmByUserDao.findRating(id_film, id_user);
+        RatingFilmByUser ratingFilmByUser = ratingFilmByUserDao.findRating(id_film, kinoUser.getId());
         if (ratingFilmByUser != null) {
             ratingOld.setSumRating(ratingOld.getSumRating()-ratingFilmByUser.getRatingByUser());
             ratingOld.setColUser(ratingOld.getColUser()-1);
@@ -222,14 +222,15 @@ public class FilmServiceImpl implements FilmService {
         }
 
         ratingFilmByUser.setFilm(filmDao.findById(id_film).get());
-        ratingFilmByUser.setKinoUser(kinoUserDao.findById(id_user).get());
+        ratingFilmByUser.setKinoUser(kinoUser);
         ratingFilmByUser.setRatingByUser(rating);
 
-//        if (rating > 10) {
-//            rating = 10.0;
-//        } else if (rating < 0) {
-//            rating = 0.0;
-//        }
+        if (rating > 10) {
+            rating = 10.0;
+        } else if (rating < 0) {
+            rating = 0.0;
+        }
+
         ratingOld.setSumRating(ratingOld.getSumRating() + rating);
         ratingOld.setColUser(ratingOld.getColUser()+1);
         ratingOld.setRating( ((double)Math.round(ratingOld.getSumRating()/ratingOld.getColUser() * 10) / 10));

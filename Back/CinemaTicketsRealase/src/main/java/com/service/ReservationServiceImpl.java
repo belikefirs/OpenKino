@@ -76,8 +76,11 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public Long saveAllReservation(ReservationMask reservationMask, Long id_user) {
-        KinoUser kinoUser1 = kinoUserDao.findById(id_user).get();
+    public Long saveAllReservation(ReservationMask reservationMask, KinoUser kinoUser) {
+        if(kinoUser == null){
+            throw new NullPointerException("Exception: kinouser is null!");
+        }
+        KinoUser kinoUser1 = kinoUserDao.findById(kinoUser.getId()).get();
         Reservation reservation = new Reservation();
         reservation.setStart(LocalDateTime.now(ZoneId.of("UTC+4")));
         reservation.setEnd(sessionDao.getBeginSession(reservationMask.getIdSess()).minusHours(1));
@@ -91,14 +94,14 @@ public class ReservationServiceImpl implements ReservationService {
         for (int i = 0; i < reservationMask.getPlaces().size(); i++) {
             list.add(reservationMask.getPlaces().get(i));
             Place place = placeDao.findById(reservationMask.getPlaces().get(i)).get();
-           place.setStatus(Pstatus.IsReservation);
+            place.setStatus(Pstatus.IsReservation);
             place.setReservation(r);
             placeDao.save(place);
             resultPrice = resultPrice.add(place.getPrice());
         }
         List<Place> placeList =  new ArrayList<Place>();
         for (Long e: reservationMask.getPlaces()
-             ) {
+        ) {
             placeList.add(placeDao.findById(e).get());
         }
         r.setPlaces(placeList);

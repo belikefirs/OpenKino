@@ -31,9 +31,9 @@ public class CardController {
         cardService.deleteCardById(id);
     }
     @JsonView(Views.Internal.class)
-    @GetMapping("/allByKinoUser/{id}")
-    public List<Card> findCardsByIdKinoUser(@PathVariable Long id){
-        return cardService.findCardsByIdKinoUser(id);
+    @GetMapping("/allByKinoUser")
+    public List<Card> findCardsByIdKinoUser(@AuthenticationPrincipal KinoUser kinoUser){
+        return cardService.findCardsByIdKinoUser(kinoUser);
     }
 
     @PutMapping("/add/{id},{money}")

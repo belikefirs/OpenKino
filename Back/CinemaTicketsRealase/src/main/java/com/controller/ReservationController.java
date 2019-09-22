@@ -32,10 +32,10 @@ public class ReservationController {
     List<Place> deletePLace(@PathVariable Long id){
         return reservationService.deletePlaceFromList(places, id);
     }
-    @PostMapping("{id_user}")
+    @PostMapping("")
     public Long saveall( //@AuthenticationPrincipal
-            @RequestBody ReservationMask reservationMask, @PathVariable Long id_user){
-        return reservationService.saveAllReservation(reservationMask, id_user);
+                         @RequestBody ReservationMask reservationMask, @AuthenticationPrincipal KinoUser kinoUser){
+        return reservationService.saveAllReservation(reservationMask, kinoUser);
     }
     @PutMapping("update/{id}")
     public Long update(@RequestParam(name = "id") Long id, @RequestParam(name = "status") int status, @RequestBody Reservation reservation){

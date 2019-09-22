@@ -25,6 +25,8 @@ public class RatingFilmByUser {
     @Column
     private Double ratingByUser;
 
+    @OneToOne
+    private Comment comment;
 
     public Long getId() {
         return id;

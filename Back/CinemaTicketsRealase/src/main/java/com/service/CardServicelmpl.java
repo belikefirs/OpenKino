@@ -35,12 +35,12 @@ public class CardServicelmpl implements CardService{
 
     @Override
     public void deleteCardById(Long id) {
-          cardDao.deleteById(id);
+        cardDao.deleteById(id);
     }
 
     @Override
-    public List<Card> findCardsByIdKinoUser(Long id) {
-        return cardDao.findAllByKinoUserId(id);
+    public List<Card> findCardsByIdKinoUser(KinoUser kinoUser) {
+        return cardDao.findAllByKinoUserId(kinoUser.getId());
     }
 
     @Override

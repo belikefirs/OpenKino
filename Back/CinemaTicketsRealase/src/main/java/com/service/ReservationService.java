@@ -17,7 +17,7 @@ public interface ReservationService {
     Long saveDiscount(Discount discount);
     void deleteDiscountById(Long id);
     Long updateReservation(Reservation reservation, Long id, int Status);
-    Long saveAllReservation(ReservationMask reservationMask, Long id_user);
+    Long saveAllReservation(ReservationMask reservationMask, KinoUser kinoUser);
     List<Place>  getPlacesWithReservationId(Long id);
     List<Reservation> getFindByIdKinoUser(Long idKinU);
     Long changeStatusReservation(Long id, Integer status);

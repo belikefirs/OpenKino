@@ -45,14 +45,14 @@ public class Film {
     @JoinColumn(name = "ID_GENRE")
     private Genre genre;
 
-   // @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "film")
+    // @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "film")
     @JsonIgnore
-   private List<Session> sessions = new ArrayList();
+    private List<Session> sessions = new ArrayList();
 
 
-   @OneToMany(fetch = FetchType.LAZY, mappedBy = "film")
-   @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "film")
+    @JsonIgnore
     private List<RatingFilmByUser> ratingFilmByUsers;
 
     @JsonView(Views.Internal.class)
@@ -60,7 +60,24 @@ public class Film {
     @JoinColumn(name = "ID_IMAGE")
     private Image image;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "film")
+    private List<Comment> comments;
 
+    public List<RatingFilmByUser> getRatingFilmByUsers() {
+        return ratingFilmByUsers;
+    }
+
+    public void setRatingFilmByUsers(List<RatingFilmByUser> ratingFilmByUsers) {
+        this.ratingFilmByUsers = ratingFilmByUsers;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 
     public String getDescription() {
         return description;
@@ -71,7 +88,8 @@ public class Film {
     }
 
 
-    public Film (){}
+    public Film() {
+    }
 
     public Long getId() {
         return id;
