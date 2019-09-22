@@ -37,7 +37,7 @@ public class Comment {
     private Film film;
 
     @JsonView(Views.Internal.class)
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "ID_RatingFilmByUser")
     private RatingFilmByUser ratingFilmByUser;
 

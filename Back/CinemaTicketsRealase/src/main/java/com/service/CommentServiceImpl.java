@@ -28,15 +28,18 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Long addComment(KinoUser kinoUser, Comment comment, Long id_film) {
+        if (kinoUser == null) {
+            throw new NullPointerException("User is null");
+        }
         comment.setDate(LocalDateTime.now(ZoneId.of("UTC+4")));
         comment.setFilm(filmDao.findById(id_film).get());
         comment.setKinoUser(kinoUser);
-     //   try{
-        comment.setRatingFilmByUser(ratingFilmByUserDao.findRating(id_film, kinoUser.getId()));//}
-      //  catch (NullPointerException e ){}
-      // finally {
+        try{
+        comment.setRatingFilmByUser(ratingFilmByUserDao.findRating(id_film, kinoUser.getId()));}
+       catch (NullPointerException e ){}
+      finally {
             return commentDao.save(comment).getId();
-        //}
+     }
 
     }
 
