@@ -3,6 +3,7 @@ package com.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "RatingFilmByUser")
@@ -21,10 +22,11 @@ public class RatingFilmByUser {
     @JoinColumn(name = "ID_User")
     private KinoUser kinoUser;
 
-    @JsonIgnore
     @Column
     private Double ratingByUser;
 
+    @OneToMany
+    private List<Comment> comment;
 
     public Long getId() {
         return id;

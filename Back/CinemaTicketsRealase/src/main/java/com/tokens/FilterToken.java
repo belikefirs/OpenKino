@@ -1,11 +1,11 @@
 package com.tokens;
 
 import com.configuration.JwtConfig;
-import com.dao.KinoUserDao;
 import com.models.KinoUser;
 import com.service.KinUserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import org.apache.log4j.Logger;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class FilterToken extends OncePerRequestFilter {
     private final JwtConfig jwtConfig;
     private KinUserService kinUserService;
-
+    private static final Logger logger = Logger.getLogger(FilterToken.class);
 
     public FilterToken(JwtConfig jwtConfig, KinUserService kinUserService) {
         this.jwtConfig = jwtConfig;
@@ -66,6 +66,7 @@ public class FilterToken extends OncePerRequestFilter {
                 }
             }
         } catch (Exception e){
+            logger.warn(e.getMessage());
             SecurityContextHolder.clearContext();
         }
         filterChain.doFilter(httpServletRequest,httpServletResponse);

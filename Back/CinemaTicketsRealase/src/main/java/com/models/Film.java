@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.*;
 import com.view.Views;
 
 import javax.persistence.*;
-import javax.swing.text.View;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +18,11 @@ public class Film {
     @JsonView(Views.Internal.class)
     @Column(name = "Name")
     private String name;
+
+    @JsonView(Views.Internal.class)
+    @Column(name = "Description")
+    private String description;
+
     @JsonView(Views.Internal.class)
     @Column(name = "Lenght")
     private Long lenght;
@@ -41,14 +45,14 @@ public class Film {
     @JoinColumn(name = "ID_GENRE")
     private Genre genre;
 
-   // @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "film")
+    // @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "film")
     @JsonIgnore
-   private List<Session> sessions = new ArrayList();
+    private List<Session> sessions = new ArrayList();
 
 
-   @OneToMany(fetch = FetchType.LAZY, mappedBy = "film")
-   @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "film")
+    @JsonIgnore
     private List<RatingFilmByUser> ratingFilmByUsers;
 
     @JsonView(Views.Internal.class)
@@ -56,8 +60,36 @@ public class Film {
     @JoinColumn(name = "ID_IMAGE")
     private Image image;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "film")
+    private List<Comment> comments;
 
-    public Film (){}
+    public List<RatingFilmByUser> getRatingFilmByUsers() {
+        return ratingFilmByUsers;
+    }
+
+    public void setRatingFilmByUsers(List<RatingFilmByUser> ratingFilmByUsers) {
+        this.ratingFilmByUsers = ratingFilmByUsers;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+    public Film() {
+    }
 
     public Long getId() {
         return id;

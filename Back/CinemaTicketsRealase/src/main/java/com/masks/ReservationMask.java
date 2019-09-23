@@ -15,15 +15,18 @@ public class ReservationMask {
     Reservation reservation;
     @JsonView(View.Save.class)
     Long idSess;
+
     @JsonView(View.Save.class)
     Long idHall;
+
     @JsonView(Reservation.View.Save.class)
-    ArrayList<Place> places;
+    ArrayList<Long> places;
+
     public ReservationMask(){}
-    public void initReservation(){
-        this.reservation =  new Reservation();
-        this.reservation.setPlaces(places);
-    }
+//    public void initReservation(){
+//        this.reservation =  new Reservation();
+//        this.reservation.setPlaces(places);
+//    }
     public Long getIdSess() {
         return idSess;
     }
@@ -48,11 +51,11 @@ public class ReservationMask {
         this.reservation = reservation;
     }
 
-    public ArrayList<Place> getPlaces() {
+    public ArrayList<Long> getPlaces() {
         return places;
     }
 
-    public void setPlaces(ArrayList<Place> places) {
+    public void setPlaces(ArrayList<Long> places) {
         this.places = places;
     }
 }

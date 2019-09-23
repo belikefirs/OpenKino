@@ -8,32 +8,23 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.filter.BasicAuthenticationVUFilter;
 import com.filter.EncodingFilter;
-import com.models.KinoUser;
 import com.service.KinUserService;
-import com.service.KinUserServiceImpl;
 import com.tokens.FilterToken;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 @EnableWebSecurity
@@ -52,9 +43,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception{
-//        auth.inMemoryAuthentication().withUser("user").password(bCryptPasswordEncoder().encode("user")).roles("USER");
-//        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
-//        auth.inMemoryAuthentication().withUser("superadmin").password("superadmin").roles("SUPERADMIN");
         auth.userDetailsService(kinUserService);
     }
     @Override
@@ -62,20 +50,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         final BasicAuthenticationVUFilter authenticationVUFilter = new BasicAuthenticationVUFilter(authenticationManagerBean(), jwtConfig());
         http
                 .csrf().disable()
-                .addFilterBefore(new FilterToken(jwtConfig(),kinUserService), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new FilterToken(jwtConfig(), kinUserService), UsernamePasswordAuthenticationFilter.class)
                 .addFilter(authenticationVUFilter)
                 .addFilterBefore(new EncodingFilter(), ChannelProcessingFilter.class)
                 .authorizeRequests()
-                .antMatchers("/protected/**").access("hasRole('ROLE_ADMIN')")
-    //          .antMatchers("/KinoUser/all").access("hasAuthority('User')")
-                .antMatchers("/Film").permitAll()
+//                .antMatchers(HttpMethod.POST, "Film/image/**", "Film/save", "hall/**", "session/**", "reser/discount", "reser/setList/*").access("hasRole('ROLE_ADMIN')")
+//                .antMatchers(HttpMethod.DELETE, "Film/**", "KinoUser/**", "buy/*", "hall/**", "session/**", "reser/deleteList/*").access("hasRole('ROLE_ADMIN')")
+//                .antMatchers(HttpMethod.PUT, "Film/**", "KinoUser/block", "KinoUser/active", "hall/upd**", "session/**").access("hasRole('ROLE_ADMIN')")
+//                .antMatchers(HttpMethod.PUT, "reser/**").permitAll()
+//                .antMatchers("buy/save").access("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+//                .antMatchers(HttpMethod.GET, "KinoUser/*", "KinoUser/all").access("hasRole('ROLE_ADMIN')")
+//                .antMatchers(HttpMethod.GET, "Film/**", "KinoUser/?**", "buy/**", "card/**",
+//                        "hall/**", "session/**", "reser/**").permitAll()
+//                .antMatchers("Film/rating/**", "KinoUser/save", "KinoUser/update", "buy", "card**", "hall/changeStatus**", "reser/delete/*", "reser/sav**").permitAll()
+                .antMatchers("/**").permitAll()
+
                 .anyRequest().permitAll()
+
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .formLogin().disable()
-       ;
-
+                ;
     }
     public class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
         @Override

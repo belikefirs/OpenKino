@@ -7,6 +7,8 @@ import com.models.KinoUser;
 import com.models.Place;
 import com.models.Reservation;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public interface ReservationService {
@@ -22,4 +24,5 @@ public interface ReservationService {
     List<Place> getPlacesForReservation(List<Place> places, Long idPlace);
     List<Place> deletePlaceFromList(List<Place> places, Long idPlace);
     public Reservation getFindById(Long id);
+    ArrayList getInfoFromReser(KinoUser kinoUser, Long enum_value);
 }

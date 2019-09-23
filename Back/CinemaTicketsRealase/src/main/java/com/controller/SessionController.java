@@ -6,6 +6,7 @@ import com.models.Session;
 import com.service.SessionService;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -43,10 +44,10 @@ public class SessionController {
         sessionService.deleteSession(id);
     }
 
-    @PostMapping(value = "/saveAll")
-    public Long saveSessionVer2_0(    @JsonView(SessionMask.View.Save.class) @RequestBody SessionMask sessionMask){
+    @PostMapping(value = "/saveAll/")
+    public Long saveSessionVer2_0(@JsonView(SessionMask.View.Save.class) @RequestBody SessionMask sessionMask, @RequestParam(name = "price") BigDecimal price){
         sessionMask.initSession();
-        return sessionService.saveSessionVer2_0(sessionMask);
+        return sessionService.saveSessionVer2_0(sessionMask, price);
     }
     @GetMapping("/get/{id}")
     public @ResponseBody Session getSession(@PathVariable Long id){

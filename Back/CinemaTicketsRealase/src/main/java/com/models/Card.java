@@ -1,36 +1,29 @@
 package com.models;
 
-import com.configuration.SecurityConfig;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.view.Views;
+import org.codehaus.jackson.map.annotate.JsonView;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
 
 @Entity
 @Table(name = "CARD")
-public class Card implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Card {
 
-
-    @JsonView(Views.Internal.class)
+    @JsonView(ViewCard.Public.class)
     @Id
     private Long id;
-    @JsonView(Views.Internal.class)
+
+    @JsonView(ViewCard.Public.class)
     @Column(name = "BALANCE")
     private BigDecimal balance;
 
+    @JsonView(ViewCard.Internal.class)
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_CARD")
     private KinoUser kinoUser;
-    @JsonIgnore
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "card")
     private List<Buy> buys;
 
@@ -67,5 +60,10 @@ public class Card implements Serializable {
 
     public void setKinoUser(KinoUser kinoUser) {
         this.kinoUser = kinoUser;
+    }
+
+    public class ViewCard {
+        public class Public {}
+        public class Internal extends Public {}
     }
 }

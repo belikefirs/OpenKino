@@ -11,6 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -32,8 +33,8 @@ public class ReservationController {
         return reservationService.deletePlaceFromList(places, id);
     }
     @PostMapping("")
-    public Long saveall(
-            @RequestBody ReservationMask reservationMask, @AuthenticationPrincipal KinoUser kinoUser){
+    public Long saveall( //@AuthenticationPrincipal
+                         @RequestBody ReservationMask reservationMask, @AuthenticationPrincipal KinoUser kinoUser){
         return reservationService.saveAllReservation(reservationMask, kinoUser);
     }
     @PutMapping("update/{id}")
@@ -60,5 +61,10 @@ public class ReservationController {
     public Long changeStatusReservation(@PathVariable(name = "id")Long id,
                                         @PathVariable(name = "status")Integer status){
         return reservationService.changeStatusReservation(id, status);
+    }
+
+    @GetMapping("/listRes/{enum_status}")//Auth
+    public ArrayList getInfoFromReser(@AuthenticationPrincipal KinoUser kinoUser, @PathVariable(name = "enum_status") Long enum_value){
+        return reservationService.getInfoFromReser(kinoUser, enum_value);
     }
 }
