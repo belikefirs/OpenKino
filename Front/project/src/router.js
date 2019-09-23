@@ -5,6 +5,7 @@ import Home from './views/Home.vue';
 Vue.use(Router);
 
 export default new Router({
+	mode: 'history',
 	routes: [
 		//Admin
 		{
@@ -46,7 +47,8 @@ export default new Router({
 		{
 			path: '/films/FilmsInformation:Pid',
 			name: 'FilmsInformation',
-			component: () => import('./views/FilmsInformation.vue')
+			component: () => import('./views/FilmsInformation.vue'),
+			props: true
 		},
 		{
 			path: '/usercabinet',
@@ -66,7 +68,9 @@ export default new Router({
 		{
 			path: '/films/FilmSession:Sid',
 			name: 'FilmSession',
-			component: () => import('./views/FilmSession.vue')
+			component: () => import('./views/FilmSession.vue'),
+			props: true
 		},
-	],
+	]
+	
 });
