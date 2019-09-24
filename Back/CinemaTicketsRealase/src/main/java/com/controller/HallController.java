@@ -3,6 +3,7 @@ package com.controller;
 import com.masks.HallMask;
 import com.masks.PlaceMask;
 import com.models.Hall;
+import com.models.HallTemplete;
 import com.models.Place;
 import com.service.HallService;
 import org.springframework.http.HttpStatus;
@@ -52,10 +53,10 @@ public class HallController {
                      @RequestParam(name = "idPlace") Long number){
         return hallService.findPlaceByNumberFromHall(id, number);
     }
-    @PostMapping("")
-    public Long saveAll(@RequestBody HallMask hallMask){
-        return hallService.save(hallMask);
-    }
+//    @PostMapping("")
+//    public Long saveAll(@RequestBody HallMask hallMask){
+//        return hallService.save(hallMask);
+//    }
 //    @PostMapping("/saveall")
 //    public Long saveAllF(@RequestParam(name = "number")Integer num,
 //                         @RequestParam(name = "width")Integer width,
@@ -92,5 +93,10 @@ public class HallController {
     @GetMapping("/placeReser/{id}")
     public List<Place> getPlacesReser(@PathVariable Long id){
         return hallService.getPlacesReservation(id);
+    }
+
+    @PostMapping("/saveT")
+    public Long saveT(@RequestBody HallTemplete hallTemplete){
+        return hallService.saveHallTemplete(hallTemplete);
     }
 }

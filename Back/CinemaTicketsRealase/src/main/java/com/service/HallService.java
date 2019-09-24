@@ -3,6 +3,7 @@ package com.service;
 import com.masks.HallMask;
 import com.masks.PlaceMask;
 import com.models.Hall;
+import com.models.HallTemplete;
 import com.models.Place;
 
 import java.math.BigDecimal;
@@ -12,7 +13,8 @@ import java.util.List;
 
 public interface HallService {
     Long saveHall(Hall hall);
-    Long save(HallMask mask);
+    Long saveHallTemplete(HallTemplete hallTemplete);
+    Long save(Hall hall, BigDecimal price);
     Hall saveAll(Integer number, Integer width, Integer height, BigDecimal price);
     List<Place> getIsReservation(Long id);
   //  List<Place> createdPlaces(Integer width, Integer height, BigDecimal price, Long idHall);

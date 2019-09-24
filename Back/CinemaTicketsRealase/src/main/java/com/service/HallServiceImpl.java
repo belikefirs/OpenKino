@@ -4,18 +4,14 @@ import com.dao.*;
 import com.enums.Pstatus;
 import com.masks.HallMask;
 import com.masks.PlaceMask;
-import com.models.Buy;
-import com.models.Hall;
-import com.models.Place;
-import com.models.Reservation;
-import org.hibernate.Hibernate;
+import com.models.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiFunction;
 
 @Service
 public class HallServiceImpl implements HallService {
@@ -24,14 +20,17 @@ public class HallServiceImpl implements HallService {
     private ReservationDao reservationDao;
     private BuyDao buyDao;
     private SessionDao sessionDao;
+    private HallTempleteDao hallTempleteDao;
+
     public HallServiceImpl(HallDao hallDao, PlaceDao placeDao,
                            ReservationDao reservationDao, BuyDao buyDao,
-                           SessionDao sessionDao){
+                           SessionDao sessionDao, HallTempleteDao hallTempleteDao){
         this.hallDao = hallDao;
         this.placeDao = placeDao;
         this.reservationDao = reservationDao;
         this.buyDao = buyDao;
         this.sessionDao = sessionDao;
+        this.hallTempleteDao = hallTempleteDao;
     }
     @Override
     @Transactional
@@ -41,20 +40,23 @@ public class HallServiceImpl implements HallService {
 
     @Override
     @Transactional
-    public Long save(HallMask hallMask) {
-        Hall hall = new Hall();
-        hall.setNumber(hallMask.getNumber());
-        hall.setWidth(hallMask.getWidth());
-        hall.setHeight(hallMask.getHeight());
+    public Long saveHallTemplete(HallTemplete hallTemplete) {
+        return hallTempleteDao.save(hallTemplete).getId();
+    }
+
+    @Override
+    @Transactional
+    public Long save(Hall hall, BigDecimal price) {
+
         Long id = hallDao.save(hall).getId();
         List<Place> places = new ArrayList<Place>();
-        for(int i = 1; i < hallMask.getWidth(); i++){
-            for(int j = 1; j < hallMask.getHeight(); j++){
+        for(int i = 1; i < hall.getWidth()+1; i++){
+            for(int j = 1; j < hall.getHeight()+1; j++){
                 Place place = new Place();
                 place.setHall(hallDao.findById(id).get());
                 place.setY(i);
                 place.setX(j);
-                place.setPrice(hallMask.getPrice());
+                place.setPrice(price);
                 place.setStatus(Pstatus.IsFree);
                 placeDao.save(place);
                 places.add(place);
@@ -270,4 +272,6 @@ public class HallServiceImpl implements HallService {
         }
         return halls;
     }
+
+
 }
