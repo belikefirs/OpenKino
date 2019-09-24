@@ -31,12 +31,12 @@ export default {
         }
     },
     methods: {
-        showInformation(sId) {
-            this.$router.push({name: 'FilmsInformation', params:{Pid:sId}});
+        showInformation(fId) {
+            this.$router.push({name: 'FilmsInformation', params:{Pid:fId}});
         },
     },
-    mounted() {
-        this.$store.dispatch('PageFilms/GET_SESSIONS').then(listSession => this.listSession = listSession);
+    created() {
+        this.$store.dispatch('PageFilms/GET_SESSIONS', {idF: this.$route.params.Sid}).then(listSession => this.listSession = listSession);
     }
 }
 </script>

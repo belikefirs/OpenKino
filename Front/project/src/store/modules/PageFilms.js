@@ -19,13 +19,21 @@ const actions = {
         })
     },
     GET_SESSIONS (context, data) {
-        return AXIOS.get('/session/170').then(({data}) => {
+        return AXIOS.get('/session/' + data.idF).then(({data}) => {
             return data;
         })
     },
-    RESERVATION (context, data) {
+    CHANGE_STATUS (context, data) {
         return AXIOS.put(`/hall/changeStatus?id=${data.id}&status=${3}`).then(({data}) => {
             return data;
+        })
+    },
+    RESERVATION_FROM_USER (context, data) {
+        const authHeader = localStorage.getItem('token')
+        return AXIOS.post('/reser', data, { headers: {
+            Authorization: 'Bearer ' + authHeader
+        }}).then((response) => {
+
         })
     }
 }
@@ -183,47 +191,47 @@ export default {
 //     "buy": null 
 //     }
 
-// JSON Places
-// { 
-//     "id": 33, 
-//     "number": 3, 
-//     "width": 15, 
-//     "height": 10, 
-//     "places": [ 
-//     { 
-//     "id": 34, 
-//     "y": 1, 
-//     "x": 1, 
-//     "price": 300.00, 
-//     "status": "IsFree", 
-//     "reservation": null, 
-//     "buy": null 
-//     }, 
-//     { 
-//     "id": 35, 
-//     "y": 1, 
-//     "x": 2, 
-//     "price": 300.00, 
-//     "status": "IsFree", 
-//     "reservation": null, 
-//     "buy": null 
-//     }, 
-//     { 
-//     "id": 36, 
-//     "y": 1, 
-//     "x": 3, 
-//     "price": 300.00, 
-//     "status": "IsFree", 
-//     "reservation": null, 
-//     "buy": null 
-//     }, 
-//     { 
-//     "id": 37, 
-//     "y": 1, 
-//     "x": 4, 
-//     "price": 300.00, 
-//     "status": "IsFree", 
-//     "reservation": null, 
-//     "buy": null 
+// JSON Hall
+// {
+//     "id": 33,
+//     "number": 3,
+//     "width": 15,
+//     "height": 10,
+//     "places": [
+//     {
+//     "id": 34,
+//     "y": 1,
+//     "x": 1,
+//     "price": 300.00,
+//     "status": "IsFree",
+//     "reservation": null,
+//     "buy": null
+//     },
+//     {
+//     "id": 35,
+//     "y": 1,
+//     "x": 2,
+//     "price": 300.00,
+//     "status": "IsFree",
+//     "reservation": null,
+//     "buy": null
+//     },
+//     {
+//     "id": 36,
+//     "y": 1,
+//     "x": 3,
+//     "price": 300.00,
+//     "status": "IsFree",
+//     "reservation": null,
+//     "buy": null
+//     },
+//     {
+//     "id": 37,
+//     "y": 1,
+//     "x": 4,
+//     "price": 300.00,
+//     "status": "IsFree",
+//     "reservation": null,
+//     "buy": null
 //     },
     

@@ -97,6 +97,12 @@ export default {
                         {name: 'Сеансы', icon: 'local_play', route: 'sessionsEditing'},
                     ],
                 },
+                {
+                    name: 'Управление залами', icon: 'local_movies',
+                    subTabs: [
+                        {name: 'Залы', icon: 'local_movies', route: 'hallsEditing'},
+                    ],
+                },
             ],
         }
     },

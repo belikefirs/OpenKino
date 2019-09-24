@@ -32,6 +32,7 @@
                         :items="$store.state.Films.filmList"
                         label="Фильм"
                         no-data-text="Нет данных"
+                        open-on-clear
                         v-model="modelFilm"
                         >
                             <template v-slot:item="props">
@@ -46,6 +47,7 @@
                         :items="$store.state.Hall.hallList"
                         label="Зал"
                         no-data-text="Нет данных"
+                        open-on-clear
                         v-model="modelHall"
                         >
                             <template v-slot:item="props">

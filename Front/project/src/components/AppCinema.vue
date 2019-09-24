@@ -10,9 +10,9 @@
         class="place"
         v-for="(item, index) in hall.places"
         :key="item.id"
-        :class="{free : item.status=='IsFree', notFree : item.status=='IsReservation', selected : selectedItem == item}"
+        :class="{free : item.status=='IsFree', notFree : item.status=='IsReservation', selected : selectedItems.includes(item) == true}"
         :style="{top : item.y * 40 - 40 + 'px', left : 70 + item.x  * 40 + 'px'}"
-        @click="selectItem(item)"
+        @click="selectPlace(item.id)"
       >
         <p>{{index + 1}}</p>
       </div>
@@ -26,8 +26,8 @@
         <p>{{n}}</p>
       </div>
     </div>
-    <AppButton
-      style="margin: 0 0 0 30px"
+    <AppButton 
+      style="margin: 35px 0 0 30px"
       class="toBookButton"
       @click.native="setReservation()"
     >Забронировать билет</AppButton>
@@ -42,27 +42,36 @@ export default {
   },
   data() {
     return {
-    //   selectedItems: [],
+      selectedItems: [],
       hall: null,
-      selectedItem: null
-    };
+      selectedItem: null,
+      dataReservation: {
+        idSess: null,
+        idHall: null,
+        places: []
+      }
+    }
   },
   methods: {
     setReservation() {
-        // this.$store.dispatch("PageFilms/RESERVATION" + {id: })
-        
-        this.$store.dispatch("PageFilms/RESERVATION", {id: this.selectedItem.id}).then(() => {
-          this.$store.dispatch("Hall/GET_PLACES").then(hall => (this.hall = hall))
-        })
+        //this.$store.dispatch("PageFilms/CHANGE_STATUS", {id: this.selectedItem.id})
+        //.then(
+          // this.$store.dispatch("Hall/GET_PLACES", {idP: this.$route.params.Pid})
+          // .then(hall => this.hall = hall)
+          this.dataReservation.idSess = this.$route.params.Pid,
+          this.dataReservation.idHall = this.hall.id,
+          this.dataReservation.places = this.selectedItems
+        //)
+          this.$store.dispatch("PageFilms/RESERVATION_FROM_USER", this.dataReservation)
     },
-    selectItem(item) {
+    selectPlace(item) {
     //   if (item.status=='IsReservation') {
     //     if (this.selectedItems.includes(item))
     //       this.selectedItems.splice(this.selectedItems.indexOf(item), 1);
     //     else this.selectedItems.push(item);
     //     if (this.selectedItems.length > 5) this.selectedItems.shift();
     //   }
-        this.selectedItem = item;
+        this.selectedItems.push(item);
     },
     setNotFree() {
     //   this.selectedItem.forEach(item => {
@@ -71,13 +80,10 @@ export default {
     //   this.selectedItems = [];
     }
   },
-  mounted() {
+  created() {
     this.$store
-      .dispatch("Hall/GET_PLACES")
+      .dispatch("Hall/GET_PLACES", {idP: this.$route.params.Pid})
       .then(hall => (this.hall = hall))
-      .then(() => {
-        this.$store.dispatch("PageFilms/RESERVATION");
-      });
   }
 };
 </script>
@@ -97,6 +103,7 @@ export default {
 }
 .places {
   position: relative;
+  
 }
 .places .place {
   position: absolute;
@@ -132,7 +139,6 @@ export default {
   transform: scale(1.1);
 }
 .toBookButton {
-  margin: 15px 15px 0 auto;
   width: 220px;
   border-radius: 6px;
 }

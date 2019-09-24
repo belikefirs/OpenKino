@@ -20,18 +20,13 @@ const mutations = {
 }
 
 const actions = {
-    // GET_HALL (context) {
-    //     return AXIOS.get('/hall/get/6').then(({data}) => {
-    //         return data;
-    //     })
-    // },
     GET_ALL_HALLS (context){
         return AXIOS.get('/hall/all').then(({data}) => {
             context.commit('setAllHalls', data);
         });
     },
     GET_PLACES (context, data) {
-        return AXIOS.get('/hall/1').then(({data}) => {
+        return AXIOS.get('/hall/bySession/' + data.idP).then(({data}) => {
             return data;
         })
     },
