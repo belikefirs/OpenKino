@@ -23,7 +23,7 @@ public interface HallService {
      Hall findHallbyId(Long id);
     Hall findHallbyNumber(Integer number);
      Long updateHall(Hall hall);
-     Long changeStatus(Long id, int status);
+     void changeStatus(List<Long> listPlace, int status);
      void deleteHall(Long id);
     Integer getSize(Long id);
     Long savePlace(PlaceMask placeMask);

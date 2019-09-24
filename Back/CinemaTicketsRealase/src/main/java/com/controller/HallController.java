@@ -81,9 +81,9 @@ public class HallController {
         return hallService.getPlaces(id);
     }
     @PutMapping("/changeStatus")
-    public Long changeStatusReservation(@RequestParam(name = "id")Long id,
+    public void changeStatusReservation(@RequestBody List<Long> listPlace,
                                         @RequestParam(name = "status")Integer status){
-        return hallService.changeStatus(id, status);
+        hallService.changeStatus(listPlace, status);
     }
 
     @GetMapping("/placeNotReser/{id}")

@@ -210,22 +210,38 @@ public class HallServiceImpl implements HallService {
 
     @Override
     @Transactional
-    public Long changeStatus(Long id, int status) {
-        Place place = placeDao.findById(id).get();
+    public void changeStatus(List<Long> listPlace, int status) {
+        List<Place> places = new ArrayList<Place>();
+        for (Long e: listPlace
+             ) {
+            places.add(placeDao.findById(e).get());
+        }
+
+        if(status == 0){
+            for (Place ee: places
+            ) {
+                ee.setStatus(Pstatus.IsFree);
+            }
+        }
         if(status == 1){
-            place.setStatus(Pstatus.IsFree);
+            for (Place ee: places
+            ) {
+                ee.setStatus(Pstatus.IsBuy);
+            }
         }
         if(status == 2){
-            place.setStatus(Pstatus.IsBuy);
+            for (Place ee: places
+            ) {
+                ee.setStatus(Pstatus.IsReservation);
+            }
         }
         if(status == 3){
-            place.setStatus(Pstatus.IsReservation);
+            for (Place ee: places
+            ) {
+                ee.setStatus(Pstatus.IsBroken);
+            }
         }
-        if(status == 0){
-            place.setStatus(Pstatus.IsBroken);
-        }
-        placeDao.save(place);
-        return place.getId();
+        placeDao.saveAll(places);
     }
 
     @Override
