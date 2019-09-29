@@ -8,8 +8,6 @@ import com.view.Views;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "BUY")
@@ -19,21 +17,21 @@ public class Buy {
     @JsonView(Views.Internal.class)
     private Long id;
 
-    @JsonView(Views.Internal.class)
+    @JsonView(Views.Public.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", locale = "ru_RU")
     @Column( name = "DATE")
     private LocalDateTime localDateTime = LocalDateTime.now();
 
-    @JsonView(Views.Internal.class)
+    @JsonView(Views.Public.class)
     @Column(name = "PRICE")
     private BigDecimal price;
 
-    @JsonView(Views.Internal.class)
+    @JsonView(Views.Public.class)
     @OneToOne
     @JoinColumn(name = "ID_RESERVATION")
     private Reservation reservation;
 
-    @JsonView(Views.Internal.class)
+    @JsonView(Views.Public.class)
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_CARD")
     private Card card;
