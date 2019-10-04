@@ -71,6 +71,11 @@ export default new Router({
 			component: () => import('./views/FilmSession.vue'),
 			props: true
 		},
+		{
+			path: '/usercabinet/reservation',
+			name: 'reservation',
+			component: () => import('./views/UserCabinetReservation.vue')
+		}
 	]
 	
 });

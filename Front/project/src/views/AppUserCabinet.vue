@@ -16,7 +16,7 @@
                     <Donate></Donate>
                 </template>
             </Modal>
-            <div class="item3 item"><p>Избранное</p></div>
+            <router-link to="/usercabinet/reservation" class="item3 item"><div><p>Избранное</p></div></router-link>
             <div class="item4 item"><p>Настройки</p></div>
             <router-link to="/usercabinet/buy" class="item5 item"><div><p>Покупки</p></div></router-link>
             <div class="item6 item"><p>VIP</p></div>

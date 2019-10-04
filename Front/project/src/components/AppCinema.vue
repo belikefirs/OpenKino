@@ -62,7 +62,10 @@ export default {
           this.dataReservation.idHall = this.hall.id,
           this.dataReservation.places = this.selectedItems
         //)
-          this.$store.dispatch("PageFilms/RESERVATION_FROM_USER", this.dataReservation)
+          this.$store.dispatch("PageFilms/RESERVATION_FROM_USER", this.dataReservation).then(() => {
+                this.$store.dispatch("Hall/GET_PLACES", {idP: this.$route.params.Pid})
+                .then(hall => (this.hall = hall))
+          })
     },
     selectPlace(item) {
     //   if (item.status=='IsReservation') {
@@ -81,8 +84,7 @@ export default {
     }
   },
   created() {
-    this.$store
-      .dispatch("Hall/GET_PLACES", {idP: this.$route.params.Pid})
+    this.$store.dispatch("Hall/GET_PLACES", {idP: this.$route.params.Pid})
       .then(hall => (this.hall = hall))
   }
 };
