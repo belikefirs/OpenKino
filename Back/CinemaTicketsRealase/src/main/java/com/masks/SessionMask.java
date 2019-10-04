@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.models.Hall;
+import com.models.HallTemplete;
 import com.models.Session;
 
 import java.time.LocalDateTime;
@@ -29,7 +30,7 @@ public class SessionMask {
     private LocalDateTime end;
 
     @JsonView(View.Save.class)
-    private Integer[] hall;
+    private Long hallTemplete;
     @JsonView(View.Save.class)
     private Long film;
     public SessionMask(){}
@@ -79,12 +80,12 @@ public class SessionMask {
         this.session = session;
     }
 
-    public Integer[] getHall() {
-        return hall;
+    public Long getHallTemplete() {
+        return hallTemplete;
     }
 
-    public void setHall(Integer[] hall) {
-        this.hall = hall;
+    public void setHallTemplete(Long hallTemplete) {
+        this.hallTemplete = hallTemplete;
     }
 
     public Long getFilm() {

@@ -17,41 +17,41 @@
 
 <script>
 export default {
-	props:{
-		image: {
-			type: String,
-			required: false,
-			default: "https://images.kinomax.ru/films/4/4479/560x302/p_53834f0.jpg"
-		},
-		path: {
-			type: String,
-			required: false
-		},
-		filmTitle: {
-			type: String,
-			required: false
-		},
-		filmStyle: {
-			type: String,
-			required: false
-		},
-		filmType: {
-			type: String,
-			required: false
-		},
-		limitAge: {
-			type: Number,
-			required: false,
-			default: 0
-		},
-		
-	},
-	computed:{
-		bgImage(){
-			return "url(" + this.image + ")";
-		}
-	}
-}
+  props: {
+    image: {
+      type: String,
+      required: false,
+      default: 'https://images.kinomax.ru/films/4/4479/560x302/p_53834f0.jpg',
+    },
+    path: {
+      type: String,
+      required: false,
+    },
+    filmTitle: {
+      type: String,
+      required: false,
+    },
+    filmStyle: {
+      type: String,
+      required: false,
+    },
+    filmType: {
+      type: String,
+      required: false,
+    },
+    limitAge: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
+
+  },
+  computed: {
+    bgImage() {
+      return `url(${this.image})`;
+    },
+  },
+};
 </script>
 
 <style lang="sass" scoped>

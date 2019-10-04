@@ -6,9 +6,9 @@ import java.math.BigDecimal;
 public class CardMask implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    Long id;
-    BigDecimal balance;
-    Long idKinUser;
+    private Long id;
+    private BigDecimal balance;
+    private Long idKinUser;
     public CardMask(){}
 
     public BigDecimal getBalance() {

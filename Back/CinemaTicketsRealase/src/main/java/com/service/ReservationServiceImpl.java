@@ -77,14 +77,17 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public Long saveAllReservation(ReservationMask reservationMask, KinoUser kinoUser) {
-        if(kinoUser == null){
-            throw new NullPointerException("Exception: kinouser is null!");
-        }
-        KinoUser kinoUser1 = kinoUserDao.findById(kinoUser.getId()).get();
+        KinoUser kinoUser1 = new KinoUser();
         Reservation reservation = new Reservation();
+        if(kinoUser != null){
+           kinoUser1 = kinoUserDao.findById(kinoUser.getId()).get();
+            reservation.setKinoUser(kinoUser1);
+        }
+
+
         reservation.setStart(LocalDateTime.now(ZoneId.of("UTC+4")));
         reservation.setEnd(sessionDao.getBeginSession(reservationMask.getIdSess()).minusHours(1));
-        reservation.setKinoUser(kinoUser1);
+
         reservation.setStatus(RStatus.IsAlive);
         BigDecimal resultPrice = new BigDecimal("0");
         reservation.setPrice(resultPrice);

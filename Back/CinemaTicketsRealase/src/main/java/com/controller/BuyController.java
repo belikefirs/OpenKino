@@ -1,8 +1,11 @@
 package com.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.masks.BuyMask;
 import com.models.Buy;
 import com.models.KinoUser;
 import com.service.BuyService;
+import com.view.Views;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,16 +19,13 @@ public class BuyController {
         this.buyService = buyService;
     }
 
-    @PostMapping("")
-    Long saveBuy(@RequestBody Buy buy) {
-        return buyService.saveBuy(buy);
-    }
-
     @PostMapping("/save")
-    Long saveBuyByKinoUser(@RequestBody Buy buy, @AuthenticationPrincipal KinoUser kinoUser) {
-        return buyService.saveBuyByKinoUser(buy,kinoUser);
+    Long saveBuyByKinoUser( @RequestBody BuyMask buyMask,
+                            @AuthenticationPrincipal KinoUser kinoUser) {
+        return buyService.saveBuy(buyMask,kinoUser);
     }
 
+    @JsonView(Views.Internal.class)
     @GetMapping("/id/{id}")
     Buy findById(@PathVariable Long id){
         return buyService.findBuyById(id);

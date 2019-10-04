@@ -1,11 +1,13 @@
 package com.service;
 
+import com.dao.HallTempleteDao;
 import com.masks.SessionMask;
 import com.dao.FilmDao;
 import com.dao.HallDao;
 import com.dao.SessionDao;
 import com.models.Film;
 import com.models.Hall;
+import com.models.HallTemplete;
 import com.models.Session;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
@@ -23,13 +25,15 @@ public class SessionServiceImpl implements SessionService {
     private FilmDao filmDao;
     private HallDao hallDao;
     private SessionDao sessionDao;
-private HallService hallService;
+    private HallService hallService;
+private HallTempleteDao hallTempleteDao;
 
-    public SessionServiceImpl(FilmDao filmDao, HallDao hallDao, SessionDao sessionDao, HallService hallService) {
+    public SessionServiceImpl(FilmDao filmDao, HallDao hallDao, SessionDao sessionDao, HallService hallService, HallTempleteDao hallTempleteDao) {
         this.filmDao = filmDao;
         this.hallDao = hallDao;
         this.sessionDao = sessionDao;
         this.hallService = hallService;
+        this.hallTempleteDao = hallTempleteDao;
     }
 
     @Override
@@ -98,8 +102,12 @@ private HallService hallService;
     @Override
     public Long saveSessionVer2_0(SessionMask sessionMask, BigDecimal price) {
         Film film = filmDao.findById(sessionMask.getFilm()).get();
-        Integer[] arr = sessionMask.getHall();
-        Hall hall =hallService.saveAll(arr[2],arr[1],arr[0], price);
+        Hall hall = new Hall();
+        HallTemplete hallTemplete = hallTempleteDao.findById(sessionMask.getHallTemplete()).get();
+        hall.setNumber(hallTemplete.getNumber());
+        hall.setWidth(hallTemplete.getWidth());
+        hall.setHeight(hallTemplete.getHeight());
+        hallService.save(hall, price);
         Session session = sessionMask.getSession();
         session.setFilm(film);
         session.setHall(hall);

@@ -23,6 +23,11 @@ export default new Router({
 			name: 'sessionsEditing',
 			component: () => import('./views/AdminSessionsEditing.vue')
 		},
+		{
+			path: '/admin/halls_editing',
+			name: 'hallsEditing',
+			component: () => import('./views/AdminHallsEditing.vue')
+		},
 		//Other
 		{
 			path: '/',
