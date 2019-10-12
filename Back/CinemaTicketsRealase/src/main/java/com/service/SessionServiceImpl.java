@@ -1,40 +1,34 @@
 package com.service;
 
-import com.dao.HallTempleteDao;
+import com.dao.*;
+import com.enums.Pstatus;
 import com.masks.SessionMask;
-import com.dao.FilmDao;
-import com.dao.HallDao;
-import com.dao.SessionDao;
-import com.models.Film;
-import com.models.Hall;
-import com.models.HallTemplete;
-import com.models.Session;
+import com.models.*;
+import lombok.AllArgsConstructor;
 import org.hibernate.Hibernate;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.awt.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class SessionServiceImpl implements SessionService {
 
     private FilmDao filmDao;
     private HallDao hallDao;
     private SessionDao sessionDao;
     private HallService hallService;
+    private PlaceDao placeDao;
 private HallTempleteDao hallTempleteDao;
 
-    public SessionServiceImpl(FilmDao filmDao, HallDao hallDao, SessionDao sessionDao, HallService hallService, HallTempleteDao hallTempleteDao) {
-        this.filmDao = filmDao;
-        this.hallDao = hallDao;
-        this.sessionDao = sessionDao;
-        this.hallService = hallService;
-        this.hallTempleteDao = hallTempleteDao;
-    }
 
     @Override
     public List<Session> findSessionByFilm(Long id_film) {
@@ -66,14 +60,15 @@ private HallTempleteDao hallTempleteDao;
         session1.setStart(sessionMask.getStart());
         session1.setFilm(filmDao.findById(sessionMask.getId()).get());
         session1.setHall(hallDao.findById(sessionMask.getId()).get());
-        session1.setEnd(sessionMask.getEnd());
+      //  session1.setEnd(sessionMask.getEnd());
         return sessionDao.save(session1).getId();
     }
 
     @Override
     public Long saveSession(Session session) {
-        Film film = filmDao.findById(session.getFilm().getId()).get();
-        session.setEnd(session.getStart().plusMinutes(film.getLenght()));
+        Hall hall = hallDao.findById(session.getIdHall()).get();
+        session.setHall(hall);
+       // session.setEnd(session.getStart().plusMinutes(film.getLenght()));
         return sessionDao.save(session).getId();
     }
 
@@ -104,7 +99,7 @@ private HallTempleteDao hallTempleteDao;
         Film film = filmDao.findById(sessionMask.getFilm()).get();
         Hall hall = new Hall();
         HallTemplete hallTemplete = hallTempleteDao.findById(sessionMask.getHallTemplete()).get();
-        hall.setNumber(hallTemplete.getNumber());
+      //  hall.setNumber(hallTemplete.getNumber());
         hall.setWidth(hallTemplete.getWidth());
         hall.setHeight(hallTemplete.getHeight());
         hallService.save(hall, price);
@@ -118,8 +113,53 @@ private HallTempleteDao hallTempleteDao;
     public Session getSession(Long id) {
         Session session = sessionDao.findById(id).get();
         session.getHall().getPlaces().size();
-        session.getFilm().getId();
-
+        session.getHall().getSessions().size();
+        session.getPlaces().size();
         return session;
+    }
+
+    @Override
+    public Long cretedPlaces(Long numberHall, Long idSession) {
+        Hall hall = hallDao.getNumberHall(numberHall);
+        Session session = sessionDao.findById(idSession).get();
+        List<Place> places = new ArrayList<Place>();
+        for(int y = 1; y <= hall.getHeight()+1; y++){
+            for(int x = 1; x <=hall.getWidth()+1; x++){
+                Place place = new Place();
+                place.setHall(hall);
+                place.setSession(session);
+                place.setX(x);
+                place.setY(y);
+                place.setStatus(Pstatus.IsFree);
+                placeDao.save(place);
+                places.add(place);
+            }
+        }
+        hall.setPlaces(places);
+        session.setPlaces(places);
+        return sessionDao.save(session).getId();
+    }
+
+    @Override
+    public void updateBroken(Long idSession, List<Point> pointsPlaces) {
+        Session session = sessionDao.findById(idSession).get();
+        for(int j = 0; j < session.getPlaces().size(); j++){
+        for(int i = 0; i < pointsPlaces.size(); i++) {
+            if ((session.getPlaces().get(j).getX() == pointsPlaces.get(i).x) &&
+                    (session.getPlaces().get(j).getY() == pointsPlaces.get(j).y)) {
+                session.getPlaces().get(j).setStatus(Pstatus.IsBroken);
+                placeDao.save(session.getPlaces().get(j));
+            }
+        }
+
+        }
+        sessionDao.save(session);
+    }
+
+    @Override
+    public List<Place> getPlace(Long idSession) {
+        Session session = sessionDao.findById(idSession).get();
+        session.getPlaces().size();
+        return session.getPlaces();
     }
 }

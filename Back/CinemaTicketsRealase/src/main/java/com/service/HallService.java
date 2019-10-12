@@ -15,13 +15,14 @@ public interface HallService {
     Long saveHall(Hall hall);
     Long saveHallTemplete(HallTemplete hallTemplete);
     Long save(Hall hall, BigDecimal price);
+    Long saveV2(Hall hall);
     Hall saveAll(Integer number, Integer width, Integer height, BigDecimal price);
     List<Place> getIsReservation(Long id);
   //  List<Place> createdPlaces(Integer width, Integer height, BigDecimal price, Long idHall);
    // Hall saveListPlaces(Long id, List<Place> places);
     Hall saveAndCreatedListSession(Long id);
      Hall findHallbyId(Long id);
-    Hall findHallbyNumber(Integer number);
+    Hall findHallbyNumber(Long number);
      Long updateHall(Hall hall);
      void changeStatus(List<Long> listPlace, int status);
      void deleteHall(Long id);
@@ -34,6 +35,5 @@ public interface HallService {
     Place getPlace(Long idHall, Long idPlaces);
     List<Place> getPlacesNotReservation(Long id);
      List<Place> getPlacesReservation(Long id);
-
 List<Hall>  getAllHall();
 }

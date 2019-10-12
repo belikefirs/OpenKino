@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 
 import java.util.List;
 
@@ -37,5 +38,7 @@ public interface PlaceDao extends JpaRepository<Place,Long> {
     List<Place> getFindbyIdReservaion(@Param("id") Long id);
     @Query(value = "select p from Place as p join p.hall as h where p.id = :idP and h.id = :idH")
     List<Place> getPlaceFromHall(@Param("idP")Long idP, @Param("idH")Long idH);
-
+    @Query(value = "select p from Place as p join p.session as s where " +
+            "s.id = :idSession")
+    List<Place> getPlaceFromSessionAndHall(@Param("idSession")Long idSession);
 }

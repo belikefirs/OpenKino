@@ -2,6 +2,7 @@ package com.controller;
 
 import com.masks.SessionMask;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.models.Place;
 import com.models.Session;
 import com.service.SessionService;
 import org.springframework.web.bind.annotation.*;
@@ -52,5 +53,20 @@ public class SessionController {
     @GetMapping("/get/{id}")
     public @ResponseBody Session getSession(@PathVariable Long id){
         return  sessionService.getSession(id);
+    }
+    @PostMapping("")
+    public Long saveV2(@RequestBody Session session){
+        return sessionService.saveSession(session);
+    }
+    @PutMapping("")
+    public Long createdPlace(@RequestParam(name = "number")Long num,
+                             @RequestParam(name = "idSession")Long idSession, @RequestBody Session session){
+       Long id = sessionService.cretedPlaces(num, idSession);
+        return id;
+    }
+    @JsonView(Place.View.Public.class)
+    @GetMapping("/list/{id}")
+    public List<Place> getPlace(@PathVariable Long id){
+        return sessionService.getPlace(id);
     }
 }

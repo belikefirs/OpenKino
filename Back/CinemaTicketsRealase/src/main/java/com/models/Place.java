@@ -2,105 +2,65 @@ package com.models;
 
 import com.enums.Pstatus;
 import com.enums.RStatus;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.*;
 import com.masks.PlaceMask;
+import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
+@Data
 @Entity
 @Table(name = "PLACE")
-public class Place {
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class Place implements Serializable {
+    public static class View{
+        public static class Public{}
+        public static class Internal extends Public{}
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column (name="ID")
+    @Column(name = "ID")
+    @JsonView(View.Public.class)
     private Long id;
+
     @Column(name = "Y")
-    @JsonView(PlaceMask.View.Save.class)
+    @JsonView(View.Public.class)
     private Integer y;
-    @Column (name = "X")
-    @JsonView(PlaceMask.View.Save.class)
+
+    @Column(name = "X")
+    @JsonView(View.Public.class)
     private Integer x;
-    @Column (name = "PRICE")
-    @JsonView(PlaceMask.View.Save.class)
+
+    @Column(name = "PRICE")
+    @JsonView(View.Public.class)
     private BigDecimal price;
+
     @Column(name = "STATUS")
+    @JsonView(View.Public.class)
     private Pstatus status;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_RESERVATION")
-    @JsonBackReference
+    @JsonView(View.Internal.class)
     private Reservation reservation;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_BUY")
+    @JsonView(View.Internal.class)
     private Buy buy;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_HALL")
-
-    @JsonBackReference
+    @JsonView(View.Internal.class)
     private Hall hall;
-    public Place(){}
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_SESSION")
+    @JsonView(View.Internal.class)
+    private Session session;
 
-    public Integer getY() {
-        return y;
-    }
-
-    public void setY(Integer y) {
-        this.y = y;
-    }
-
-    public Integer getX() {
-        return x;
-    }
-
-    public void setX(Integer x) {
-        this.x = x;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public Reservation getReservation() {
-        return reservation;
-    }
-
-    public void setReservation(Reservation reservation) {
-        this.reservation = reservation;
-    }
-
-    public Hall getHall() {
-        return hall;
-    }
-
-    public void setHall(Hall hall) {
-        this.hall = hall;
-    }
-
-    public Buy getBuy() {
-        return buy;
-    }
-
-    public void setBuy(Buy buy) {
-        this.buy = buy;
-    }
-    public Pstatus getStatus() {
-        return status;
-    }
-    public void setStatus(Pstatus status) {
-        this.status = status;
+    public Place() {
     }
 }

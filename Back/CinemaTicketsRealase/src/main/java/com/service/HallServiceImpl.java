@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.function.BiFunction;
 
 @Service
+@Transactional
 public class HallServiceImpl implements HallService {
     private HallDao hallDao;
     private PlaceDao placeDao;
@@ -32,20 +33,29 @@ public class HallServiceImpl implements HallService {
         this.sessionDao = sessionDao;
         this.hallTempleteDao = hallTempleteDao;
     }
+
     @Override
-    @Transactional
+
+    public Long saveV2(Hall hall) {
+        hall.setPlaces(null);
+        hall.setSessions(null);
+        return hallDao.save(hall).getId();
+    }
+
+    @Override
+
     public Long saveHall(Hall hall) {////////////////////////////////////////////////
         return hallDao.save(hall).getId();
     }
 
     @Override
-    @Transactional
+
     public Long saveHallTemplete(HallTemplete hallTemplete) {
         return hallTempleteDao.save(hallTemplete).getId();
     }
 
     @Override
-    @Transactional
+
     public Long save(Hall hall, BigDecimal price) {
 
         Long id = hallDao.save(hall).getId();
@@ -66,10 +76,10 @@ public class HallServiceImpl implements HallService {
         return id;
     }
     @Override
-    @Transactional
+
     public Hall saveAll(Integer number, Integer width, Integer height, BigDecimal price) {
         Hall hall = new Hall();
-        hall.setNumber(number);
+      //  hall.setNumber(number);
         hall.setWidth(width);
         hall.setHeight(height);
         Long id = hallDao.save(hall).getId();
@@ -130,23 +140,24 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    @Transactional
+
     public Hall findHallbyId(Long id) {
         Hall hall = hallDao.findById(id).get();
         hall.getPlaces().size();
+        hall.getSessions().size();
         return hall;
     }
 
     @Override
-    @Transactional
-    public Hall findHallbyNumber(Integer number) {
+
+    public Hall findHallbyNumber(Long number) {
         Hall hall = hallDao.getNumberHall(number);
         hall.getPlaces().size();
         return hall;
     }
 
     @Override
-    @Transactional
+
     public Long updateHall(Hall hall) {
         Hall hall1 = hallDao.findById(hall.getId()).get();
         hall1.setHeight(hall.getHeight());
@@ -156,13 +167,13 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    @Transactional
+
     public void deleteHall(Long id) {
         hallDao.deleteById(id);
     }
 
     @Override
-    @Transactional
+
     public List<Place> getPlaces(Long id) {
         Hall hall = hallDao.findById(id).get();
         List<Place> places = placeDao.getFindHallWithlacesById(hall.getId());
@@ -170,13 +181,13 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    @Transactional
+
     public Place getPlace(Long idHall, Long idPlaces) {
         return null;
     }
 
     @Override
-    @Transactional
+
     public List<Place> getPlacesNotReservation(Long id) {
         Hall hall = hallDao.findById(id).get();
         List<Place>  places =
@@ -185,7 +196,7 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    @Transactional
+
     public List<Place> getPlacesReservation(Long id) {
         Hall hall =  hallDao.findById(id).get();
         List<Place> places =
@@ -194,13 +205,13 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    @Transactional
+
     public Integer getSize(Long id) {
         Hall hall = hallDao.findById(id).get();
         return hall.getWidth() * hall.getHeight();
     }
     @Override
-    @Transactional
+
     public Long savePlace(PlaceMask placeMask) {
         Hall hall = hallDao.findById(placeMask.getIdH()).get();
         placeMask.getPlace().setHall(hall);
@@ -209,7 +220,7 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    @Transactional
+
     public void changeStatus(List<Long> listPlace, int status) {
         List<Place> places = new ArrayList<Place>();
         for (Long e: listPlace
@@ -245,7 +256,7 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    @Transactional
+
     public Long updatePlace(Long id, BigDecimal price, Integer status) {
         Place place = placeDao.findById(id).get();
         place.setPrice(price);
@@ -266,20 +277,20 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    @Transactional
+
     public void deletePlace(Long id) {
         placeDao.deleteById(id);
     }
 
     @Override
-    @Transactional
+
     public Place findPlaceByNumberFromHall(Long idHall, Long number) {
         Place place = placeDao.findPlaceByNumberFromHall(idHall, number);
         return place;
     }
 
     @Override
-    @Transactional
+
     public List<Hall> getAllHall() {
         List<Hall> halls = hallDao.findAll();
         for (Hall e: halls) {
