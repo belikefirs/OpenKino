@@ -14,6 +14,7 @@ import javax.persistence.*;
 
 import java.awt.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,10 @@ public class Session implements Serializable {
     @Column(name = "START")
     @JsonView(View.Public.class)
     private LocalDateTime start;
+
+    @Column(name = "PRICE")
+    @JsonView(View.Public.class)
+    private BigDecimal price;
 
     @ManyToOne
     @JoinColumn(name = "ID_FILM")
