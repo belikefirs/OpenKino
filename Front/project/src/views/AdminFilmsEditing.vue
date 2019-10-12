@@ -14,6 +14,7 @@
             <v-btn sm1 color="primary" @click="addItem">Добавить</v-btn>
             <v-dialog
             v-model="dialog"
+            persistent
             width="500">
                 <v-card>
                     <v-card-title>{{dialogTitle}}</v-card-title>
@@ -61,6 +62,12 @@
                         value="limitAge"
                         label="Возрастное ограничение"
                         clearable
+                        />
+                        <v-textarea
+                        v-model="editingItem.description"
+                        label="Описание"
+                        box
+                        no-resize
                         />
                         <input v-show="false" type="file" ref="inputUpload" @change="loadImage">
                         <v-btn block  @click="btnLoadClick">
@@ -192,6 +199,7 @@ export default {
                 genre: '',
                 limitAge: '',
                 rating: '',
+                description: '',
             },
             editingItem:{
                 name: '',
@@ -200,6 +208,7 @@ export default {
                 genre: '',
                 limitAge: '',
                 rating: '',
+                description: '',
             },
             editingImage: '',
         }
