@@ -1,5 +1,6 @@
 package com.masks;
 
+import com.configuration.SecurityConfig;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.models.Hall;
 
@@ -11,11 +12,11 @@ public class HallMask {
     }
     @JsonView(HallMask.View.Save.class)
     private Integer width;
-    @JsonView(Hall.View.Save.class)
+    @JsonView(SecurityConfig.View.Save.class)
     private Integer height;
-    @JsonView(Hall.View.Save.class)
+    @JsonView(SecurityConfig.View.Save.class)
     private Integer number;
-    @JsonView(Hall.View.Save.class)
+    @JsonView(SecurityConfig.View.Save.class)
     private BigDecimal price;
     public HallMask(){}
 

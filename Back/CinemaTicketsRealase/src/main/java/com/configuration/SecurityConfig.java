@@ -6,10 +6,15 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.filter.BasicAuthenticationVUFilter;
 import com.filter.EncodingFilter;
+import com.models.Place;
+import com.models.Session;
 import com.service.KinUserService;
 import com.tokens.FilterToken;
+import org.codehaus.jackson.JsonProcessingException;
+import org.codehaus.jackson.map.deser.std.StdDeserializer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,12 +24,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @EnableWebSecurity
@@ -86,6 +94,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             return LocalDateTime.parse(arg0.getText());
         }
     }
+    public static class View{
+        public static class Save{}
+    }
     @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -105,4 +116,70 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return multipartResolver;
     }
 
+    public class DesiarizebleListPlace extends StdDeserializer<List<Place>> {
+
+        public DesiarizebleListPlace(){
+            this(null);
+        }
+        public DesiarizebleListPlace(Class<?> vc) {
+            super(vc);
+        }
+
+        @Override
+        public List<Place> deserialize(org.codehaus.jackson.JsonParser jsonParser, org.codehaus.jackson.map.DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+            return new ArrayList<>();
+        }
+    }
+
+    public class DesiarizebleListSession extends StdDeserializer<List<Session>> {
+
+        public DesiarizebleListSession(){
+            this(null);
+        }
+        public DesiarizebleListSession(Class<?> vc) {
+            super(vc);
+        }
+
+        @Override
+        public List<Session> deserialize(org.codehaus.jackson.JsonParser jsonParser, org.codehaus.jackson.map.DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+            return new ArrayList<>();
+        }
+    }
+    public class SerializebleListPlace extends StdSerializer<List<Place>>{
+
+        public SerializebleListPlace(){
+            this(null);
+        }
+        public SerializebleListPlace(Class<List<Place>> t) {
+            super(t);
+        }
+
+        @Override
+        public void serialize(List<Place> places, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+            List<Long> ids = new ArrayList<>();
+            for(Place place : places){
+                ids.add(place.getId());
+            }
+            jsonGenerator.writeObject(ids);
+        }
+    }
+
+    public class SerializebleListSession extends StdSerializer<List<Session>>{
+
+        public SerializebleListSession(){
+            this(null);
+        }
+        public SerializebleListSession(Class<List<Session>> t) {
+            super(t);
+        }
+
+        @Override
+        public void serialize(List<Session> sessions, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+            List<Long> ids = new ArrayList<>();
+            for(Session session:sessions){
+                ids.add(session.getId());
+            }
+            jsonGenerator.writeObject(ids);
+        }
+    }
 }

@@ -44,7 +44,7 @@ public class SessionMask {
         if(id != null){
             this.session.setId(id);
         }
-        this.session.setEnd(this.end);
+        //this.session.setEnd(this.end);
         this.session.setStart(this.start);
     }
 

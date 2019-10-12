@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.masks.HallMask;
 import com.masks.PlaceMask;
 import com.models.Hall;
@@ -7,11 +8,15 @@ import com.models.HallTemplete;
 import com.models.Place;
 import com.service.HallService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.Consumes;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.http.MediaType.*;
 
 @RestController
 @RequestMapping("/hall")
@@ -21,6 +26,13 @@ public class HallController {
     public HallController(HallService hallService){
         this.hallService = hallService;
     }
+
+
+    @PostMapping("")
+    public Long saveV2( @JsonView(Hall.View.Internal.class)@RequestBody Hall hall){
+       return hallService.saveV2(hall);
+    }
+
     @PostMapping("/save")
     public Long save(@RequestBody Hall hall){
         return hallService.saveHall(hall);
@@ -40,7 +52,7 @@ public class HallController {
                        @RequestParam(name = "status")Integer status){
         return hallService.updatePlace(id, price, status);
     }
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id){
         hallService.deleteHall(id);
     }
@@ -72,10 +84,14 @@ public class HallController {
     public List<Hall> getAllHall(){
         return hallService.getAllHall();
     }
+
+
     @GetMapping("/{id}")
+    @JsonView(Hall.View.Public.class)
     public Hall getHall(@PathVariable Long id){
         return hallService.findHallbyId(id);
     }
+
     @GetMapping("/places/{id}")
     public List<Place> getPlaces(@PathVariable Long id){
         return hallService.getPlaces(id);
