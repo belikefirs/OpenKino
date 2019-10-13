@@ -22,15 +22,15 @@ public class Place implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
-    @JsonView(View.Public.class)
+    @JsonView({View.Public.class, Session.View.Public.class})
     private Long id;
 
     @Column(name = "Y")
-    @JsonView(View.Public.class)
+    @JsonView({View.Public.class, Session.View.Public.class})
     private Integer y;
 
     @Column(name = "X")
-    @JsonView(View.Public.class)
+    @JsonView({View.Public.class, Session.View.Public.class})
     private Integer x;
 
     @Column(name = "PRICE")
@@ -38,12 +38,12 @@ public class Place implements Serializable {
     private BigDecimal price;
 
     @Column(name = "STATUS")
-    @JsonView(View.Public.class)
+    @JsonView({View.Public.class, Session.View.Public.class})
     private Pstatus status;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "ID_RESERVATION")
-    @JsonView(View.Internal.class)
+    @JsonView({View.Internal.class, Session.View.Public.class})
     private Reservation reservation;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
@@ -53,12 +53,12 @@ public class Place implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_HALL")
-    @JsonView(View.Internal.class)
+    @JsonView({View.Internal.class, Session.View.Public.class})
     private Hall hall;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_SESSION")
-    @JsonView(View.Internal.class)
+    @JsonView({View.Internal.class, Session.View.Internal.class})
     private Session session;
 
     public Place() {

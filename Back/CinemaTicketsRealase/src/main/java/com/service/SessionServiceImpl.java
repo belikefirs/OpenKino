@@ -84,6 +84,7 @@ private HallTempleteDao hallTempleteDao;
         List<Session> sessions = sessionDao.findAll();
         for (Session e : sessions) {
             initLazySessionFields(e);
+            e.getPlaces().size();
         }
         return sessions;
     }
@@ -91,6 +92,7 @@ private HallTempleteDao hallTempleteDao;
     public void initLazySessionFields(Session e) {
         e.getHall().getSessions().size();
         e.getHall().getPlaces().size();
+        if(e.getFilm()!= null)
         e.getFilm().getId();
     }
 

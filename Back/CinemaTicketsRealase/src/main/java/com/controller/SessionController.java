@@ -2,6 +2,7 @@ package com.controller;
 
 import com.masks.SessionMask;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.models.Film;
 import com.models.Place;
 import com.models.Session;
 import com.service.SessionService;
@@ -30,6 +31,7 @@ public class SessionController {
     public List<Session> getSessionAll(@PathVariable  Long id_film){
         return sessionService.findSessionByFilm(id_film);
     }
+    @JsonView(Session.View.Public.class)
     @GetMapping("/all")
     public List<Session> SessionAll(){
         return sessionService.findSessionAll();

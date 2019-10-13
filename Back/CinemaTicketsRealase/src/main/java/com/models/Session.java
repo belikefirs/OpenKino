@@ -38,6 +38,12 @@ public class Session implements Serializable {
     @JsonView(View.Public.class)
     private LocalDateTime start;
 
+    @JsonSerialize(using = SecurityConfig.LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = SecurityConfig.LocalDateTimeDeserializer.class)
+    @Column(name = "END")
+    @JsonView(View.Public.class)
+    private LocalDateTime end;
+
     @Column(name = "PRICE")
     @JsonView(View.Public.class)
     private BigDecimal price;
