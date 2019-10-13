@@ -1,25 +1,22 @@
 import AXIOS from 'axios';
 
 const state = {
-    // halldata: null,
     hallList: [],
 }
 
-const getters = {
-    // HALLS: state => {
-    // return state.halls;
-    // }
-}
 const mutations = {
-    // SET_LIST_HALLS: (state, data) => {
-    //     state.halls = data
-    // },
+
     setAllHalls(state, data){
         state.hallList = data;
     }
 }
 
 const actions = {
+    SET_HALL(context, data){
+        return AXIOS.post('/hall', data).then(() => {
+            context.dispatch('GET_ALL_HALLS');
+        });
+    },
     GET_ALL_HALLS (context){
         return AXIOS.get('/hall/all').then(({data}) => {
             context.commit('setAllHalls', data);
@@ -30,11 +27,17 @@ const actions = {
             return data;
         })
     },
+    CHANGE_HALL(context, data){
+        return AXIOS.put('/hall/update', data);
+    },
+    DELETE_HALL(context, data){
+        return AXIOS.delete('/hall', data.id);
+    }
 }
 
 export default {
     namespaced: true,
-    state, mutations, actions, getters
+    state, mutations, actions
 }
 
 // Формат JSON
