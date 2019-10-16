@@ -161,6 +161,7 @@ public class ReservationServiceImpl implements ReservationService {
         for (Reservation e : listReser) {
             if (e.getStatus().ordinal() == enum_value) {
                 ArrayList listEachReser = new ArrayList();
+                ArrayList listAllPlace = new ArrayList();
                 List<Place> listPlace = placeDao.getFindbyIdReservaion(e.getId());
                 Hall hall = listPlace.get(0).getHall();
                 Session session = sessionDao.findSessionByHall_Id(hall.getId());
@@ -172,8 +173,11 @@ public class ReservationServiceImpl implements ReservationService {
                     ArrayList listInfo = new ArrayList();
                     listInfo.add(ee.getX());
                     listInfo.add(ee.getY());
-                    listEachReser.add(listInfo);
+
+                    listAllPlace.add(listInfo);
                 }
+                listEachReser.add(listAllPlace);
+                listEachReser.add(e.getId());
                 list.add(listEachReser);
             }
         }

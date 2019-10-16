@@ -35,5 +35,6 @@ public interface HallService {
     Place getPlace(Long idHall, Long idPlaces);
     List<Place> getPlacesNotReservation(Long id);
      List<Place> getPlacesReservation(Long id);
+    Hall getHallBySession(Long id_session);
 List<Hall>  getAllHall();
 }

@@ -115,4 +115,7 @@ public class HallController {
     public Long saveT(@RequestBody HallTemplete hallTemplete){
         return hallService.saveHallTemplete(hallTemplete);
     }
+    @GetMapping("/bySession/{id_session}")
+    public Hall getHallBySession(@PathVariable Long id_session) {return hallService.getHallBySession(id_session);
+    }
 }

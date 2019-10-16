@@ -300,5 +300,12 @@ public class HallServiceImpl implements HallService {
         return halls;
     }
 
+    @Override
+    @Transactional
+    public Hall getHallBySession(Long id_session) {
+        Hall hall = sessionDao.findById(id_session).get().getHall();
+        hall.getPlaces().size();
+        return hall;
 
+    }
 }
