@@ -1,14 +1,11 @@
 package com.service;
 
-import com.masks.ReservationMask;
-import com.masks.ReservationMask;
 import com.models.Discount;
 import com.models.KinoUser;
 import com.models.Place;
 import com.models.Reservation;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 public interface ReservationService {
@@ -17,7 +14,7 @@ public interface ReservationService {
     Long saveDiscount(Discount discount);
     void deleteDiscountById(Long id);
     Long updateReservation(Reservation reservation, Long id, int Status);
-    Long saveAllReservation(ReservationMask reservationMask, KinoUser kinoUser);
+    Long saveAllReservation(ArrayList<Long> listIdPlace, Long idSess, KinoUser kinoUser);
     List<Place>  getPlacesWithReservationId(Long id);
     List<Reservation> getFindByIdKinoUser(Long idKinU);
     Long changeStatusReservation(Long id, Integer status);

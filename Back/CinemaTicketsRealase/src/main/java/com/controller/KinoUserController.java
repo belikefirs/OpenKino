@@ -2,6 +2,7 @@ package com.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.models.KinoUser;
+import com.models.Position;
 import com.service.KinUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -65,5 +66,12 @@ public class KinoUserController {
     public KinoUser getKinoUserByMail(@RequestParam(name = "mail", required = false) String mail) {
         return kinUserService.findKinoUserByMail(mail);
     }
+
+    @JsonView(KinoUser.View.Getter.class)
+    @PostMapping("/position")
+    public List<Position> savePosition() {
+        return kinUserService.createPosition();
+    }
+
 
 }

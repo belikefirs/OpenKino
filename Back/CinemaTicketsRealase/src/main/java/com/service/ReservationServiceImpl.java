@@ -1,6 +1,5 @@
 package com.service;
 
-import com.masks.ReservationMask;
 import com.dao.*;
 import com.enums.Pstatus;
 import com.enums.RStatus;
@@ -44,8 +43,15 @@ public class ReservationServiceImpl implements ReservationService {
 
 
     @Override
-    public void deleteReservationById(Long id) {
-        reservationDao.deleteById(id);
+    public void deleteReservationById(Long idReser) {
+        List<Place> placeList = placeDao.getFindbyIdReservaion(idReser);
+        for (Place e: placeList
+             ) {
+            e.setReservation(null);
+            e.setStatus(Pstatus.IsFree);
+        }
+        placeDao.saveAll(placeList);
+        reservationDao.deleteById(idReser);
     }
 
     @Override
@@ -76,7 +82,7 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public Long saveAllReservation(ReservationMask reservationMask, KinoUser kinoUser) {
+    public Long saveAllReservation(ArrayList<Long> listIdPlace, Long idSess, KinoUser kinoUser) {
         KinoUser kinoUser1 = new KinoUser();
         Reservation reservation = new Reservation();
         if(kinoUser != null){
@@ -86,24 +92,25 @@ public class ReservationServiceImpl implements ReservationService {
 
 
         reservation.setStart(LocalDateTime.now(ZoneId.of("UTC+4")));
-        reservation.setEnd(sessionDao.getBeginSession(reservationMask.getIdSess()).minusHours(1));
+        reservation.setEnd(sessionDao.getBeginSession(idSess).minusHours(1));
 
         reservation.setStatus(RStatus.IsAlive);
         BigDecimal resultPrice = new BigDecimal("0");
         reservation.setPrice(resultPrice);
+        BigDecimal priceSession = sessionDao.findById(idSess).get().getPrice();
         Long id = reservationDao.save(reservation).getId();
         Reservation r = reservationDao.findById(id).get();
         ArrayList list = new ArrayList();
-        for (int i = 0; i < reservationMask.getPlaces().size(); i++) {
-            list.add(reservationMask.getPlaces().get(i));
-            Place place = placeDao.findById(reservationMask.getPlaces().get(i)).get();
+        for (int i = 0; i < listIdPlace.size(); i++) {
+            list.add(listIdPlace.get(i));
+            Place place = placeDao.findById(listIdPlace.get(i)).get();
             place.setStatus(Pstatus.IsReservation);
             place.setReservation(r);
             placeDao.save(place);
-            resultPrice = resultPrice.add(place.getPrice());
+            resultPrice = resultPrice.add(priceSession);
         }
         List<Place> placeList =  new ArrayList<Place>();
-        for (Long e: reservationMask.getPlaces()
+        for (Long e: listIdPlace
         ) {
             placeList.add(placeDao.findById(e).get());
         }

@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static org.springframework.http.MediaType.*;
-
 @RestController
 @RequestMapping("/hall")
 public class HallController {
@@ -30,11 +28,7 @@ public class HallController {
     public Long save(@RequestBody Hall hall){
         return hallService.saveHall(hall);
     }
-    @PostMapping("/place")
-    public Long save(@RequestBody PlaceMask placeMask){
 
-        return hallService.savePlace(placeMask);
-    }
     @PutMapping("/update")
     public Long update(@RequestBody Hall hall){
         return hallService.updateHall(hall);
@@ -104,10 +98,6 @@ public class HallController {
         return hallService.getPlacesReservation(id);
     }
 
-    @PostMapping("/saveT")
-    public Long saveT(@RequestBody HallTemplete hallTemplete){
-        return hallService.saveHallTemplete(hallTemplete);
-    }
     @GetMapping("/bySession/{id_session}")
     public Hall getHallBySession(@PathVariable Long id_session) {return hallService.getHallBySession(id_session);
     }

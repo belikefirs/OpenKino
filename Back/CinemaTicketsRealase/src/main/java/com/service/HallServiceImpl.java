@@ -2,8 +2,6 @@ package com.service;
 
 import com.dao.*;
 import com.enums.Pstatus;
-import com.masks.HallMask;
-import com.masks.PlaceMask;
 import com.models.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiFunction;
 
 @Service
 @Transactional
@@ -21,17 +18,17 @@ public class HallServiceImpl implements HallService {
     private ReservationDao reservationDao;
     private BuyDao buyDao;
     private SessionDao sessionDao;
-    private HallTempleteDao hallTempleteDao;
+
 
     public HallServiceImpl(HallDao hallDao, PlaceDao placeDao,
                            ReservationDao reservationDao, BuyDao buyDao,
-                           SessionDao sessionDao, HallTempleteDao hallTempleteDao){
+                           SessionDao sessionDao){
         this.hallDao = hallDao;
         this.placeDao = placeDao;
         this.reservationDao = reservationDao;
         this.buyDao = buyDao;
         this.sessionDao = sessionDao;
-        this.hallTempleteDao = hallTempleteDao;
+
     }
 
     @Override
@@ -48,11 +45,6 @@ public class HallServiceImpl implements HallService {
         return hallDao.save(hall).getId();
     }
 
-    @Override
-
-    public Long saveHallTemplete(HallTemplete hallTemplete) {
-        return hallTempleteDao.save(hallTemplete).getId();
-    }
 
     @Override
 
@@ -210,14 +202,7 @@ public class HallServiceImpl implements HallService {
         Hall hall = hallDao.findById(id).get();
         return hall.getWidth() * hall.getHeight();
     }
-    @Override
 
-    public Long savePlace(PlaceMask placeMask) {
-        Hall hall = hallDao.findById(placeMask.getIdH()).get();
-        placeMask.getPlace().setHall(hall);
-        placeMask.getPlace().setStatus(Pstatus.IsFree);
-        return placeDao.save(placeMask.getPlace()).getId();
-    }
 
     @Override
 
@@ -301,7 +286,6 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    @Transactional
     public Hall getHallBySession(Long id_session) {
         Hall hall = sessionDao.findById(id_session).get().getHall();
         hall.getPlaces().size();

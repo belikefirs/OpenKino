@@ -44,7 +44,7 @@ public class Hall implements Serializable {
     private List<Place> places;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "hall")
-    @JsonView(View.Public.class)
+    @JsonView(View.Internal.class)
     private List<Session> sessions = new ArrayList<>();
 
     public Hall(){

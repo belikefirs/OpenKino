@@ -1,9 +1,7 @@
 package com.models;
 
 import com.enums.Pstatus;
-import com.enums.RStatus;
 import com.fasterxml.jackson.annotation.*;
-import com.masks.PlaceMask;
 import lombok.Data;
 
 import javax.persistence.*;

@@ -7,7 +7,6 @@ import com.configuration.SecurityConfig;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.masks.SessionMask;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,7 +15,6 @@ import java.awt.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 @Data
 @Entity
@@ -26,6 +24,7 @@ public class Session implements Serializable {
     public static class View{
         public static class Public{}
         public static class Internal extends Public {}
+
     }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -50,7 +49,7 @@ public class Session implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "ID_FILM")
-    @JsonView(View.Public.class)
+    @JsonView(View.Internal.class)
     private Film film;
 
     @ManyToOne
@@ -60,20 +59,14 @@ public class Session implements Serializable {
 
     @OneToMany
     @JoinColumn(name = "ID_PLACE")
-    @JsonView(View.Public.class)
+   @JsonView(View.Public.class)
     private List<Place> places;
 
     @Transient
     @JsonView(View.Internal.class)
     private List<Point> placesIsBroken;
 
-    @Transient
-    @JsonView(View.Internal.class)
-    private Long idFilm;
 
-    @Transient
-    @JsonView(View.Internal.class)
-    private Long idHall;
 
     public Session() {
     }

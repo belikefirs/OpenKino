@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,13 +35,8 @@ public class KinUserServiceImpl implements KinUserService {
 
     @Override
     public Long saveKinoUser(KinoUser kinoUser) {
-        Position position = new Position();
-        position.setName("User");
-        positionDao.save(position);
-        kinoUser.setPosition(position);
-
+        kinoUser.setPosition(positionDao.findByName("User"));
         kinoUser.setPassword(bCryptPasswordEncoder.encode(kinoUser.getPassword()));
-
         return kinoUserDao.save(kinoUser).getId();
     }
 
@@ -59,7 +55,6 @@ public class KinUserServiceImpl implements KinUserService {
         kinoUser1.setMail(kinoUser.getMail());
         kinoUser1.setPhone(kinoUser.getPhone());
         kinoUser1.setPosition(kinoUser.getPosition());
-        //kinoUser1.setCards(kinoUser.getCards());
         kinoUser1.setAction(kinoUser.getAction());
         kinoUser1.setPassword(kinoUser.getPassword());
 
@@ -101,5 +96,21 @@ public class KinUserServiceImpl implements KinUserService {
     @Override
     public KinoUser findKinoUserByMail(String mail) {
         return kinoUserDao.findKinoUsersByName(mail);
+    }
+
+    @Override
+    public List<Position> createPosition() {
+        Position positionUser = new Position();
+        Position positionAdmin = new Position();
+        Position positionAdminBD = new Position();
+        positionUser.setName("User");
+        positionAdmin.setName("Admin");
+        positionAdminBD.setName("AdminDB");
+        List<Position> positionList = new ArrayList<>();
+        positionList.add(positionUser);
+        positionList.add(positionAdmin);
+        positionList.add(positionAdminBD);
+        positionDao.saveAll(positionList);
+        return positionList;
     }
 }
