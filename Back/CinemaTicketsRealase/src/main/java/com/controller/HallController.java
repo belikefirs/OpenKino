@@ -1,19 +1,12 @@
 package com.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.masks.HallMask;
-import com.masks.PlaceMask;
 import com.models.Hall;
-import com.models.HallTemplete;
 import com.models.Place;
 import com.service.HallService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import javax.ws.rs.Consumes;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.http.MediaType.*;
