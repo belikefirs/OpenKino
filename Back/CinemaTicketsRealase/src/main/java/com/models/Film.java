@@ -33,7 +33,7 @@ public class Film {
     @JsonView(View.Public.class)
     @Column(name = "Lenght")
     private Long lenght;
-    @JsonView(Views.Internal.class)
+    @JsonView(View.Public.class)
     @ManyToOne
     @JoinColumn(name = "ID_LIMIT_AGE")
     private LimitAge limitAge;
@@ -52,7 +52,7 @@ public class Film {
     @JoinColumn(name = "ID_GENRE")
     private Genre genre;
 
-    @JsonView({View.Public.class, Session.View.Internal.class})
+    @JsonView({View.Internal.class, Session.View.Internal.class})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "film")
     private List<Session> sessions;
 

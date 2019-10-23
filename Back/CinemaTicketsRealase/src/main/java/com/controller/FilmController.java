@@ -41,13 +41,13 @@ private final CommentService commentService;
     filmService.deleteFilmById(id);
     }
 
-    @JsonView(Views.Internal.class)
+    @JsonView(Film.View.Public.class)
     @GetMapping("/{id}")
     public Film get(@PathVariable Long id){
         return filmService.findFilmById(id);
     }
 
-    @JsonView(Views.Internal.class)
+    @JsonView(Film.View.Public.class)
     @GetMapping("")
     public List <Film> getAll(@RequestParam(name = "name",required = false) String name ,
                               @RequestParam(name = "limitAge" ,required = false) Integer limitAge,
@@ -56,7 +56,7 @@ private final CommentService commentService;
                               @RequestParam(name = "genre" ,required = false) String genre){
         return filmService.findFilmsByVars(name,genre,typeFilm,rating,limitAge);
     }
-    @JsonView(Views.Internal.class)
+    @JsonView(Film.View.Public.class)
     @GetMapping("/all")
     public List <Film> getAllFilms(){
         return filmService.getAllFilms();
@@ -64,7 +64,7 @@ private final CommentService commentService;
 
 
     ///=================================TypeFilm========================
-    @JsonView(Views.Internal.class)
+    @JsonView(Film.View.Public.class)
     @GetMapping("/type")
     public List<TypeFilm> getType(){
         return filmService.findAllTypeFilm();

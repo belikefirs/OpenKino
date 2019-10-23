@@ -9,13 +9,18 @@ import java.util.List;
 @Entity
 @Table(name = "RATING")
 public class Rating {
-    @JsonView(Views.Internal.class)
+    public static class View{
+        public static class Public{}
+        public static class Internal extends Public{}
+    }
+
+    @JsonView({View.Public.class, Film.View.Public.class})
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
     private Long id;
 
-    @JsonView(Views.Internal.class)
+    @JsonView({View.Public.class, Film.View.Public.class})
     @Column(name = "RATING")
     private Double rating;
 
