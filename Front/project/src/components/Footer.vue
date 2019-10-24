@@ -94,7 +94,7 @@ export default {
 .footer-wrapper
 	display: flex
 	width: 100%
-	height: 100%
+	height: 361px
 	overflow: hidden
 	.block
 		width: 25%

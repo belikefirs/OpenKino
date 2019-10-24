@@ -10,7 +10,7 @@
         class="place"
         v-for="(item, index) in hall.places"
         :key="item.id"
-        :class="{free : item.status=='IsFree', notFree : item.status=='IsReservation', selected : selectedItems.includes(item) == true}"
+        :class="{free : item.status=='IsFree', notFree : item.status=='IsReservation', selected : selectedItems.includes('item')}"
         :style="{top : item.y * 40 - 40 + 'px', left : 70 + item.x  * 40 + 'px'}"
         @click="selectPlace(item.id)"
       >

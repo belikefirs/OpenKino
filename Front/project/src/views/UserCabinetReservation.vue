@@ -7,23 +7,34 @@
                     <p>Время: {{item[2].month}} {{item[2].dayOfYear}} {{item[2].hour}}:{{item[2].minute}}</p>
                     <p>Название фильма: {{item[3]}}</p>
                     <p v-for="(item2, index2) in item[4]" :key="index2">Место №{{item2[0]}} Ряд №{{item2[1]}}</p>
-                    <button class="buttonBuy">Купить</button>
+                    <p>Id: {{item[5]}}</p>
+                    <button class="buttonBuy" @click="flagBuyRes = true">Купить</button>
                 </li>
+                <Modal :show="flagBuyRes" @showBlur="flagBuyRes = false">
+                    <template v-slot:content>
+                        <BuyRes :Id="Id"></BuyRes>
+                    </template>
+                </Modal>
         </div>
     </WrapperCent>
 </template>
 
 <script>
 import WrapperCent from '@/components/AppWrapperCenter.vue'
+import Modal from '@/components/AppModalWindow.vue'
+import BuyRes from '@/components/UserBuyReser.vue'
 export default {
     components: {
-        WrapperCent
+        WrapperCent, Modal, BuyRes
     },
     data() {
         return {
-            dataListReser: null
+            dataListReser: null,
+            flagBuyRes: false,
+            Id: null
         }
     },
+    methods: {},
     mounted() {
         this.$store.dispatch('CabinetUser/GET_INFO_RESER')
         .then(dataListReser => this.dataListReser = dataListReser)
@@ -59,7 +70,6 @@ export default {
     right: 5px;
     background: rgb(22, 22, 22);
     color: white;
-
 }
 
 </style>

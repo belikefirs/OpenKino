@@ -35,6 +35,14 @@ const actions = {
         }}).then((response) => {
 
         })
+    },
+    BUY_RESERVATION_FROM_USER (context, data) {
+        const authHeader = localStorage.getItem('token')
+        return AXIOS.post('/buy/save', data, { headers: {
+            Authorization: 'Bearer ' + authHeader
+        }}).then((response) => {
+
+        })
     }
 }
 
