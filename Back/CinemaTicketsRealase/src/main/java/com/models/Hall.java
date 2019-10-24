@@ -1,88 +1,55 @@
 package com.models;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonView;
+
+import com.configuration.SecurityConfig;
+import com.fasterxml.jackson.annotation.*;
+import lombok.Data;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.springframework.stereotype.Indexed;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 @Entity
 @Table(name = "HALL")
-public class Hall {
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class Hall implements Serializable {
     public static class View{
-        public static class Save{}
+        public static class Public{}
+        public static class Internal extends Public{}
     }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(View.Public.class)
     private Long id;
+
     @Column(name = "NUMBER")
-    @JsonView(Hall.View.Save.class)
-    private Integer number;
+    @JsonView(View.Public.class)
+    private Long number;
+
     @Column(name = "Width")
-    @JsonView(Hall.View.Save.class)
+    @JsonView(View.Public.class)
     private Integer width;
+
     @Column(name = "Height")
-    @JsonView(Hall.View.Save.class)
+    @JsonView(View.Public.class)
     private Integer height;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "hall")
+    @JsonView(View.Public.class)
+    private List<Place> places;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "hall")
-    @JsonManagedReference
-    private List<Place> places = new ArrayList<>();
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "hall")
-    @JsonIgnore
+    @JsonView(View.Internal.class)
     private List<Session> sessions = new ArrayList<>();
-    public Hall(){}
-    public Long getId() {
-        return id;
+
+    public Hall(){
     }
 
-    public Integer getNumber() {
-        return number;
-    }
 
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
-
-    public Integer getWidth() {
-        return width;
-    }
-
-    public Integer getHeight() {
-        return height;
-    }
-
-    public List<Place> getPlaces() {
-        return places;
-    }
-
-    public List<Session> getSessions() {
-        return sessions;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setWidth(Integer width) {
-        this.width = width;
-    }
-
-    public void setHeight(Integer heighgt) {
-        this.height = heighgt;
-    }
-
-    public void setPlaces(List<Place> places) {
-        this.places = places;
-    }
-
-    public void setSessions(List<Session> sessions) {
-        this.sessions = sessions;
-    }
 
 }

@@ -1,21 +1,20 @@
 package com.service;
 
-import com.masks.SessionMask;
+import com.models.Place;
 import com.models.Session;
 
-import java.math.BigDecimal;
+import java.awt.*;
 import java.util.List;
 
 public interface SessionService {
 
     Long saveSession(Session session);
+    Long createPlaces(Long idSession);
+    void updateBroken(Long idSession, List<Point> pointsPlaces);
     void deleteSession(Long id);
-    Long updateSession(SessionMask sessionMask);
-  //  Session findSessionById(Long id);
     List<Session> findSessionByFilm(Long id_film);
     Long saveAllSession(Session session, Long idFilm, Long idHall);
-void addSession();
     List<Session> findSessionAll();
-    Long saveSessionVer2_0(SessionMask sessionMask, BigDecimal price);
     Session getSession(Long id);
+    List<Place> getPlace(Long idSession);
 }

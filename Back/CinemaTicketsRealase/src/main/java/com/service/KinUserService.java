@@ -18,6 +18,7 @@ public interface KinUserService extends UserDetailsService {
     Long action_false(KinoUser kinoUser);
 
     KinoUser findKinoUserByMail(String mail);
+    List<Position> createPosition();
 }
 
 

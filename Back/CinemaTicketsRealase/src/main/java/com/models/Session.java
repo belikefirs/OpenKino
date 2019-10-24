@@ -7,52 +7,69 @@ import com.configuration.SecurityConfig;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.masks.SessionMask;
+import lombok.Data;
 
 import javax.persistence.*;
 
+import java.awt.*;
+import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
+import java.util.List;
+@Data
 @Entity
 @Table(name = "Session")
-public class Session {
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class Session implements Serializable {
+    public static class View{
+        public static class Public{}
+        public static class Internal extends Public {}
+
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(View.Public.class)
     private Long id;
 
     @JsonSerialize(using = SecurityConfig.LocalDateTimeSerializer.class)
     @JsonDeserialize(using = SecurityConfig.LocalDateTimeDeserializer.class)
     @Column(name = "START")
-    @JsonView(SessionMask.View.Save.class)
+    @JsonView(View.Public.class)
     private LocalDateTime start;
 
     @JsonSerialize(using = SecurityConfig.LocalDateTimeSerializer.class)
     @JsonDeserialize(using = SecurityConfig.LocalDateTimeDeserializer.class)
-    @JsonView(SessionMask.View.Save.class)
     @Column(name = "END")
+    @JsonView(View.Public.class)
     private LocalDateTime end;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column(name = "PRICE")
+    @JsonView(View.Public.class)
+    private BigDecimal price;
+
     @ManyToOne
     @JoinColumn(name = "ID_FILM")
+    @JsonView(View.Internal.class)
     private Film film;
 
     @ManyToOne
     @JoinColumn(name = "ID_HALL")
+    @JsonView(View.Internal.class)
     private Hall hall;
+
+    @OneToMany
+    @JoinColumn(name = "ID_PLACE")
+   @JsonView(View.Public.class)
+    private List<Place> places;
+
+    @Transient
+    @JsonView(View.Internal.class)
+    private List<Point> placesIsBroken;
+
+
 
     public Session() {
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     public LocalDateTime getStart() {
@@ -60,32 +77,8 @@ public class Session {
     }
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-
     public void setStart(LocalDateTime start) {
         this.start = start;
     }
 
-    public Film getFilm() {
-        return film;
-    }
-
-    public void setFilm(Film film) {
-        this.film = film;
-    }
-
-    public Hall getHall() {
-        return hall;
-    }
-
-    public void setHall(Hall hall) {
-        this.hall = hall;
-    }
-
-    public LocalDateTime getEnd() {
-        return end;
-    }
-
-    public void setEnd(LocalDateTime end) {
-        this.end = end;
-    }
 }

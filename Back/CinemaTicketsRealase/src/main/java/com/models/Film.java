@@ -3,6 +3,8 @@ package com.models;
 
 import com.fasterxml.jackson.annotation.*;
 import com.view.Views;
+import lombok.Data;
+import org.springframework.security.core.parameters.P;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,156 +12,67 @@ import java.util.List;
 
 @Entity
 @Table(name = "FILM")
+@Data
 public class Film {
-    @JsonView(Views.Internal.class)
+    public static class View{
+        public static class Public{}
+        public static class Internal extends Public{}
+    }
+    @JsonView(View.Public.class)
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @JsonView(Views.Internal.class)
+    @JsonView(View.Public.class)
     @Column(name = "Name")
     private String name;
 
-    @JsonView(Views.Internal.class)
+    @JsonView(View.Public.class)
     @Column(name = "Description")
     private String description;
 
-    @JsonView(Views.Internal.class)
+    @JsonView(View.Public.class)
     @Column(name = "Lenght")
     private Long lenght;
-    @JsonView(Views.Internal.class)
+    @JsonView(View.Public.class)
     @ManyToOne
     @JoinColumn(name = "ID_LIMIT_AGE")
     private LimitAge limitAge;
 
-    @JsonView(Views.Internal.class)
+    @JsonView(View.Public.class)
     @ManyToOne
     @JoinColumn(name = "ID_RATING")
     private Rating rating;
 
-    @JsonView(Views.Internal.class)
+    @JsonView(View.Public.class)
     @ManyToOne
     @JoinColumn(name = "ID_TYPE_FILM")
     private TypeFilm typeFilm;
-    @JsonView(Views.Internal.class)
+    @JsonView(View.Public.class)
     @ManyToOne
     @JoinColumn(name = "ID_GENRE")
     private Genre genre;
 
-    // @JsonIgnore
+    @JsonView({View.Internal.class, Session.View.Internal.class})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "film")
-    @JsonIgnore
-    private List<Session> sessions = new ArrayList();
+    private List<Session> sessions;
 
-
+    @JsonView(View.Internal.class)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "film")
-    @JsonIgnore
     private List<RatingFilmByUser> ratingFilmByUsers;
 
-    @JsonView(Views.Internal.class)
+    @JsonView(View.Internal.class)
     @OneToOne
     @JoinColumn(name = "ID_IMAGE")
     private Image image;
 
+    @JsonView(View.Internal.class)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "film")
     private List<Comment> comments;
 
-    public List<RatingFilmByUser> getRatingFilmByUsers() {
-        return ratingFilmByUsers;
-    }
-
-    public void setRatingFilmByUsers(List<RatingFilmByUser> ratingFilmByUsers) {
-        this.ratingFilmByUsers = ratingFilmByUsers;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
 
     public Film() {
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getLenght() {
-        return lenght;
-    }
-
-    public void setLenght(Long lenght) {
-        this.lenght = lenght;
-    }
-
-    public LimitAge getLimitAge() {
-        return limitAge;
-    }
-
-    public void setLimitAge(LimitAge limitAge) {
-        this.limitAge = limitAge;
-    }
-
-    public Rating getRating() {
-        return rating;
-    }
-
-    public void setRating(Rating rating) {
-        this.rating = rating;
-    }
-
-    public TypeFilm getTypeFilm() {
-        return typeFilm;
-    }
-
-    public void setTypeFilm(TypeFilm typeFilm) {
-        this.typeFilm = typeFilm;
-    }
-
-    public Genre getGenre() {
-        return genre;
-    }
-
-    public void setGenre(Genre genre) {
-        this.genre = genre;
-    }
-
-    public List<Session> getSessions() {
-        return sessions;
-    }
-
-    public void setSessions(List<Session> sessions) {
-        this.sessions = sessions;
-    }
-
-    public Image getImage() {
-        return image;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
-    }
 }

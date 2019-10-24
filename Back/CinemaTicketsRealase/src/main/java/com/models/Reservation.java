@@ -1,12 +1,10 @@
 package com.models;
 
 import com.enums.RStatus;
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -15,7 +13,8 @@ import java.util.List;
 @Entity
 @Table(name = "RESERVATION")
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class Reservation {
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class Reservation implements Serializable {
     public static class View{
         public static class Save{}
     }
@@ -42,7 +41,6 @@ public class Reservation {
     @JoinColumn(name = "ID_KINOUSER")
     private KinoUser kinoUser;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "reservation")
-    @JsonManagedReference
     private List<Place> places;
     @OneToOne
     @JsonView(Reservation.View.Save.class)

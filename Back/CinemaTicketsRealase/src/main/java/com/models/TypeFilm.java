@@ -9,11 +9,16 @@ import java.util.List;
 @Entity
 @Table(name = "TYPE_FILM")
 public class TypeFilm {
-    @JsonView(Views.Internal.class)
+    public static class View{
+        public static class Public{}
+        public static class Internal extends Public{}
+    }
+
+    @JsonView({View.Public.class, Film.View.Public.class})
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @JsonView(Views.Internal.class)
+    @JsonView({View.Public.class, Film.View.Public.class})
     @Column(name = "Name")
     private String name;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "typeFilm")

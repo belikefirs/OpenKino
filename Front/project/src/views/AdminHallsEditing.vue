@@ -37,9 +37,40 @@
             </v-dialog>
         </v-layout>
         <v-layout>
-            <v-flex sm12 class="cardHolder">
+            <!-- <v-flex sm12 class="cardHolder">
                 <HallCard v-for="n in 8" :key="n" :number="n" />
+            </v-flex> -->
+
+            <v-flex sm12>
+                <v-card>
+                    <v-data-table
+                        :headers="headers"
+                        :items="$store.state.Hall.hallList"
+                        hide-actions
+                        no-data-text="Нет данных"
+                    >
+                        <template v-slot:items="props">
+                            <td>{{ props.item.number }}</td>
+                            <td>{{ props.item.width }}</td>
+                            <td>{{ props.item.height }}</td>
+                            <td class="text-xs-right">
+                                <v-btn
+                                    flat
+                                    icon
+                                    color="amber"
+                                    @click="changeItem(props.item, props.index)"
+                                >
+                                    <v-icon>edit</v-icon>
+                                </v-btn>
+                                <v-btn flat icon color="red" @click="deleteItem(props.item)">
+                                    <v-icon>delete</v-icon>
+                                </v-btn>
+                            </td>
+                        </template>
+                    </v-data-table>
+                </v-card>
             </v-flex>
+
         </v-layout>
     </v-container>
 </template>
@@ -58,7 +89,19 @@ export default {
             confirmBtn: "Создать",
             headers: [
                 {
-                    text: "Зал",
+                    text: "Номер зала",
+                    align: "left",
+                    sortable: false,
+                    value: "hall"
+                },
+                {
+                    text: "Ширина",
+                    align: "left",
+                    sortable: false,
+                    value: "hall"
+                },
+                {
+                    text: "Высота",
                     align: "left",
                     sortable: false,
                     value: "hall"
@@ -88,8 +131,12 @@ export default {
             this.dialog = true;
         },
         confirmDialog() {
+            this.$store.dispatch("Hall/GET_ALL_HALLS");
             this.dialog = false;
         }
+    },
+    created(){
+        this.$store.dispatch("Hall/GET_ALL_HALLS");
     }
 };
 </script>
